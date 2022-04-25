@@ -1,0 +1,29 @@
+{
+  "name": "@mini-types/alipay",
+  "version": "1.0.16",
+  "description": "TypeScript declarations for Alipay's mini program.",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:ant-mini-program/api-typings.git"
+  },
+  "keywords": [
+    "tinyapp",
+    "miniprogram",
+    "types"
+  ],
+  "license": "MIT",
+  "types": "./types/index.d.ts",
+  "files": [
+    "types"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
+  "dependencies": {
+    "@mini-types/global": "^1.0.16",
+    "@mini-types/my": "^1.0.16"
+  },
+  "gitHead": "f83548789d37838bf7d29b3497bf0d297484b3a8"
+}
