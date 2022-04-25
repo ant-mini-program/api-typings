@@ -1,10 +1,10 @@
 # 支付宝小程序类型定义
 
 [![npm package](https://img.shields.io/npm/v/@mini-types/alipay.svg?style=flat-square)](https://www.npmjs.com/package/@mini-types/alipay)
-[![GitHub stars](https://img.shields.io/github/stars/ant-mini-program/mini-types.svg)](https://github.com/ant-mini-program/mini-types/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/ant-mini-program/mini-types.svg)](https://github.com/ant-mini-program/mini-types/network/members)
+[![GitHub stars](https://img.shields.io/github/stars/ant-mini-program/mini-types.svg)](https://github.com/ant-mini-program/api-typings/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/ant-mini-program/mini-types.svg)](https://github.com/ant-mini-program/api-typings/network/members)
 [![NPM downloads](https://img.shields.io/npm/dm/@mini-types/alipay.svg?style=flat-square)](https://www.npmjs.com/package/@mini-types/alipay)
-[![GitHub issues](https://img.shields.io/github/issues/ant-mini-program/mini-types.svg)](https://github.com/ant-mini-program/mini-types/issues)
+[![GitHub issues](https://img.shields.io/github/issues/ant-mini-program/mini-types.svg)](https://github.com/ant-mini-program/api-typings/issues)
 
 支付宝小程序的 TypeScript 类型定义文件。
 
