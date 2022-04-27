@@ -1,2 +1,2 @@
-import "./lib.my.d.ts";
-import "./lib.my.extra.d.ts";
+///<reference types='./lib.my' />
+///<reference types='./lib.my.extra' />

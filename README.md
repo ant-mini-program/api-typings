@@ -21,7 +21,7 @@ npm install @mini-types/alipay --save-dev
 ```json
 {
    "compilerOptions": {
-      "typeRoots" : ["@mini-types", "@types"]
+      "typeRoots" : ["./node_modules/@mini-types", "./node_modules/@types"]
    }
 }
 ```
@@ -34,12 +34,6 @@ npm install @mini-types/alipay --save-dev
       "types": ["@mini-types/alipay"]
    }
 }
-```
-
-此外，也可以手动导入：
-
-```js
-import '@mini-types/alipay';
 ```
 
 ## 贡献

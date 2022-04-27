@@ -1,1 +1,1 @@
-import "./lib.global.d.ts";
+/// <reference path="./lib.global.d.ts" />

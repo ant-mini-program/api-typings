@@ -1,15 +1,3 @@
 {
-  "compilerOptions": {
-    "module": "esnext",
-    "lib": ["es6"],
-    "noImplicitAny": true,
-    "noImplicitThis": true,
-    "strictFunctionTypes": true,
-    "strictNullChecks": true,
-    "baseUrl": "../",
-    "noEmit": true,
-    "forceConsistentCasingInFileNames": true,
-    "esModuleInterop": true
-  },
-  "include": ["./**/*.d.ts"]
+  "extends": "../../tsconfig.base.json"
 }
