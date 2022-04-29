@@ -747,6 +747,47 @@ declare namespace my {
     tempFilePaths: string[];
   }>;
   /**
+   * @summary 选择发票抬头
+   */
+  export function chooseInvoiceTitle(r?: {
+    /**
+     * 接口调用成功的回调函数
+     * @param data 成功返回的数据
+     */
+    success?(data: {
+      /**
+       * @summary 用户选择的抬头动态码，目前有效期限制1小时，需尽快使用
+       */
+      dynamicCode: string;
+    }): void;
+    /**
+     * 接口调用失败的回调函数
+     * @param err 错误信息
+     */
+    fail?(err: { error?: number; errorMessage?: string }): void;
+    /**
+     * 接口调用结束的回调函数（调用成功、失败都会执行）
+     */
+    complete?(
+      arg:
+        | {
+            /**
+             * @summary 用户选择的抬头动态码，目前有效期限制1小时，需尽快使用
+             */
+            dynamicCode: string;
+          }
+        | {
+            error?: number;
+            errorMessage?: string;
+          },
+    ): void;
+  }): Promise<{
+    /**
+     * @summary 用户选择的抬头动态码，目前有效期限制1小时，需尽快使用
+     */
+    dynamicCode: string;
+  }>;
+  /**
    * @summary 选择地理位置
    * @description
    * - 暂无境外地图数据，在中国内地（不含港澳台）以外的地区可能无法正常调用此 API
@@ -1766,6 +1807,132 @@ declare namespace my {
     plugin?: IMyGetAccountInfoSyncPlugin;
   };
   /**
+   * @summary 选择收获地址
+   * @description 商户在寄送外卖、快递或其他场景需要用户填写地址信息时，可通过调用此 API 直接获取地址数据，无需用户手动填写
+   */
+  export function getAddress(r?: {
+    /**
+     * 接口调用成功的回调函数
+     * @param data 成功返回的数据
+     */
+    success?(data: {
+      /**
+       * @summary 详细地址
+       */
+      address: string;
+      /**
+       * @summary 国家名称
+       */
+      country: string;
+      /**
+       * @summary 省
+       */
+      prov: string;
+      /**
+       * @summary 市
+       */
+      city: string;
+      /**
+       * @summary 区
+       */
+      area: string;
+      /**
+       * @summary 街道
+       */
+      street: string;
+      /**
+       * @summary 名称
+       */
+      fullname: string;
+      /**
+       * @summary 手机号
+       */
+      mobilePhone: string;
+    }): void;
+    /**
+     * 接口调用失败的回调函数
+     * @param err 错误信息
+     */
+    fail?(err: { error?: number; errorMessage?: string }): void;
+    /**
+     * 接口调用结束的回调函数（调用成功、失败都会执行）
+     */
+    complete?(
+      arg:
+        | {
+            /**
+             * @summary 详细地址
+             */
+            address: string;
+            /**
+             * @summary 国家名称
+             */
+            country: string;
+            /**
+             * @summary 省
+             */
+            prov: string;
+            /**
+             * @summary 市
+             */
+            city: string;
+            /**
+             * @summary 区
+             */
+            area: string;
+            /**
+             * @summary 街道
+             */
+            street: string;
+            /**
+             * @summary 名称
+             */
+            fullname: string;
+            /**
+             * @summary 手机号
+             */
+            mobilePhone: string;
+          }
+        | {
+            error?: number;
+            errorMessage?: string;
+          },
+    ): void;
+  }): Promise<{
+    /**
+     * @summary 详细地址
+     */
+    address: string;
+    /**
+     * @summary 国家名称
+     */
+    country: string;
+    /**
+     * @summary 省
+     */
+    prov: string;
+    /**
+     * @summary 市
+     */
+    city: string;
+    /**
+     * @summary 区
+     */
+    area: string;
+    /**
+     * @summary 街道
+     */
+    street: string;
+    /**
+     * @summary 名称
+     */
+    fullname: string;
+    /**
+     * @summary 手机号
+     */
+    mobilePhone: string;
+  }>;
+  /**
    * @summary 同步获取小程序 appId
    */
   export function getAppIdSync(): {
@@ -1775,6 +1942,76 @@ declare namespace my {
     appId: string;
   };
   export function getARSessionManager(): ARSessionManager;
+  /**
+   * @summary 获取授权码 (AuthCode)
+   */
+  export function getAuthCode(r?: {
+    /**
+     * @summary 授权类型
+     * @default auth_base
+     */
+    scopes?: `${EGetAuthCodeScopeNicks}` | Array<`${EGetAuthCodeScopeNicks}`>;
+    /**
+     * 接口调用成功的回调函数
+     * @param data 成功返回的数据
+     */
+    success?(data: {
+      /**
+       * @summary 授权码
+       */
+      authCode: string;
+      /**
+       * @summary 失败的授权类型
+       */
+      authErrorScopes: IMyApGetAuthCodeAuthErrorScopes;
+      /**
+       * @summary 成功的授权 scope
+       */
+      authSuccessScopes: Array<`${EGetAuthCodeScopeNicks}`>;
+    }): void;
+    /**
+     * 接口调用失败的回调函数
+     * @param err 错误信息
+     */
+    fail?(err: { error?: number; errorMessage?: string }): void;
+    /**
+     * 接口调用结束的回调函数（调用成功、失败都会执行）
+     */
+    complete?(
+      arg:
+        | {
+            /**
+             * @summary 授权码
+             */
+            authCode: string;
+            /**
+             * @summary 失败的授权类型
+             */
+            authErrorScopes: IMyApGetAuthCodeAuthErrorScopes;
+            /**
+             * @summary 成功的授权 scope
+             */
+            authSuccessScopes: Array<`${EGetAuthCodeScopeNicks}`>;
+          }
+        | {
+            error?: number;
+            errorMessage?: string;
+          },
+    ): void;
+  }): Promise<{
+    /**
+     * @summary 授权码
+     */
+    authCode: string;
+    /**
+     * @summary 失败的授权类型
+     */
+    authErrorScopes: IMyApGetAuthCodeAuthErrorScopes;
+    /**
+     * @summary 成功的授权 scope
+     */
+    authSuccessScopes: Array<`${EGetAuthCodeScopeNicks}`>;
+  }>;
   /**
    * @summary 获取支持的音频输入源
    */
@@ -3528,6 +3765,36 @@ declare namespace my {
      * @description 离线情况值为 -1
      */
     time: number;
+  }>;
+  /**
+   * @summary 获取用户的当前设置
+   */
+  export function getSetting(r?: {
+    /**
+     * 接口调用成功的回调函数
+     * @param data 成功返回的数据
+     */
+    success?(data: { authSetting: IGetSettingAuthSetting }): void;
+    /**
+     * 接口调用失败的回调函数
+     * @param err 错误信息
+     */
+    fail?(err: { error?: number; errorMessage?: string }): void;
+    /**
+     * 接口调用结束的回调函数（调用成功、失败都会执行）
+     */
+    complete?(
+      arg:
+        | {
+            authSetting: IGetSettingAuthSetting;
+          }
+        | {
+            error?: number;
+            errorMessage?: string;
+          },
+    ): void;
+  }): Promise<{
+    authSetting: IGetSettingAuthSetting;
   }>;
   /**
    * @summary 获取缓存数据的异步接口
@@ -6011,6 +6278,25 @@ declare namespace my {
      */
     complete?(arg: { error?: number; errorMessage?: string }): void;
   }): Promise<void>;
+  /**
+   * @summary 打开小程序设置界面，返回用户权限设置的结果
+   */
+  export function openSetting(r?: {
+    /**
+     * 接口调用成功的回调函数
+     * @param data 成功返回的数据
+     */
+    success?(data: {}): void;
+    /**
+     * 接口调用失败的回调函数
+     * @param err 错误信息
+     */
+    fail?(err: { error?: number; errorMessage?: string }): void;
+    /**
+     * 接口调用结束的回调函数（调用成功、失败都会执行）
+     */
+    complete?(arg: { error?: number; errorMessage?: string }): void;
+  }): Promise<void>;
   export function openTicketDetail(r: {
     /**
      * @summary 卡实例 ID，调用 [券发放接口](https://docs.open.alipay.com/api_24/alipay.pass.instance.add) 可以获取该参数。
@@ -6246,6 +6532,75 @@ declare namespace my {
           },
     ): void;
   }): Promise<void>;
+  /**
+   * @summary 发起签约代扣
+   */
+  export function paySignCenter(r: {
+    /**
+     * @summary 签约字符串。
+     */
+    signStr: string;
+    /**
+     * 接口调用成功的回调函数
+     * @param data 成功返回的数据
+     */
+    success?(data: {
+      /**
+       * @summary 处理结果（如需该字段内部参数，切记先 `JSON.parse` 一下）。
+       * `JSON.parse` 后的对象结构如下：
+       * - `sign`，类型 `string`，签名
+       * - `sign_type`，类型 `string`，签名算法类型
+       * - `alipay_user_agreement_page_sign_response`，类型 `object`
+       */
+      result: string;
+      /**
+       * @summary 签约结果码。
+       */
+      resultStatus: string;
+    }): void;
+    /**
+     * 接口调用失败的回调函数
+     * @param err 错误信息
+     */
+    fail?(err: { error?: number; errorMessage?: string }): void;
+    /**
+     * 接口调用结束的回调函数（调用成功、失败都会执行）
+     */
+    complete?(
+      arg:
+        | {
+            /**
+             * @summary 处理结果（如需该字段内部参数，切记先 `JSON.parse` 一下）。
+             * `JSON.parse` 后的对象结构如下：
+             * - `sign`，类型 `string`，签名
+             * - `sign_type`，类型 `string`，签名算法类型
+             * - `alipay_user_agreement_page_sign_response`，类型 `object`
+             */
+            result: string;
+            /**
+             * @summary 签约结果码。
+             */
+            resultStatus: string;
+          }
+        | {
+            error?: number;
+            errorMessage?: string;
+          },
+    ): void;
+  }): Promise<{
+    /**
+     * @summary 处理结果（如需该字段内部参数，切记先 `JSON.parse` 一下）。
+     * `JSON.parse` 后的对象结构如下：
+     * - `sign`，类型 `string`，签名
+     * - `sign_type`，类型 `string`，签名算法类型
+     * - `alipay_user_agreement_page_sign_response`，类型 `object`
+     */
+    result: string;
+    /**
+     * @summary 签约结果码。
+     */
+    resultStatus: string;
+  }>;
   /**
    * @summary 预览图片
    */
@@ -8004,6 +8359,67 @@ declare namespace my {
     success: true;
   }>;
   /**
+   * @summary 唤起身份验证页面
+   */
+  export function startAPVerify(r: {
+    /**
+     * @summary 通过 `alipay.user.certify.open.initialize` 接口获取的 `url` 认证链接，需要服务端通过开放平台接口获取后，再给前端进行调用。
+     */
+    url: string;
+    /**
+     * @summary 通过 `alipay.user.certify.open.certify` 接口获取的 `certifyId`，需要服务端通过开放平台接口获取后，再给前端进行调用。
+     */
+    certifyId: string;
+    /**
+     * 接口调用成功的回调函数
+     * @param data 成功返回的数据
+     */
+    success?(data: {
+      /**
+       * @summary 认证流程结果状态码
+       */
+      resultStatus: string;
+      /**
+       * @summary 本次认证流水号
+       */
+      certifyId: string;
+    }): void;
+    /**
+     * 接口调用失败的回调函数
+     * @param err 错误信息
+     */
+    fail?(err: { error?: number; errorMessage?: string }): void;
+    /**
+     * 接口调用结束的回调函数（调用成功、失败都会执行）
+     */
+    complete?(
+      arg:
+        | {
+            /**
+             * @summary 认证流程结果状态码
+             */
+            resultStatus: string;
+            /**
+             * @summary 本次认证流水号
+             */
+            certifyId: string;
+          }
+        | {
+            error?: number;
+            errorMessage?: string;
+          },
+    ): void;
+  }): Promise<{
+    /**
+     * @summary 认证流程结果状态码
+     */
+    resultStatus: string;
+    /**
+     * @summary 本次认证流水号
+     */
+    certifyId: string;
+  }>;
+  /**
    * @summary 开始搜索附近的 iBeacon 设备
    */
   export function startBeaconDiscovery(r: {
@@ -8399,6 +8815,57 @@ declare namespace my {
      */
     complete?(arg: { error?: number; errorMessage?: string }): void;
   }): Promise<void>;
+  /**
+   * @summary 发起支付
+   */
+  export function tradePay(r?: {
+    /**
+     * @summary 支付宝交易号，
+     * @description 用于 [小程序支付](https://opendocs.alipay.com/mini/introduce/pay), 注意参数有大小写区分。
+     */
+    tradeNO?: string;
+    /**
+     * @summary 支付参数
+     * @description 用于 [支付宝预授权](https://opendocs.alipay.com/mini/api/tmz0kq), 完整的支付参数拼接成的字符串，从服务端获取。
+     */
+    orderStr?: string;
+    /**
+     * 接口调用成功的回调函数
+     * @param data 成功返回的数据
+     */
+    success?(data: {
+      /**
+       * @summary 支付结果码
+       */
+      resultCode: string;
+    }): void;
+    /**
+     * 接口调用失败的回调函数
+     * @param err 错误信息
+     */
+    fail?(err: { error?: number; errorMessage?: string }): void;
+    /**
+     * 接口调用结束的回调函数（调用成功、失败都会执行）
+     */
+    complete?(
+      arg:
+        | {
+            /**
+             * @summary 支付结果码
+             */
+            resultCode: string;
+          }
+        | {
+            error?: number;
+            errorMessage?: string;
+          },
+    ): void;
+  }): Promise<{
+    /**
+     * @summary 支付结果码
+     */
+    resultCode: string;
+  }>;
   /**
    * @summary 取消对指定 SSID 的信任
    * @description 对于需要 Portal 认证的 WIFI，继续弹出 portal 认证页面。
@@ -14600,6 +15067,36 @@ declare namespace my {
       createTime: number;
     }>;
   }
+  interface IGetSettingAuthSetting {
+    /**
+     * @summary 地理位置。
+     */
+    location?: boolean;
+    /**
+     * @summary 保存到相册。
+     */
+    album?: boolean;
+    /**
+     * @summary 摄像头。
+     */
+    camera?: boolean;
+    /**
+     * @summary 唤起授权界面，用户可以授权小程序获取支付宝会员的基础信息。
+     */
+    userInfo?: boolean;
+    /**
+     * @summary 运动数据
+     */
+    alipaysports?: boolean;
+    /**
+     * @summary 手机号码
+     */
+    phoneNumber?: boolean;
+    /**
+     * @summary 收货地址
+     */
+    aliaddress?: boolean;
+  }
   interface IGetWifiListWifiList {
     /**
      * @summary Wifi 的 SSID。
@@ -15070,6 +15567,12 @@ declare namespace my {
      * @default false
      */
     recursive?: boolean;
+  }
+  interface IMyApGetAuthCodeAuthErrorScopes {
+    /**
+     * @summary key 是授权失败的 scope，value 是对应的错误码
+     */
+    [scope: string]: string;
   }
   interface IMyApNsfBizContext {
     /**
@@ -17672,6 +18175,21 @@ declare const enum EFileSystemEncoding {
   'ucs-2' = 'ucs-2',
   utf16le = 'utf16le',
   'utf-16le' = 'utf-16le',
+}
+
+declare const enum EGetAuthCodeScopeNicks {
+  /**
+   * @summary 静默授权。
+   */
+  auth_base = 'auth_base',
+  /**
+   * @summary 主动授权。
+   */
+  auth_user = 'auth_user',
+  /**
+   * @summary 获取用户芝麻信息。
+   */
+  auth_zhima = 'auth_zhima',
 }
 
 declare const enum EGetNetworkTypeNetworkInfo {
