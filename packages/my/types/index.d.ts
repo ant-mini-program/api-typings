@@ -1,2 +1,2 @@
-///<reference types='./lib.my' />
-///<reference types='./lib.my.extra' />
+///<reference path='./lib.my.d.ts' />
+///<reference path='./lib.my.extra.d.ts' />
