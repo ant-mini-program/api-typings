@@ -8,6 +8,8 @@
 
 支付宝小程序的 TypeScript 类型定义文件。
 
+需要使用 TypeScript 4.1+。
+
 ## 如何使用
 
 首先需要安装 npm 包：
