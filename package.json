@@ -2,7 +2,7 @@
   "name": "mini-types",
   "private": true,
   "scripts": {
-    "publish": "lerna publish --exact",
+    "publish": "lerna publish --exact --force-publish='*'",
     "release": "sh ./scripts/set-release-tag.sh"
   },
   "devDependencies": {
