@@ -1,6 +1,6 @@
 {
   "name": "@mini-types/alipay",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "description": "TypeScript declarations for Alipay's mini program.",
   "scripts": {},
   "repository": {
@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@mini-types/global": "1.0.17",
-    "@mini-types/my": "1.0.17"
+    "@mini-types/my": "^1.0.18"
   },
   "gitHead": "f83548789d37838bf7d29b3497bf0d297484b3a8"
 }
