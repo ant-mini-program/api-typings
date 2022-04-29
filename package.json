@@ -1,6 +1,10 @@
 {
   "name": "mini-types",
   "private": true,
+  "scripts": {
+    "publish": "lerna publish --exact",
+    "release": "sh ./scripts/set-release-tag.sh"
+  },
   "devDependencies": {
     "lerna": "^4.0.0"
   }
