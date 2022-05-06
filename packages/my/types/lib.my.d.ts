@@ -5381,7 +5381,7 @@ declare namespace my {
    * @summary 停止监听加速度数据变化的事件
    */
   export function offAccelerometerChange(
-    cb: (arg: {
+    cb?: (arg: {
       /**
        * @summary x 轴。
        */
@@ -5401,24 +5401,24 @@ declare namespace my {
    * @summary 取消监听小程序切后台事件
    * @description 请勿使用 API 监听匿名函数，否则将无法关闭监听
    */
-  export function offAppHide(cb: () => void): void;
+  export function offAppHide(cb?: () => void): void;
   /**
    * @summary 取消监听小程序切前台事件
    */
-  export function offAppShow(cb: () => void): void;
+  export function offAppShow(cb?: () => void): void;
   /**
    * @summary 取消监听音频因为系统占用而被中断的开始事件
    */
-  export function offAudioInterruptionBegin(cb: () => void): void;
+  export function offAudioInterruptionBegin(cb?: () => void): void;
   /**
    * @summary 取消监听音频被中断的结束事件
    */
-  export function offAudioInterruptionEnd(cb: () => void): void;
+  export function offAudioInterruptionEnd(cb?: () => void): void;
   /**
    * @summary 用于取消监听 iBeacon 服务的状态变化
    */
   export function offBeaconServiceChange(
-    cb: (arg: {
+    cb?: (arg: {
       /**
        * @summary 服务目前是否可用。
        */
@@ -5433,7 +5433,7 @@ declare namespace my {
    * @summary 取消监听 iBeacon 设备更新的事件
    */
   export function offBeaconUpdate(
-    cb: (arg: {
+    cb?: (arg: {
       /**
        * @summary 当前搜寻到的所有 iBeacon 设备列表。
        */
@@ -5444,7 +5444,7 @@ declare namespace my {
    * @summary 取消监听蓝牙低功耗设备的特征值变化的事件
    */
   export function offBLECharacteristicValueChange(
-    cb: (arg: {
+    cb?: (arg: {
       /**
        * @summary 蓝牙设备 ID。
        */
@@ -5458,7 +5458,7 @@ declare namespace my {
    * @summary 取消监听蓝牙低功耗设备的连接状态变化的事件
    */
   export function offBLEConnectionStateChanged(
-    cb: (arg: {
+    cb?: (arg: {
       /**
        * @summary 蓝牙设备 ID。
        */
@@ -5473,7 +5473,7 @@ declare namespace my {
    * @summary 取消监听本机蓝牙状态变化的事件
    */
   export function offBluetoothAdapterStateChange(
-    cb: (arg: {
+    cb?: (arg: {
       /**
        * @summary 蓝牙模块是否可用。
        */
@@ -5488,7 +5488,7 @@ declare namespace my {
    * @summary 取消监听搜索到新蓝牙设备的事件
    */
   export function offBluetoothDeviceFound(
-    cb: (arg: {
+    cb?: (arg: {
       /**
        * @summary 新搜索到的设备列表。
        */
@@ -5499,7 +5499,7 @@ declare namespace my {
    * @summary 停止监听罗盘数据
    */
   export function offCompassChange(
-    cb: (arg: {
+    cb?: (arg: {
       /**
        * @summary 面对的方向与正北方向的度数，值的范围为 `[0, 360)`。
        */
@@ -5510,7 +5510,7 @@ declare namespace my {
    * @summary 取消监听小程序自定义组件错误事件
    */
   export function offComponentError(
-    cb: /**
+    cb?: /**
      * @param error 异常对象
      * @param method 异常发生所在的自定义组件方法
      * @param componentInstance 异常发生所在的自定义组件实例
@@ -5521,7 +5521,7 @@ declare namespace my {
    * @summary 停止监听设备方向变化事件
    */
   export function offDeviceMotionChange(
-    cb: (arg: {
+    cb?: (arg: {
       /**
        * @summary 当手机坐标 X/Y 和 地球 X/Y 重合时，绕着 Z 轴转动的夹角为 `alpha`。
        * - 值的范围为 `[0, 2*PI)`。
@@ -5546,7 +5546,7 @@ declare namespace my {
    * @summary 取消监听小程序错误事件
    */
   export function offError(
-    cb: /**
+    cb?: /**
      * @param message 异常信息
      * @param stack 异常堆栈
      */
@@ -5556,7 +5556,7 @@ declare namespace my {
    * @summary 取消监听在获取到 Wi-Fi 列表数据时的事件
    */
   export function offGetWifiList(
-    cb: (arg: {
+    cb?: (arg: {
       /**
        * @summary Wifi 列表数据。
        */
@@ -5567,7 +5567,7 @@ declare namespace my {
    * @summary 停止监听陀螺仪数据
    */
   export function offGyroscopeChange(
-    cb: (arg: {
+    cb?: (arg: {
       /**
        * @summary x 轴方向角速度。
        */
@@ -5588,7 +5588,7 @@ declare namespace my {
    * @description 只针对 `chooseCity` 中属性 `setLocatedCity` 为 `true` 的情况
    */
   export function offLocatedComplete(
-    cb: (arg: {
+    cb?: (arg: {
       /**
        * @summary 当前定位城市经度。
        */
@@ -5607,7 +5607,7 @@ declare namespace my {
    * @summary 停止监听内存不足的告警事件
    */
   export function offMemoryWarning(
-    cb: (arg: {
+    cb?: (arg: {
       /**
        * @summary 系统内存的告警等级
        * @description - 仅 Android 返回，iOS 不返回，需要兼容判断
@@ -5621,7 +5621,7 @@ declare namespace my {
    * @summary 取消监听网络状态变化事件
    */
   export function offNetworkStatusChange(
-    cb: (arg: {
+    cb?: (arg: {
       /**
        * @summary 网络是否可用。
        */
@@ -5636,7 +5636,7 @@ declare namespace my {
    * @summary 取消监听小程序要打开的页面不存在的事件
    */
   export function offPageNotFound(
-    cb: (param: {
+    cb?: (param: {
       /**
        * @summary 不存在页面的路径 (代码包路径)。
        */
@@ -5654,16 +5654,16 @@ declare namespace my {
   /**
    * @summary 取消监听 WebSocket 关闭事件
    */
-  export function offSocketClose(cb: (arg: { reason: string }) => void): void;
+  export function offSocketClose(cb?: (arg: { reason: string }) => void): void;
   /**
    * @summary 取消监听 WebSocket 错误事件
    */
-  export function offSocketError(cb: (arg: { errorMessage: string; error: number }) => void): void;
+  export function offSocketError(cb?: (arg: { errorMessage: string; error: number }) => void): void;
   /**
    * @summary 取消监听 WebSocket 接受到服务器的消息事件
    */
   export function offSocketMessage(
-    cb: (arg: {
+    cb?: (arg: {
       /**
        * @summary 服务器返回的消息：普通的文本 string 或者经 base64 编码后的 string。
        */
@@ -5677,12 +5677,12 @@ declare namespace my {
   /**
    * @summary 取消监听 WebSocket 连接打开事件
    */
-  export function offSocketOpen(cb: () => void): void;
+  export function offSocketOpen(cb?: () => void): void;
   /**
    * @summary 取消监听未处理的 Promise 拒绝事件
    */
   export function offUnhandledRejection(
-    cb: (param: {
+    cb?: (param: {
       /**
        * @summary reject() 的接收值，一般是 error 对象
        */
@@ -5696,12 +5696,12 @@ declare namespace my {
   /**
    * @summary 取消监听用户发起的主动截屏事件
    */
-  export function offUserCaptureScreen(cb: () => void): void;
+  export function offUserCaptureScreen(cb?: () => void): void;
   /**
    * @summary 取消监听连接上 Wi-Fi 的事件
    */
   export function offWifiConnected(
-    cb: (arg: {
+    cb?: (arg: {
       /**
        * @summary Wifi 信息。
        */
@@ -10820,7 +10820,7 @@ declare namespace my {
     /**
      * @summary 取消监听向支付宝后台请求检查更新结果事件。
      */
-    offCheckForUpdate(cb: (arg: { hasUpdate: boolean }) => void): void;
+    offCheckForUpdate(cb?: (arg: { hasUpdate: boolean }) => void): void;
     /**
      * @summary 监听向支付宝后台请求检查更新结果事件。
      */
@@ -11019,47 +11019,47 @@ declare namespace my {
     /**
      * @summary 停止监听可以开始播放的事件
      */
-    offCanPlay(cb: (arg: { audioPlayerID: string }) => void): void;
+    offCanPlay(cb?: (arg: { audioPlayerID: string }) => void): void;
     /**
      * @summary 停止监听播放完成的事件
      */
-    offEnded(cb: (arg: { audioPlayerID: string }) => void): void;
+    offEnded(cb?: (arg: { audioPlayerID: string }) => void): void;
     /**
      * @summary 停止监听播放下一首的事件
      */
-    offNext(cb: (arg: {}) => void): void;
+    offNext(cb?: (arg: {}) => void): void;
     /**
      * @summary 停止监听播放暂停的事件
      */
-    offPause(cb: (arg: { audioPlayerID: string }) => void): void;
+    offPause(cb?: (arg: { audioPlayerID: string }) => void): void;
     /**
      * @summary 停止监听播放开始事件
      */
-    offPlay(cb: (arg: { audioPlayerID: string }) => void): void;
+    offPlay(cb?: (arg: { audioPlayerID: string }) => void): void;
     /**
      * @summary 停止监听播放上一首的事件
      */
-    offPrev(cb: (arg: {}) => void): void;
+    offPrev(cb?: (arg: {}) => void): void;
     /**
      * @summary 停止监听跳转到进度的事件
      */
-    offSeeked(cb: (arg: { audioPlayerID: string }) => void): void;
+    offSeeked(cb?: (arg: { audioPlayerID: string }) => void): void;
     /**
      * @summary 停止监听开始跳转到进度的事件
      */
-    offSeeking(cb: (arg: { audioPlayerID: string }) => void): void;
+    offSeeking(cb?: (arg: { audioPlayerID: string }) => void): void;
     /**
      * @summary 停止监听播放停止的事件
      */
-    offStop(cb: (arg: { audioPlayerID: string }) => void): void;
+    offStop(cb?: (arg: { audioPlayerID: string }) => void): void;
     /**
      * @summary 停止监听时间更新事件
      */
-    offTimeUpdate(cb: (arg: { audioPlayerID: string }) => void): void;
+    offTimeUpdate(cb?: (arg: { audioPlayerID: string }) => void): void;
     /**
      * @summary 停止监听音频还在准备中的事件
      */
-    offWaiting(cb: (arg: { audioPlayerID: string }) => void): void;
+    offWaiting(cb?: (arg: { audioPlayerID: string }) => void): void;
     /**
      * @summary 监听可以开始播放的事件，缓冲完成可以开始播放，但不保证后面可以流畅播放。
      */
@@ -11544,47 +11544,47 @@ declare namespace my {
     /**
      * @summary 停止监听可以开始播放的事件
      */
-    offCanPlay(cb: (arg: {}) => void): void;
+    offCanPlay(cb?: (arg: {}) => void): void;
     /**
      * @summary 停止监听播放完成的事件
      */
-    offEnded(cb: (arg: {}) => void): void;
+    offEnded(cb?: (arg: {}) => void): void;
     /**
      * @summary 停止监听播放下一首的事件
      */
-    offNext(cb: (arg: {}) => void): void;
+    offNext(cb?: (arg: {}) => void): void;
     /**
      * @summary 停止监听播放暂停的事件
      */
-    offPause(cb: (arg: {}) => void): void;
+    offPause(cb?: (arg: {}) => void): void;
     /**
      * @summary 停止监听播放开始事件
      */
-    offPlay(cb: (arg: {}) => void): void;
+    offPlay(cb?: (arg: {}) => void): void;
     /**
      * @summary 停止监听播放上一首的事件
      */
-    offPrev(cb: (arg: {}) => void): void;
+    offPrev(cb?: (arg: {}) => void): void;
     /**
      * @summary 停止监听跳转到进度的事件
      */
-    offSeeked(cb: (arg: {}) => void): void;
+    offSeeked(cb?: (arg: {}) => void): void;
     /**
      * @summary 停止监听开始跳转到进度的事件
      */
-    offSeeking(cb: (arg: {}) => void): void;
+    offSeeking(cb?: (arg: {}) => void): void;
     /**
      * @summary 停止监听播放停止的事件
      */
-    offStop(cb: (arg: {}) => void): void;
+    offStop(cb?: (arg: {}) => void): void;
     /**
      * @summary 停止监听时间更新事件
      */
-    offTimeUpdate(cb: (arg: {}) => void): void;
+    offTimeUpdate(cb?: (arg: {}) => void): void;
     /**
      * @summary 停止监听音频还在准备中的事件
      */
-    offWaiting(cb: (arg: {}) => void): void;
+    offWaiting(cb?: (arg: {}) => void): void;
     /**
      * @summary 监听可以开始播放的事件，缓冲完成可以开始播放，但不保证后面可以流畅播放。
      */
@@ -17343,7 +17343,7 @@ declare namespace my.ap {
    * @summary 是取消监听福卡蒙层关闭事件的API
    */
   export function offFuCardModalClosed(
-    cb: (arg: {
+    cb?: (arg: {
       /**
        * @summary 是否领取福卡
        */
@@ -18498,7 +18498,7 @@ declare namespace NFCAdapter {
       length: number;
     }>;
     offNdefMessage(
-      cb: (arg: {
+      cb?: (arg: {
         message: Array<{
           tnf: ArrayBuffer;
           type: ArrayBuffer;
