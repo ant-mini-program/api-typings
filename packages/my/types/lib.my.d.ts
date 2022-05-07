@@ -1406,10 +1406,6 @@ declare namespace my {
    */
   export function createWorker(scriptPath: string): Worker;
   /**
-   * @summary 创建 Xnn 引擎实例
-   */
-  export function createXnnManager(id: string): XnnManager;
-  /**
    * @summary 选择日期
    */
   export function datePicker(r?: {
@@ -1932,6 +1928,83 @@ declare namespace my {
      */
     mobilePhone: string;
   }>;
+  /**
+   * @summary 应用授权情况(同步接口)
+   */
+  export function getAppAuthorizeSetting(): {
+    /**
+     * @summary 允许使用相册的开关
+     * @android false
+     */
+    albumAuthorized: boolean;
+    /**
+     * @summary 允许使用蓝牙的开关
+     * @android false
+     */
+    bluetoothAuthorized: boolean;
+    /**
+     * @summary 允许使用摄像头的开关
+     */
+    cameraAuthorized: boolean;
+    /**
+     * @summary 允许使用定位的开关
+     */
+    locationAuthorized: boolean;
+    /**
+     * @summary 允许使用麦克风的开关
+     */
+    microphoneAuthorized: boolean;
+    /**
+     * @summary 允许通知的开关
+     */
+    notificationAuthorized: boolean;
+    /**
+     * @summary 允许通知带有提醒的开关
+     * @android false
+     */
+    notificationAlertAuthorized: boolean;
+    /**
+     * @summary 允许通知带有标记的开关
+     * @android false
+     */
+    notificationBadgeAuthorized: boolean;
+    /**
+     * @summary 允许通知带有声音的开关
+     * @android false
+     */
+    notificationSoundAuthorized: boolean;
+    /**
+     * @summary 悬浮窗权限
+     * @ios false
+     */
+    overlayAuthorized: boolean;
+  };
+  /**
+   * @summary 获取APP基础信息接口(同步接口)
+   */
+  export function getAppBaseInfo(): {
+    /**
+     * @summary 基础库版本。
+     */
+    SDKVersion: string;
+    /**
+     * @summary 当前小程序运行的宿主环境。
+     */
+    host: {
+      /**
+       * @summary 宿主 app 对应的 appId。
+       */
+      appId: string;
+    };
+    /**
+     * @summary 客户端设置的语言。分别有以下值：zh-Hans（简体中文）、en（English）、zh-Hant（繁体中文（台湾））、zh-HK（繁体中文（香港））。
+     */
+    language: string;
+    /**
+     * @summary 客户端版本号。
+     */
+    version: string;
+  };
   /**
    * @summary 同步获取小程序 appId
    */
@@ -2685,6 +2758,27 @@ declare namespace my {
     wifi: IGetConnectedWifiWifi;
   }>;
   /**
+   * @summary 获取设备基础信息(同步接口)
+   */
+  export function getDeviceBaseInfo(): {
+    /**
+     * @summary 手机品牌。
+     */
+    brand: string;
+    /**
+     * @summary 手机型号。
+     */
+    model: string;
+    /**
+     * @summary 系统版本。
+     */
+    system: string;
+    /**
+     * @summary 系统名：Android，iOS / iPhone OS 。
+     */
+    platform: string;
+  };
+  /**
    * @summary 获得小程序本次唤起的参数
    * @description - 如果当前是冷启动，则返回值与 App.onLaunch 的回调参数一致；如果当前是热启动，则返回值与 App.onShow 一致。
    */
@@ -3282,6 +3376,9 @@ declare namespace my {
     networkAvailable: boolean;
     networkType: `${EGetNetworkTypeNetworkInfo}`;
   }>;
+  /**
+   * @summary 获取 NFC 实例
+   */
   export function getNFCAdapter(): NFCAdapter;
   /**
    * @summary 获取支付宝会员的基础信息
@@ -4686,6 +4783,23 @@ declare namespace my {
     notificationSoundAuthorized: boolean;
   };
   /**
+   * @summary 获取设备设置(同步接口)
+   */
+  export function getSystemSetting(): {
+    /**
+     * @summary 蓝牙的系统开关
+     */
+    bluetoothEnabled: boolean;
+    /**
+     * @summary 地理位置的系统开关
+     */
+    locationEnabled: boolean;
+    /**
+     * @summary Wi-Fi 的系统开关
+     */
+    wifiEnabled: boolean;
+  };
+  /**
    * @summary 获取导航栏背景色
    */
   export function getTitleColor(r?: {
@@ -4753,6 +4867,46 @@ declare namespace my {
      */
     complete?(arg: { error?: number; errorMessage?: string }): void;
   }): Promise<void>;
+  /**
+   * @summary 获取窗口信息(同步接口)
+   */
+  export function getWindowInfo(): {
+    /**
+     * @summary 设备像素比。
+     */
+    pixelRatio: number;
+    /**
+     * @summary 屏幕宽度。
+     */
+    screenWidth: number;
+    /**
+     * @summary 屏幕高度。
+     */
+    screenHeight: number;
+    /**
+     * @summary 窗口宽度。
+     */
+    windowWidth: number;
+    /**
+     * @summary 窗口高度。
+     */
+    windowHeight: number;
+    /**
+     * @summary 状态栏高度。
+     */
+    statusBarHeight: number;
+    /**
+     * @summary 在竖屏正方向下的安全区域
+     */
+    safeArea: {
+      left: number;
+      right: number;
+      top: number;
+      bottom: number;
+      height: number;
+      width: number;
+    };
+  };
   /**
    * @summary 隐藏当前页面菜单中的添加到桌面功能
    */
@@ -5742,7 +5896,7 @@ declare namespace my {
    * 该事件与框架 app.js 注册小程序 时 onShow 参数的回调时机一致。对应的取消监听 API 请参见 my.offAppShow。
    * 请勿使用 API 监听匿名函数，否则将无法关闭监听。
    */
-  export function onAppShow(cb: () => void): void;
+  export function onAppShow(cb: (arg: IOnAppShowEvent) => void): void;
   /**
    * @summary 监听音频因为系统占用而被中断的开始事件
    */
@@ -6286,7 +6440,7 @@ declare namespace my {
      * 接口调用成功的回调函数
      * @param data 成功返回的数据
      */
-    success?(data: {}): void;
+    success?(data: { authSetting: IOpenSettingAuthSetting }): void;
     /**
      * 接口调用失败的回调函数
      * @param err 错误信息
@@ -6295,8 +6449,19 @@ declare namespace my {
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?(arg: { error?: number; errorMessage?: string }): void;
-  }): Promise<void>;
+    complete?(
+      arg:
+        | {
+            authSetting: IOpenSettingAuthSetting;
+          }
+        | {
+            error?: number;
+            errorMessage?: string;
+          },
+    ): void;
+  }): Promise<{
+    authSetting: IOpenSettingAuthSetting;
+  }>;
   export function openTicketDetail(r: {
     /**
      * @summary 卡实例 ID，调用 [券发放接口](https://docs.open.alipay.com/api_24/alipay.pass.instance.add) 可以获取该参数。
@@ -9398,7 +9563,393 @@ declare namespace my {
     }>;
   }
   export interface NFCAdapter {
+    /**
+     * @summary 标准
+     */
+    readonly tech: {
+      ndef: 'NDEF';
+      nfcA: 'NFC-A';
+      nfcB: 'NFC-B';
+      isoDep: 'ISO-DEP';
+      nfcF: 'NFC-F';
+      nfcV: 'NFC-V';
+      mifareClassic: 'MIFARE Classic';
+      mifareUltralight: 'MIFARE Ultralight';
+    };
+    /**
+     * @summary 获取 IsoDep 实例
+     * @description 实例支持ISO-DEP (ISO 14443-4)标准的读写
+     */
+    getIsoDep(): NFCAdapter.IsoDep;
+    /**
+     * @summary 获取 MifareClassic 实例
+     * @description 实例支持 MIFARE Classic 标签的读写
+     */
+    getMifareClassic(): NFCAdapter.MifareClassic;
+    /**
+     * @summary 获取 MifareUltralight 实例
+     * @description 实例支持 MIFARE Ultralight 标签的读写
+     */
+    getMifareUltralight(): NFCAdapter.MifareUltralight;
     getNdef(): NFCAdapter.Ndef;
+    /**
+     * @summary 获取 NfcA 实例
+     * @description 实例支持NFC-A (ISO 14443-3A)标准的读写
+     */
+    getNfcA(): NFCAdapter.NfcA;
+    /**
+     * @summary 获取 NfcB 实例
+     * @description 实例支持 NFC-B (ISO 14443-3B)标准的读写
+     */
+    getNfcB(): NFCAdapter.NfcB;
+    /**
+     * @summary 获取 NfcF 实例
+     * @description 实例支持 NFC-F (JIS 6319-4)标准的读写
+     */
+    getNfcF(): NFCAdapter.NfcF;
+    /**
+     * @summary 获取 NfcV 实例
+     * @description 实例支持 NFC-V (ISO 15693)标准的读写
+     */
+    getNfcV(): NFCAdapter.NfcV;
+    /**
+     * @summary 取消监听 NFC Tag
+     */
+    offDiscovered(
+      cb?: (arg: {
+        data: {
+          techs?: string[];
+          messages?: string[];
+        };
+      }) => void,
+    ): void;
+    /**
+     * @summary 监听 NFC Tag
+     */
+    onDiscovered(
+      cb: (arg: {
+        data: {
+          techs?: string[];
+          messages?: string[];
+        };
+      }) => void,
+    ): void;
+    /**
+     * @summary 开始扫描 NFC
+     */
+    startDiscovery(r?: {
+      /**
+       * 接口调用成功的回调函数
+       * @param data 成功返回的数据
+       */
+      success?(data: { success: true }): void;
+      /**
+       * 接口调用失败的回调函数
+       * @param err 错误信息
+       */
+      fail?(
+        err:
+          | {
+              error?: number;
+              errorMessage?: string;
+            }
+          | {
+              error: 61000;
+              errorMessage: 'nfc not supported';
+            }
+          | {
+              error: 61001;
+              errorMessage: 'nfc is closed';
+            }
+          | {
+              error: 61002;
+              errorMessage: 'Tech already connected';
+            }
+          | {
+              error: 61003;
+              errorMessage: 'Tech has not connected';
+            }
+          | {
+              error: 61004;
+              errorMessage: 'NFC discovery already started';
+            }
+          | {
+              error: 61005;
+              errorMessage: 'NFC discovery has not started';
+            }
+          | {
+              error: 61006;
+              errorMessage: 'invalid tech';
+            }
+          | {
+              error: 61007;
+              errorMessage: 'system internal error';
+            }
+          | {
+              error: 61008;
+              errorMessage: 'connect fail';
+            }
+          | {
+              error: 61009;
+              errorMessage: 'unavailable tech';
+            }
+          | {
+              error: 61010;
+              errorMessage: 'function not support';
+            }
+          | {
+              error: 61011;
+              errorMessage: 'NFC tag has not been discovered';
+            }
+          | {
+              error: 61012;
+              errorMessage: 'parse NdefMessage failed';
+            }
+          | {
+              error: 61013;
+              errorMessage: 'transceive timeout';
+            }
+          | {
+              error: 61014;
+              errorMessage: 'Invalid param';
+            },
+      ): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              success: true;
+            }
+          | (
+              | {
+                  error?: number;
+                  errorMessage?: string;
+                }
+              | {
+                  error: 61000;
+                  errorMessage: 'nfc not supported';
+                }
+              | {
+                  error: 61001;
+                  errorMessage: 'nfc is closed';
+                }
+              | {
+                  error: 61002;
+                  errorMessage: 'Tech already connected';
+                }
+              | {
+                  error: 61003;
+                  errorMessage: 'Tech has not connected';
+                }
+              | {
+                  error: 61004;
+                  errorMessage: 'NFC discovery already started';
+                }
+              | {
+                  error: 61005;
+                  errorMessage: 'NFC discovery has not started';
+                }
+              | {
+                  error: 61006;
+                  errorMessage: 'invalid tech';
+                }
+              | {
+                  error: 61007;
+                  errorMessage: 'system internal error';
+                }
+              | {
+                  error: 61008;
+                  errorMessage: 'connect fail';
+                }
+              | {
+                  error: 61009;
+                  errorMessage: 'unavailable tech';
+                }
+              | {
+                  error: 61010;
+                  errorMessage: 'function not support';
+                }
+              | {
+                  error: 61011;
+                  errorMessage: 'NFC tag has not been discovered';
+                }
+              | {
+                  error: 61012;
+                  errorMessage: 'parse NdefMessage failed';
+                }
+              | {
+                  error: 61013;
+                  errorMessage: 'transceive timeout';
+                }
+              | {
+                  error: 61014;
+                  errorMessage: 'Invalid param';
+                }
+            ),
+      ): void;
+    }): Promise<{
+      success: true;
+    }>;
+    /**
+     * @summary 停止扫描 NFC
+     */
+    stopDiscovery(r?: {
+      /**
+       * 接口调用成功的回调函数
+       * @param data 成功返回的数据
+       */
+      success?(data: { success: true }): void;
+      /**
+       * 接口调用失败的回调函数
+       * @param err 错误信息
+       */
+      fail?(
+        err:
+          | {
+              error?: number;
+              errorMessage?: string;
+            }
+          | {
+              error: 61000;
+              errorMessage: 'nfc not supported';
+            }
+          | {
+              error: 61001;
+              errorMessage: 'nfc is closed';
+            }
+          | {
+              error: 61002;
+              errorMessage: 'Tech already connected';
+            }
+          | {
+              error: 61003;
+              errorMessage: 'Tech has not connected';
+            }
+          | {
+              error: 61004;
+              errorMessage: 'NFC discovery already started';
+            }
+          | {
+              error: 61005;
+              errorMessage: 'NFC discovery has not started';
+            }
+          | {
+              error: 61006;
+              errorMessage: 'invalid tech';
+            }
+          | {
+              error: 61007;
+              errorMessage: 'system internal error';
+            }
+          | {
+              error: 61008;
+              errorMessage: 'connect fail';
+            }
+          | {
+              error: 61009;
+              errorMessage: 'unavailable tech';
+            }
+          | {
+              error: 61010;
+              errorMessage: 'function not support';
+            }
+          | {
+              error: 61011;
+              errorMessage: 'NFC tag has not been discovered';
+            }
+          | {
+              error: 61012;
+              errorMessage: 'parse NdefMessage failed';
+            }
+          | {
+              error: 61013;
+              errorMessage: 'transceive timeout';
+            }
+          | {
+              error: 61014;
+              errorMessage: 'Invalid param';
+            },
+      ): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              success: true;
+            }
+          | (
+              | {
+                  error?: number;
+                  errorMessage?: string;
+                }
+              | {
+                  error: 61000;
+                  errorMessage: 'nfc not supported';
+                }
+              | {
+                  error: 61001;
+                  errorMessage: 'nfc is closed';
+                }
+              | {
+                  error: 61002;
+                  errorMessage: 'Tech already connected';
+                }
+              | {
+                  error: 61003;
+                  errorMessage: 'Tech has not connected';
+                }
+              | {
+                  error: 61004;
+                  errorMessage: 'NFC discovery already started';
+                }
+              | {
+                  error: 61005;
+                  errorMessage: 'NFC discovery has not started';
+                }
+              | {
+                  error: 61006;
+                  errorMessage: 'invalid tech';
+                }
+              | {
+                  error: 61007;
+                  errorMessage: 'system internal error';
+                }
+              | {
+                  error: 61008;
+                  errorMessage: 'connect fail';
+                }
+              | {
+                  error: 61009;
+                  errorMessage: 'unavailable tech';
+                }
+              | {
+                  error: 61010;
+                  errorMessage: 'function not support';
+                }
+              | {
+                  error: 61011;
+                  errorMessage: 'NFC tag has not been discovered';
+                }
+              | {
+                  error: 61012;
+                  errorMessage: 'parse NdefMessage failed';
+                }
+              | {
+                  error: 61013;
+                  errorMessage: 'transceive timeout';
+                }
+              | {
+                  error: 61014;
+                  errorMessage: 'Invalid param';
+                }
+            ),
+      ): void;
+    }): Promise<{
+      success: true;
+    }>;
   }
   export interface WebViewContext {
     /**
@@ -9420,7 +9971,7 @@ declare namespace my {
      * @summary 导出动画队列
      * @description export 方法每次调用后会清掉之前的动画操作
      */
-    export(): {};
+    export(): string;
     height(length: string | number): this;
     left(length: string | number): this;
     /**
@@ -9516,7 +10067,7 @@ declare namespace my {
     /**
      * @summary 获取 Node 节点实例
      */
-    node(callback: (res: unknown) => void): this;
+    node(callback?: (res: unknown) => void): this;
     /**
      * @summary 将当前选择节点的滚动信息放入查询结果
      */
@@ -9712,10 +10263,7 @@ declare namespace my {
     /**
      * @summary 清除地图上的步行导航路线
      */
-    clearRoute(r: {
-      element: string;
-      actionType: string;
-      data: Record<string, unknown>;
+    clearRoute(r?: {
       /**
        * 接口调用成功的回调函数
        * @param data 成功返回的数据
@@ -11461,21 +12009,7 @@ declare namespace my {
      */
     stop(): void;
   }
-  export interface XnnManager {
-    inference(params: { inputTensors: TTensor; outputTensors: TTensor; success: (data: { tensors: TTensor }) => void; fail: () => void }): void;
-    load(params: { modelPath: string; aesKey?: string; license?: string; success: (data: { inputTensors: TTensor; outputTensors: TTensor }) => void; fail: () => void }): void;
-    release(params: { success: () => void; fail: () => void }): void;
-    transformFromImage(params: { data: ArrayBuffer; options: any; success: (data: { tensor: TTensor }) => void; fail: () => void }): void;
-    transformFromVideoFrame(params: {
-      data: ArrayBuffer;
-      width: number;
-      height: number;
-      format: string;
-      options: any;
-      success: (data: { tensor: TTensor }) => void;
-      fail: () => void;
-    }): void;
-  }
+  export interface XnnManager {}
   export interface BackgroundAudioManager {
     /**
      * @summary 音频缓冲的时间点，仅保证当前播放时间点到此时间点内容已缓冲（只读）
@@ -14072,10 +14606,7 @@ declare namespace my {
     /**
      * @summary 退出全屏
      */
-    exitFullScreen(r: {
-      element: string;
-      actionType: string;
-      data: Record<string, unknown>;
+    exitFullScreen(r?: {
       /**
        * 接口调用成功的回调函数
        * @param data 成功返回的数据
@@ -14094,10 +14625,7 @@ declare namespace my {
     /**
      * @summary 获取当前播放进度
      */
-    getCurrentTime(r: {
-      element: string;
-      actionType: string;
-      data: Record<string, unknown>;
+    getCurrentTime(r?: {
       /**
        * 接口调用成功的回调函数
        * @param data 成功返回的数据
@@ -14139,10 +14667,7 @@ declare namespace my {
     /**
      * @summary 隐藏状态栏，仅在 iOS 全屏下有效
      */
-    hideStatusBar(r: {
-      element: string;
-      actionType: string;
-      data: Record<string, unknown>;
+    hideStatusBar(r?: {
       /**
        * 接口调用成功的回调函数
        * @param data 成功返回的数据
@@ -14165,10 +14690,7 @@ declare namespace my {
     /**
      * @summary 暂停
      */
-    pause(r: {
-      element: string;
-      actionType: string;
-      data: Record<string, unknown>;
+    pause(r?: {
       /**
        * 接口调用成功的回调函数
        * @param data 成功返回的数据
@@ -14187,10 +14709,7 @@ declare namespace my {
     /**
      * @summary 播放
      */
-    play(r: {
-      element: string;
-      actionType: string;
-      data: Record<string, unknown>;
+    play(r?: {
       /**
        * 接口调用成功的回调函数
        * @param data 成功返回的数据
@@ -14268,10 +14787,7 @@ declare namespace my {
     /**
      * @summary 显示状态栏，仅在 iOS 全屏下有效。
      */
-    showStatusBar(r: {
-      element: string;
-      actionType: string;
-      data: Record<string, unknown>;
+    showStatusBar(r?: {
       /**
        * 接口调用成功的回调函数
        * @param data 成功返回的数据
@@ -14290,10 +14806,7 @@ declare namespace my {
     /**
      * @summary 开启互动能力
      */
-    startInteractions(r: {
-      element: string;
-      actionType: string;
-      data: Record<string, unknown>;
+    startInteractions(r?: {
       /**
        * 接口调用成功的回调函数
        * @param data 成功返回的数据
@@ -14312,10 +14825,7 @@ declare namespace my {
     /**
      * @summary 停止
      */
-    stop(r: {
-      element: string;
-      actionType: string;
-      data: Record<string, unknown>;
+    stop(r?: {
       /**
        * 接口调用成功的回调函数
        * @param data 成功返回的数据
@@ -14334,10 +14844,7 @@ declare namespace my {
     /**
      * @summary 停止互动能力，并清理所有的互动组件
      */
-    stopInteractions(r: {
-      element: string;
-      actionType: string;
-      data: Record<string, unknown>;
+    stopInteractions(r?: {
       /**
        * 接口调用成功的回调函数
        * @param data 成功返回的数据
@@ -15919,6 +16426,70 @@ declare namespace my {
      */
     [eventName: string]: (...args: unknown[]) => void;
   }
+  interface IOnAppShowEvent {
+    /**
+     * @summary 启动小程序的路径
+     */
+    path?: string;
+    /**
+     * @summary 当前小程序的 query，从启动参数的 query 字段解析而来
+     */
+    query?: Record<string, unknown>;
+    /**
+     * @summary 来源信息
+     * @description 部分版本在无 referrerInfo 的时候会返回 undefined，建议使用 options.referrerInfo && options.referrerInfo.appId 进行判断
+     */
+    referrerInfo?: IOnAppShowEventReferrerInfo;
+    /**
+     * @summary 启动小程序的 [场景值](https://opendocs.alipay.com/mini/framework/scene)
+     */
+    scene?: number;
+  }
+  interface IOnAppShowEventReferrerInfo {
+    /**
+     * @summary 来源小程序。
+     */
+    appId: string;
+    /**
+     * @summary 以小服务模式启动的来源信息，目前已废弃
+     * @deprecated
+     */
+    sourceServiceId?: string;
+    /**
+     * @summary 来源小程序传过来的数据。
+     */
+    extraData: Record<string, unknown>;
+  }
+  interface IOpenSettingAuthSetting {
+    /**
+     * @summary 地理位置。
+     */
+    location?: boolean;
+    /**
+     * @summary 保存到相册。
+     */
+    album?: boolean;
+    /**
+     * @summary 摄像头。
+     */
+    camera?: boolean;
+    /**
+     * @summary 唤起授权界面，用户可以授权小程序获取支付宝会员的基础信息。
+     */
+    userInfo?: boolean;
+    /**
+     * @summary 运动数据
+     */
+    alipaysports?: boolean;
+    /**
+     * @summary 手机号码
+     */
+    phoneNumber?: boolean;
+    /**
+     * @summary 收货地址
+     */
+    aliaddress?: boolean;
+  }
   interface IReadBLECharacteristicValueCharacteristic {
     /**
      * @summary 蓝牙设备特征值的 UUID。
@@ -16527,7 +17098,6 @@ declare namespace my {
   type TMYGLsizeiptr = number;
   type TMYGLuint = number;
   type TMYInt32List = Int32Array | TMYGLint[];
-  type TTensor = any;
   type TTracert =
     | 'getValueOfUrl'
     | 'start'
@@ -18396,39 +18966,11 @@ declare const enum ESpuName {
 
 declare namespace NFCAdapter {
   export interface Ndef {
-    close(r: {
-      /**
-       * @summary Tag 对应的实例 id
-       */
-      instanceId: string;
-      /**
-       * 接口调用成功的回调函数
-       * @param data 成功返回的数据
-       */
-      success?(data: { success: true }): void;
-      /**
-       * 接口调用失败的回调函数
-       * @param err 错误信息
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(
-        arg:
-          | {
-              success: true;
-            }
-          | {
-              error?: number;
-              errorMessage?: string;
-            },
-      ): void;
-    }): Promise<{
-      success: true;
-    }>;
-    connect(r: {
-      instanceId: string;
+    readonly techType: 'NDEF' | 'NFC-A' | 'NFC-B' | 'ISO-DEP' | 'NFC-F' | 'NFC-V' | 'MIFARE Classic' | 'MIFARE Ultralight';
+    /**
+     * @summary 断开连接
+     */
+    close(r?: {
       /**
        * 接口调用成功的回调函数
        * @param data 成功返回的数据
@@ -18455,11 +18997,40 @@ declare namespace NFCAdapter {
     }): Promise<{
       success: true;
     }>;
-    getMaxTransceiveLength(r: {
+    /**
+     * @summary 连接 NFC 标签
+     */
+    connect(r?: {
       /**
-       * @summary Tag 对应的实例 id
+       * 接口调用成功的回调函数
+       * @param data 成功返回的数据
        */
-      instanceId: string;
+      success?(data: { success: true }): void;
+      /**
+       * 接口调用失败的回调函数
+       * @param err 错误信息
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              success: true;
+            }
+          | {
+              error?: number;
+              errorMessage?: string;
+            },
+      ): void;
+    }): Promise<{
+      success: true;
+    }>;
+    /**
+     * @summary 获取最大传输长度
+     */
+    getMaxTransceiveLength(r?: {
       /**
        * 接口调用成功的回调函数
        * @param data 成功返回的数据
@@ -18517,11 +19088,7 @@ declare namespace NFCAdapter {
         }>;
       }) => void,
     ): void;
-    readNdefMessage(r: {
-      /**
-       * @summary Tag 对应的实例 id
-       */
-      instanceId: string;
+    readNdefMessage(r?: {
       /**
        * 接口调用成功的回调函数
        * @param data 成功返回的数据
@@ -18548,11 +19115,10 @@ declare namespace NFCAdapter {
     }): Promise<{
       data: IReadNdefMessageData;
     }>;
+    /**
+     * @summary 设置超时时间
+     */
     setTimeout(r: {
-      /**
-       * @summary Tag 对应的实例 id
-       */
-      instanceId: string;
       /**
        * @summary 设置超时时间（ms）
        */
@@ -18583,11 +19149,10 @@ declare namespace NFCAdapter {
     }): Promise<{
       success: true;
     }>;
+    /**
+     * @summary 传输数据
+     */
     transceive(r: {
-      /**
-       * @summary Tag 对应的实例 id
-       */
-      instanceId: string;
       /**
        * @summary 需要传递的二进制数据
        */
@@ -18630,7 +19195,6 @@ declare namespace NFCAdapter {
       data: ArrayBuffer;
     }>;
     writeNdefMessage(r: {
-      instanceId: string;
       records: IWriteNdefMessageRecords[];
       /**
        * 接口调用成功的回调函数
@@ -18659,13 +19223,1410 @@ declare namespace NFCAdapter {
       success: true;
     }>;
   }
-  export interface NfcA {}
-  export interface IsoDep {}
-  export interface NfcV {}
-  export interface NfcB {}
-  export interface NfcF {}
-  export interface MifareClassic {}
-  export interface MifareUltralight {}
+  export interface NfcA {
+    readonly techType: 'NDEF' | 'NFC-A' | 'NFC-B' | 'ISO-DEP' | 'NFC-F' | 'NFC-V' | 'MIFARE Classic' | 'MIFARE Ultralight';
+    /**
+     * @summary 断开连接
+     */
+    close(r?: {
+      /**
+       * 接口调用成功的回调函数
+       * @param data 成功返回的数据
+       */
+      success?(data: { success: true }): void;
+      /**
+       * 接口调用失败的回调函数
+       * @param err 错误信息
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              success: true;
+            }
+          | {
+              error?: number;
+              errorMessage?: string;
+            },
+      ): void;
+    }): Promise<{
+      success: true;
+    }>;
+    /**
+     * @summary 连接 NFC 标签
+     */
+    connect(r?: {
+      /**
+       * 接口调用成功的回调函数
+       * @param data 成功返回的数据
+       */
+      success?(data: { success: true }): void;
+      /**
+       * 接口调用失败的回调函数
+       * @param err 错误信息
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              success: true;
+            }
+          | {
+              error?: number;
+              errorMessage?: string;
+            },
+      ): void;
+    }): Promise<{
+      success: true;
+    }>;
+    /**
+     * @summary 获取 ATQA 信息
+     */
+    getAtqa(r?: {
+      /**
+       * 接口调用成功的回调函数
+       * @param data 成功返回的数据
+       */
+      success?(data: {
+        /**
+         * @summary 返回 ATQA/SENS_RES 数据
+         */
+        atqa: ArrayBuffer;
+      }): void;
+      /**
+       * 接口调用失败的回调函数
+       * @param err 错误信息
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              /**
+               * @summary 返回 ATQA/SENS_RES 数据
+               */
+              atqa: ArrayBuffer;
+            }
+          | {
+              error?: number;
+              errorMessage?: string;
+            },
+      ): void;
+    }): Promise<{
+      /**
+       * @summary 返回 ATQA/SENS_RES 数据
+       */
+      atqa: ArrayBuffer;
+    }>;
+    /**
+     * @summary 获取最大传输长度
+     */
+    getMaxTransceiveLength(r?: {
+      /**
+       * 接口调用成功的回调函数
+       * @param data 成功返回的数据
+       */
+      success?(data: {
+        /**
+         * @summary 最大传输长度
+         */
+        length: number;
+      }): void;
+      /**
+       * 接口调用失败的回调函数
+       * @param err 错误信息
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              /**
+               * @summary 最大传输长度
+               */
+              length: number;
+            }
+          | {
+              error?: number;
+              errorMessage?: string;
+            },
+      ): void;
+    }): Promise<{
+      /**
+       * @summary 最大传输长度
+       */
+      length: number;
+    }>;
+    /**
+     * @summary 获取 SAK 信息
+     */
+    getSak(r?: {
+      /**
+       * 接口调用成功的回调函数
+       * @param data 成功返回的数据
+       */
+      success?(data: {
+        /**
+         * @summary 返回 SAK/SEL_RES 数据
+         */
+        sak: number;
+      }): void;
+      /**
+       * 接口调用失败的回调函数
+       * @param err 错误信息
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              /**
+               * @summary 返回 SAK/SEL_RES 数据
+               */
+              sak: number;
+            }
+          | {
+              error?: number;
+              errorMessage?: string;
+            },
+      ): void;
+    }): Promise<{
+      /**
+       * @summary 返回 SAK/SEL_RES 数据
+       */
+      sak: number;
+    }>;
+    /**
+     * @summary 设置超时时间
+     */
+    setTimeout(r: {
+      /**
+       * @summary 设置超时时间（ms）
+       */
+      timeout: number;
+      /**
+       * 接口调用成功的回调函数
+       * @param data 成功返回的数据
+       */
+      success?(data: { success: true }): void;
+      /**
+       * 接口调用失败的回调函数
+       * @param err 错误信息
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              success: true;
+            }
+          | {
+              error?: number;
+              errorMessage?: string;
+            },
+      ): void;
+    }): Promise<{
+      success: true;
+    }>;
+    /**
+     * @summary 传输数据
+     */
+    transceive(r: {
+      /**
+       * @summary 需要传递的二进制数据
+       */
+      data: ArrayBuffer;
+      /**
+       * 接口调用成功的回调函数
+       * @param data 成功返回的数据
+       */
+      success?(data: {
+        /**
+         * @summary 芯片返回数据
+         */
+        data: ArrayBuffer;
+      }): void;
+      /**
+       * 接口调用失败的回调函数
+       * @param err 错误信息
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              /**
+               * @summary 芯片返回数据
+               */
+              data: ArrayBuffer;
+            }
+          | {
+              error?: number;
+              errorMessage?: string;
+            },
+      ): void;
+    }): Promise<{
+      /**
+       * @summary 芯片返回数据
+       */
+      data: ArrayBuffer;
+    }>;
+  }
+  export interface IsoDep {
+    readonly techType: 'NDEF' | 'NFC-A' | 'NFC-B' | 'ISO-DEP' | 'NFC-F' | 'NFC-V' | 'MIFARE Classic' | 'MIFARE Ultralight';
+    /**
+     * @summary 断开连接
+     */
+    close(r?: {
+      /**
+       * 接口调用成功的回调函数
+       * @param data 成功返回的数据
+       */
+      success?(data: { success: true }): void;
+      /**
+       * 接口调用失败的回调函数
+       * @param err 错误信息
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              success: true;
+            }
+          | {
+              error?: number;
+              errorMessage?: string;
+            },
+      ): void;
+    }): Promise<{
+      success: true;
+    }>;
+    /**
+     * @summary 连接 NFC 标签
+     */
+    connect(r?: {
+      /**
+       * 接口调用成功的回调函数
+       * @param data 成功返回的数据
+       */
+      success?(data: { success: true }): void;
+      /**
+       * 接口调用失败的回调函数
+       * @param err 错误信息
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              success: true;
+            }
+          | {
+              error?: number;
+              errorMessage?: string;
+            },
+      ): void;
+    }): Promise<{
+      success: true;
+    }>;
+    /**
+     * @summary 获取复位信息
+     */
+    getHistoricalBytes(r?: {
+      /**
+       * 接口调用成功的回调函数
+       * @param data 成功返回的数据
+       */
+      success?(data: {
+        /**
+         * @summary 返回历史二进制数据
+         */
+        histBytes: ArrayBuffer;
+      }): void;
+      /**
+       * 接口调用失败的回调函数
+       * @param err 错误信息
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              /**
+               * @summary 返回历史二进制数据
+               */
+              histBytes: ArrayBuffer;
+            }
+          | {
+              error?: number;
+              errorMessage?: string;
+            },
+      ): void;
+    }): Promise<{
+      /**
+       * @summary 返回历史二进制数据
+       */
+      histBytes: ArrayBuffer;
+    }>;
+    /**
+     * @summary 获取最大传输长度
+     */
+    getMaxTransceiveLength(r?: {
+      /**
+       * 接口调用成功的回调函数
+       * @param data 成功返回的数据
+       */
+      success?(data: {
+        /**
+         * @summary 最大传输长度
+         */
+        length: number;
+      }): void;
+      /**
+       * 接口调用失败的回调函数
+       * @param err 错误信息
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              /**
+               * @summary 最大传输长度
+               */
+              length: number;
+            }
+          | {
+              error?: number;
+              errorMessage?: string;
+            },
+      ): void;
+    }): Promise<{
+      /**
+       * @summary 最大传输长度
+       */
+      length: number;
+    }>;
+    /**
+     * @summary 设置超时时间
+     */
+    setTimeout(r: {
+      /**
+       * @summary 设置超时时间（ms）
+       */
+      timeout: number;
+      /**
+       * 接口调用成功的回调函数
+       * @param data 成功返回的数据
+       */
+      success?(data: { success: true }): void;
+      /**
+       * 接口调用失败的回调函数
+       * @param err 错误信息
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              success: true;
+            }
+          | {
+              error?: number;
+              errorMessage?: string;
+            },
+      ): void;
+    }): Promise<{
+      success: true;
+    }>;
+    /**
+     * @summary 传输数据
+     */
+    transceive(r: {
+      /**
+       * @summary 需要传递的二进制数据
+       */
+      data: ArrayBuffer;
+      /**
+       * 接口调用成功的回调函数
+       * @param data 成功返回的数据
+       */
+      success?(data: {
+        /**
+         * @summary 芯片返回数据
+         */
+        data: ArrayBuffer;
+      }): void;
+      /**
+       * 接口调用失败的回调函数
+       * @param err 错误信息
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              /**
+               * @summary 芯片返回数据
+               */
+              data: ArrayBuffer;
+            }
+          | {
+              error?: number;
+              errorMessage?: string;
+            },
+      ): void;
+    }): Promise<{
+      /**
+       * @summary 芯片返回数据
+       */
+      data: ArrayBuffer;
+    }>;
+  }
+  export interface NfcV {
+    readonly techType: 'NDEF' | 'NFC-A' | 'NFC-B' | 'ISO-DEP' | 'NFC-F' | 'NFC-V' | 'MIFARE Classic' | 'MIFARE Ultralight';
+    /**
+     * @summary 断开连接
+     */
+    close(r?: {
+      /**
+       * 接口调用成功的回调函数
+       * @param data 成功返回的数据
+       */
+      success?(data: { success: true }): void;
+      /**
+       * 接口调用失败的回调函数
+       * @param err 错误信息
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              success: true;
+            }
+          | {
+              error?: number;
+              errorMessage?: string;
+            },
+      ): void;
+    }): Promise<{
+      success: true;
+    }>;
+    /**
+     * @summary 连接 NFC 标签
+     */
+    connect(r?: {
+      /**
+       * 接口调用成功的回调函数
+       * @param data 成功返回的数据
+       */
+      success?(data: { success: true }): void;
+      /**
+       * 接口调用失败的回调函数
+       * @param err 错误信息
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              success: true;
+            }
+          | {
+              error?: number;
+              errorMessage?: string;
+            },
+      ): void;
+    }): Promise<{
+      success: true;
+    }>;
+    /**
+     * @summary 获取最大传输长度
+     */
+    getMaxTransceiveLength(r?: {
+      /**
+       * 接口调用成功的回调函数
+       * @param data 成功返回的数据
+       */
+      success?(data: {
+        /**
+         * @summary 最大传输长度
+         */
+        length: number;
+      }): void;
+      /**
+       * 接口调用失败的回调函数
+       * @param err 错误信息
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              /**
+               * @summary 最大传输长度
+               */
+              length: number;
+            }
+          | {
+              error?: number;
+              errorMessage?: string;
+            },
+      ): void;
+    }): Promise<{
+      /**
+       * @summary 最大传输长度
+       */
+      length: number;
+    }>;
+    /**
+     * @summary 设置超时时间
+     */
+    setTimeout(r: {
+      /**
+       * @summary 设置超时时间（ms）
+       */
+      timeout: number;
+      /**
+       * 接口调用成功的回调函数
+       * @param data 成功返回的数据
+       */
+      success?(data: { success: true }): void;
+      /**
+       * 接口调用失败的回调函数
+       * @param err 错误信息
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              success: true;
+            }
+          | {
+              error?: number;
+              errorMessage?: string;
+            },
+      ): void;
+    }): Promise<{
+      success: true;
+    }>;
+    /**
+     * @summary 传输数据
+     */
+    transceive(r: {
+      /**
+       * @summary 需要传递的二进制数据
+       */
+      data: ArrayBuffer;
+      /**
+       * 接口调用成功的回调函数
+       * @param data 成功返回的数据
+       */
+      success?(data: {
+        /**
+         * @summary 芯片返回数据
+         */
+        data: ArrayBuffer;
+      }): void;
+      /**
+       * 接口调用失败的回调函数
+       * @param err 错误信息
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              /**
+               * @summary 芯片返回数据
+               */
+              data: ArrayBuffer;
+            }
+          | {
+              error?: number;
+              errorMessage?: string;
+            },
+      ): void;
+    }): Promise<{
+      /**
+       * @summary 芯片返回数据
+       */
+      data: ArrayBuffer;
+    }>;
+  }
+  export interface NfcB {
+    readonly techType: 'NDEF' | 'NFC-A' | 'NFC-B' | 'ISO-DEP' | 'NFC-F' | 'NFC-V' | 'MIFARE Classic' | 'MIFARE Ultralight';
+    /**
+     * @summary 断开连接
+     */
+    close(r?: {
+      /**
+       * 接口调用成功的回调函数
+       * @param data 成功返回的数据
+       */
+      success?(data: { success: true }): void;
+      /**
+       * 接口调用失败的回调函数
+       * @param err 错误信息
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              success: true;
+            }
+          | {
+              error?: number;
+              errorMessage?: string;
+            },
+      ): void;
+    }): Promise<{
+      success: true;
+    }>;
+    /**
+     * @summary 连接 NFC 标签
+     */
+    connect(r?: {
+      /**
+       * 接口调用成功的回调函数
+       * @param data 成功返回的数据
+       */
+      success?(data: { success: true }): void;
+      /**
+       * 接口调用失败的回调函数
+       * @param err 错误信息
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              success: true;
+            }
+          | {
+              error?: number;
+              errorMessage?: string;
+            },
+      ): void;
+    }): Promise<{
+      success: true;
+    }>;
+    /**
+     * @summary 获取最大传输长度
+     */
+    getMaxTransceiveLength(r?: {
+      /**
+       * 接口调用成功的回调函数
+       * @param data 成功返回的数据
+       */
+      success?(data: {
+        /**
+         * @summary 最大传输长度
+         */
+        length: number;
+      }): void;
+      /**
+       * 接口调用失败的回调函数
+       * @param err 错误信息
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              /**
+               * @summary 最大传输长度
+               */
+              length: number;
+            }
+          | {
+              error?: number;
+              errorMessage?: string;
+            },
+      ): void;
+    }): Promise<{
+      /**
+       * @summary 最大传输长度
+       */
+      length: number;
+    }>;
+    /**
+     * @summary 设置超时时间
+     */
+    setTimeout(r: {
+      /**
+       * @summary 设置超时时间（ms）
+       */
+      timeout: number;
+      /**
+       * 接口调用成功的回调函数
+       * @param data 成功返回的数据
+       */
+      success?(data: { success: true }): void;
+      /**
+       * 接口调用失败的回调函数
+       * @param err 错误信息
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              success: true;
+            }
+          | {
+              error?: number;
+              errorMessage?: string;
+            },
+      ): void;
+    }): Promise<{
+      success: true;
+    }>;
+    /**
+     * @summary 传输数据
+     */
+    transceive(r: {
+      /**
+       * @summary 需要传递的二进制数据
+       */
+      data: ArrayBuffer;
+      /**
+       * 接口调用成功的回调函数
+       * @param data 成功返回的数据
+       */
+      success?(data: {
+        /**
+         * @summary 芯片返回数据
+         */
+        data: ArrayBuffer;
+      }): void;
+      /**
+       * 接口调用失败的回调函数
+       * @param err 错误信息
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              /**
+               * @summary 芯片返回数据
+               */
+              data: ArrayBuffer;
+            }
+          | {
+              error?: number;
+              errorMessage?: string;
+            },
+      ): void;
+    }): Promise<{
+      /**
+       * @summary 芯片返回数据
+       */
+      data: ArrayBuffer;
+    }>;
+  }
+  export interface NfcF {
+    readonly techType: 'NDEF' | 'NFC-A' | 'NFC-B' | 'ISO-DEP' | 'NFC-F' | 'NFC-V' | 'MIFARE Classic' | 'MIFARE Ultralight';
+    /**
+     * @summary 断开连接
+     */
+    close(r?: {
+      /**
+       * 接口调用成功的回调函数
+       * @param data 成功返回的数据
+       */
+      success?(data: { success: true }): void;
+      /**
+       * 接口调用失败的回调函数
+       * @param err 错误信息
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              success: true;
+            }
+          | {
+              error?: number;
+              errorMessage?: string;
+            },
+      ): void;
+    }): Promise<{
+      success: true;
+    }>;
+    /**
+     * @summary 连接 NFC 标签
+     */
+    connect(r?: {
+      /**
+       * 接口调用成功的回调函数
+       * @param data 成功返回的数据
+       */
+      success?(data: { success: true }): void;
+      /**
+       * 接口调用失败的回调函数
+       * @param err 错误信息
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              success: true;
+            }
+          | {
+              error?: number;
+              errorMessage?: string;
+            },
+      ): void;
+    }): Promise<{
+      success: true;
+    }>;
+    /**
+     * @summary 获取最大传输长度
+     */
+    getMaxTransceiveLength(r?: {
+      /**
+       * 接口调用成功的回调函数
+       * @param data 成功返回的数据
+       */
+      success?(data: {
+        /**
+         * @summary 最大传输长度
+         */
+        length: number;
+      }): void;
+      /**
+       * 接口调用失败的回调函数
+       * @param err 错误信息
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              /**
+               * @summary 最大传输长度
+               */
+              length: number;
+            }
+          | {
+              error?: number;
+              errorMessage?: string;
+            },
+      ): void;
+    }): Promise<{
+      /**
+       * @summary 最大传输长度
+       */
+      length: number;
+    }>;
+    /**
+     * @summary 设置超时时间
+     */
+    setTimeout(r: {
+      /**
+       * @summary 设置超时时间（ms）
+       */
+      timeout: number;
+      /**
+       * 接口调用成功的回调函数
+       * @param data 成功返回的数据
+       */
+      success?(data: { success: true }): void;
+      /**
+       * 接口调用失败的回调函数
+       * @param err 错误信息
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              success: true;
+            }
+          | {
+              error?: number;
+              errorMessage?: string;
+            },
+      ): void;
+    }): Promise<{
+      success: true;
+    }>;
+    /**
+     * @summary 传输数据
+     */
+    transceive(r: {
+      /**
+       * @summary 需要传递的二进制数据
+       */
+      data: ArrayBuffer;
+      /**
+       * 接口调用成功的回调函数
+       * @param data 成功返回的数据
+       */
+      success?(data: {
+        /**
+         * @summary 芯片返回数据
+         */
+        data: ArrayBuffer;
+      }): void;
+      /**
+       * 接口调用失败的回调函数
+       * @param err 错误信息
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              /**
+               * @summary 芯片返回数据
+               */
+              data: ArrayBuffer;
+            }
+          | {
+              error?: number;
+              errorMessage?: string;
+            },
+      ): void;
+    }): Promise<{
+      /**
+       * @summary 芯片返回数据
+       */
+      data: ArrayBuffer;
+    }>;
+  }
+  export interface MifareClassic {
+    readonly techType: 'NDEF' | 'NFC-A' | 'NFC-B' | 'ISO-DEP' | 'NFC-F' | 'NFC-V' | 'MIFARE Classic' | 'MIFARE Ultralight';
+    /**
+     * @summary 断开连接
+     */
+    close(r?: {
+      /**
+       * 接口调用成功的回调函数
+       * @param data 成功返回的数据
+       */
+      success?(data: { success: true }): void;
+      /**
+       * 接口调用失败的回调函数
+       * @param err 错误信息
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              success: true;
+            }
+          | {
+              error?: number;
+              errorMessage?: string;
+            },
+      ): void;
+    }): Promise<{
+      success: true;
+    }>;
+    /**
+     * @summary 连接 NFC 标签
+     */
+    connect(r?: {
+      /**
+       * 接口调用成功的回调函数
+       * @param data 成功返回的数据
+       */
+      success?(data: { success: true }): void;
+      /**
+       * 接口调用失败的回调函数
+       * @param err 错误信息
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              success: true;
+            }
+          | {
+              error?: number;
+              errorMessage?: string;
+            },
+      ): void;
+    }): Promise<{
+      success: true;
+    }>;
+    /**
+     * @summary 获取最大传输长度
+     */
+    getMaxTransceiveLength(r?: {
+      /**
+       * 接口调用成功的回调函数
+       * @param data 成功返回的数据
+       */
+      success?(data: {
+        /**
+         * @summary 最大传输长度
+         */
+        length: number;
+      }): void;
+      /**
+       * 接口调用失败的回调函数
+       * @param err 错误信息
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              /**
+               * @summary 最大传输长度
+               */
+              length: number;
+            }
+          | {
+              error?: number;
+              errorMessage?: string;
+            },
+      ): void;
+    }): Promise<{
+      /**
+       * @summary 最大传输长度
+       */
+      length: number;
+    }>;
+    /**
+     * @summary 设置超时时间
+     */
+    setTimeout(r: {
+      /**
+       * @summary 设置超时时间（ms）
+       */
+      timeout: number;
+      /**
+       * 接口调用成功的回调函数
+       * @param data 成功返回的数据
+       */
+      success?(data: { success: true }): void;
+      /**
+       * 接口调用失败的回调函数
+       * @param err 错误信息
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              success: true;
+            }
+          | {
+              error?: number;
+              errorMessage?: string;
+            },
+      ): void;
+    }): Promise<{
+      success: true;
+    }>;
+    /**
+     * @summary 传输数据
+     */
+    transceive(r: {
+      /**
+       * @summary 需要传递的二进制数据
+       */
+      data: ArrayBuffer;
+      /**
+       * 接口调用成功的回调函数
+       * @param data 成功返回的数据
+       */
+      success?(data: {
+        /**
+         * @summary 芯片返回数据
+         */
+        data: ArrayBuffer;
+      }): void;
+      /**
+       * 接口调用失败的回调函数
+       * @param err 错误信息
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              /**
+               * @summary 芯片返回数据
+               */
+              data: ArrayBuffer;
+            }
+          | {
+              error?: number;
+              errorMessage?: string;
+            },
+      ): void;
+    }): Promise<{
+      /**
+       * @summary 芯片返回数据
+       */
+      data: ArrayBuffer;
+    }>;
+  }
+  export interface MifareUltralight {
+    readonly techType: 'NDEF' | 'NFC-A' | 'NFC-B' | 'ISO-DEP' | 'NFC-F' | 'NFC-V' | 'MIFARE Classic' | 'MIFARE Ultralight';
+    /**
+     * @summary 断开连接
+     */
+    close(r?: {
+      /**
+       * 接口调用成功的回调函数
+       * @param data 成功返回的数据
+       */
+      success?(data: { success: true }): void;
+      /**
+       * 接口调用失败的回调函数
+       * @param err 错误信息
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              success: true;
+            }
+          | {
+              error?: number;
+              errorMessage?: string;
+            },
+      ): void;
+    }): Promise<{
+      success: true;
+    }>;
+    /**
+     * @summary 连接 NFC 标签
+     */
+    connect(r?: {
+      /**
+       * 接口调用成功的回调函数
+       * @param data 成功返回的数据
+       */
+      success?(data: { success: true }): void;
+      /**
+       * 接口调用失败的回调函数
+       * @param err 错误信息
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              success: true;
+            }
+          | {
+              error?: number;
+              errorMessage?: string;
+            },
+      ): void;
+    }): Promise<{
+      success: true;
+    }>;
+    /**
+     * @summary 获取最大传输长度
+     */
+    getMaxTransceiveLength(r?: {
+      /**
+       * 接口调用成功的回调函数
+       * @param data 成功返回的数据
+       */
+      success?(data: {
+        /**
+         * @summary 最大传输长度
+         */
+        length: number;
+      }): void;
+      /**
+       * 接口调用失败的回调函数
+       * @param err 错误信息
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              /**
+               * @summary 最大传输长度
+               */
+              length: number;
+            }
+          | {
+              error?: number;
+              errorMessage?: string;
+            },
+      ): void;
+    }): Promise<{
+      /**
+       * @summary 最大传输长度
+       */
+      length: number;
+    }>;
+    /**
+     * @summary 设置超时时间
+     */
+    setTimeout(r: {
+      /**
+       * @summary 设置超时时间（ms）
+       */
+      timeout: number;
+      /**
+       * 接口调用成功的回调函数
+       * @param data 成功返回的数据
+       */
+      success?(data: { success: true }): void;
+      /**
+       * 接口调用失败的回调函数
+       * @param err 错误信息
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              success: true;
+            }
+          | {
+              error?: number;
+              errorMessage?: string;
+            },
+      ): void;
+    }): Promise<{
+      success: true;
+    }>;
+    /**
+     * @summary 传输数据
+     */
+    transceive(r: {
+      /**
+       * @summary 需要传递的二进制数据
+       */
+      data: ArrayBuffer;
+      /**
+       * 接口调用成功的回调函数
+       * @param data 成功返回的数据
+       */
+      success?(data: {
+        /**
+         * @summary 芯片返回数据
+         */
+        data: ArrayBuffer;
+      }): void;
+      /**
+       * 接口调用失败的回调函数
+       * @param err 错误信息
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              /**
+               * @summary 芯片返回数据
+               */
+              data: ArrayBuffer;
+            }
+          | {
+              error?: number;
+              errorMessage?: string;
+            },
+      ): void;
+    }): Promise<{
+      /**
+       * @summary 芯片返回数据
+       */
+      data: ArrayBuffer;
+    }>;
+  }
   interface IReadNdefMessageData {
     messages: IReadNdefMessageDataMessages[];
   }
