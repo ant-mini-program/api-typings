@@ -338,6 +338,11 @@ export type IPageInstance<
       callback?: () => void
     ): void;
     /**
+     * 获取自定义 tabBar 实例
+     * @version 2.7.20+
+     */
+    getTabBar(): IComponentInstance<{}, {}, {}, {}, UnknownRecord, []> | void;
+    /**
      * $spliceData 同样用于将数据从逻辑层发送到视图层，但是相比于 setData，在处理长列表的时候，其具有更高的性能。
      * @param data
      * @param callback
@@ -526,6 +531,11 @@ export declare type IComponentInstance<
       data: RecursivePartialAndDynamic<Data> & Record<string, unknown>,
       callback?: () => void
     ): void;
+    /**
+     * 获取自定义 tabBar 实例
+     * @version 2.7.20+
+     */
+     getTabBar(): IComponentInstance<{}, {}, {}, {}, UnknownRecord, []> | void;
     /**
      * $spliceData 同样用于将数据从逻辑层发送到视图层，但是相比于 setData，在处理长列表的时候，其具有更高的性能。
      * @param data
