@@ -69,16 +69,6 @@ export interface IAppOnUnhandledRejectionRes {
   promise: Promise<unknown>;
 }
 
-declare global {
-  /**
-   * App's constructor
-   * @link https://opendocs.alipay.com/mini/framework/app-detail
-   */
-  function App<
-    ExtraThis = {},
-    ExtraOptions extends Record<string, unknown> = {}
-  >(opts: IUserAppOptions<ExtraThis, ExtraOptions>): void;
-}
 /**
  * app.js App(options) 中 options 的内部类型
  * ref: https://opendocs.alipay.com/mini/framework/app-detail
@@ -155,18 +145,6 @@ export type IUserAppOptions<
       : ExtraOptions[P];
   } & ThisType<IAppInstance<ExtraThis, ExtraOptions>>;
 
-declare global {
-  /**
-   * Page's constructor
-   * @link https://opendocs.alipay.com/mini/framework/page-detail
-   */
-  function Page<
-    Data = {},
-    ExtraThis = {},
-    ExtraOptions extends Record<string, unknown> = {}
-  >(opts: IUserPageOptions<Data, ExtraThis, ExtraOptions>): void;
-}
-
 /**
  * 页面事件处理对象
  */
@@ -201,7 +179,7 @@ export interface IPageEvents {
    * 页面下拉时触发
    * @since 1.13.7
    */
-  onPullDownRefresh(res: { from: "manual" | "code" }): void;
+  onPullDownRefresh(res: { from: 'manual' | 'code' }): void;
   /**
    * 点击标题触发
    * @since 1.13.7
@@ -384,30 +362,6 @@ export declare type IUserPageOptions<
  */
 export interface IPage<Data, ExtraThis, ExtraOptions extends UnknownRecord> {
   (opts: IUserPageOptions<Data, ExtraThis, ExtraOptions>): any;
-}
-
-declare global {
-  /**
-   * Component's constructor
-   * @link https://opendocs.alipay.com/mini/framework/component_object
-   */
-  function Component<
-    Data = {},
-    Props = {},
-    Methods = {},
-    ExtraThis = {},
-    ExtraOptions extends Record<string, unknown> = {},
-    Mixin extends any[] = []
-  >(
-    opts: IUserComponentOptions<
-      Data,
-      Props,
-      Methods,
-      ExtraThis,
-      ExtraOptions,
-      Mixin
-    >
-  ): void;
 }
 
 /**
@@ -603,3 +557,55 @@ type UnionToIntersection<T> = (T extends any ? (x: T) => any : never) extends (
 ) => any
   ? R
   : never;
+
+export interface IRequirePlugin<
+  Target extends Record<string, any> = Record<string, any>
+> {
+  <K extends keyof Target>(pluginName: K): Target[K];
+  <Result extends any>(pluginName: string): Result;
+}
+
+declare global {
+  const requirePlugin: IRequirePlugin;
+
+  /**
+   * App's constructor
+   * @link https://opendocs.alipay.com/mini/framework/app-detail
+   */
+  function App<
+    ExtraThis = {},
+    ExtraOptions extends Record<string, unknown> = {}
+  >(opts: IUserAppOptions<ExtraThis, ExtraOptions>): void;
+
+  /**
+   * Page's constructor
+   * @link https://opendocs.alipay.com/mini/framework/page-detail
+   */
+  function Page<
+    Data = {},
+    ExtraThis = {},
+    ExtraOptions extends Record<string, unknown> = {}
+  >(opts: IUserPageOptions<Data, ExtraThis, ExtraOptions>): void;
+
+  /**
+   * Component's constructor
+   * @link https://opendocs.alipay.com/mini/framework/component_object
+   */
+  function Component<
+    Data = {},
+    Props = {},
+    Methods = {},
+    ExtraThis = {},
+    ExtraOptions extends Record<string, unknown> = {},
+    Mixin extends any[] = []
+  >(
+    opts: IUserComponentOptions<
+      Data,
+      Props,
+      Methods,
+      ExtraThis,
+      ExtraOptions,
+      Mixin
+    >
+  ): void;
+}
