@@ -64,7 +64,7 @@ declare namespace my {
   /**
    * @summary 创建离屏 canvas 对象
    */
-  export function _createOffscreenCanvas(width: number, height: number, type: '2d' | 'webgl'): OffScreenCanvas;
+  export function _createOffscreenCanvas(width?: number, height?: number, type?: '2d' | 'webgl'): OffScreenCanvas;
   /**
    * @summary 写入联系人资料到设备通讯录
    * @description 用户可以选择将表单以“创建新联系人”或“添加到现有联系人”的方式，写入联系人资料到手机系统的通讯录
@@ -260,26 +260,20 @@ declare namespace my {
      * 接口调用成功的回调函数
      * @param data 成功返回的数据
      */
-    success?(
-      data:
-        | {
-            /**
-             * @summary 是否成功。成功返回 true，失败返回 false。
-             */
-            success: true;
-            /**
-             * @summary 距离，单位为 米。
-             */
-            distance: number;
-            /**
-             * @summary 时间，单位为 秒。
-             */
-            duration: number;
-          }
-        | {
-            success?: false;
-          },
-    ): void;
+    success?(data: {
+      /**
+       * @summary 是否成功。成功返回 true，失败返回 false。
+       */
+      success: boolean;
+      /**
+       * @summary 距离，单位为 米。
+       */
+      distance: number;
+      /**
+       * @summary 时间，单位为 秒。
+       */
+      duration: number;
+    }): void;
     /**
      * 接口调用失败的回调函数
      * @param err 错误信息
@@ -290,49 +284,39 @@ declare namespace my {
      */
     complete?(
       arg:
-        | (
-            | {
-                /**
-                 * @summary 是否成功。成功返回 true，失败返回 false。
-                 */
-                success: true;
-                /**
-                 * @summary 距离，单位为 米。
-                 */
-                distance: number;
-                /**
-                 * @summary 时间，单位为 秒。
-                 */
-                duration: number;
-              }
-            | {
-                success?: false;
-              }
-          )
+        | {
+            /**
+             * @summary 是否成功。成功返回 true，失败返回 false。
+             */
+            success: boolean;
+            /**
+             * @summary 距离，单位为 米。
+             */
+            distance: number;
+            /**
+             * @summary 时间，单位为 秒。
+             */
+            duration: number;
+          }
         | {
             error?: number;
             errorMessage?: string;
           },
     ): void;
-  }): Promise<
-    | {
-        /**
-         * @summary 是否成功。成功返回 true，失败返回 false。
-         */
-        success: true;
-        /**
-         * @summary 距离，单位为 米。
-         */
-        distance: number;
-        /**
-         * @summary 时间，单位为 秒。
-         */
-        duration: number;
-      }
-    | {
-        success?: false;
-      }
-  >;
+  }): Promise<{
+    /**
+     * @summary 是否成功。成功返回 true，失败返回 false。
+     */
+    success: boolean;
+    /**
+     * @summary 距离，单位为 米。
+     */
+    distance: number;
+    /**
+     * @summary 时间，单位为 秒。
+     */
+    duration: number;
+  }>;
   /**
    * @summary 取消蓝牙配对
    */
@@ -662,13 +646,21 @@ declare namespace my {
      * @default "国内"
      */
     mainTitle?: string;
-    mainHeadList?: string[];
-    mainNormalList?: string[];
+    mainHeadList?: IChooseDistrictHeadItem[];
+    mainNormalList?: IChooseDistrictListItem[];
+    mainMergeOptions?: Record<string, string>;
     /**
+     * @summary 境外 Tab 自定义标题
      * @default "国际/港澳台"
      */
     seniorTitle?: string;
     seniorPageList?: IChooseDistrictSeniorPageList[];
+    /**
+     * @summary 使用文件读取方式
+     *
+     * 自定义数据量大时，建议将数据文件内置在小程序内。文件内参数格式同接口定义。
+     */
+    src?: string;
     /**
      * 接口调用成功的回调函数
      * @param data 成功返回的数据
@@ -795,17 +787,13 @@ declare namespace my {
    */
   export function chooseLocation(r?: {
     /**
-     * @summary 是否显示tab页
-     */
-    showTab?: boolean;
-    /**
-     * @summary 发送按钮文案
-     */
-    sendBtnText?: string;
-    /**
      * @summary 页面显示标题
      */
     title?: string;
+    /**
+     * @summary 是否显示tab页
+     */
+    showTab?: boolean;
     /**
      * @summary 预设纬度 传入该参数将自动定位到该点
      */
@@ -1117,9 +1105,13 @@ declare namespace my {
    */
   export function closeSocket(r?: {
     /**
+     * @summary 关闭连接的状态号
      * @default 1000
      */
     code?: number;
+    /**
+     * @summary 连接被关闭的原因
+     */
     reason?: string;
     /**
      * 接口调用成功的回调函数
@@ -1348,7 +1340,7 @@ declare namespace my {
   /**
    * @summary 创建动画实例
    */
-  export function createAnimation(param: {
+  export function createAnimation(param?: {
     /**
      * @summary 动画持续时间，单位 ms
      * @default 400
@@ -1380,7 +1372,7 @@ declare namespace my {
   /**
    * @summary 创建并返回 IntersectionObserver 对象
    */
-  export function createIntersectionObserver(option: IMyCreateIntersectionObserverOption): IntersectionObserver;
+  export function createIntersectionObserver(option?: IMyCreateIntersectionObserverOption): IntersectionObserver;
   /**
    * @summary 创建并返回 <lottie> 组件上下文
    */
@@ -1393,7 +1385,7 @@ declare namespace my {
    * @summary 创建视图信息查询实例
    * @description - 在 `自定义组件` 或包含 `自定义组件` 页面中，希望仅查询自身模板（不跨组件）的视图信息，应使用 `this.createSelectorQuery()` 来代替
    */
-  export function createSelectorQuery(option: IMyCreateSelectorQueryOption): SelectorQuery;
+  export function createSelectorQuery(option?: IMyCreateSelectorQueryOption): SelectorQuery;
   /**
    * @summary 创建并返回 <web-view> 组件上下文
    */
@@ -1689,6 +1681,7 @@ declare namespace my {
   }>;
   /**
    * @summary 退出当前小程序
+   * @description 该 API 仅在 "用户操作"(tap) 事件响应函数中生效
    */
   export function exitMiniProgram(r?: {
     /**
@@ -1751,7 +1744,7 @@ declare namespace my {
     /**
      * @summary 返回图片的方向，有效值见下表。
      */
-    orientation: 'right' | 'left' | 'up' | 'down' | 'up-mirrored' | 'down-mirrored' | 'left-mirrored' | 'right-mirrored';
+    orientation?: 'right' | 'left' | 'up' | 'down' | 'up-mirrored' | 'down-mirrored' | 'left-mirrored' | 'right-mirrored';
     /**
      * 接口调用成功的回调函数
      * @param data 成功返回的数据
@@ -1929,17 +1922,15 @@ declare namespace my {
     mobilePhone: string;
   }>;
   /**
-   * @summary 应用授权情况(同步接口)
+   * @summary 同步应用授权情况
    */
   export function getAppAuthorizeSetting(): {
     /**
      * @summary 允许使用相册的开关
-     * @android false
      */
     albumAuthorized: boolean;
     /**
      * @summary 允许使用蓝牙的开关
-     * @android false
      */
     bluetoothAuthorized: boolean;
     /**
@@ -1960,27 +1951,23 @@ declare namespace my {
     notificationAuthorized: boolean;
     /**
      * @summary 允许通知带有提醒的开关
-     * @android false
      */
     notificationAlertAuthorized: boolean;
     /**
      * @summary 允许通知带有标记的开关
-     * @android false
      */
     notificationBadgeAuthorized: boolean;
     /**
      * @summary 允许通知带有声音的开关
-     * @android false
      */
     notificationSoundAuthorized: boolean;
     /**
      * @summary 悬浮窗权限
-     * @ios false
      */
     overlayAuthorized: boolean;
   };
   /**
-   * @summary 获取APP基础信息接口(同步接口)
+   * @summary 同步获取小程序基础信息接口
    */
   export function getAppBaseInfo(): {
     /**
@@ -1990,12 +1977,7 @@ declare namespace my {
     /**
      * @summary 当前小程序运行的宿主环境。
      */
-    host: {
-      /**
-       * @summary 宿主 app 对应的 appId。
-       */
-      appId: string;
-    };
+    host: IMyGetAppBaseInfoHost;
     /**
      * @summary 客户端设置的语言。分别有以下值：zh-Hans（简体中文）、en（English）、zh-Hant（繁体中文（台湾））、zh-HK（繁体中文（香港））。
      */
@@ -2758,7 +2740,7 @@ declare namespace my {
     wifi: IGetConnectedWifiWifi;
   }>;
   /**
-   * @summary 获取设备基础信息(同步接口)
+   * @summary 同步获取设备基础信息
    */
   export function getDeviceBaseInfo(): {
     /**
@@ -2776,7 +2758,7 @@ declare namespace my {
     /**
      * @summary 系统名：Android，iOS / iPhone OS 。
      */
-    platform: string;
+    platform: 'ios' | 'android';
   };
   /**
    * @summary 获得小程序本次唤起的参数
@@ -3334,6 +3316,7 @@ declare namespace my {
   };
   /**
    * @summary 获取当前网络状态
+   * @description 获取后续网络状态变化可以使用 [my.onNetworkStatusChange]() 进行持续监听
    */
   export function getNetworkType(r?: {
     /**
@@ -3902,7 +3885,7 @@ declare namespace my {
      * 接口调用成功的回调函数
      * @param data 成功返回的数据
      */
-    success?(data: { data: string }): void;
+    success?(data: { data: any }): void;
     /**
      * 接口调用失败的回调函数
      * @param err 错误信息
@@ -3914,7 +3897,7 @@ declare namespace my {
     complete?(
       arg:
         | {
-            data: string;
+            data: any;
           }
         | {
             error?: number;
@@ -3922,7 +3905,7 @@ declare namespace my {
           },
     ): void;
   }): Promise<{
-    data: string;
+    data: any;
   }>;
   /**
    * @summary 获取缓存数据相关信息
@@ -4010,7 +3993,7 @@ declare namespace my {
    * @summary 同步获取缓存数据
    */
   export function getStorageSync(r: { key: string }): {
-    data: string;
+    data: unknown;
   };
   /**
    * @summary 获取手机系统信息。
@@ -4783,7 +4766,7 @@ declare namespace my {
     notificationSoundAuthorized: boolean;
   };
   /**
-   * @summary 获取设备设置(同步接口)
+   * @summary 同步获取设备设置
    */
   export function getSystemSetting(): {
     /**
@@ -4868,7 +4851,7 @@ declare namespace my {
     complete?(arg: { error?: number; errorMessage?: string }): void;
   }): Promise<void>;
   /**
-   * @summary 获取窗口信息(同步接口)
+   * @summary 同步获取窗口信息
    */
   export function getWindowInfo(): {
     /**
@@ -4898,14 +4881,7 @@ declare namespace my {
     /**
      * @summary 在竖屏正方向下的安全区域
      */
-    safeArea: {
-      left: number;
-      right: number;
-      top: number;
-      bottom: number;
-      height: number;
-      width: number;
-    };
+    safeArea: IMyGetWindowInfoSafeArea;
   };
   /**
    * @summary 隐藏当前页面菜单中的添加到桌面功能
@@ -4991,6 +4967,7 @@ declare namespace my {
    * @description 可与 [my.showLoading]() 配合使用
    */
   export function hideLoading(r?: {
+    page?: any;
     /**
      * 接口调用成功的回调函数
      * @param data 成功返回的数据
@@ -6299,6 +6276,48 @@ declare namespace my {
      */
     complete?(arg: { error?: number; errorMessage?: string }): void;
   }): Promise<void>;
+  /**
+   * @summary 打开半屏小程序
+   */
+  export function openEmbeddedMiniProgram(r: {
+    /**
+     * @summary 要跳转的目标小程序 appId
+     */
+    appId: string;
+    /**
+     * @summary 打开的页面路径
+     * @description 如果为空则打开首页。
+     */
+    path?: string;
+    /**
+     * @summary 用于设置目标小程序的 app 级别 query 参数
+     * @description 目标小程序可在 App.onLaunch()，App.onShow() 中获取到这份数据。
+     */
+    query?: {
+      [key: string]: unknown;
+    };
+    /**
+     * @summary 需要传递给目标小程序的数据
+     * @description 目标小程序可在 App.onLaunch()，App.onShow() 中获取到这份数据。
+     */
+    extraData?: {
+      [key: string]: unknown;
+    };
+    /**
+     * 接口调用成功的回调函数
+     * @param data 成功返回的数据
+     */
+    success?(data: {}): void;
+    /**
+     * 接口调用失败的回调函数
+     * @param err 错误信息
+     */
+    fail?(err: { error?: number; errorMessage?: string }): void;
+    /**
+     * 接口调用结束的回调函数（调用成功、失败都会执行）
+     */
+    complete?(arg: { error?: number; errorMessage?: string }): void;
+  }): Promise<void>;
   export function openKBVoucherDetail(r: {
     /**
      * @summary 卡实例 ID，调用 [券发放接口](https://docs.open.alipay.com/api_24/alipay.pass.instance.add) 可以获取该参数。
@@ -6433,7 +6452,8 @@ declare namespace my {
     complete?(arg: { error?: number; errorMessage?: string }): void;
   }): Promise<void>;
   /**
-   * @summary 打开小程序设置界面，返回用户权限设置的结果
+   * @summary 跳转到小程序设置界面
+   * @description 返回用户权限设置的结果
    */
   export function openSetting(r?: {
     /**
@@ -6590,7 +6610,7 @@ declare namespace my {
   }): Promise<void>;
   /**
    * @summary 显示下拉列表选择器菜单
-   * @description 类似于 safari 原生 select 的组件，但是功能更加强大，一般用来替代 select，或者 2 级数据的选择
+   * @description 一般用于 2 级数据的选择，但不支持 2 级数据之间的联动
    */
   export function optionsSelect(r: {
     title?: string;
@@ -6805,7 +6825,7 @@ declare namespace my {
     complete?(arg: { error?: number; errorMessage?: string }): void;
   }): Promise<void>;
   /**
-   * @summary 弹出输入对话框
+   * @summary 显示输入对话框
    */
   export function prompt(r: {
     /**
@@ -7470,7 +7490,7 @@ declare namespace my {
     url: string;
     /**
      * @summary 是否显示图片操作菜单。
-     * @default true
+     * @default false
      */
     showActionSheet?: boolean;
     /**
@@ -7559,15 +7579,24 @@ declare namespace my {
    * @summary 跳转到扫一扫界面
    * @description - 唤起扫一扫会触发以下生命周期: App.onHide → Page.onHide → App.onShow → Page.onShow
    */
-  export function scan(r: {
+  export function scan(r?: {
     /**
+     * @deprecated 请使用 `scanType`
      * @default "qr"
      */
-    type: 'bar' | 'lottery' | 'qr';
-    scanType?: Array<'qrCode' | 'barCode' | 'dmCode' | 'pdf417Code' | 'narrowCode' | 'hmCode'>;
+    type?: 'bar' | 'lottery' | 'qr';
+    /**
+     * @summary 扫码识别类型
+     */
+    scanType?: ('qrCode' | 'barCode' | 'dmCode' | 'pdf417Code' | 'narrowCode' | 'hmCode')[];
     charset?: string;
+    /**
+     * 不允许从相册选择图片，只能从相机扫码
+     * @default false
+     */
     hideAlbum?: boolean;
     /**
+     * @summary 扫码动作
      * @default "scan"
      */
     actionType?: 'scan' | 'route' | 'scanAndRoute' | 'scanAndRpc';
@@ -7575,19 +7604,43 @@ declare namespace my {
      * @summary 指定用于”route”操作类型的码值
      */
     qrcode?: string;
+    needPath?: boolean;
     /**
      * 接口调用成功的回调函数
      * @param data 成功返回的数据
      */
-    success?(
-      data:
-        | {
-            barCode: string;
-          }
-        | {
-            qrCode: string;
-          },
-    ): void;
+    success?(data: {
+      /**
+       * @summary 扫描二维码时返回的结果
+       * @deprecated 请使用 code 字段
+       */
+      barCode?: string;
+      /**
+       * @summary 扫描条形码时返回的结果
+       * @deprecated 请使用 code 字段
+       */
+      qrCode?: string;
+      /**
+       * @summary 扫码结果
+       */
+      code: string;
+      /**
+       * @summary base64 编码的结果
+       */
+      rawData: string;
+      /**
+       * @summary 来源
+       */
+      imageChannel: string;
+      /**
+       * @summary 码内容
+       */
+      result: string;
+      /**
+       * @summary 码类型
+       */
+      scanType: string;
+    }): void;
     /**
      * 接口调用失败的回调函数
      * @param err 错误信息
@@ -7598,32 +7651,79 @@ declare namespace my {
      */
     complete?(
       arg:
-        | (
-            | {
-                barCode: string;
-              }
-            | {
-                qrCode: string;
-              }
-          )
+        | {
+            /**
+             * @summary 扫描二维码时返回的结果
+             * @deprecated 请使用 code 字段
+             */
+            barCode?: string;
+            /**
+             * @summary 扫描条形码时返回的结果
+             * @deprecated 请使用 code 字段
+             */
+            qrCode?: string;
+            /**
+             * @summary 扫码结果
+             */
+            code: string;
+            /**
+             * @summary base64 编码的结果
+             */
+            rawData: string;
+            /**
+             * @summary 来源
+             */
+            imageChannel: string;
+            /**
+             * @summary 码内容
+             */
+            result: string;
+            /**
+             * @summary 码类型
+             */
+            scanType: string;
+          }
         | {
             error?: number;
             errorMessage?: string;
           },
     ): void;
-  }): Promise<
-    | {
-        barCode: string;
-      }
-    | {
-        qrCode: string;
-      }
-  >;
+  }): Promise<{
+    /**
+     * @summary 扫描二维码时返回的结果
+     * @deprecated 请使用 code 字段
+     */
+    barCode?: string;
+    /**
+     * @summary 扫描条形码时返回的结果
+     * @deprecated 请使用 code 字段
+     */
+    qrCode?: string;
+    /**
+     * @summary 扫码结果
+     */
+    code: string;
+    /**
+     * @summary base64 编码的结果
+     */
+    rawData: string;
+    /**
+     * @summary 来源
+     */
+    imageChannel: string;
+    /**
+     * @summary 码内容
+     */
+    result: string;
+    /**
+     * @summary 码类型
+     */
+    scanType: string;
+  }>;
   /**
    * @summary 通过socket发送数据
    */
   export function sendSocketMessage(r: {
-    socketTaskID: string;
     /**
      * @summary 需要发送的内容：普通的文本内容 string 或者经 Base64 编码后的 string。
      */
@@ -7654,8 +7754,8 @@ declare namespace my {
    */
   export function setBackgroundColor(r?: {
     backgroundColor?: string;
-    kBackgroundColorTop?: string;
-    kBackgroundColorBottom?: string;
+    backgroundColorTop?: string;
+    backgroundColorBottom?: string;
     /**
      * 接口调用成功的回调函数
      * @param data 成功返回的数据
@@ -8140,7 +8240,7 @@ declare namespace my {
    */
   export function setWifiList(r: {
     /**
-     * @summary 提供预设的 Wifi 信息列表。
+     * @summary 提供预设的 Wifi 信息列表
      */
     wifiList: ISetWifiListWifiList[];
     /**
@@ -8465,12 +8565,12 @@ declare namespace my {
      */
     delay?: number;
     /**
-     * @summary 弱提示弹出时的 X 轴便宜
+     * @summary 弱提示弹出时的 X 轴偏移
      * @native 10.0.15
      */
     xOffset?: number;
     /**
-     * @summary 弱提示弹出时的 Y 轴便宜
+     * @summary 弱提示弹出时的 Y 轴偏移
      * @native 10.0.15
      */
     yOffset?: number;
@@ -8615,10 +8715,10 @@ declare namespace my {
    * - 搜索结果将在 [my.onBluetoothDeviceFound]() 事件中返回。
    * - 该操作比较耗费系统资源，请在搜索并连接到设备后调用 stop 方法停止搜索。
    */
-  export function startBluetoothDevicesDiscovery(r: {
+  export function startBluetoothDevicesDiscovery(r?: {
     includeClassic?: boolean;
-    deviceIds: string[];
-    deviceNames: string[];
+    deviceIds?: string[];
+    deviceNames?: string[];
     /**
      * @native 10.0.20
      */
@@ -8713,8 +8813,8 @@ declare namespace my {
   /**
    * @summary 触发页面下拉刷新
    * @description
-   * 调用 my.startPullDownRefresh 后触发下拉刷新动画，效果与用户手动下拉刷新一致（会触发 onPullDownRefresh 监听方法）。
-   * 当处理完数据刷新后，my.stopPullDownRefresh 可停止当前页面的下拉刷新
+   * 调用 [my.startPullDownRefresh]() 后触发下拉刷新动画，效果与用户手动下拉刷新一致（会触发 [my.onPullDownRefresh]() 监听方法）。
+   * 当处理完数据刷新后，[my.stopPullDownRefresh]() 可停止当前页面的下拉刷新
    */
   export function startPullDownRefresh(r?: {
     /**
@@ -9960,34 +10060,40 @@ declare namespace my {
   }
   export interface Animation {
     /**
-     * @summary 设置背景色
+     * @summary 设置动画背景色
      */
     backgroundColor(color: string): this;
     /**
-     * @summary 设置 bottom 值
+     * @summary 设置动画 bottom 偏移
      */
     bottom(length: string | number): this;
     /**
      * @summary 导出动画队列
      * @description export 方法每次调用后会清掉之前的动画操作
      */
-    export(): string;
+    export(): {};
+    /**
+     * @summary 设置动画高度
+     */
     height(length: string | number): this;
+    /**
+     * @summary 设置动画 left 偏移
+     */
     left(length: string | number): this;
     /**
-     * @summary 设置透明度
+     * @summary 设置动画透明度
      */
     opacity(opacity: number): this;
     /**
-     * @summary 设置 right 值
+     * @summary 设置动画 right 偏移
      */
     right(length: string | number): this;
     /**
-     * @summary 从原点顺时针旋转
+     * @summary 设置动画从固定二维轴顺时针旋转指定角度
      */
     rotate(deg: string | number): this;
     /**
-     * @summary 设置动画从固定轴顺时针旋转指定角度
+     * @summary 设置动画从固定三维轴顺时针旋转指定角度
      */
     rotate3d(x: string | number, y: string | number, z: string | number, deg: string | number): this;
     /**
@@ -10002,16 +10108,40 @@ declare namespace my {
      * @summary 设置动画以 Z 轴顺时针旋转指定角度
      */
     rotateZ(deg: string | number): this;
+    /**
+     * @summary 设置动画二维缩放
+     */
     scale(x: number, y: number): this;
+    /**
+     * @summary 设置动画三维缩放
+     */
     scale3d(sx: string | number, sy: string | number, sz: string | number): this;
+    /**
+     * @summary 设置动画以 X 轴缩放
+     */
     scaleX(x: number): this;
+    /**
+     * @summary 设置动画以 Y 轴缩放
+     */
     scaleY(y: number): this;
+    /**
+     * @summary 设置动画以 Z 轴缩放
+     */
     scaleZ(z: string | number): this;
+    /**
+     * @summary 设置动画二维倾斜变换
+     */
     skew(x: string | number, y: string | number): this;
+    /**
+     * @summary 设置动画以 X 轴倾斜变换
+     */
     skewX(x: string | number): this;
+    /**
+     * @summary 设置动画以 Y 轴倾斜变换
+     */
     skewY(y: string | number): this;
     /**
-     * @summary 表示一组动画完成
+     * @summary 完成一组动画
      * @description 可以在一组动画中调用任意多个动画方法，一组动画中的所有动画会同时开始，一组动画完成后才会进行下一组动画。
      */
     step(param: {
@@ -10035,19 +10165,40 @@ declare namespace my {
        */
       transformOrigin?: string;
     }): this;
+    /**
+     * @summary 设置动画 top 偏移
+     */
     top(length: string | number): this;
+    /**
+     * @summary 设置动画对二维方向平移变换
+     */
     translate(x: number, y: number): this;
+    /**
+     * @summary 设置动画对三维方向平移变换
+     */
     translate3d(tx: string | number, ty: string | number, tz: string | number): this;
+    /**
+     * @summary 设置动画对 X 轴平移变换
+     */
     translateX(x: number): this;
+    /**
+     * @summary 设置动画对 Y 轴平移变换
+     */
     translateY(y: number): this;
+    /**
+     * @summary 设置动画对 Z 轴平移变换
+     */
     translateZ(z: string | number): this;
+    /**
+     * @summary 设置动画宽度
+     */
     width(length: string | number): this;
   }
   export interface SelectorQuery {
     /**
      * @summary 将当前选择节点的位置信息放入查询结果
      */
-    boundingClientRect(): this;
+    boundingClientRect(callback?: (res: unknown) => void): this;
     /**
      * @summary 添加节点 Context 实例查询请求
      */
@@ -10055,7 +10206,7 @@ declare namespace my {
     /**
      * @summary 将查询结果放入 Callback 回调中
      */
-    exec(callback: (res: ArrayLike<any>) => void): void;
+    exec(callback?: (res: ArrayLike<any>) => void): void;
     /**
      * @summary 获取节点的指定字段信息
      */
@@ -10071,7 +10222,7 @@ declare namespace my {
     /**
      * @summary 将当前选择节点的滚动信息放入查询结果
      */
-    scrollOffset(): this;
+    scrollOffset(callback?: (res: unknown) => void): this;
     /**
      * @summary 选择当前第一个匹配选择器的节点
      */
@@ -11482,10 +11633,15 @@ declare namespace my {
       numberOfChannels?: number;
       /**
        * @summary 指定录音的音频输入源
-       * @description ，可通过 [my.getAvailableAudioSources]() 获取当前可用的音频源
+       * @description 可通过 [my.getAvailableAudioSources]() 获取当前可用的音频源
+       * @default "auto"
        */
-      audioSource: string;
-      format: string;
+      audioSource?: string;
+      /**
+       * @summary 音频格式,支持格式：aac、mp3
+       * @default "aac"
+       */
+      format?: string;
       /**
        * @summary 指定帧大小，单位 KB
        */
@@ -11671,24 +11827,7 @@ declare namespace my {
   }
   export interface AICameraContext {}
   export interface ARContext {}
-  export interface AudioContext {
-    /**
-     * @summary 暂停音频。
-     */
-    pause(): void;
-    /**
-     * @summary 播放音频。
-     */
-    play(): void;
-    /**
-     * @summary 跳转到指定位置，单位 s。
-     */
-    seek(position: number): void;
-    /**
-     * @summary 设置音频地址。
-     */
-    setSrc(src: string): void;
-  }
+  export interface AudioContext {}
   export interface InsuranceXReplaySession {}
   export interface LivePlayerContext {}
   export interface LivePusherContext {
@@ -12239,7 +12378,7 @@ declare namespace my {
      * @summary 在 Canvas 上绘制圆弧路径
      * @description 圆弧路径的圆心在 (x, y) 位置，半径为 r ，根据anticlockwise （默认为顺时针）指定的方向从 startAngle 开始绘制，到 endAngle 结束。
      */
-    arc(x: number, y: number, radius: number, startAngle: number, endAngle: number, anticlockwise: boolean): void;
+    arc(x: number, y: number, radius: number, startAngle: number, endAngle: number, anticlockwise?: boolean): void;
     /**
      * @summary 在 Canvas 上绘制圆弧路径
      * @description 根据控制点和半径绘制圆弧路径，使用当前的描点(前一个moveTo或lineTo等函数的止点)。根据当前描点与给定的控制点1连接的直线，和控制点1与控制点2连接的直线，作为使用指定半径的圆的切线，画出两条切线之间的弧线路径。
@@ -12273,7 +12412,7 @@ declare namespace my {
      * @summary 提交 Canvas 绘制指令
      * @description 用于将之前在绘图上下文中的描述（路径、变形、样式）画到 canvas 中
      */
-    draw(reserve: boolean, callback: () => void): void;
+    draw(reserve?: boolean, callback?: () => void): void;
     /**
      * @summary 在 Canvas 上绘制图像
      * @description 图像保持原始尺寸
@@ -12286,7 +12425,7 @@ declare namespace my {
     /**
      * @summary 填充文本的方法
      */
-    fillText(text: string, x: number, y: number, maxWidth: number): void;
+    fillText(text: string, x: number, y: number, maxWidth?: number): void;
     /**
      * @summary 异步返回 Canvas 指定区域像素数据
      * @description 返回一个 ImageData 对象，用来描述canvas区域隐含的像素数据
@@ -12611,7 +12750,7 @@ declare namespace my {
     /**
      * @summary 返回 canvas 的绘制上下文
      */
-    getContext(contextId: 'webgl', options: WebGLContextAttributes): WebGLRenderingContext;
+    getContext(contextId: 'webgl', options?: WebGLContextAttributes): WebGLRenderingContext;
     /**
      * @summary 录制视频
      */
@@ -12738,7 +12877,7 @@ declare namespace my {
     /**
      * @summary 返回 canvas 的绘制上下文
      */
-    getContext(contextId: 'webgl', options: WebGLContextAttributes): WebGLRenderingContext;
+    getContext(contextId: 'webgl', options?: WebGLContextAttributes): WebGLRenderingContext;
     /**
      * @summary 在下次重绘时执行的方法
      */
@@ -14207,15 +14346,15 @@ declare namespace my {
     /**
      * @summary 图片的真实高度
      */
-    readonly height: number;
+    height: number;
     /**
      * @summary 图片的 URL
      */
-    readonly src: string;
+    src: string;
     /**
      * @summary 图片的真实宽度
      */
-    readonly width: number;
+    width: number;
     /**
      * @summary 图片加载发生错误时触发的回调函数
      */
@@ -15203,6 +15342,7 @@ declare namespace my {
     data: string | ArrayBuffer;
     /**
      * @summary 指定写入文件的字符编码
+     * @default 'utf8'
      */
     encoding?: `${EFileSystemEncoding}`;
   }
@@ -15282,8 +15422,56 @@ declare namespace my {
      */
     lng: number;
   }
-  interface IChooseDistrictSeniorPageList {
+  interface IChooseDistrictHeadItem {
+    /**
+     * @summary 区块名，如“热门城市”。
+     */
     title: string;
+    /**
+     * @summary 模块类型。枚举如下：
+     *  0：常规城市；
+     *  1：定位模块；
+     *  2：展示支付宝提供的热门城市模块。
+     */
+    type: EChooseDistrictHeadItemType;
+    /**
+     * @summary 区块城市列表
+     */
+    list: IChooseDistrictListItem[];
+  }
+  interface IChooseDistrictListItem {
+    /**
+     * @summary 城市名
+     */
+    name: string;
+    /**
+     * @summary 行政区划代码。不同行政区域对应的代码可参考 [2017年12月中华人民共和国县以上行政区划代码](http://www.mca.gov.cn/article/sj/xzqh/1980/201803/201803131454.html)
+     */
+    adCode: string;
+    /**
+     * @summary 城市名对应拼音拼写，方便用户检索
+     */
+    spell?: string;
+    /**
+     * @summary 子标题
+     */
+    appendName?: string;
+    /**
+     * @summary 额外信息
+     */
+    ext: string;
+    /**
+     * @summary 支持级联，自定义次级城市列表
+     */
+    subList?: IChooseDistrictListItem[];
+  }
+  interface IChooseDistrictSeniorPageList {
+    /**
+     * @summary 境外左侧 tab 名称，不带左侧 tab 时可不填
+     */
+    title: string;
+    headList?: IChooseDistrictHeadItem[];
+    normalList?: IChooseDistrictListItem[];
   }
   interface ICopyFileRequest {
     /**
@@ -15420,15 +15608,15 @@ declare namespace my {
     /**
      * @summary 城市名。
      */
-    name: string;
+    name?: string;
     /**
      * @summary 行政区划代码。不同行政区域对应的代码可参见 中华人民共和国县以上行政区划代码。
      */
-    adcode: string;
+    adcode?: string;
     /**
      * @summary 城市名对应拼音拼写，方便用户搜索。
      */
-    pinyin: string;
+    pinyin?: string;
     /**
      * @summary 城市名。
      */
@@ -16333,6 +16521,12 @@ declare namespace my {
      */
     version: string;
   }
+  interface IMyGetAppBaseInfoHost {
+    /**
+     * @summary 宿主 app 对应的 appId。
+     */
+    appId: string;
+  }
   interface IMyGetEnterOptionsSyncReferrerInfo {
     /**
      * @summary 来源小程序。
@@ -16392,6 +16586,14 @@ declare namespace my {
   interface IMyGetSystemInfoSyncScreen {
     width: number;
     height: number;
+  }
+  interface IMyGetWindowInfoSafeArea {
+    left: number;
+    right: number;
+    top: number;
+    bottom: number;
+    height: number;
+    width: number;
   }
   interface IMyLoadFontFaceDesc {
     /**
@@ -16601,6 +16803,10 @@ declare namespace my {
      * @summary ud
      */
     id: string;
+    /**
+     * @summary 省内完整的市和区信息。示例：`"subList": [{ "name": "北京市", "id": "110100", "subList": [{ "name": "东城区", "id": "110101" }]`。
+     */
+    subList?: IRegionPickerMergeOptionsAddSubList[];
   }
   interface IRegionPickerMergeOptionsRemove {
     /**
@@ -16631,6 +16837,10 @@ declare namespace my {
      * @summary ud
      */
     id: string;
+    /**
+     * @summary 省内完整的市和区信息。示例：`"subList": [{ "name": "北京市", "id": "110100", "subList": [{ "name": "东城区", "id": "110101" }]`。
+     */
+    subList?: IRegionPickerMergeOptionsUpdateSubList[];
   }
   interface IRemoveSavedFileRequest {
     /**
@@ -16713,15 +16923,15 @@ declare namespace my {
   }
   interface ISetWifiListWifiList {
     /**
-     * @summary Wifi 的 SSID。
+     * @summary Wifi 的 SSID
      */
     SSID: string;
     /**
-     * @summary Wifi 的 BSSID。
+     * @summary Wifi 的 BSSID
      */
     BSSID: string;
     /**
-     * @summary Wifi 的设备密码。
+     * @summary Wi-Fi 设备密码
      */
     password: string;
   }
@@ -17390,8 +17600,11 @@ declare namespace my.ap {
   /**
    * @summary 获取支付宝首页左上角的城市选择信息
    */
-  export function getMainSelectedCity(r: {
-    needFullName: boolean;
+  export function getMainSelectedCity(r?: {
+    /**
+     * @default false
+     */
+    needFullName?: boolean;
     /**
      * 接口调用成功的回调函数
      * @param data 成功返回的数据
@@ -17400,31 +17613,35 @@ declare namespace my.ap {
       fullName?: string;
       enName?: string;
       /**
-       * @summary 城市名称。
+       * @summary 英文区县
+       */
+      enDistrictName?: string;
+      /**
+       * @summary 城市名称
        */
       name: string;
       /**
-       * @summary 城市编码。
+       * @summary 城市编码
        */
       code: string;
       /**
-       * @summary 是否是大陆。
+       * @summary 是否是中国大陆
        */
       chineseMainLand: boolean;
       /**
-       * @summary 是否是手动选择。
+       * @summary 是否是手动选择
        */
       isManualSelected: boolean;
       /**
-       * @summary 设置时间。
+       * @summary 设置时间
        */
       settingTime: number;
       /**
-       * @summary 区县名。
+       * @summary 区县名
        */
       districtName?: string;
       /**
-       * @summary 区县编码。
+       * @summary 区县编码
        */
       districtCode?: string;
     }): void;
@@ -17442,31 +17659,35 @@ declare namespace my.ap {
             fullName?: string;
             enName?: string;
             /**
-             * @summary 城市名称。
+             * @summary 英文区县
+             */
+            enDistrictName?: string;
+            /**
+             * @summary 城市名称
              */
             name: string;
             /**
-             * @summary 城市编码。
+             * @summary 城市编码
              */
             code: string;
             /**
-             * @summary 是否是大陆。
+             * @summary 是否是中国大陆
              */
             chineseMainLand: boolean;
             /**
-             * @summary 是否是手动选择。
+             * @summary 是否是手动选择
              */
             isManualSelected: boolean;
             /**
-             * @summary 设置时间。
+             * @summary 设置时间
              */
             settingTime: number;
             /**
-             * @summary 区县名。
+             * @summary 区县名
              */
             districtName?: string;
             /**
-             * @summary 区县编码。
+             * @summary 区县编码
              */
             districtCode?: string;
           }
@@ -17479,31 +17700,35 @@ declare namespace my.ap {
     fullName?: string;
     enName?: string;
     /**
-     * @summary 城市名称。
+     * @summary 英文区县
+     */
+    enDistrictName?: string;
+    /**
+     * @summary 城市名称
      */
     name: string;
     /**
-     * @summary 城市编码。
+     * @summary 城市编码
      */
     code: string;
     /**
-     * @summary 是否是大陆。
+     * @summary 是否是中国大陆
      */
     chineseMainLand: boolean;
     /**
-     * @summary 是否是手动选择。
+     * @summary 是否是手动选择
      */
     isManualSelected: boolean;
     /**
-     * @summary 设置时间。
+     * @summary 设置时间
      */
     settingTime: number;
     /**
-     * @summary 区县名。
+     * @summary 区县名
      */
     districtName?: string;
     /**
-     * @summary 区县编码。
+     * @summary 区县编码
      */
     districtCode?: string;
   }>;
@@ -17529,9 +17754,9 @@ declare namespace my.ap {
        */
       risk_type: string;
       /**
-       * @summary 需要查询图片的任务 ID
+       * @summary 需要验证的图片 URL
        */
-      apply_id: string;
+      content: string;
     };
     /**
      * 接口调用成功的回调函数
@@ -17614,10 +17839,6 @@ declare namespace my.ap {
      * @summary 小程序的开放平台账号
      */
     pid: string;
-    /**
-     * @summary 小程序对应的 APPID
-     */
-    appId: string;
     /**
      * @summary 需要识别的业务参数
      */
@@ -17909,28 +18130,6 @@ declare namespace my.ap {
      */
     result: IMyApNsfResult;
   }>;
-  /**
-   * @summary 是取消监听福卡蒙层关闭事件的API
-   */
-  export function offFuCardModalClosed(
-    cb?: (arg: {
-      /**
-       * @summary 是否领取福卡
-       */
-      received: boolean;
-    }) => void,
-  ): void;
-  /**
-   * @summary 是监听福卡蒙层关闭事件的API
-   */
-  export function onFuCardModalClosed(
-    cb: (arg: {
-      /**
-       * @summary 是否领取福卡
-       */
-      received: boolean;
-    }) => void,
-  ): void;
   /**
    * @summary 跳转到支付宝卡列表界面
    */
@@ -18643,6 +18842,21 @@ declare const enum ECalculateRouteMode {
   _9 = 9,
 }
 
+declare const enum EChooseDistrictHeadItemType {
+  /**
+   * @summary 常规城市
+   */
+  _0 = 0,
+  /**
+   * @summary 定位模块
+   */
+  _1 = 1,
+  /**
+   * @summary 展示支付宝提供的热门城市模块
+   */
+  _2 = 2,
+}
+
 declare const enum EChooseDistrictMode {
   /**
    * @summary 境内
@@ -18744,6 +18958,7 @@ declare const enum EFileSystemEncoding {
   ucs2 = 'ucs2',
   'ucs-2' = 'ucs-2',
   utf16le = 'utf16le',
+  utf8 = 'utf8',
   'utf-16le' = 'utf-16le',
 }
 
