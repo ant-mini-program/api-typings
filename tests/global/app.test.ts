@@ -1,5 +1,3 @@
-///<reference types='../../alipay' />
-
 App({
   onLaunch(options) {
     console.log('App Launch', options);

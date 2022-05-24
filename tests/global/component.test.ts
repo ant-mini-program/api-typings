@@ -1,5 +1,3 @@
-///<reference types='../../alipay' />
-
 Component({
   mixins: [], // mixins 方便复用代码
   data: { x: 1 }, // 组件内部数据
