@@ -3,7 +3,8 @@
   "private": true,
   "scripts": {
     "bootstrap": "lerna bootstrap",
-    "publish": "lerna publish --exact",
+    "publish:prod": "lerna publish --exact",
+    "publish": "lerna publish --preid rc-$(date +%s) --dist-tag rc --force-publish='*' --no-push --no-git-tag-version prepatch --ignore-prepublish --ignore-scripts --no-private -y",
     "release": "sh ./scripts/set-release-tag.sh"
   },
   "devDependencies": {
