@@ -6429,7 +6429,7 @@ declare namespace my {
     complete?(arg: { error?: number; errorMessage?: string }): void;
   }): Promise<void>;
   /**
-   * @summary 跳转到指定商户的券列表界面
+   * @summary 跳转到当前用户在指定商户的已领取券列表界面
    */
   export function openMerchantVoucherList(r: {
     /**
@@ -8349,7 +8349,7 @@ declare namespace my {
      * 接口调用成功的回调函数
      * @param data 成功返回的数据
      */
-    success?(data: {}): void;
+    success?(data: { shown: boolean }): void;
     /**
      * 接口调用失败的回调函数
      * @param err 错误信息
@@ -8358,8 +8358,19 @@ declare namespace my {
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?(arg: { error?: number; errorMessage?: string }): void;
-  }): Promise<void>;
+    complete?(
+      arg:
+        | {
+            shown: boolean;
+          }
+        | {
+            error?: number;
+            errorMessage?: string;
+          },
+    ): void;
+  }): Promise<{
+    shown: boolean;
+  }>;
   /**
    * @summary 显示蓝牙统一授权/开关引导流程
    */
@@ -18194,7 +18205,7 @@ declare namespace my.ap {
     complete?(arg: { error?: number; errorMessage?: string }): void;
   }): Promise<void>;
   /**
-   * @summary 打开当前用户的某个商户的卡列表
+   * @summary 跳转到指定商户的卡列表界面
    */
   export function openMerchantCardList(r: {
     /**
@@ -18240,7 +18251,7 @@ declare namespace my.ap {
     complete?(arg: { error?: number; errorMessage?: string }): void;
   }): Promise<void>;
   /**
-   * @summary 跳转到指定商户的券列表界面
+   * @summary 跳转到当前用户在指定商户的已领取券列表界面
    */
   export function openMerchantVoucherList(r: {
     /**
