@@ -317,9 +317,18 @@ export type IPageInstance<
     ): void;
     /**
      * 获取自定义 tabBar 实例
-     * @version 2.7.20+
+     * @version 2.7.20+ 可以通过判断 `this.getTabBar` 是否为一个函数做兼容性处理
      */
-    getTabBar(): IComponentInstance<UnknownRecord, UnknownRecord, UnknownRecord, UnknownRecord, UnknownRecord, []> | void;
+    getTabBar():
+      | IComponentInstance<
+          UnknownRecord,
+          UnknownRecord,
+          UnknownRecord,
+          UnknownRecord,
+          UnknownRecord,
+          []
+        >
+      | undefined;
     /**
      * $spliceData 同样用于将数据从逻辑层发送到视图层，但是相比于 setData，在处理长列表的时候，其具有更高的性能。
      * @param data
@@ -487,9 +496,18 @@ export declare type IComponentInstance<
     ): void;
     /**
      * 获取自定义 tabBar 实例
-     * @version 2.7.20+
+     * @version 2.7.20+ 可以通过判断 `this.getTabBar` 是否为函数做兼容性处理
      */
-     getTabBar(): IComponentInstance<UnknownRecord, UnknownRecord, UnknownRecord, UnknownRecord, UnknownRecord, []> | void;
+    getTabBar():
+      | IComponentInstance<
+          UnknownRecord,
+          UnknownRecord,
+          UnknownRecord,
+          UnknownRecord,
+          UnknownRecord,
+          []
+        >
+      | undefined;
     /**
      * $spliceData 同样用于将数据从逻辑层发送到视图层，但是相比于 setData，在处理长列表的时候，其具有更高的性能。
      * @param data
