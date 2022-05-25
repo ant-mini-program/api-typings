@@ -262,7 +262,7 @@ declare namespace my {
      */
     success?(data: {
       /**
-       * @summary 是否成功。成功返回 true，失败返回 false。
+       * @summary 是否成功，失败时不会返回其他字段
        */
       success: boolean;
       /**
@@ -286,7 +286,7 @@ declare namespace my {
       arg:
         | {
             /**
-             * @summary 是否成功。成功返回 true，失败返回 false。
+             * @summary 是否成功，失败时不会返回其他字段
              */
             success: boolean;
             /**
@@ -305,7 +305,7 @@ declare namespace my {
     ): void;
   }): Promise<{
     /**
-     * @summary 是否成功。成功返回 true，失败返回 false。
+     * @summary 是否成功，失败时不会返回其他字段
      */
     success: boolean;
     /**
@@ -1387,6 +1387,10 @@ declare namespace my {
    */
   export function createSelectorQuery(option?: IMyCreateSelectorQueryOption): SelectorQuery;
   /**
+   * @summary 创建并返回 <video> 组件上下文
+   */
+  export function createVideoContext(id: string): VideoContext;
+  /**
    * @summary 创建并返回 <web-view> 组件上下文
    */
   export function createWebViewContext(id: string): WebViewContext;
@@ -1742,9 +1746,10 @@ declare namespace my {
      */
     correctLevel: 'L' | 'M' | 'Q' | 'H';
     /**
-     * @summary 返回图片的方向，有效值见下表。
+     * @summary 返回图片的方向
+     * @default 'up'
      */
-    orientation?: 'right' | 'left' | 'up' | 'down' | 'up-mirrored' | 'down-mirrored' | 'left-mirrored' | 'right-mirrored';
+    orientation: 'right' | 'left' | 'up' | 'down' | 'up-mirrored' | 'down-mirrored' | 'left-mirrored' | 'right-mirrored';
     /**
      * 接口调用成功的回调函数
      * @param data 成功返回的数据
@@ -2248,7 +2253,17 @@ declare namespace my {
      * 接口调用成功的回调函数
      * @param data 成功返回的数据
      */
-    success?(data: { beacons: IGetBeaconsBeacons[] }): void;
+    success?(data: {
+      beacons: IGetBeaconsBeacons[];
+      /**
+       * @summary errorCode=0，接口调用成功。
+       */
+      errCode: string;
+      /**
+       * @summary 错误描述信息，成功则为 ok。
+       */
+      errorMsg: string;
+    }): void;
     /**
      * 接口调用失败的回调函数
      * @param err 错误信息
@@ -2261,6 +2276,14 @@ declare namespace my {
       arg:
         | {
             beacons: IGetBeaconsBeacons[];
+            /**
+             * @summary errorCode=0，接口调用成功。
+             */
+            errCode: string;
+            /**
+             * @summary 错误描述信息，成功则为 ok。
+             */
+            errorMsg: string;
           }
         | {
             error?: number;
@@ -2269,6 +2292,14 @@ declare namespace my {
     ): void;
   }): Promise<{
     beacons: IGetBeaconsBeacons[];
+    /**
+     * @summary errorCode=0，接口调用成功。
+     */
+    errCode: string;
+    /**
+     * @summary 错误描述信息，成功则为 ok。
+     */
+    errorMsg: string;
   }>;
   /**
    * @summary 获取蓝牙低功耗设备所有特征值  (characteristic)
@@ -2739,27 +2770,6 @@ declare namespace my {
     success: true;
     wifi: IGetConnectedWifiWifi;
   }>;
-  /**
-   * @summary 同步获取设备基础信息
-   */
-  export function getDeviceBaseInfo(): {
-    /**
-     * @summary 手机品牌。
-     */
-    brand: string;
-    /**
-     * @summary 手机型号。
-     */
-    model: string;
-    /**
-     * @summary 系统版本。
-     */
-    system: string;
-    /**
-     * @summary 系统名：Android，iOS / iPhone OS 。
-     */
-    platform: 'ios' | 'android';
-  };
   /**
    * @summary 获得小程序本次唤起的参数
    * @description - 如果当前是冷启动，则返回值与 App.onLaunch 的回调参数一致；如果当前是热启动，则返回值与 App.onShow 一致。
@@ -4967,7 +4977,10 @@ declare namespace my {
    * @description 可与 [my.showLoading]() 配合使用
    */
   export function hideLoading(r?: {
-    page?: any;
+    /**
+     * @summary 指定效果操作的页面
+     */
+    page?: unknown;
     /**
      * 接口调用成功的回调函数
      * @param data 成功返回的数据
@@ -7729,9 +7742,11 @@ declare namespace my {
      */
     data: string;
     /**
-     * @summary 注意事项：
+     * @summary 是否对二进制数据进行 base64 编码
+     * @description
      * - 如果发送二进制数据，需要将入参数据经 Base64 编码成 string 后赋值 data，同时将此字段设置为 true。
      * - 如果是普通的文本内容 string，则不需要设置此字段。
+     * @default false
      */
     isBuffer?: boolean;
     /**
@@ -15544,11 +15559,30 @@ declare namespace my {
     isPrimary: boolean;
   }
   interface IGetBeaconsBeacons {
+    /**
+     * @summary iBeacon 信号强度
+     * @description Android 10.1.28 或之前的版本中，该接口返回的 rssi 值不能动态更新，建议使用事件触发方式
+     */
     rssi: number;
+    /**
+     * @summary iBeacon 设备的主 id
+     */
     major: number;
+    /**
+     * @summary iBeacon 设备的次 id
+     */
     minor: number;
+    /**
+     * @summary 表示设备距离的枚举值(0-3分别代表：未知、极近、近、远)
+     */
     proximity: number;
+    /**
+     * @summary iBeacon 设备的距离
+     */
     accuracy: number;
+    /**
+     * @summary iBeacon 设备广播的 uuid
+     */
     uuid: string;
     /**
      * @summary iOS 13.0+
@@ -18013,7 +18047,7 @@ declare namespace my.ap {
    */
   export function navigateToAlipayPage(r: {
     /**
-     * @summary 要跳转的支付宝官方业务
+     * @summary 要跳转的支付宝官方业务。例如付款码，appCode: 'payCode'
      */
     appCode: 'alipayScan' | 'redPacket' | 'collectOil' | 'tinyAppSHH' | 'antForest' | 'antFarm' | 'stockDetail' | 'payCode';
     /**
@@ -18024,7 +18058,12 @@ declare namespace my.ap {
      * 接口调用成功的回调函数
      * @param data 成功返回的数据
      */
-    success?(data: { success: true }): void;
+    success?(data: {
+      /**
+       * @summary 跳转成功
+       */
+      success: true;
+    }): void;
     /**
      * 接口调用失败的回调函数
      * @param err 错误信息
@@ -18036,6 +18075,9 @@ declare namespace my.ap {
     complete?(
       arg:
         | {
+            /**
+             * @summary 跳转成功
+             */
             success: true;
           }
         | {
@@ -18044,6 +18086,9 @@ declare namespace my.ap {
           },
     ): void;
   }): Promise<{
+    /**
+     * @summary 跳转成功
+     */
     success: true;
   }>;
   /**
@@ -18051,7 +18096,7 @@ declare namespace my.ap {
    */
   export function navigateToAlipayPage(r: {
     /**
-     * @summary 要跳转的支付宝业务、运营活动 scheme 或 url
+     * @summary 跳转 appCode 涵盖范围之外的支付宝业务、运营活动页面，请使用 path 属性。可传入 scheme 或 URL：
      * @description
      * - 如果 url 中带有参数，请务必先将整个 url 做 encode 处理
      * - 可跳转域名以  https://render.alipay.com/p 开头的支付宝业务、运营页面
@@ -18061,7 +18106,12 @@ declare namespace my.ap {
      * 接口调用成功的回调函数
      * @param data 成功返回的数据
      */
-    success?(data: { success: true }): void;
+    success?(data: {
+      /**
+       * @summary 跳转成功
+       */
+      success: true;
+    }): void;
     /**
      * 接口调用失败的回调函数
      * @param err 错误信息
@@ -18073,6 +18123,9 @@ declare namespace my.ap {
     complete?(
       arg:
         | {
+            /**
+             * @summary 跳转成功
+             */
             success: true;
           }
         | {
@@ -18081,6 +18134,9 @@ declare namespace my.ap {
           },
     ): void;
   }): Promise<{
+    /**
+     * @summary 跳转成功
+     */
     success: true;
   }>;
   export function navigateToFinance(r: IAP$NavigateToFinanceOptionsFundDetail): Promise<void>;
