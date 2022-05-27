@@ -594,7 +594,15 @@ export interface IRequirePlugin<
 }
 
 declare global {
+  /**
+   * 使用插件提供的 JS 接口，函数返回值为 \`插件\` 通过 \`main\` 字段暴露的 JS 接口。
+   */
   const requirePlugin: IRequirePlugin;
+
+  /**
+   * Extra `this` for App instance.
+   */
+  export interface IGlobalMiniProgramExtraThis4App {}
 
   /**
    * App's constructor
@@ -603,7 +611,37 @@ declare global {
   function App<
     ExtraThis = {},
     ExtraOptions extends Record<string, unknown> = {}
-  >(opts: IUserAppOptions<ExtraThis, ExtraOptions>): void;
+  >(
+    opts: IUserAppOptions<
+      ExtraThis & IGlobalMiniProgramExtraThis4App,
+      ExtraOptions
+    >
+  ): void;
+
+  /**
+   * Get App.
+   * @link https://opendocs.alipay.com/mini/framework/get-app
+   */
+  function getApp<
+    ExtraThis = {},
+    ExtraOptions extends Record<string, unknown> = {}
+  >(): IAppInstance<ExtraThis & IGlobalMiniProgramExtraThis4App, ExtraOptions>;
+
+  /**
+   * Extra `this` for Page instance.
+   */
+  export interface IGlobalMiniProgramExtraThis4Page {}
+
+  /**
+   * Extra `this` for Component instance.
+   */
+  export interface IGlobalMiniProgramExtraThis4Component {}
+
+  /**
+   * Get Current Pages
+   * @link https://opendocs.alipay.com/mini/framework/getcurrentpages
+   */
+  export function getCurrentPages(): IPageInstance<object, {}, {}>[];
 
   /**
    * Page's constructor
@@ -613,7 +651,13 @@ declare global {
     Data = {},
     ExtraThis = {},
     ExtraOptions extends Record<string, unknown> = {}
-  >(opts: IUserPageOptions<Data, ExtraThis, ExtraOptions>): void;
+  >(
+    opts: IUserPageOptions<
+      Data,
+      ExtraThis & IGlobalMiniProgramExtraThis4Page,
+      ExtraOptions
+    >
+  ): void;
 
   /**
    * Component's constructor
@@ -631,7 +675,7 @@ declare global {
       Data,
       Props,
       Methods,
-      ExtraThis,
+      ExtraThis & IGlobalMiniProgramExtraThis4Component,
       ExtraOptions,
       Mixin
     >
