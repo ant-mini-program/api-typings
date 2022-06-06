@@ -9457,7 +9457,65 @@ declare namespace my {
     /**
      * @summary 判断文件、目录是否存在
      */
-    access(r: IAccessRequest): Promise<{
+    access(
+      r: IAccessRequest & {
+        /**
+         * 接口调用成功的回调函数
+         * @param data 成功返回的数据
+         */
+        success?(data: { success: true }): void;
+        /**
+         * 接口调用失败的回调函数
+         * @param err 错误信息
+         */
+        fail?(
+          err:
+            | {
+                error?: number;
+                errorMessage?: string;
+              }
+            | {
+                error: 2;
+                errorMessage: '接口参数无效';
+              }
+            | {
+                error: 10024;
+                errorMessage: '指定的路径没有读权限';
+              }
+            | {
+                error: 10022;
+                errorMessage: '文件/目录不存在';
+              },
+        ): void;
+        /**
+         * 接口调用结束的回调函数（调用成功、失败都会执行）
+         */
+        complete?(
+          arg:
+            | {
+                success: true;
+              }
+            | (
+                | {
+                    error?: number;
+                    errorMessage?: string;
+                  }
+                | {
+                    error: 2;
+                    errorMessage: '接口参数无效';
+                  }
+                | {
+                    error: 10024;
+                    errorMessage: '指定的路径没有读权限';
+                  }
+                | {
+                    error: 10022;
+                    errorMessage: '文件/目录不存在';
+                  }
+              ),
+        ): void;
+      },
+    ): Promise<{
       success: true;
     }>;
     /**
@@ -9471,7 +9529,81 @@ declare namespace my {
     /**
      * @summary 在文件结尾追加内容
      */
-    appendFile(r: IAppendFileRequest): Promise<{
+    appendFile(
+      r: IAppendFileRequest & {
+        /**
+         * 接口调用成功的回调函数
+         * @param data 成功返回的数据
+         */
+        success?(data: { success: true }): void;
+        /**
+         * 接口调用失败的回调函数
+         * @param err 错误信息
+         */
+        fail?(
+          err:
+            | {
+                error?: number;
+                errorMessage?: string;
+              }
+            | {
+                error: 2;
+                errorMessage: '接口参数无效';
+              }
+            | {
+                error: 10022;
+                errorMessage: '指定文件不存在';
+              }
+            | {
+                error: 10024;
+                errorMessage: '指定的路径没有写权限';
+              }
+            | {
+                error: 10025;
+                errorMessage: '指定路径是一个已经存在的目录';
+              }
+            | {
+                error: 3;
+                errorMessage: '文件写入失败';
+              },
+        ): void;
+        /**
+         * 接口调用结束的回调函数（调用成功、失败都会执行）
+         */
+        complete?(
+          arg:
+            | {
+                success: true;
+              }
+            | (
+                | {
+                    error?: number;
+                    errorMessage?: string;
+                  }
+                | {
+                    error: 2;
+                    errorMessage: '接口参数无效';
+                  }
+                | {
+                    error: 10022;
+                    errorMessage: '指定文件不存在';
+                  }
+                | {
+                    error: 10024;
+                    errorMessage: '指定的路径没有写权限';
+                  }
+                | {
+                    error: 10025;
+                    errorMessage: '指定路径是一个已经存在的目录';
+                  }
+                | {
+                    error: 3;
+                    errorMessage: '文件写入失败';
+                  }
+              ),
+        ): void;
+      },
+    ): Promise<{
       success: true;
     }>;
     /**
@@ -9486,7 +9618,81 @@ declare namespace my {
      * @summary 复制文件
      * @description 支持复制临时文件、缓存文件、用户文件到本地用户文件位置
      */
-    copyFile(r: ICopyFileRequest): Promise<{
+    copyFile(
+      r: ICopyFileRequest & {
+        /**
+         * 接口调用成功的回调函数
+         * @param data 成功返回的数据
+         */
+        success?(data: { success: true }): void;
+        /**
+         * 接口调用失败的回调函数
+         * @param err 错误信息
+         */
+        fail?(
+          err:
+            | {
+                error?: number;
+                errorMessage?: string;
+              }
+            | {
+                error: 2;
+                errorMessage: '接口参数无效';
+              }
+            | {
+                error: 10024;
+                errorMessage: '指定的路径没有读权限';
+              }
+            | {
+                error: 10024;
+                errorMessage: '指定的路径没有写权限';
+              }
+            | {
+                error: 10022;
+                errorMessage: '源文件不存在';
+              }
+            | {
+                error: 10023;
+                errorMessage: '指定路径是一个已经存在的目录';
+              },
+        ): void;
+        /**
+         * 接口调用结束的回调函数（调用成功、失败都会执行）
+         */
+        complete?(
+          arg:
+            | {
+                success: true;
+              }
+            | (
+                | {
+                    error?: number;
+                    errorMessage?: string;
+                  }
+                | {
+                    error: 2;
+                    errorMessage: '接口参数无效';
+                  }
+                | {
+                    error: 10024;
+                    errorMessage: '指定的路径没有读权限';
+                  }
+                | {
+                    error: 10024;
+                    errorMessage: '指定的路径没有写权限';
+                  }
+                | {
+                    error: 10022;
+                    errorMessage: '源文件不存在';
+                  }
+                | {
+                    error: 10023;
+                    errorMessage: '指定路径是一个已经存在的目录';
+                  }
+              ),
+        ): void;
+      },
+    ): Promise<{
       success: true;
     }>;
     /**
@@ -9500,7 +9706,79 @@ declare namespace my {
     /**
      * @summary 获取该小程序下的本地临时文件或本地缓存文件信息
      */
-    getFileInfo(r: IGetFileInfoRequest): Promise<IGetFileInfoResponse>;
+    getFileInfo(
+      r: IGetFileInfoRequest & {
+        /**
+         * 接口调用成功的回调函数
+         * @param data 成功返回的数据
+         */
+        success?(data: IGetFileInfoResponse): void;
+        /**
+         * 接口调用失败的回调函数
+         * @param err 错误信息
+         */
+        fail?(
+          err:
+            | {
+                error?: number;
+                errorMessage?: string;
+              }
+            | {
+                error: 2;
+                errorMessage: '接口参数无效';
+              }
+            | {
+                error: 12;
+                errorMessage: '文件不存在';
+              }
+            | {
+                error: 16;
+                errorMessage: 'digestAlgorithm参数只支持MD5和sha1';
+              }
+            | {
+                error: 17;
+                errorMessage: '计算文件摘要信息错误';
+              }
+            | {
+                error: 10024;
+                errorMessage: '指定的路径没有读权限';
+              },
+        ): void;
+        /**
+         * 接口调用结束的回调函数（调用成功、失败都会执行）
+         */
+        complete?(
+          arg:
+            | IGetFileInfoResponse
+            | (
+                | {
+                    error?: number;
+                    errorMessage?: string;
+                  }
+                | {
+                    error: 2;
+                    errorMessage: '接口参数无效';
+                  }
+                | {
+                    error: 12;
+                    errorMessage: '文件不存在';
+                  }
+                | {
+                    error: 16;
+                    errorMessage: 'digestAlgorithm参数只支持MD5和sha1';
+                  }
+                | {
+                    error: 17;
+                    errorMessage: '计算文件摘要信息错误';
+                  }
+                | {
+                    error: 10024;
+                    errorMessage: '指定的路径没有读权限';
+                  }
+              ),
+        ): void;
+      },
+    ): Promise<IGetFileInfoResponse>;
     /**
      * @summary 同步获取该小程序下的本地临时文件或本地缓存文件信息
      */
@@ -9542,7 +9820,68 @@ declare namespace my {
     /**
      * @summary 创建文件系统目录
      */
-    mkdir(r: IMkdirRequest): Promise<void>;
+    mkdir(
+      r: IMkdirRequest & {
+        /**
+         * 接口调用成功的回调函数
+         * @param data 成功返回的数据
+         */
+        success?(data: {}): void;
+        /**
+         * 接口调用失败的回调函数
+         * @param err 错误信息
+         */
+        fail?(
+          err:
+            | {
+                error?: number;
+                errorMessage?: string;
+              }
+            | {
+                error: 2;
+                errorMessage: '接口参数无效';
+              }
+            | {
+                error: 10024;
+                errorMessage: '指定的路径没有写权限';
+              }
+            | {
+                error: 10025;
+                errorMessage: '有同名文件或目录';
+              }
+            | {
+                error: 10022;
+                errorMessage: '上级目录不存在';
+              },
+        ): void;
+        /**
+         * 接口调用结束的回调函数（调用成功、失败都会执行）
+         */
+        complete?(
+          arg:
+            | {
+                error?: number;
+                errorMessage?: string;
+              }
+            | {
+                error: 2;
+                errorMessage: '接口参数无效';
+              }
+            | {
+                error: 10024;
+                errorMessage: '指定的路径没有写权限';
+              }
+            | {
+                error: 10025;
+                errorMessage: '有同名文件或目录';
+              }
+            | {
+                error: 10022;
+                errorMessage: '上级目录不存在';
+              },
+        ): void;
+      },
+    ): Promise<void>;
     /**
      * @summary 同步创建文件系统目录
      */
@@ -9554,7 +9893,71 @@ declare namespace my {
     /**
      * @summary 读取目录内文件列表
      */
-    readdir(r: IReaddirRequest): Promise<IReaddirResponse>;
+    readdir(
+      r: IReaddirRequest & {
+        /**
+         * 接口调用成功的回调函数
+         * @param data 成功返回的数据
+         */
+        success?(data: IReaddirResponse): void;
+        /**
+         * 接口调用失败的回调函数
+         * @param err 错误信息
+         */
+        fail?(
+          err:
+            | {
+                error?: number;
+                errorMessage?: string;
+              }
+            | {
+                error: 2;
+                errorMessage: '接口参数无效';
+              }
+            | {
+                error: 10024;
+                errorMessage: '指定的路径没有写权限';
+              }
+            | {
+                error: 10024;
+                errorMessage: '指定的路径没有读权限';
+              }
+            | {
+                error: 10022;
+                errorMessage: '目录不存在';
+              },
+        ): void;
+        /**
+         * 接口调用结束的回调函数（调用成功、失败都会执行）
+         */
+        complete?(
+          arg:
+            | IReaddirResponse
+            | (
+                | {
+                    error?: number;
+                    errorMessage?: string;
+                  }
+                | {
+                    error: 2;
+                    errorMessage: '接口参数无效';
+                  }
+                | {
+                    error: 10024;
+                    errorMessage: '指定的路径没有写权限';
+                  }
+                | {
+                    error: 10024;
+                    errorMessage: '指定的路径没有读权限';
+                  }
+                | {
+                    error: 10022;
+                    errorMessage: '目录不存在';
+                  }
+              ),
+        ): void;
+      },
+    ): Promise<IReaddirResponse>;
     /**
      * @summary 同步读取目录内文件列表
      */
@@ -9566,7 +9969,71 @@ declare namespace my {
     /**
      * @summary 读取本地文件内容
      */
-    readFile(r: IReadFileRequest): Promise<IReadFileResponse>;
+    readFile(
+      r: IReadFileRequest & {
+        /**
+         * 接口调用成功的回调函数
+         * @param data 成功返回的数据
+         */
+        success?(data: IReadFileResponse): void;
+        /**
+         * 接口调用失败的回调函数
+         * @param err 错误信息
+         */
+        fail?(
+          err:
+            | {
+                error?: number;
+                errorMessage?: string;
+              }
+            | {
+                error: 2;
+                errorMessage: '接口参数无效';
+              }
+            | {
+                error: 10022;
+                errorMessage: '文件/目录不存在';
+              }
+            | {
+                error: 10024;
+                errorMessage: '指定的路径没有读权限';
+              }
+            | {
+                error: 3;
+                errorMessage: '未知错误';
+              },
+        ): void;
+        /**
+         * 接口调用结束的回调函数（调用成功、失败都会执行）
+         */
+        complete?(
+          arg:
+            | IReadFileResponse
+            | (
+                | {
+                    error?: number;
+                    errorMessage?: string;
+                  }
+                | {
+                    error: 2;
+                    errorMessage: '接口参数无效';
+                  }
+                | {
+                    error: 10022;
+                    errorMessage: '文件/目录不存在';
+                  }
+                | {
+                    error: 10024;
+                    errorMessage: '指定的路径没有读权限';
+                  }
+                | {
+                    error: 3;
+                    errorMessage: '未知错误';
+                  }
+              ),
+        ): void;
+      },
+    ): Promise<IReadFileResponse>;
     /**
      * @summary 同步读取本地文件内容
      */
@@ -9578,7 +10045,73 @@ declare namespace my {
     /**
      * @summary 删除该小程序下已保存的本地缓存文件
      */
-    removeSavedFile(r: IRemoveSavedFileRequest): Promise<{
+    removeSavedFile(
+      r: IRemoveSavedFileRequest & {
+        /**
+         * 接口调用成功的回调函数
+         * @param data 成功返回的数据
+         */
+        success?(data: { success: true }): void;
+        /**
+         * 接口调用失败的回调函数
+         * @param err 错误信息
+         */
+        fail?(
+          err:
+            | {
+                error?: number;
+                errorMessage?: string;
+              }
+            | {
+                error: 2;
+                errorMessage: '无效入参';
+              }
+            | {
+                error: 10022;
+                errorMessage: '文件不存在';
+              }
+            | {
+                error: 10024;
+                errorMessage: '指定的路径没有写权限';
+              }
+            | {
+                error: 15;
+                errorMessage: '删除文件失败';
+              },
+        ): void;
+        /**
+         * 接口调用结束的回调函数（调用成功、失败都会执行）
+         */
+        complete?(
+          arg:
+            | {
+                success: true;
+              }
+            | (
+                | {
+                    error?: number;
+                    errorMessage?: string;
+                  }
+                | {
+                    error: 2;
+                    errorMessage: '无效入参';
+                  }
+                | {
+                    error: 10022;
+                    errorMessage: '文件不存在';
+                  }
+                | {
+                    error: 10024;
+                    errorMessage: '指定的路径没有写权限';
+                  }
+                | {
+                    error: 15;
+                    errorMessage: '删除文件失败';
+                  }
+              ),
+        ): void;
+      },
+    ): Promise<{
       success: true;
     }>;
     /**
@@ -9593,7 +10126,73 @@ declare namespace my {
      * @summary 重命名文件
      * @description 可以把文件从 oldPath 移动到 newPath。
      */
-    rename(r: IRenameRequest): Promise<{
+    rename(
+      r: IRenameRequest & {
+        /**
+         * 接口调用成功的回调函数
+         * @param data 成功返回的数据
+         */
+        success?(data: { success: true }): void;
+        /**
+         * 接口调用失败的回调函数
+         * @param err 错误信息
+         */
+        fail?(
+          err:
+            | {
+                error?: number;
+                errorMessage?: string;
+              }
+            | {
+                error: 2;
+                errorMessage: '接口参数无效';
+              }
+            | {
+                error: 10022;
+                errorMessage: '源文件不存在';
+              }
+            | {
+                error: 10024;
+                errorMessage: '指定源文件或目标文件没有写权限';
+              }
+            | {
+                error: 10025;
+                errorMessage: '文件或目录已存在';
+              },
+        ): void;
+        /**
+         * 接口调用结束的回调函数（调用成功、失败都会执行）
+         */
+        complete?(
+          arg:
+            | {
+                success: true;
+              }
+            | (
+                | {
+                    error?: number;
+                    errorMessage?: string;
+                  }
+                | {
+                    error: 2;
+                    errorMessage: '接口参数无效';
+                  }
+                | {
+                    error: 10022;
+                    errorMessage: '源文件不存在';
+                  }
+                | {
+                    error: 10024;
+                    errorMessage: '指定源文件或目标文件没有写权限';
+                  }
+                | {
+                    error: 10025;
+                    errorMessage: '文件或目录已存在';
+                  }
+              ),
+        ): void;
+      },
+    ): Promise<{
       success: true;
     }>;
     /**
@@ -9609,7 +10208,81 @@ declare namespace my {
     /**
      * @summary 删除目录
      */
-    rmdir(r: IRmdirRequest): Promise<{
+    rmdir(
+      r: IRmdirRequest & {
+        /**
+         * 接口调用成功的回调函数
+         * @param data 成功返回的数据
+         */
+        success?(data: { success: true }): void;
+        /**
+         * 接口调用失败的回调函数
+         * @param err 错误信息
+         */
+        fail?(
+          err:
+            | {
+                error?: number;
+                errorMessage?: string;
+              }
+            | {
+                error: 2;
+                errorMessage: '接口参数无效';
+              }
+            | {
+                error: 10024;
+                errorMessage: '指定的路径没有写权限';
+              }
+            | {
+                error: 10025;
+                errorMessage: '有同名文件或目录';
+              }
+            | {
+                error: 10022;
+                errorMessage: '目录不存在';
+              }
+            | {
+                error: 10027;
+                errorMessage: '目录不为空';
+              },
+        ): void;
+        /**
+         * 接口调用结束的回调函数（调用成功、失败都会执行）
+         */
+        complete?(
+          arg:
+            | {
+                success: true;
+              }
+            | (
+                | {
+                    error?: number;
+                    errorMessage?: string;
+                  }
+                | {
+                    error: 2;
+                    errorMessage: '接口参数无效';
+                  }
+                | {
+                    error: 10024;
+                    errorMessage: '指定的路径没有写权限';
+                  }
+                | {
+                    error: 10025;
+                    errorMessage: '有同名文件或目录';
+                  }
+                | {
+                    error: 10022;
+                    errorMessage: '目录不存在';
+                  }
+                | {
+                    error: 10027;
+                    errorMessage: '目录不为空';
+                  }
+              ),
+        ): void;
+      },
+    ): Promise<{
       success: true;
     }>;
     /**
@@ -9624,7 +10297,71 @@ declare namespace my {
      * @summary 保存临时文件到本地
      * @description 此接口会移动临时文件，因此调用成功后，tempFilePath 将不可用
      */
-    saveFile(r: ISaveFileRequest): Promise<ISaveFileResponse>;
+    saveFile(
+      r: ISaveFileRequest & {
+        /**
+         * 接口调用成功的回调函数
+         * @param data 成功返回的数据
+         */
+        success?(data: ISaveFileResponse): void;
+        /**
+         * 接口调用失败的回调函数
+         * @param err 错误信息
+         */
+        fail?(
+          err:
+            | {
+                error?: number;
+                errorMessage?: string;
+              }
+            | {
+                error: 2;
+                errorMessage: '接口参数无效';
+              }
+            | {
+                error: 10022;
+                errorMessage: '指定的路径找不到文件';
+              }
+            | {
+                error: 10024;
+                errorMessage: '指定的路径没有写权限';
+              }
+            | {
+                error: 3;
+                errorMessage: '保存文件失败';
+              },
+        ): void;
+        /**
+         * 接口调用结束的回调函数（调用成功、失败都会执行）
+         */
+        complete?(
+          arg:
+            | ISaveFileResponse
+            | (
+                | {
+                    error?: number;
+                    errorMessage?: string;
+                  }
+                | {
+                    error: 2;
+                    errorMessage: '接口参数无效';
+                  }
+                | {
+                    error: 10022;
+                    errorMessage: '指定的路径找不到文件';
+                  }
+                | {
+                    error: 10024;
+                    errorMessage: '指定的路径没有写权限';
+                  }
+                | {
+                    error: 3;
+                    errorMessage: '保存文件失败';
+                  }
+              ),
+        ): void;
+      },
+    ): Promise<ISaveFileResponse>;
     /**
      * @summary 同步保存临时文件到本地
      * @description 此接口会移动临时文件，因此调用成功后，tempFilePath 将不可用
@@ -9638,7 +10375,63 @@ declare namespace my {
     /**
      * @summary 获取文件信息
      */
-    stat(r: IStatRequest): Promise<IStatResponse>;
+    stat(
+      r: IStatRequest & {
+        /**
+         * 接口调用成功的回调函数
+         * @param data 成功返回的数据
+         */
+        success?(data: IStatResponse): void;
+        /**
+         * 接口调用失败的回调函数
+         * @param err 错误信息
+         */
+        fail?(
+          err:
+            | {
+                error?: number;
+                errorMessage?: string;
+              }
+            | {
+                error: 10022;
+                errorMessage: '文件不存在';
+              }
+            | {
+                error: 10024;
+                errorMessage: '指定的路径没有读权限';
+              }
+            | {
+                error: 3;
+                errorMessage: '未知错误';
+              },
+        ): void;
+        /**
+         * 接口调用结束的回调函数（调用成功、失败都会执行）
+         */
+        complete?(
+          arg:
+            | IStatResponse
+            | (
+                | {
+                    error?: number;
+                    errorMessage?: string;
+                  }
+                | {
+                    error: 10022;
+                    errorMessage: '文件不存在';
+                  }
+                | {
+                    error: 10024;
+                    errorMessage: '指定的路径没有读权限';
+                  }
+                | {
+                    error: 3;
+                    errorMessage: '未知错误';
+                  }
+              ),
+        ): void;
+      },
+    ): Promise<IStatResponse>;
     /**
      * @summary 同步获取文件信息
      */
@@ -9650,7 +10443,73 @@ declare namespace my {
     /**
      * @summary 删除文件
      */
-    unlink(r: IUnlinkRequest): Promise<{
+    unlink(
+      r: IUnlinkRequest & {
+        /**
+         * 接口调用成功的回调函数
+         * @param data 成功返回的数据
+         */
+        success?(data: { success: true }): void;
+        /**
+         * 接口调用失败的回调函数
+         * @param err 错误信息
+         */
+        fail?(
+          err:
+            | {
+                error?: number;
+                errorMessage?: string;
+              }
+            | {
+                error: 2;
+                errorMessage: '接口参数无效';
+              }
+            | {
+                error: 10022;
+                errorMessage: '文件不存在';
+              }
+            | {
+                error: 10023;
+                errorMessage: '传入的路径是一个目录';
+              }
+            | {
+                error: 10024;
+                errorMessage: '指定的路径没有删除权限';
+              },
+        ): void;
+        /**
+         * 接口调用结束的回调函数（调用成功、失败都会执行）
+         */
+        complete?(
+          arg:
+            | {
+                success: true;
+              }
+            | (
+                | {
+                    error?: number;
+                    errorMessage?: string;
+                  }
+                | {
+                    error: 2;
+                    errorMessage: '接口参数无效';
+                  }
+                | {
+                    error: 10022;
+                    errorMessage: '文件不存在';
+                  }
+                | {
+                    error: 10023;
+                    errorMessage: '传入的路径是一个目录';
+                  }
+                | {
+                    error: 10024;
+                    errorMessage: '指定的路径没有删除权限';
+                  }
+              ),
+        ): void;
+      },
+    ): Promise<{
       success: true;
     }>;
     /**
@@ -9664,13 +10523,193 @@ declare namespace my {
     /**
      * @summary 解压文件
      */
-    unzip(r: IUnzipRequest): Promise<{
+    unzip(
+      r: IUnzipRequest & {
+        /**
+         * 接口调用成功的回调函数
+         * @param data 成功返回的数据
+         */
+        success?(data: { success: true }): void;
+        /**
+         * 接口调用失败的回调函数
+         * @param err 错误信息
+         */
+        fail?(
+          err:
+            | {
+                error?: number;
+                errorMessage?: string;
+              }
+            | {
+                error: 2;
+                errorMessage: '接口参数无效';
+              }
+            | {
+                error: 10022;
+                errorMessage: '源文件不存在';
+              }
+            | {
+                error: 10022;
+                errorMessage: '上层目录不存在';
+              }
+            | {
+                error: 10023;
+                errorMessage: '传入的路径是一个目录';
+              }
+            | {
+                error: 10024;
+                errorMessage: '指定的路径没有权限';
+              }
+            | {
+                error: 10024;
+                errorMessage: '指定的源文件路径没有读权限';
+              }
+            | {
+                error: 10024;
+                errorMessage: '指定的目标文件路径没有写权限';
+              }
+            | {
+                error: 3;
+                errorMessage: '解压失败';
+              },
+        ): void;
+        /**
+         * 接口调用结束的回调函数（调用成功、失败都会执行）
+         */
+        complete?(
+          arg:
+            | {
+                success: true;
+              }
+            | (
+                | {
+                    error?: number;
+                    errorMessage?: string;
+                  }
+                | {
+                    error: 2;
+                    errorMessage: '接口参数无效';
+                  }
+                | {
+                    error: 10022;
+                    errorMessage: '源文件不存在';
+                  }
+                | {
+                    error: 10022;
+                    errorMessage: '上层目录不存在';
+                  }
+                | {
+                    error: 10023;
+                    errorMessage: '传入的路径是一个目录';
+                  }
+                | {
+                    error: 10024;
+                    errorMessage: '指定的路径没有权限';
+                  }
+                | {
+                    error: 10024;
+                    errorMessage: '指定的源文件路径没有读权限';
+                  }
+                | {
+                    error: 10024;
+                    errorMessage: '指定的目标文件路径没有写权限';
+                  }
+                | {
+                    error: 3;
+                    errorMessage: '解压失败';
+                  }
+              ),
+        ): void;
+      },
+    ): Promise<{
       success: true;
     }>;
     /**
      * @summary 用于写文件
      */
-    writeFile(r: IWriteFileRequest): Promise<{
+    writeFile(
+      r: IWriteFileRequest & {
+        /**
+         * 接口调用成功的回调函数
+         * @param data 成功返回的数据
+         */
+        success?(data: { success: true }): void;
+        /**
+         * 接口调用失败的回调函数
+         * @param err 错误信息
+         */
+        fail?(
+          err:
+            | {
+                error?: number;
+                errorMessage?: string;
+              }
+            | {
+                error: 2;
+                errorMessage: '接口参数无效';
+              }
+            | {
+                error: 10024;
+                errorMessage: '指定的路径没有写权限';
+              }
+            | {
+                error: 10024;
+                errorMessage: '指定的路径没有写权限';
+              }
+            | {
+                error: 3;
+                errorMessage: '文件写入失败';
+              }
+            | {
+                error: 10028;
+                errorMessage: '单个文件超过 10M';
+              }
+            | {
+                error: 10028;
+                errorMessage: '文件夹超过 50M';
+              },
+        ): void;
+        /**
+         * 接口调用结束的回调函数（调用成功、失败都会执行）
+         */
+        complete?(
+          arg:
+            | {
+                success: true;
+              }
+            | (
+                | {
+                    error?: number;
+                    errorMessage?: string;
+                  }
+                | {
+                    error: 2;
+                    errorMessage: '接口参数无效';
+                  }
+                | {
+                    error: 10024;
+                    errorMessage: '指定的路径没有写权限';
+                  }
+                | {
+                    error: 10024;
+                    errorMessage: '指定的路径没有写权限';
+                  }
+                | {
+                    error: 3;
+                    errorMessage: '文件写入失败';
+                  }
+                | {
+                    error: 10028;
+                    errorMessage: '单个文件超过 10M';
+                  }
+                | {
+                    error: 10028;
+                    errorMessage: '文件夹超过 50M';
+                  }
+              ),
+        ): void;
+      },
+    ): Promise<{
       success: true;
     }>;
     /**
@@ -9684,7 +10723,105 @@ declare namespace my {
     /**
      * @summary 压缩文件
      */
-    zip(r: IZipRequest): Promise<{
+    zip(
+      r: IZipRequest & {
+        /**
+         * 接口调用成功的回调函数
+         * @param data 成功返回的数据
+         */
+        success?(data: { success: true }): void;
+        /**
+         * 接口调用失败的回调函数
+         * @param err 错误信息
+         */
+        fail?(
+          err:
+            | {
+                error?: number;
+                errorMessage?: string;
+              }
+            | {
+                error: 2;
+                errorMessage: '接口参数无效';
+              }
+            | {
+                error: 10022;
+                errorMessage: '源文件不存在';
+              }
+            | {
+                error: 10022;
+                errorMessage: '上层目录不存在';
+              }
+            | {
+                error: 10022;
+                errorMessage: '打包源文件为空';
+              }
+            | {
+                error: 10024;
+                errorMessage: '指定的路径没有权限';
+              }
+            | {
+                error: 10024;
+                errorMessage: '指定的源文件路径没有读权限';
+              }
+            | {
+                error: 10024;
+                errorMessage: '指定的目标文件路径没有写权限';
+              }
+            | {
+                error: 3;
+                errorMessage: '压缩失败';
+              },
+        ): void;
+        /**
+         * 接口调用结束的回调函数（调用成功、失败都会执行）
+         */
+        complete?(
+          arg:
+            | {
+                success: true;
+              }
+            | (
+                | {
+                    error?: number;
+                    errorMessage?: string;
+                  }
+                | {
+                    error: 2;
+                    errorMessage: '接口参数无效';
+                  }
+                | {
+                    error: 10022;
+                    errorMessage: '源文件不存在';
+                  }
+                | {
+                    error: 10022;
+                    errorMessage: '上层目录不存在';
+                  }
+                | {
+                    error: 10022;
+                    errorMessage: '打包源文件为空';
+                  }
+                | {
+                    error: 10024;
+                    errorMessage: '指定的路径没有权限';
+                  }
+                | {
+                    error: 10024;
+                    errorMessage: '指定的源文件路径没有读权限';
+                  }
+                | {
+                    error: 10024;
+                    errorMessage: '指定的目标文件路径没有写权限';
+                  }
+                | {
+                    error: 3;
+                    errorMessage: '压缩失败';
+                  }
+              ),
+        ): void;
+      },
+    ): Promise<{
       success: true;
     }>;
   }
@@ -10879,7 +12016,49 @@ declare namespace my {
     /**
      * @summary 将地图经纬度坐标系转换成屏幕坐标系
      */
-    mapToScreen(r: IMapContextPoint): Promise<{
+    mapToScreen(
+      r: IMapContextPoint & {
+        /**
+         * 接口调用成功的回调函数
+         * @param data 成功返回的数据
+         */
+        success?(data: {
+          /**
+           * @summary 横坐标
+           */
+          x: number;
+          /**
+           * @summary 纵坐标
+           */
+          y: number;
+        }): void;
+        /**
+         * 接口调用失败的回调函数
+         * @param err 错误信息
+         */
+        fail?(err: { error?: number; errorMessage?: string }): void;
+        /**
+         * 接口调用结束的回调函数（调用成功、失败都会执行）
+         */
+        complete?(
+          arg:
+            | {
+                /**
+                 * @summary 横坐标
+                 */
+                x: number;
+                /**
+                 * @summary 纵坐标
+                 */
+                y: number;
+              }
+            | {
+                error?: number;
+                errorMessage?: string;
+              },
+        ): void;
+      },
+    ): Promise<{
       /**
        * @summary 横坐标
        */
@@ -10893,7 +12072,24 @@ declare namespace my {
      * @summary 移动视野到定位点并恢复到默认缩放级别
      * @description 需要配合 map 组件 的 show-location 使用。
      */
-    moveToLocation(r: IMapContextPoint): Promise<void>;
+    moveToLocation(
+      r: IMapContextPoint & {
+        /**
+         * 接口调用成功的回调函数
+         * @param data 成功返回的数据
+         */
+        success?(data: {}): void;
+        /**
+         * 接口调用失败的回调函数
+         * @param err 错误信息
+         */
+        fail?(err: { error?: number; errorMessage?: string }): void;
+        /**
+         * 接口调用结束的回调函数（调用成功、失败都会执行）
+         */
+        complete?(arg: { error?: number; errorMessage?: string }): void;
+      },
+    ): Promise<void>;
     /**
      * @summary 判断矩形区域是否包含传入的经纬度点
      */
@@ -18139,15 +19335,168 @@ declare namespace my.ap {
      */
     success: true;
   }>;
-  export function navigateToFinance(r: IAP$NavigateToFinanceOptionsFundDetail): Promise<void>;
-  export function navigateToFinance(r: IAP$NavigateToFinanceOptionsPortfolioDetail): Promise<void>;
-  export function navigateToFinance(r: IAP$NavigateToFinanceOptionsFundBuy): Promise<void>;
-  export function navigateToFinance(r: IAP$NavigateToFinanceOptionsGoldBuy): Promise<void>;
-  export function navigateToFinance(r: IAP$NavigateToFinanceOptionsPortfolioBuy): Promise<void>;
-  export function navigateToFinance(r: IAP$NavigateToFinanceOptionsFundSign): Promise<void>;
-  export function navigateToFinance(r: IAP$NavigateToFinanceOptionsGoldSign): Promise<void>;
-  export function navigateToFinance(r: IAP$NavigateToFinanceOptionsWealthShop): Promise<void>;
-  export function navigateToFinance(r: IAP$NavigateToFinanceOptionsH5Page): Promise<void>;
+  export function navigateToFinance(
+    r: IAP$NavigateToFinanceOptionsFundDetail & {
+      /**
+       * 接口调用成功的回调函数
+       * @param data 成功返回的数据
+       */
+      success?(data: {}): void;
+      /**
+       * 接口调用失败的回调函数
+       * @param err 错误信息
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(arg: { error?: number; errorMessage?: string }): void;
+    },
+  ): Promise<void>;
+  export function navigateToFinance(
+    r: IAP$NavigateToFinanceOptionsPortfolioDetail & {
+      /**
+       * 接口调用成功的回调函数
+       * @param data 成功返回的数据
+       */
+      success?(data: {}): void;
+      /**
+       * 接口调用失败的回调函数
+       * @param err 错误信息
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(arg: { error?: number; errorMessage?: string }): void;
+    },
+  ): Promise<void>;
+  export function navigateToFinance(
+    r: IAP$NavigateToFinanceOptionsFundBuy & {
+      /**
+       * 接口调用成功的回调函数
+       * @param data 成功返回的数据
+       */
+      success?(data: {}): void;
+      /**
+       * 接口调用失败的回调函数
+       * @param err 错误信息
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(arg: { error?: number; errorMessage?: string }): void;
+    },
+  ): Promise<void>;
+  export function navigateToFinance(
+    r: IAP$NavigateToFinanceOptionsGoldBuy & {
+      /**
+       * 接口调用成功的回调函数
+       * @param data 成功返回的数据
+       */
+      success?(data: {}): void;
+      /**
+       * 接口调用失败的回调函数
+       * @param err 错误信息
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(arg: { error?: number; errorMessage?: string }): void;
+    },
+  ): Promise<void>;
+  export function navigateToFinance(
+    r: IAP$NavigateToFinanceOptionsPortfolioBuy & {
+      /**
+       * 接口调用成功的回调函数
+       * @param data 成功返回的数据
+       */
+      success?(data: {}): void;
+      /**
+       * 接口调用失败的回调函数
+       * @param err 错误信息
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(arg: { error?: number; errorMessage?: string }): void;
+    },
+  ): Promise<void>;
+  export function navigateToFinance(
+    r: IAP$NavigateToFinanceOptionsFundSign & {
+      /**
+       * 接口调用成功的回调函数
+       * @param data 成功返回的数据
+       */
+      success?(data: {}): void;
+      /**
+       * 接口调用失败的回调函数
+       * @param err 错误信息
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(arg: { error?: number; errorMessage?: string }): void;
+    },
+  ): Promise<void>;
+  export function navigateToFinance(
+    r: IAP$NavigateToFinanceOptionsGoldSign & {
+      /**
+       * 接口调用成功的回调函数
+       * @param data 成功返回的数据
+       */
+      success?(data: {}): void;
+      /**
+       * 接口调用失败的回调函数
+       * @param err 错误信息
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(arg: { error?: number; errorMessage?: string }): void;
+    },
+  ): Promise<void>;
+  export function navigateToFinance(
+    r: IAP$NavigateToFinanceOptionsWealthShop & {
+      /**
+       * 接口调用成功的回调函数
+       * @param data 成功返回的数据
+       */
+      success?(data: {}): void;
+      /**
+       * 接口调用失败的回调函数
+       * @param err 错误信息
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(arg: { error?: number; errorMessage?: string }): void;
+    },
+  ): Promise<void>;
+  export function navigateToFinance(
+    r: IAP$NavigateToFinanceOptionsH5Page & {
+      /**
+       * 接口调用成功的回调函数
+       * @param data 成功返回的数据
+       */
+      success?(data: {}): void;
+      /**
+       * 接口调用失败的回调函数
+       * @param err 错误信息
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(arg: { error?: number; errorMessage?: string }): void;
+    },
+  ): Promise<void>;
   /**
    * @summary 判断用户在先享后付场景下是否有风险的 API
    */
@@ -18758,7 +20107,93 @@ declare namespace my.ap {
      */
     verifyId?: string;
   }): IZimIdentityResponseWithVerifyId | IZimIdentityResponseWithoutVerifyId;
-  export function zmCreditBorrow(r: IZmCreditBorrowRequest4OpenZMCreditBorrowPage): Promise<{
+  export function zmCreditBorrow(
+    r: IZmCreditBorrowRequest4OpenZMCreditBorrowPage & {
+      /**
+       * 接口调用成功的回调函数
+       * @param data 成功返回的数据
+       */
+      success?(data: {
+        /**
+         * @summary 商户发起借用服务时传入的参数，需要在借用结束后返回给商户的参数。
+         */
+        invoke_state: string;
+        /**
+         * @summary 外部订单号，需要唯一，由商户传入，芝麻内部会做幂等控制，格式为：yyyyMMddHHmmss+4位随机数
+         */
+        out_order_no: string;
+        /**
+         * @summary 芝麻信用借还订单号
+         */
+        order_no: string;
+        /**
+         * @summary 是否准入，该字段目前无实际意义。
+         * - `Y` 准入
+         * - `N` 不准入
+         */
+        admit_state: 'Y' | 'N';
+        /**
+         * @summary 物品借用/租赁者的用户id
+         */
+        user_id: string;
+        /**
+         * @summary 状态码。
+         * - `'6001'` 用户取消了业务流程
+         * - `'6002'` 网络异常
+         * - `'9000'` 成功
+         * - `'4000'` 系统异常
+         */
+        resultStatus: string;
+      }): void;
+      /**
+       * 接口调用失败的回调函数
+       * @param err 错误信息
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              /**
+               * @summary 商户发起借用服务时传入的参数，需要在借用结束后返回给商户的参数。
+               */
+              invoke_state: string;
+              /**
+               * @summary 外部订单号，需要唯一，由商户传入，芝麻内部会做幂等控制，格式为：yyyyMMddHHmmss+4位随机数
+               */
+              out_order_no: string;
+              /**
+               * @summary 芝麻信用借还订单号
+               */
+              order_no: string;
+              /**
+               * @summary 是否准入，该字段目前无实际意义。
+               * - `Y` 准入
+               * - `N` 不准入
+               */
+              admit_state: 'Y' | 'N';
+              /**
+               * @summary 物品借用/租赁者的用户id
+               */
+              user_id: string;
+              /**
+               * @summary 状态码。
+               * - `'6001'` 用户取消了业务流程
+               * - `'6002'` 网络异常
+               * - `'9000'` 成功
+               * - `'4000'` 系统异常
+               */
+              resultStatus: string;
+            }
+          | {
+              error?: number;
+              errorMessage?: string;
+            },
+      ): void;
+    },
+  ): Promise<{
     /**
      * @summary 商户发起借用服务时传入的参数，需要在借用结束后返回给商户的参数。
      */
@@ -18790,7 +20225,93 @@ declare namespace my.ap {
      */
     resultStatus: string;
   }>;
-  export function zmCreditBorrow(r: IZmCreditBorrowRequest4OpenZMCreditBorrowMapPage): Promise<{
+  export function zmCreditBorrow(
+    r: IZmCreditBorrowRequest4OpenZMCreditBorrowMapPage & {
+      /**
+       * 接口调用成功的回调函数
+       * @param data 成功返回的数据
+       */
+      success?(data: {
+        /**
+         * @summary 商户发起借用服务时传入的参数，需要在借用结束后返回给商户的参数。
+         */
+        invoke_state: string;
+        /**
+         * @summary 外部订单号，需要唯一，由商户传入，芝麻内部会做幂等控制，格式为：yyyyMMddHHmmss+4位随机数
+         */
+        out_order_no: string;
+        /**
+         * @summary 芝麻信用借还订单号
+         */
+        order_no: string;
+        /**
+         * @summary 是否准入，该字段目前无实际意义。
+         * - `Y` 准入
+         * - `N` 不准入
+         */
+        admit_state: 'Y' | 'N';
+        /**
+         * @summary 物品借用/租赁者的用户id
+         */
+        user_id: string;
+        /**
+         * @summary 状态码。
+         * - `'6001'` 用户取消了业务流程
+         * - `'6002'` 网络异常
+         * - `'9000'` 成功
+         * - `'4000'` 系统异常
+         */
+        resultStatus: string;
+      }): void;
+      /**
+       * 接口调用失败的回调函数
+       * @param err 错误信息
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              /**
+               * @summary 商户发起借用服务时传入的参数，需要在借用结束后返回给商户的参数。
+               */
+              invoke_state: string;
+              /**
+               * @summary 外部订单号，需要唯一，由商户传入，芝麻内部会做幂等控制，格式为：yyyyMMddHHmmss+4位随机数
+               */
+              out_order_no: string;
+              /**
+               * @summary 芝麻信用借还订单号
+               */
+              order_no: string;
+              /**
+               * @summary 是否准入，该字段目前无实际意义。
+               * - `Y` 准入
+               * - `N` 不准入
+               */
+              admit_state: 'Y' | 'N';
+              /**
+               * @summary 物品借用/租赁者的用户id
+               */
+              user_id: string;
+              /**
+               * @summary 状态码。
+               * - `'6001'` 用户取消了业务流程
+               * - `'6002'` 网络异常
+               * - `'9000'` 成功
+               * - `'4000'` 系统异常
+               */
+              resultStatus: string;
+            }
+          | {
+              error?: number;
+              errorMessage?: string;
+            },
+      ): void;
+    },
+  ): Promise<{
     /**
      * @summary 商户发起借用服务时传入的参数，需要在借用结束后返回给商户的参数。
      */
