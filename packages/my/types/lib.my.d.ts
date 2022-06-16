@@ -1364,7 +1364,7 @@ declare namespace my {
   /**
    * @summary 创建并返回 <canvas> 组件上下文
    */
-  export function createCanvasContext(): CanvasContext;
+  export function createCanvasContext(canvasId: string): CanvasContext;
   /**
    * @summary 创建并返回内部音频上下文
    */
@@ -1933,39 +1933,39 @@ declare namespace my {
     /**
      * @summary 允许使用相册的开关
      */
-    albumAuthorized: boolean;
+    albumAuthorized: string;
     /**
      * @summary 允许使用蓝牙的开关
      */
-    bluetoothAuthorized: boolean;
+    bluetoothAuthorized: string;
     /**
      * @summary 允许使用摄像头的开关
      */
-    cameraAuthorized: boolean;
+    cameraAuthorized: string;
     /**
      * @summary 允许使用定位的开关
      */
-    locationAuthorized: boolean;
+    locationAuthorized: string;
     /**
      * @summary 允许使用麦克风的开关
      */
-    microphoneAuthorized: boolean;
+    microphoneAuthorized: string;
     /**
      * @summary 允许通知的开关
      */
-    notificationAuthorized: boolean;
+    notificationAuthorized: string;
     /**
      * @summary 允许通知带有提醒的开关
      */
-    notificationAlertAuthorized: boolean;
+    notificationAlertAuthorized: string;
     /**
      * @summary 允许通知带有标记的开关
      */
-    notificationBadgeAuthorized: boolean;
+    notificationBadgeAuthorized: string;
     /**
      * @summary 允许通知带有声音的开关
      */
-    notificationSoundAuthorized: boolean;
+    notificationSoundAuthorized: string;
     /**
      * @summary 悬浮窗权限
      */
@@ -2884,6 +2884,10 @@ declare namespace my {
    * @summary 获取文件管理器实例
    */
   export function getFileSystemManager(): FileSystemManager;
+  /**
+   * @summary 获取地理编码管理器实例
+   */
+  export function getGeocoder(): Geocoder;
   /**
    * @summary 获取会员身份信息
    */
@@ -6306,16 +6310,12 @@ declare namespace my {
      * @summary 用于设置目标小程序的 app 级别 query 参数
      * @description 目标小程序可在 App.onLaunch()，App.onShow() 中获取到这份数据。
      */
-    query?: {
-      [key: string]: unknown;
-    };
+    query?: IOpenEmbeddedMiniProgramParam;
     /**
      * @summary 需要传递给目标小程序的数据
      * @description 目标小程序可在 App.onLaunch()，App.onShow() 中获取到这份数据。
      */
-    extraData?: {
-      [key: string]: unknown;
-    };
+    extraData?: IOpenEmbeddedMiniProgramParam;
     /**
      * 接口调用成功的回调函数
      * @param data 成功返回的数据
@@ -8670,10 +8670,16 @@ declare namespace my {
        * @summary 认证流程结果状态码
        */
       resultStatus: string;
-      /**
-       * @summary 本次认证流水号
-       */
-      certifyId: string;
+      result?: {
+        /**
+         * @summary 业务错误码
+         */
+        errorCode: string;
+        /**
+         * @summary 本次认证流水号
+         */
+        certifyId: string;
+      };
     }): void;
     /**
      * 接口调用失败的回调函数
@@ -8690,10 +8696,16 @@ declare namespace my {
              * @summary 认证流程结果状态码
              */
             resultStatus: string;
-            /**
-             * @summary 本次认证流水号
-             */
-            certifyId: string;
+            result?: {
+              /**
+               * @summary 业务错误码
+               */
+              errorCode: string;
+              /**
+               * @summary 本次认证流水号
+               */
+              certifyId: string;
+            };
           }
         | {
             error?: number;
@@ -8705,10 +8717,16 @@ declare namespace my {
      * @summary 认证流程结果状态码
      */
     resultStatus: string;
-    /**
-     * @summary 本次认证流水号
-     */
-    certifyId: string;
+    result?: {
+      /**
+       * @summary 业务错误码
+       */
+      errorCode: string;
+      /**
+       * @summary 本次认证流水号
+       */
+      certifyId: string;
+    };
   }>;
   /**
    * @summary 开始搜索附近的 iBeacon 设备
@@ -11619,10 +11637,7 @@ declare namespace my {
     /**
      * @summary 获取当前地图中心位置
      */
-    getCenterLocation(r: {
-      element: string;
-      actionType: string;
-      data: Record<string, unknown>;
+    getCenterLocation(r?: {
       /**
        * 接口调用成功的回调函数
        * @param data 成功返回的数据
@@ -11648,10 +11663,7 @@ declare namespace my {
     /**
      * @summary 获取地图的属性信息
      */
-    getMapProperties(r: {
-      element: string;
-      actionType: string;
-      data: Record<string, unknown>;
+    getMapProperties(r?: {
       /**
        * 接口调用成功的回调函数
        * @param data 成功返回的数据
@@ -11752,10 +11764,7 @@ declare namespace my {
     /**
      * @summary 获取地图的属性信息
      */
-    getRegion(r: {
-      element: string;
-      actionType: string;
-      data: Record<string, unknown>;
+    getRegion(r?: {
       /**
        * 接口调用成功的回调函数
        * @param data 成功返回的数据
@@ -11808,10 +11817,7 @@ declare namespace my {
     /**
      * @summary 获取当前地图的旋转角
      */
-    getRotate(r: {
-      element: string;
-      actionType: string;
-      data: Record<string, unknown>;
+    getRotate(r?: {
       /**
        * 接口调用成功的回调函数
        * @param data 成功返回的数据
@@ -11852,10 +11858,7 @@ declare namespace my {
     /**
      * @summary 获取地图的缩放级别
      */
-    getScale(r: {
-      element: string;
-      actionType: string;
-      data: Record<string, unknown>;
+    getScale(r?: {
       /**
        * 接口调用成功的回调函数
        * @param data 成功返回的数据
@@ -11902,10 +11905,7 @@ declare namespace my {
     /**
      * @summary 获取当前地图的倾斜角
      */
-    getSkew(r: {
-      element: string;
-      actionType: string;
-      data: Record<string, unknown>;
+    getSkew(r?: {
       /**
        * 接口调用成功的回调函数
        * @param data 成功返回的数据
@@ -12814,6 +12814,94 @@ declare namespace my {
   export interface TCPSocket {}
   export interface UDPSocket {}
   export interface RecorderManager {
+    /**
+     * @summary 停止监听声音的分贝变化回调事件
+     */
+    offDecibelChange(cb?: (arg: { decibel: number }) => void): void;
+    /**
+     * @summary 取消监听录音错误事件
+     */
+    offError(
+      cb?: (
+        arg:
+          | {
+              error: '10';
+              errorMessage: '获取权限失败';
+            }
+          | {
+              error: '1001';
+              errorMessage: 'Record canceled by page pause.';
+            }
+          | {
+              error: number;
+              errorMessage: string;
+            },
+      ) => void,
+    ): void;
+    /**
+     * @summary 取消监听已录制完制定帧大小的文件事件
+     */
+    offFrameRecorded(cb?: (arg: { frameBuffer: ArrayBuffer; isLastFrame: boolean }) => void): void;
+    /**
+     * @summary 取消监听录音暂停事件
+     */
+    offPause(cb?: () => void): void;
+    /**
+     * @summary 取消监听录音继续事件
+     */
+    offResume(cb?: () => void): void;
+    /**
+     * @summary 取消监听录音开始事件
+     */
+    offStart(cb?: () => void): void;
+    /**
+     * @summary 取消监听录音结束事件
+     */
+    offStop(cb?: (arg: { identifier: string; tempFilePath: string; duration: number }) => void): void;
+    /**
+     * @summary 监听声音的分贝变化回调事件
+     */
+    onDecibelChange(cb: (arg: { decibel: number }) => void): void;
+    /**
+     * @summary 监听录音错误事件
+     */
+    onError(
+      cb: (
+        arg:
+          | {
+              error: '10';
+              errorMessage: '获取权限失败';
+            }
+          | {
+              error: '1001';
+              errorMessage: 'Record canceled by page pause.';
+            }
+          | {
+              error: number;
+              errorMessage: string;
+            },
+      ) => void,
+    ): void;
+    /**
+     * @summary 监听已录制完制定帧大小的文件事件。如果设置了 frameSize，则会回调此事件
+     */
+    onFrameRecorded(cb: (arg: { frameBuffer: ArrayBuffer; isLastFrame: boolean }) => void): void;
+    /**
+     * @summary 监听录音暂停事件
+     */
+    onPause(cb: () => void): void;
+    /**
+     * @summary 监听录音继续事件
+     */
+    onResume(cb: () => void): void;
+    /**
+     * @summary 监听录音开始事件
+     */
+    onStart(cb: () => void): void;
+    /**
+     * @summary 监听录音结束事件
+     */
+    onStop(cb: (arg: { identifier: string; tempFilePath: string; duration: number }) => void): void;
     /**
      * @summary 暂停录音
      */
@@ -16347,6 +16435,161 @@ declare namespace my {
      */
     stopTracking(): boolean;
   }
+  export interface Geocoder {
+    /**
+     * @summary 逆地理编码
+     */
+    reverseGeocoding(r: {
+      latitude: string;
+      longitude: string;
+      /**
+       * 接口调用成功的回调函数
+       * @param data 成功返回的数据
+       */
+      success?(data: {
+        country: string;
+        countryCode: string;
+        province: string;
+        provinceAdcode: string;
+        city: string;
+        cityAdcode: string;
+        district: string;
+        districtAdcode: string;
+      }): void;
+      /**
+       * 接口调用失败的回调函数
+       * @param err 错误信息
+       */
+      fail?(
+        err:
+          | {
+              error?: number;
+              errorMessage?: string;
+            }
+          | {
+              error: 2;
+              errorMessage: '非法参数';
+            }
+          | {
+              error: 1001;
+              errorMessage: '逆地理编码失败';
+            }
+          | {
+              error: 1002;
+              errorMessage: '逆地理编码信息为空';
+            },
+      ): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              country: string;
+              countryCode: string;
+              province: string;
+              provinceAdcode: string;
+              city: string;
+              cityAdcode: string;
+              district: string;
+              districtAdcode: string;
+            }
+          | (
+              | {
+                  error?: number;
+                  errorMessage?: string;
+                }
+              | {
+                  error: 2;
+                  errorMessage: '非法参数';
+                }
+              | {
+                  error: 1001;
+                  errorMessage: '逆地理编码失败';
+                }
+              | {
+                  error: 1002;
+                  errorMessage: '逆地理编码信息为空';
+                }
+            ),
+      ): void;
+    }): Promise<{
+      country: string;
+      countryCode: string;
+      province: string;
+      provinceAdcode: string;
+      city: string;
+      cityAdcode: string;
+      district: string;
+      districtAdcode: string;
+    }>;
+  }
+  export interface UploadTask {
+    /**
+     * @summary 取消本次任务
+     */
+    abort(): void;
+    /**
+     * @summary 监听上传进度变化事件
+     */
+    onProgressUpdate(
+      cb: (arg: {
+        /**
+         * @summary 上传进度百分比
+         */
+        progress: number;
+        totalBytesWritten: number;
+        totalBytesExpectedToWrite: number;
+      }) => void,
+    ): void;
+  }
+  export interface DownloadTask {
+    /**
+     * @summary 取消本次任务
+     */
+    abort(): void;
+    /**
+     * @summary 监听下载进度变化事件
+     */
+    onProgressUpdate(cb: (arg: { progress: number; totalBytesWritten: number; totalBytesExpectedToWrite: number }) => void): void;
+  }
+  export interface RPCTask {
+    /**
+     * @summary 取消本次任务
+     */
+    abort(): void;
+  }
+  export interface RequestTask {
+    /**
+     * @summary 取消本次任务
+     */
+    abort(): void;
+  }
+  export interface HTTPRequestTask {
+    /**
+     * @summary 取消本次任务
+     */
+    abort(): void;
+  }
+  export interface UploadToAliCloudTask {
+    /**
+     * @summary 取消本次任务
+     */
+    abort(): void;
+    /**
+     * @summary 监听上传进度变化事件
+     */
+    onProgressUpdate(
+      cb: (arg: {
+        /**
+         * @summary 上传进度百分比
+         */
+        progress: number;
+        totalBytesWritten: number;
+        totalBytesExpectedToWrite: number;
+      }) => void,
+    ): void;
+  }
   export interface ICanvasContext {}
   export interface IARSession {}
   interface DOMMatrix2DInit {
@@ -16875,15 +17118,15 @@ declare namespace my {
     /**
      * @summary 城市名。
      */
-    name: string;
+    name?: string;
     /**
      * @summary 行政区划代码。不同行政区域对应的代码可参见 中华人民共和国县以上行政区划代码。
      */
-    adcode: string;
+    adcode?: string;
     /**
      * @summary 城市名对应拼音拼写，方便用户搜索。
      */
-    pinyin: string;
+    pinyin?: string;
     /**
      * @summary 城市名。
      */
@@ -16901,15 +17144,15 @@ declare namespace my {
     /**
      * @summary 城市名。
      */
-    name: string;
+    name?: string;
     /**
      * @summary 行政区划代码。不同行政区域对应的代码可参见 中华人民共和国县以上行政区划代码。
      */
-    adcode: string;
+    adcode?: string;
     /**
      * @summary 城市名对应拼音拼写，方便用户搜索。
      */
-    pinyin: string;
+    pinyin?: string;
     /**
      * @summary 城市名。
      */
@@ -17903,6 +18146,9 @@ declare namespace my {
      */
     extraData: Record<string, unknown>;
   }
+  interface IOpenEmbeddedMiniProgramParam {
+    [key: string]: unknown;
+  }
   interface IOpenSettingAuthSetting {
     /**
      * @summary 地理位置。
@@ -18193,6 +18439,8 @@ declare namespace my {
      * @summary 上次修改时间
      */
     lastModifiedTime: number;
+    isDirectory: () => boolean;
+    isFile: () => boolean;
   }
   interface IStatRequest {
     /**
@@ -19547,6 +19795,53 @@ declare namespace my.ap {
     result: IMyApNsfResult;
   }>;
   /**
+   * @summary 打开支付宝里的官方应用
+   */
+  export function openAlipayApp(r: {
+    /**
+     * @summary 目标应用标识
+     */
+    appCode: string;
+    /**
+     * @summary 传给目标应用的参数
+     */
+    appParams?: Record<string, unknown>;
+    /**
+     * 接口调用成功的回调函数
+     * @param data 成功返回的数据
+     */
+    success?(data: {}): void;
+    /**
+     * 接口调用失败的回调函数
+     * @param err 错误信息
+     */
+    fail?(
+      err:
+        | {
+            error: 2;
+            errorMessage: '参数无效';
+          }
+        | {
+            error: number;
+            errorMessage: string;
+          },
+    ): void;
+    /**
+     * 接口调用结束的回调函数（调用成功、失败都会执行）
+     */
+    complete?(
+      arg:
+        | {
+            error: 2;
+            errorMessage: '参数无效';
+          }
+        | {
+            error: number;
+            errorMessage: string;
+          },
+    ): void;
+  }): Promise<void>;
+  /**
    * @summary 跳转到支付宝卡列表界面
    */
   export function openCardList(r?: {
@@ -19740,6 +20035,57 @@ declare namespace my.ap {
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
     complete?(arg: { error?: number; errorMessage?: string }): void;
+  }): Promise<void>;
+  /**
+   * @summary 打开 URL
+   */
+  export function openURL(r: {
+    /**
+     * @summary 目标 url。以 https:// 或 alipays:// 开头
+     */
+    url: string;
+    /**
+     * 接口调用成功的回调函数
+     * @param data 成功返回的数据
+     */
+    success?(data: {}): void;
+    /**
+     * 接口调用失败的回调函数
+     * @param err 错误信息
+     */
+    fail?(
+      err:
+        | {
+            error: 2;
+            errorMessage: '参数无效';
+          }
+        | {
+            error: 60002;
+            errorMessage: '目标地址不在白名单';
+          }
+        | {
+            error: number;
+            errorMessage: string;
+          },
+    ): void;
+    /**
+     * 接口调用结束的回调函数（调用成功、失败都会执行）
+     */
+    complete?(
+      arg:
+        | {
+            error: 2;
+            errorMessage: '参数无效';
+          }
+        | {
+            error: 60002;
+            errorMessage: '目标地址不在白名单';
+          }
+        | {
+            error: number;
+            errorMessage: string;
+          },
+    ): void;
   }): Promise<void>;
   export function openVoucherDetail(r: {
     /**
