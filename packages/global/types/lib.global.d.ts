@@ -38,7 +38,7 @@ export interface IAppOnLaunchReferrerInfo {
   extraData: Record<string, any>;
 }
 
-export interface IAppOnLaunchOptions<Query = Record<string, string>> {
+export interface IAppOnLaunchOptions<Query extends Record<string, string> = Record<string, string>> {
   /**
    * 当前小程序的 query，从启动参数的 query 字段解析而来
    */
@@ -78,12 +78,12 @@ export interface IAppOptions<ExtraOptions extends UnknownRecord> {
    * 生命周期回调：监听小程序初始化
    * 当小程序初始化完成时触发，全局只触发一次
    */
-  onLaunch<Query = {}>(options: IAppOnLaunchOptions<Query>): void;
+  onLaunch(options: IAppOnLaunchOptions): void;
   /**
    * 生命周期回调：监听小程序显示
    * 当小程序启动，或从后台进入前台显示时触发
    */
-  onShow<Query = {}>(options: IAppOnLaunchOptions<Query>): void;
+  onShow(options: IAppOnLaunchOptions): void;
   /**
    * 生命周期回调：监听小程序隐藏
    * 当当前页面被隐藏时触发，例如跳转、按下设备 Home 键离开

@@ -1,8 +1,13 @@
+import { expectType } from 'tsd-lite';
+import { IAppOnLaunchOptions } from '../../packages/alipay/types';
+
 App({
-  onLaunch(options) {
+ onLaunch(options: IAppOnLaunchOptions<{a: string}>) {
     console.log('App Launch', options);
-    console.log('getSystemInfoSync', my.getSystemInfoSync());
-    console.log('SDKVersion', my.SDKVersion);
+    expectType<string>(options.path);
+    expectType<string>(options.query.a);
+    expectType<string>(options.referrerInfo.appId);
+    expectType<string>(my.SDKVersion);
   },
   onShow() {
     console.log('App Show');

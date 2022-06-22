@@ -1,8 +1,14 @@
-Component({
+/// <reference types="../../packages/alipay" />
+
+import { expectType } from 'tsd-lite';
+
+Component<{x: number}>({
   mixins: [], // mixins 方便复用代码
   data: { x: 1 }, // 组件内部数据
   props: { y: 1 }, // 可给外部传入的属性添加默认值
-  didMount() {}, // 生命周期函数
+  didMount() {
+    expectType<number>(this.data.x);
+  }, // 生命周期函数
   didUpdate() {},
   didUnmount() {},
   methods: {

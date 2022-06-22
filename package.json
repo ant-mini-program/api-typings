@@ -9,6 +9,9 @@
     "release": "sh ./scripts/set-release-tag.sh"
   },
   "devDependencies": {
+    "@tsd/typescript": "^4.7.4",
+    "jest": "^28.1.1",
+    "jest-runner-tsd": "^3.1.0",
     "lerna": "^4.0.0",
     "typescript": "^4.6.4"
   }

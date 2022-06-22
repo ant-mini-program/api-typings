@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "types": ["../packages/alipay"],
+    "typeRoots": ["../packages"],
     "experimentalDecorators": true,
     "allowJs": true,
     "lib": ["ESNEXT", "DOM"],
@@ -9,5 +9,5 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "module": "CommonJS"
-  }
+  },
 }
