@@ -38,7 +38,9 @@ export interface IAppOnLaunchReferrerInfo {
   extraData: Record<string, any>;
 }
 
-export interface IAppOnLaunchOptions<Query extends Record<string, string> = Record<string, string>> {
+export interface IAppOnLaunchOptions<
+  Query extends Record<string, string> = Record<string, string>
+> {
   /**
    * 当前小程序的 query，从启动参数的 query 字段解析而来
    */

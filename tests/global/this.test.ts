@@ -1,5 +1,11 @@
 import { expectType } from 'tsd-lite';
 
+declare global {
+  interface IGlobalMiniProgramExtraThis4Component {
+    a: () => {}
+  }
+}
+
 Component<{ x: number }>({
   mixins: [], // mixins 方便复用代码
   data: { x: 1 }, // 组件内部数据

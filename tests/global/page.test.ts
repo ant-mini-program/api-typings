@@ -1,4 +1,4 @@
-import { expectType } from 'tsd-lite';
+import { expectAssignable } from 'tsd-lite';
 
 let basicComponentList = [
   {
@@ -39,7 +39,7 @@ Page({
     shadow: false,
   },
   onPageScroll(e) {
-    expectType<Function>(this.setData)
+    expectAssignable<Function>(this.setData)
 
     const { scrollTop } = e;
     let titleOpacity = 1 - scrollTop * 0.02;

@@ -38,7 +38,21 @@ npm install @mini-types/alipay --save-dev
 }
 ```
 
-## 贡献
+## FAQ
+
+### 我在代码中使用 `this.` 时没有提示？
+
+请在项目的 tsconfig.json 中配置 `noImplicitThis` 为 `true`：
+
+```diff
+{
+  "compilerOptions": {
++    "noImplicitThis": true
+  },
+}
+```
+
+## 如何贡献
 
 `@mini-types/my` 中的类型定义是通过工具自动生成的，最好不要直接向该包提交代码。如果发现定义有误欢迎给我们提 issue。
 
