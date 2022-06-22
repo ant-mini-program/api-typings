@@ -6,7 +6,8 @@
     "publish:prod": "lerna publish --exact --force-publish='*' --no-push",
     "publish:prod:version": "lerna publish patch --exact --force-publish='*' --no-push",
     "publish:rc": "lerna publish --preid rc-$(date +%s) --dist-tag rc --force-publish='*' --no-push --no-git-tag-version prepatch --ignore-prepublish --ignore-scripts --no-private -y",
-    "release": "sh ./scripts/set-release-tag.sh"
+    "release": "sh ./scripts/set-release-tag.sh",
+    "test": "jest"
   },
   "devDependencies": {
     "@tsd/typescript": "^4.7.4",

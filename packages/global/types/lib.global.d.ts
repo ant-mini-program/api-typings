@@ -306,7 +306,7 @@ export type IPageInstance<
   Data,
   ExtraThis,
   ExtraOptions extends UnknownRecord
-> = { data: RecursivePartialAndDynamic<Data> & UnknownRecord } & ExtraThis &
+> = { data: Data & UnknownRecord } & ExtraThis &
   Omit<ExtraOptions, keyof IPageOptions<Data, ExtraOptions>> & {
     /**
      * 将数据从逻辑层发送到视图层
@@ -459,13 +459,9 @@ export declare type IComponentInstance<
   ExtraOptions extends UnknownRecord,
   Mixin extends any[]
 > = {
-  data: RecursivePartialAndDynamic<
-    Data & UnionToIntersection<TGetMixinData<TExtractValuesOfTuple<Mixin>>>
-  >;
+  data: Data & UnionToIntersection<TGetMixinData<TExtractValuesOfTuple<Mixin>>>;
   props: Readonly<
-    RecursivePartialAndDynamic<
-      Props & UnionToIntersection<TGetMixinProps<TExtractValuesOfTuple<Mixin>>>
-    >
+    Props & UnionToIntersection<TGetMixinProps<TExtractValuesOfTuple<Mixin>>>
   >;
 } & Methods &
   UnionToIntersection<TGetMixinMethods<TExtractValuesOfTuple<Mixin>>> &
