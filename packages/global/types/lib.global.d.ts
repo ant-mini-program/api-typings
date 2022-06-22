@@ -671,7 +671,7 @@ declare global {
     Methods = {},
     ExtraThis = {},
     ExtraOptions extends Record<string, unknown> = {},
-    Mixin extends any[] = []
+    Mixin extends any[] = any[]
   >(
     opts: IUserComponentOptions<
       Data,

@@ -1,24 +1,19 @@
-import { expectType } from 'tsd-lite';
+import { expectType, expectAssignable } from 'tsd-lite';
 
 declare global {
   interface IGlobalMiniProgramExtraThis4Component {
-    a: () => {}
+    a: () => {};
   }
 }
 
-Component<{ x: number }>({
-  mixins: [], // mixins 方便复用代码
-  data: { x: 1 }, // 组件内部数据
-  props: { y: 1 }, // 可给外部传入的属性添加默认值
+Component({
+  mixins: [],
+  data: { x: 1 },
+  props: { y: 1 },
   didMount() {
     expectType<number>(this.data.x);
-  }, // 生命周期函数
-  didUpdate() {},
-  didUnmount() {},
-  methods: {
-    // 自定义方法
-    handleTap() {
-      this.setData({ x: this.data.x + 1 }); // 可使用 setData 改变内部属性
-    },
+    expectType<number>(this.props.y);
+    expectAssignable<Function>(this.a);
+    expectAssignable<Function>(this.setData);
   },
 });
