@@ -1,6 +1,10 @@
 {
   "name": "mini-types",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:ant-mini-program/api-typings.git"
+  },
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "publish:prod": "lerna publish --exact --force-publish='*' --no-push",
