@@ -11,11 +11,13 @@
     "publish:prod:version": "lerna publish patch --exact --force-publish='*' --no-push",
     "publish:rc": "lerna publish --preid rc-$(date +%s) --dist-tag rc --force-publish='*' --no-push --no-git-tag-version prepatch --ignore-prepublish --ignore-scripts --no-private -y",
     "disttag:release": "sh ./scripts/set-release-tag.sh",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
     "test": "jest",
     "ci": "yarn test"
   },
   "devDependencies": {
     "@tsd/typescript": "^4.7.4",
+    "conventional-changelog-cli": "^2.2.2",
     "jest": "^28.1.1",
     "jest-runner-tsd": "^3.1.0",
     "lerna": "^5.0.0",
