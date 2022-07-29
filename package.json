@@ -10,7 +10,7 @@
     "publish:prod": "lerna publish --exact --force-publish='*' --no-push",
     "publish:prod:version": "lerna publish patch --exact --force-publish='*' --no-push",
     "publish:rc": "lerna publish --preid rc-$(date +%s) --dist-tag rc --force-publish='*' --no-push --no-git-tag-version prepatch --ignore-prepublish --ignore-scripts --no-private -y",
-    "release": "sh ./scripts/set-release-tag.sh",
+    "disttag:release": "sh ./scripts/set-release-tag.sh",
     "test": "jest",
     "ci": "yarn test"
   },
@@ -19,7 +19,6 @@
     "jest": "^28.1.1",
     "jest-runner-tsd": "^3.1.0",
     "lerna": "^4.0.0",
-    "standard-version": "^9.5.0",
     "typescript": "^4.6.4"
   }
 }
