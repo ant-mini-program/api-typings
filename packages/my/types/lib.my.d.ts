@@ -182,6 +182,7 @@ declare namespace my {
     content?: string;
     /**
      * @summary 按钮文字
+     * @ide 2.0
      * @default "确定"
      */
     buttonText?: string;
@@ -1553,9 +1554,15 @@ declare namespace my {
      */
     success?(data: {
       /**
-       * @summary 文件临时存放的位置。
+       * @summary 临时文件路径(本地临时文件)
        */
       apFilePath: string;
+      /**
+       *
+       * @summary 临时文件路径(本地临时文件)
+       * @sdk 2.7.23
+       */
+      tempFilePath: string;
     }): void;
     /**
      * 接口调用失败的回调函数
@@ -1587,9 +1594,15 @@ declare namespace my {
       arg:
         | {
             /**
-             * @summary 文件临时存放的位置。
+             * @summary 临时文件路径(本地临时文件)
              */
             apFilePath: string;
+            /**
+             *
+             * @summary 临时文件路径(本地临时文件)
+             * @sdk 2.7.23
+             */
+            tempFilePath: string;
           }
         | (
             | {
@@ -1612,10 +1625,105 @@ declare namespace my {
     ): void;
   }): Promise<{
     /**
-     * @summary 文件临时存放的位置。
+     * @summary 临时文件路径(本地临时文件)
      */
     apFilePath: string;
+    /**
+     *
+     * @summary 临时文件路径(本地临时文件)
+     * @sdk 2.7.23
+     */
+    tempFilePath: string;
   }>;
+  /**
+   * @summary 下载文件资源到本地
+   * @description - 可下载任何格式的文件，不能被识别的文件将以 other 的方式存储起来
+   */
+  export function downloadFile(r: {
+    /**
+     * @summary 下载文件地址
+     */
+    url: string;
+    /**
+     * @summary HTTP 请求 Header
+     */
+    header?: Record<string, string>;
+    /**
+     * 接口调用成功的回调函数
+     * @param data 成功返回的数据
+     */
+    success?(data: {
+      /**
+       * @summary 临时文件路径(本地临时文件)
+       */
+      apFilePath: string;
+      /**
+       *
+       * @summary 临时文件路径(本地临时文件)
+       * @sdk 2.7.23
+       */
+      tempFilePath: string;
+    }): void;
+    /**
+     * 接口调用失败的回调函数
+     * @param err 错误信息
+     */
+    fail?(
+      err:
+        | {
+            error?: number;
+            errorMessage?: string;
+          }
+        | {
+            error: 12;
+            errorMessage: '下载失败';
+          }
+        | {
+            error: 13;
+            errorMessage: '没有权限';
+          }
+        | {
+            error: 20;
+            errorMessage: '请求的 URL 不支持 HTTP';
+          },
+    ): void;
+    /**
+     * 接口调用结束的回调函数（调用成功、失败都会执行）
+     */
+    complete?(
+      arg:
+        | {
+            /**
+             * @summary 临时文件路径(本地临时文件)
+             */
+            apFilePath: string;
+            /**
+             *
+             * @summary 临时文件路径(本地临时文件)
+             * @sdk 2.7.23
+             */
+            tempFilePath: string;
+          }
+        | (
+            | {
+                error?: number;
+                errorMessage?: string;
+              }
+            | {
+                error: 12;
+                errorMessage: '下载失败';
+              }
+            | {
+                error: 13;
+                errorMessage: '没有权限';
+              }
+            | {
+                error: 20;
+                errorMessage: '请求的 URL 不支持 HTTP';
+              }
+          ),
+    ): void;
+  }): DownloadTask;
   /**
    * @summary 开启小程序页面返回询问对话框
    */
@@ -1788,6 +1896,11 @@ declare namespace my {
     image: string;
   }>;
   /**
+   * @summary 获取无障碍能力管理器
+   * @description 用于管理小程序无障碍能力。
+   */
+  export function getAccessibilityManager(): AccessibilityManager;
+  /**
    * @summary 获取小程序及插件信息
    */
   export function getAccountInfoSync(): {
@@ -1809,123 +1922,185 @@ declare namespace my {
      * 接口调用成功的回调函数
      * @param data 成功返回的数据
      */
-    success?(data: {
-      /**
-       * @summary 详细地址
-       */
-      address: string;
-      /**
-       * @summary 国家名称
-       */
-      country: string;
-      /**
-       * @summary 省
-       */
-      prov: string;
-      /**
-       * @summary 市
-       */
-      city: string;
-      /**
-       * @summary 区
-       */
-      area: string;
-      /**
-       * @summary 街道
-       */
-      street: string;
-      /**
-       * @summary 名称
-       */
-      fullname: string;
-      /**
-       * @summary 手机号
-       */
-      mobilePhone: string;
-    }): void;
+    success?(
+      data:
+        | {
+            /**
+             * @summary 表示用户未做选择直接返回
+             */
+            resultStatus: '6001';
+            result: '';
+          }
+        | {
+            /**
+             * @summary 表示用户选择了一个地址
+             */
+            resultStatus: '9000';
+            result: {
+              /**
+               * @summary 详细地址
+               */
+              address: string;
+              /**
+               * @summary 国家名称
+               */
+              country: string;
+              /**
+               * @summary 省
+               */
+              prov: string;
+              /**
+               * @summary 市
+               */
+              city: string;
+              /**
+               * @summary 区
+               */
+              area: string;
+              /**
+               * @summary 街道
+               */
+              street: string;
+              /**
+               * @summary 姓名
+               */
+              fullname: string;
+              /**
+               * @summary 手机号
+               */
+              mobilePhone: string;
+            };
+          },
+    ): void;
     /**
      * 接口调用失败的回调函数
      * @param err 错误信息
      */
-    fail?(err: { error?: number; errorMessage?: string }): void;
+    fail?(
+      err:
+        | {
+            error?: number;
+            errorMessage?: string;
+          }
+        | {
+            error: 4;
+            errorMessage: '无权调用该接口';
+          },
+    ): void;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
     complete?(
       arg:
-        | {
-            /**
-             * @summary 详细地址
-             */
-            address: string;
-            /**
-             * @summary 国家名称
-             */
-            country: string;
-            /**
-             * @summary 省
-             */
-            prov: string;
-            /**
-             * @summary 市
-             */
-            city: string;
-            /**
-             * @summary 区
-             */
-            area: string;
-            /**
-             * @summary 街道
-             */
-            street: string;
-            /**
-             * @summary 名称
-             */
-            fullname: string;
-            /**
-             * @summary 手机号
-             */
-            mobilePhone: string;
-          }
-        | {
-            error?: number;
-            errorMessage?: string;
-          },
+        | (
+            | {
+                /**
+                 * @summary 表示用户未做选择直接返回
+                 */
+                resultStatus: '6001';
+                result: '';
+              }
+            | {
+                /**
+                 * @summary 表示用户选择了一个地址
+                 */
+                resultStatus: '9000';
+                result: {
+                  /**
+                   * @summary 详细地址
+                   */
+                  address: string;
+                  /**
+                   * @summary 国家名称
+                   */
+                  country: string;
+                  /**
+                   * @summary 省
+                   */
+                  prov: string;
+                  /**
+                   * @summary 市
+                   */
+                  city: string;
+                  /**
+                   * @summary 区
+                   */
+                  area: string;
+                  /**
+                   * @summary 街道
+                   */
+                  street: string;
+                  /**
+                   * @summary 姓名
+                   */
+                  fullname: string;
+                  /**
+                   * @summary 手机号
+                   */
+                  mobilePhone: string;
+                };
+              }
+          )
+        | (
+            | {
+                error?: number;
+                errorMessage?: string;
+              }
+            | {
+                error: 4;
+                errorMessage: '无权调用该接口';
+              }
+          ),
     ): void;
-  }): Promise<{
-    /**
-     * @summary 详细地址
-     */
-    address: string;
-    /**
-     * @summary 国家名称
-     */
-    country: string;
-    /**
-     * @summary 省
-     */
-    prov: string;
-    /**
-     * @summary 市
-     */
-    city: string;
-    /**
-     * @summary 区
-     */
-    area: string;
-    /**
-     * @summary 街道
-     */
-    street: string;
-    /**
-     * @summary 名称
-     */
-    fullname: string;
-    /**
-     * @summary 手机号
-     */
-    mobilePhone: string;
-  }>;
+  }): Promise<
+    | {
+        /**
+         * @summary 表示用户未做选择直接返回
+         */
+        resultStatus: '6001';
+        result: '';
+      }
+    | {
+        /**
+         * @summary 表示用户选择了一个地址
+         */
+        resultStatus: '9000';
+        result: {
+          /**
+           * @summary 详细地址
+           */
+          address: string;
+          /**
+           * @summary 国家名称
+           */
+          country: string;
+          /**
+           * @summary 省
+           */
+          prov: string;
+          /**
+           * @summary 市
+           */
+          city: string;
+          /**
+           * @summary 区
+           */
+          area: string;
+          /**
+           * @summary 街道
+           */
+          street: string;
+          /**
+           * @summary 姓名
+           */
+          fullname: string;
+          /**
+           * @summary 手机号
+           */
+          mobilePhone: string;
+        };
+      }
+  >;
   /**
    * @summary 同步应用授权情况
    */
@@ -2792,6 +2967,11 @@ declare namespace my {
      * @summary 启动小程序的 [场景值](https://opendocs.alipay.com/mini/framework/scene)
      */
     scene?: number;
+    /**
+     * @summary API 类别
+     * @sdk 2.7.22
+     */
+    apiCategory?: 'default' | 'embedded';
   };
   /**
    * @summary 获取模板小程序自定义数据字段
@@ -3006,6 +3186,11 @@ declare namespace my {
      * @summary 启动小程序的 [场景值](https://opendocs.alipay.com/mini/framework/scene)
      */
     scene?: number;
+    /**
+     * @summary API 类别
+     * @sdk 2.7.22
+     */
+    apiCategory?: 'default' | 'embedded';
   };
   /**
    * @summary 获取用户当前的地理位置信息
@@ -3025,6 +3210,12 @@ declare namespace my {
      * @default 0
      */
     type?: EMyGetLocationType;
+    /**
+     * @summary 水平精度
+     * @native 10.0
+     * @android false
+     */
+    accuracy?: number;
     /**
      * 接口调用成功的回调函数
      * @param data 成功返回的数据
@@ -3262,7 +3453,32 @@ declare namespace my {
      * 接口调用成功的回调函数
      * @param data 成功返回的数据
      */
-    success?(data: { is3d: boolean; isSupportAnim: boolean; sdkName: string; sdkVersion: string; isSupportOversea: boolean; needStyleV7: boolean }): void;
+    success?(data: {
+      /**
+       * @summary 是否是3D地图引擎
+       */
+      is3d: boolean;
+      /**
+       * @summary 是否支持动画
+       */
+      isSupportAnim: boolean;
+      /**
+       * @summary SDK名称
+       */
+      sdkName: string;
+      /**
+       * @summary SDK版本号
+       */
+      sdkVersion: string;
+      /**
+       * @summary 是否支持海外地图
+       */
+      isSupportOversea: boolean;
+      /**
+       * @summary 需要7.x版本样式文件
+       */
+      needStyleV7: boolean;
+    }): void;
     /**
      * 接口调用失败的回调函数
      * @param err 错误信息
@@ -3274,11 +3490,29 @@ declare namespace my {
     complete?(
       arg:
         | {
+            /**
+             * @summary 是否是3D地图引擎
+             */
             is3d: boolean;
+            /**
+             * @summary 是否支持动画
+             */
             isSupportAnim: boolean;
+            /**
+             * @summary SDK名称
+             */
             sdkName: string;
+            /**
+             * @summary SDK版本号
+             */
             sdkVersion: string;
+            /**
+             * @summary 是否支持海外地图
+             */
             isSupportOversea: boolean;
+            /**
+             * @summary 需要7.x版本样式文件
+             */
             needStyleV7: boolean;
           }
         | {
@@ -3287,11 +3521,29 @@ declare namespace my {
           },
     ): void;
   }): Promise<{
+    /**
+     * @summary 是否是3D地图引擎
+     */
     is3d: boolean;
+    /**
+     * @summary 是否支持动画
+     */
     isSupportAnim: boolean;
+    /**
+     * @summary SDK名称
+     */
     sdkName: string;
+    /**
+     * @summary SDK版本号
+     */
     sdkVersion: string;
+    /**
+     * @summary 是否支持海外地图
+     */
     isSupportOversea: boolean;
+    /**
+     * @summary 需要7.x版本样式文件
+     */
     needStyleV7: boolean;
   }>;
   /**
@@ -3744,7 +3996,13 @@ declare namespace my {
      * 接口调用成功的回调函数
      * @param data 成功返回的数据
      */
-    success?(data: { success: true; brightness: number }): void;
+    success?(data: {
+      success: true;
+      /**
+       * @summary 屏幕亮度，取值范围0-1
+       */
+      brightness: number;
+    }): void;
     /**
      * 接口调用失败的回调函数
      * @param err 错误信息
@@ -3757,6 +4015,9 @@ declare namespace my {
       arg:
         | {
             success: true;
+            /**
+             * @summary 屏幕亮度，取值范围0-1
+             */
             brightness: number;
           }
         | {
@@ -3766,6 +4027,9 @@ declare namespace my {
     ): void;
   }): Promise<{
     success: true;
+    /**
+     * @summary 屏幕亮度，取值范围0-1
+     */
     brightness: number;
   }>;
   export function getSelectedTextRange(r?: {
@@ -5112,7 +5376,12 @@ declare namespace my {
      * 接口调用成功的回调函数
      * @param data 成功返回的数据
      */
-    success?(data: { screenReaderEnabled: boolean }): void;
+    success?(data: {
+      /**
+       * @summary 是否开启无障碍模式
+       */
+      screenReaderEnabled: boolean;
+    }): void;
     /**
      * 接口调用失败的回调函数
      * @param err 错误信息
@@ -5124,6 +5393,9 @@ declare namespace my {
     complete?(
       arg:
         | {
+            /**
+             * @summary 是否开启无障碍模式
+             */
             screenReaderEnabled: boolean;
           }
         | {
@@ -5132,6 +5404,9 @@ declare namespace my {
           },
     ): void;
   }): Promise<{
+    /**
+     * @summary 是否开启无障碍模式
+     */
     screenReaderEnabled: boolean;
   }>;
   /**
@@ -5161,6 +5436,7 @@ declare namespace my {
      */
     desc?: IMyLoadFontFaceDesc;
     /**
+     * @summary 是否全局生效
      * @sdk 2.7.15
      */
     global?: boolean;
@@ -5408,6 +5684,10 @@ declare namespace my {
      * @summary 页面间通信接口，用于监听被打开页面发送到当前页面的数据
      */
     events?: IMyNavigateToEvents;
+    /**
+     * @summary 指定 url 为相对路径的绝对路径基准
+     */
+    resolvedPath?: string;
     /**
      * 接口调用成功的回调函数
      * @param data 成功返回的数据
@@ -6969,6 +7249,10 @@ declare namespace my {
      */
     url: string;
     /**
+     * @summary 指定 url 为相对路径的绝对路径基准
+     */
+    resolvedPath?: string;
+    /**
      * 接口调用成功的回调函数
      * @param data 成功返回的数据
      */
@@ -7077,6 +7361,10 @@ declare namespace my {
      * 目标路径如果是非 Tab 页，可以携带参数，路径与参数之间使用 `?` 分隔，参数键与参数值用 `=` 相连，不同参数必须用 `&` 分隔
      */
     url: string;
+    /**
+     * @summary 指定 url 为相对路径的绝对路径基准
+     */
+    resolvedPath?: string;
     /**
      * 接口调用成功的回调函数
      * @param data 成功返回的数据
@@ -7321,6 +7609,132 @@ declare namespace my {
      */
     headers: Record<string, string>;
   }>;
+  /**
+   * @summary 发起网络请求
+   * @description [my.httpRequest]() 已不再维护，建议使用 [my.request]()
+   */
+  export function request(r: {
+    /**
+     * @summary 目标服务器 URL
+     * @description
+     * - 目前只支持 HTTPS 协议的请求
+     * - 目前只支持与 *域名白名单* 中的域名通讯
+     *   - 开发过程中，可通过开发者工具 **详情 > 域名信息 > 忽略 httpRequest 域名合法性检查** 忽略该限制（模拟器、预览以及真机调试场景不会校验域名合法性）
+     *   - 正式/体验版本必须在 **支付宝小程序管理中心 > 小程序详情 > 设置 > 开发设置 > 服务器域名白名单** 中配置
+     *   - 域名添加或删除后仅对新版本生效，老版本仍使用修改前的域名配置
+     */
+    url: string;
+    /**
+     * @summary 返回的数据格式
+     * @default 'json'
+     */
+    dataType?: 'json' | 'text' | 'base64' | 'arraybuffer';
+    /**
+     * @summary HTTP 请求方法
+     * @default 'GET'
+     */
+    method?: 'GET' | 'POST' | 'PUT' | 'DELETE';
+    /**
+     * @summary 传给服务器的数据
+     * @description
+     * 传给服务器的数据最终会是 string 类型，如果 data 不是 string 类型，会被转换成 string 。转换规则如下：
+     * - 若方法为 `GET`，会将数据转换成 querystring 形式： `encodeURIComponent(k)=encodeURIComponent(v)&encodeURIComponent(k)=encodeURIComponent(v)...`
+     * - 若方法为 `POST` 且 `headers['content-type']` 为 `application/json` ，会对数据进行 JSON 序列化。
+     * - 若方法为 `POST` 且 `headers['content-type']` 为 `application/x-www-form-urlencoded` ，会将数据转换成 querystring形式： `encodeURIComponent(k)=encodeURIComponent(v)&encodeURIComponent(k)=encodeURIComponent(v)...`
+     */
+    data?: string | Record<string, string> | ArrayBuffer;
+    /**
+     * @summary 设置请求的 HTTP 头对象
+     * @description
+     * - "content-type" 字段默认为 `application/json`
+     * - `referer` 字段不可设置，其格式固定为 https://{appid}.hybrid.alipay-eco.com/{appid}/{version}/index.html#{page}，其中 {appid} 为小程序的 APPID，{version} 为小程序发布标识，{page} 为小程序当前页面。
+     */
+    headers?: Record<string, string>;
+    /**
+     * @summary 超时时间，单位 ms
+     * @default 30000
+     */
+    timeout?: number;
+    /**
+     * 接口调用成功的回调函数
+     * @param data 成功返回的数据
+     */
+    success?(data: {
+      /**
+       * @summary 响应数据，格式取决于请求时的 `dataType` 参数
+       */
+      data: string | Record<string, unknown> | ArrayBuffer;
+      /**
+       * @summary HTTP 响应码。
+       */
+      status: number;
+      /**
+       * @summary HTTP 响应头。
+       */
+      headers: Record<string, string>;
+    }): void;
+    /**
+     * 接口调用失败的回调函数
+     * @param err 错误信息
+     */
+    fail?(
+      err:
+        | {
+            error?: number;
+            errorMessage?: string;
+          }
+        | {
+            error: 19;
+            errorMessage: 'http status error';
+          }
+        | {
+            error: 14;
+            errorMessage: 'parse arraybuffer data error';
+          }
+        | {
+            error: 14;
+            errorMessage: 'JSON parse data error';
+          },
+    ): void;
+    /**
+     * 接口调用结束的回调函数（调用成功、失败都会执行）
+     */
+    complete?(
+      arg:
+        | {
+            /**
+             * @summary 响应数据，格式取决于请求时的 `dataType` 参数
+             */
+            data: string | Record<string, unknown> | ArrayBuffer;
+            /**
+             * @summary HTTP 响应码。
+             */
+            status: number;
+            /**
+             * @summary HTTP 响应头。
+             */
+            headers: Record<string, string>;
+          }
+        | (
+            | {
+                error?: number;
+                errorMessage?: string;
+              }
+            | {
+                error: 19;
+                errorMessage: 'http status error';
+              }
+            | {
+                error: 14;
+                errorMessage: 'parse arraybuffer data error';
+              }
+            | {
+                error: 14;
+                errorMessage: 'JSON parse data error';
+              }
+          ),
+    ): void;
+  }): RequestTask;
   export function requestSubscribeMessage(r: {
     appId?: string;
     aboveContent?: boolean;
@@ -7835,13 +8249,25 @@ declare namespace my {
    * @summary 设置蓝牙低功耗设备的最大传输单元 (MTU)
    */
   export function setBLEMTU(r: {
+    /**
+     * @summary 设备id
+     */
     deviceId: string;
+    /**
+     * @summary mtu值（大于23）
+     */
     mtu: number;
     /**
      * 接口调用成功的回调函数
      * @param data 成功返回的数据
      */
-    success?(data: { success: true; mtu: number }): void;
+    success?(data: {
+      success: true;
+      /**
+       * @summary 协商后的mtu值
+       */
+      mtu: number;
+    }): void;
     /**
      * 接口调用失败的回调函数
      * @param err 错误信息
@@ -7854,6 +8280,9 @@ declare namespace my {
       arg:
         | {
             success: true;
+            /**
+             * @summary 协商后的mtu值
+             */
             mtu: number;
           }
         | {
@@ -7863,6 +8292,9 @@ declare namespace my {
     ): void;
   }): Promise<{
     success: true;
+    /**
+     * @summary 协商后的mtu值
+     */
     mtu: number;
   }>;
   /**
@@ -7980,7 +8412,12 @@ declare namespace my {
      * 接口调用成功的回调函数
      * @param data 成功返回的数据
      */
-    success?(data: { locatedCityName: string }): void;
+    success?(data: {
+      /**
+       * @summary 修改后的定位城市名称
+       */
+      locatedCityName: string;
+    }): void;
     /**
      * 接口调用失败的回调函数
      * @param err 错误信息
@@ -7992,6 +8429,9 @@ declare namespace my {
     complete?(
       arg:
         | {
+            /**
+             * @summary 修改后的定位城市名称
+             */
             locatedCityName: string;
           }
         | {
@@ -8000,6 +8440,9 @@ declare namespace my {
           },
     ): void;
   }): Promise<{
+    /**
+     * @summary 修改后的定位城市名称
+     */
     locatedCityName: string;
   }>;
   /**
@@ -8034,6 +8477,11 @@ declare namespace my {
      * @default false
      */
     reset?: boolean;
+    /**
+     * @summary 前景颜色值
+     * @description 包括按钮、标题、状态栏的颜色，仅支持 #ffffff 和 #000000
+     */
+    frontColor?: string;
     /**
      * 接口调用成功的回调函数
      * @param data 成功返回的数据
@@ -9110,6 +9558,10 @@ declare namespace my {
      */
     url: string;
     /**
+     * @summary 指定 url 为相对路径的绝对路径基准
+     */
+    resolvedPath?: string;
+    /**
      * 接口调用成功的回调函数
      * @param data 成功返回的数据
      */
@@ -9228,6 +9680,7 @@ declare namespace my {
      * @summary HTTP 请求 Header。
      */
     header?: Record<string, unknown>;
+    headers?: Record<string, unknown>;
     /**
      * @summary HTTP 请求中其他额外的 form 数据。
      */
@@ -9309,6 +9762,104 @@ declare namespace my {
      */
     header: Record<string, unknown>;
   }>;
+  /**
+   * @summary 上传本地资源到开发者服务器
+   */
+  export function uploadFile(r: {
+    /**
+     * @summary 开发者服务器地址。
+     */
+    url: string;
+    /**
+     * @summary 要上传文件资源的本地定位符。
+     */
+    filePath: string;
+    /**
+     * @summary 文件名，即对应的 key，开发者在服务器端通过这个 key 可以获取到文件二进制内容。
+     */
+    fileName: string;
+    /**
+     * @summary 文件类型支持图片、视频、音频（image / video / audio）。
+     */
+    fileType: string;
+    /**
+     * @summary 是否隐藏 loading 图。
+     * @default false
+     */
+    hideLoading?: boolean;
+    /**
+     * @summary HTTP 请求 Header。
+     */
+    header?: Record<string, unknown>;
+    headers?: Record<string, unknown>;
+    /**
+     * @summary HTTP 请求中其他额外的 form 数据。
+     */
+    formData?: Record<string, unknown>;
+    /**
+     * 接口调用成功的回调函数
+     * @param data 成功返回的数据
+     */
+    success?(data: {
+      /**
+       * @summary 服务器返回的数据。
+       */
+      data: string;
+      /**
+       * @summary HTTP 状态码。
+       */
+      statusCode: number;
+      /**
+       * @summary 服务器返回的 Header。
+       */
+      header: Record<string, unknown>;
+    }): void;
+    /**
+     * 接口调用失败的回调函数
+     * @param err 错误信息
+     */
+    fail?(
+      err:
+        | {
+            error?: number;
+            errorMessage?: string;
+          }
+        | {
+            error: 11;
+            errorMessage?: string;
+          },
+    ): void;
+    /**
+     * 接口调用结束的回调函数（调用成功、失败都会执行）
+     */
+    complete?(
+      arg:
+        | {
+            /**
+             * @summary 服务器返回的数据。
+             */
+            data: string;
+            /**
+             * @summary HTTP 状态码。
+             */
+            statusCode: number;
+            /**
+             * @summary 服务器返回的 Header。
+             */
+            header: Record<string, unknown>;
+          }
+        | (
+            | {
+                error?: number;
+                errorMessage?: string;
+              }
+            | {
+                error: 11;
+                errorMessage?: string;
+              }
+          ),
+    ): void;
+  }): UploadTask;
   /**
    * @summary 触发设备震动
    */
@@ -11435,7 +11986,7 @@ declare namespace my {
       /**
        * @summary 图片覆盖的经纬度范围
        */
-      'include-points': IMapContextIncludePoint[];
+      'include-points': IMapContextAddGroundOverlayIncludePoints[];
       /**
        * @summary 是否可见
        * @default true
@@ -11473,7 +12024,7 @@ declare namespace my {
       /**
        * @summary 要添加的 marker
        */
-      markers: IMapContextMarker[];
+      markers: IMapContextAddMarkersMarkers[];
       /**
        * @summary 是否先清空地图上所有 marker
        * @default false
@@ -11568,15 +12119,15 @@ declare namespace my {
       /**
        * @summary 需要添加的 marker 数组
        */
-      add: IMapContextMarker[];
+      add: IMapContextChangeMarkersAdd[];
       /**
        * @summary 需要删除的 marker 数组
        */
-      remove: IMapContextMarker[];
+      remove: IMapContextChangeMarkersRemove[];
       /**
        * @summary 需要更新的 marker 数组
        */
-      update: IMapContextMarker[];
+      update: IMapContextChangeMarkersUpdate[];
       /**
        * 接口调用成功的回调函数
        * @param data 成功返回的数据
@@ -11595,7 +12146,10 @@ declare namespace my {
     /**
      * @summary 清除地图上的步行导航路线
      */
-    clearRoute(r?: {
+    clearRoute(r: {
+      element: string;
+      actionType: string;
+      data: Record<string, unknown>;
       /**
        * 接口调用成功的回调函数
        * @param data 成功返回的数据
@@ -11637,12 +12191,24 @@ declare namespace my {
     /**
      * @summary 获取当前地图中心位置
      */
-    getCenterLocation(r?: {
+    getCenterLocation(r: {
+      element: string;
+      actionType: string;
+      data: Record<string, unknown>;
       /**
        * 接口调用成功的回调函数
        * @param data 成功返回的数据
        */
-      success?(data: IMapContextPoint): void;
+      success?(data: {
+        /**
+         * @summary 纬度
+         */
+        latitude: number;
+        /**
+         * @summary 经度
+         */
+        longitude: number;
+      }): void;
       /**
        * 接口调用失败的回调函数
        * @param err 错误信息
@@ -11653,13 +12219,31 @@ declare namespace my {
        */
       complete?(
         arg:
-          | IMapContextPoint
+          | {
+              /**
+               * @summary 纬度
+               */
+              latitude: number;
+              /**
+               * @summary 经度
+               */
+              longitude: number;
+            }
           | {
               error?: number;
               errorMessage?: string;
             },
       ): void;
-    }): Promise<IMapContextPoint>;
+    }): Promise<{
+      /**
+       * @summary 纬度
+       */
+      latitude: number;
+      /**
+       * @summary 经度
+       */
+      longitude: number;
+    }>;
     /**
      * @summary 获取地图的属性信息
      */
@@ -11953,7 +12537,7 @@ declare namespace my {
       /**
        * @summary 要显示在可视区域内的坐标点列表
        */
-      points: IMapContextIncludePoint[];
+      points: IMapContextIncludePointsPoints[];
       /**
        * @summary 坐标点形成的矩形边缘到地图边缘的距离
        * @description 格式为 [上，右，下，左]，如果数据只有一项，则上下左右的 padding 一致
@@ -12097,11 +12681,11 @@ declare namespace my {
       /**
        * @summary 矩形区域的经纬度范围
        */
-      polygon: IMapContextPoint[];
+      polygon: IMapContextPolygonContainsPointPolygon[];
       /**
        * @summary 经纬度度的值
        */
-      point: IMapContextPoint;
+      point: IMapContextPolygonContainsPointPoint;
       /**
        * 接口调用成功的回调函数
        * @param data 成功返回的数据
@@ -12270,7 +12854,22 @@ declare namespace my {
     /**
      * @summary 设置地图属性
      */
-    setProps(r: object): Promise<void>;
+    setProps(r?: {
+      /**
+       * 接口调用成功的回调函数
+       * @param data 成功返回的数据
+       */
+      success?(data: {}): void;
+      /**
+       * 接口调用失败的回调函数
+       * @param err 错误信息
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(arg: { error?: number; errorMessage?: string }): void;
+    }): Promise<void>;
     /**
      * @summary 默认规划步行路线
      * @description 只能显示一条。
@@ -12457,10 +13056,9 @@ declare namespace my {
       /**
        * @summary 动画路线的经纬度集合
        */
-      points: IMapContextPoint[];
+      points: IMapContextSmoothMovePolylinePoints[];
       /**
-       * @summary 动画执行时间
-       * @desription 毫秒（ms）
+       * @summary 动画执行时间，毫秒（ms）
        * @default 5000
        */
       duration?: number;
@@ -12580,67 +13178,29 @@ declare namespace my {
        * @summary marker 覆盖物
        * @description 在地图上的一个点绘制图标
        */
-      markers?: IMapContextMarker[];
+      markers?: IMapContextUpdateComponentsMarkers[];
       /**
        * @summary 路线覆盖物
        * @description 多个连贯点的集合（路线)
        */
-      polyline?: Array<{
-        /**
-         * @summary 路线的经纬度集合
-         */
-        points?: IMapContextPoint[];
-        /**
-         * @summary 轨迹动画的颜色
-         */
-        color?: string;
-        /**
-         * @summary 路线宽度
-         */
-        width?: number;
-        /**
-         * @summary 是否虚线
-         */
-        dottedLine?: boolean;
-      }>;
+      polyline?: IMapContextUpdateComponentsPolyline[];
       /**
        * @summary 视野将进行小范围延伸包含传入的坐标
        */
-      'include-points'?: IMapContextIncludePoint[];
+      'include-points'?: IMapContextUpdateComponentsIncludePoints[];
       /**
        * @summary 视野在地图 padding 范围内展示
        */
-      'include-padding'?: IMapContextIncludePadding;
+      'include-padding'?: IMapContextUpdateComponentsIncludePadding;
       /**
        * @summary 设置
        */
-      setting?: {
-        gestureEnable?: 0 | 1;
-        showCompass?: 0 | 1;
-        showScale?: 0 | 1;
-        tiltGesturesEnabled?: 0 | 1;
-        rotateGesturesEnabled?: 0 | 1;
-        zoomGesturesEnabled?: 0 | 1;
-        scrollGesturesEnabled?: 0 | 1;
-        showMapText?: 0 | 1;
-        trafficEnabled?: 0 | 1;
-        enableBuilding?: 0 | 1;
-        logoPosition?: {
-          centerX?: number;
-          centerY?: number;
-        };
-        scaleByMapCenter?: 0 | 1;
-      };
+      setting?: IMapContextUpdateComponentsSetting;
       /**
        * @summary 命令
        * @description 可用于更新 marker 动画
        */
-      command?: {
-        markerAnim?: {
-          type: number;
-          markerId: number;
-        };
-      };
+      command?: IMapContextUpdateComponentsCommand;
       /**
        * 接口调用成功的回调函数
        * @param data 成功返回的数据
@@ -12672,7 +13232,7 @@ declare namespace my {
       /**
        * @summary 图片覆盖的经纬度范围
        */
-      'include-points': IMapContextIncludePoint[];
+      'include-points': IMapContextUpdateGroundOverlayIncludePoints[];
       /**
        * @summary 是否可见
        * @default true
@@ -13140,128 +13700,7 @@ declare namespace my {
   export interface AudioContext {}
   export interface InsuranceXReplaySession {}
   export interface LivePlayerContext {}
-  export interface LivePusherContext {
-    /**
-     * @summary 禁用/开启摄像头
-     */
-    enableCamera(param: {
-      /**
-       * @summary 禁用/开启摄像头
-       */
-      enable: boolean;
-    }): void;
-    /**
-     * @summary 邀请用户
-     */
-    inviteUser(r: {
-      /**
-       * @summary 小程序的落地页
-       */
-      page: string;
-      /**
-       * @summary 被邀请人的 uid
-       */
-      inviteUid: string;
-      /**
-       * @summary 被邀请人类型 0、web 1、app 默认App
-       */
-      inviteType?: 0 | 1;
-      /**
-       * @summary 用户昵称，用于邀请提示。小程序使用
-       */
-      nickName?: string;
-      /**
-       * @summary 房间类型 1、音视频通话 2、音频通话
-       */
-      roomType?: 1 | 2;
-      /**
-       * @summary 业务参数， Scheme 参数
-       */
-      params?: Record<string, unknown>;
-      /**
-       * 接口调用成功的回调函数
-       * @param data 成功返回的数据
-       */
-      success?(data: {}): void;
-      /**
-       * 接口调用失败的回调函数
-       * @param err 错误信息
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(arg: { error?: number; errorMessage?: string }): void;
-    }): Promise<void>;
-    /**
-     * @summary 静音功能。
-     */
-    mute(param: {
-      /**
-       * @summary 是否静音
-       */
-      muted: boolean;
-      /**
-       * @summary uid
-       */
-      uid: string;
-    }): void;
-    /**
-     * @summary 暂停推流
-     */
-    pause(): void;
-    /**
-     * @summary 开始推流
-     */
-    resume(): void;
-    /**
-     * @summary 发送消息。
-     */
-    sendMessage(param: {
-      /**
-       * @summary 用户 id 列表
-       */
-      userIds: string[];
-      /**
-       * @summary 消息
-       */
-      message: string;
-    }): void;
-    /**
-     * @summary 获取截图
-     */
-    snapshot(param: {
-      /**
-       * @summary 指定获取 userid 的截图, 默认为自己的推流截图
-       */
-      userId: string;
-      /**
-       * @summary 投放 id
-       */
-      feedId: string;
-    }): void;
-    /**
-     * @summary 开始推流。
-     */
-    start(param: {
-      /**
-       * @summary 推流地址
-       */
-      url?: string;
-    }): void;
-    /**
-     * @summary 停止推流
-     */
-    stop(): void;
-    /**
-     * @summary 切换前后摄像头
-     */
-    switchCamera(): void;
-    /**
-     * @summary 切换闪光灯
-     */
-    toggleTorch(): void;
-  }
+  export interface LivePusherContext {}
   export interface LottieContext {
     /**
      * @summary 当前 Lottie 视图指定降级为展示 placeholder
@@ -16590,6 +17029,93 @@ declare namespace my {
       }) => void,
     ): void;
   }
+  export interface AccessibilityManager {
+    /**
+     * @summary 无障碍模式下语音播报
+     */
+    announce(r: {
+      text: string;
+      /**
+       * 接口调用成功的回调函数
+       * @param data 成功返回的数据
+       */
+      success?(data: { success: boolean }): void;
+      /**
+       * 接口调用失败的回调函数
+       * @param err 错误信息
+       */
+      fail?(
+        err:
+          | {
+              error?: number;
+              errorMessage?: string;
+            }
+          | {
+              error: 2;
+              errorMessage: 'invalid parameter!';
+            }
+          | {
+              error: 60004;
+              errorMessage: 'screen reader not running';
+            },
+      ): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              success: boolean;
+            }
+          | (
+              | {
+                  error?: number;
+                  errorMessage?: string;
+                }
+              | {
+                  error: 2;
+                  errorMessage: 'invalid parameter!';
+                }
+              | {
+                  error: 60004;
+                  errorMessage: 'screen reader not running';
+                }
+            ),
+      ): void;
+    }): Promise<{
+      success: boolean;
+    }>;
+    /**
+     * @summary 是否开启无障碍语音播报 (iOS 旁白、Android talkBack)
+     */
+    isScreenReaderEnabled(r?: {
+      /**
+       * 接口调用成功的回调函数
+       * @param data 成功返回的数据
+       */
+      success?(data: { enabled: boolean }): void;
+      /**
+       * 接口调用失败的回调函数
+       * @param err 错误信息
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              enabled: boolean;
+            }
+          | {
+              error?: number;
+              errorMessage?: string;
+            },
+      ): void;
+    }): Promise<{
+      enabled: boolean;
+    }>;
+  }
   export interface ICanvasContext {}
   export interface IARSession {}
   interface DOMMatrix2DInit {
@@ -17197,9 +17723,21 @@ declare namespace my {
     manufacturerData: string;
   }
   interface IGetConnectedWifiWifi {
+    /**
+     * @summary wifi SSID信息
+     */
     SSID: string;
-    SSIBSSIDD: string;
+    /**
+     * @summary wifi BSSID信息
+     */
+    BSSID: string;
+    /**
+     * @summary wifi是否为隐藏wifi
+     */
     secure: boolean;
+    /**
+     * @summary wifi信号强度
+     */
     signalStrength: number;
   }
   interface IGetFileInfoRequest {
@@ -17420,6 +17958,251 @@ declare namespace my {
      */
     left?: number;
   }
+  interface IMapContextAddGroundOverlayIncludePoints {
+    /**
+     * @summary 纬度
+     */
+    latitude: number;
+    /**
+     * @summary 经度
+     */
+    longitude: number;
+  }
+  interface IMapContextAddMarkersMarkers {
+    /**
+     * @summary 标记点 id
+     * @description 标记点 id，点击事件回调会返回此 id。
+     */
+    id: number;
+    /**
+     * @summary 纬度
+     * @description 范围 -90 ~ 90。
+     */
+    latitude: number;
+    /**
+     * @summary 经度
+     * @description 范围 -180 ~ 180。
+     */
+    longitude: number;
+    /**
+     * @summary 标注点名
+     */
+    title?: string;
+    /**
+     * @summary 项目目录下的图片路径
+     * @description 不能用相对路径只能用 / 开头的绝对路径。
+     */
+    iconPath: string;
+    /**
+     * @summary map 高级定制渲染绘制 marker 样式
+     * @description 优先级高于 iconPath, 对象参照 layout。
+     */
+    iconLayout?: IMapContextAddMarkersMarkersIconLayout;
+    /**
+     * @summary 顺时针旋转的角度
+     * @description 范围 0 ~ 360
+     * @default 0
+     */
+    rotate?: number;
+    /**
+     * @summary 是否透明
+     * @default 1
+     */
+    alpha?: number;
+    /**
+     * @summary 宽度
+     * @description 默认为图片的实际宽度
+     */
+    width?: number;
+    /**
+     * @summary 高度
+     * @description 默认为图片的实际高度
+     */
+    height?: number;
+    /**
+     * @summary 标明在特定地图缩放级别下展示
+     */
+    displayRanges?: IMapContextAddMarkersMarkersDisplayRanges;
+    /**
+     * @summary 自定义 marker 上的气泡窗口
+     * @description 地图上最多同时展示一个，绑定 onCalloutTap。
+     */
+    callout?: IMapContextAddMarkersMarkersCallout;
+    /**
+     * @summary 经纬度在标注图标的锚点-横向值
+     * @description
+     * 这两个值需要成对出现，anchorX 表示横向(0-1)，Y 表示竖向(0-1)。
+     * anchorX: 0.5，anchorY: 1：表示底边中点。
+     */
+    anchorX?: number;
+    /**
+     * @summary 经纬度在标注图标的锚点-竖向值
+     */
+    anchorY?: number;
+    /**
+     * @summary callout 背景自定义
+     * @description 目前只支持高德地图 style。
+     */
+    customCallout?: IMapContextAddMarkersMarkersCustomCallout;
+    /**
+     * @summary iconPath 对应的图片及该字符串共同生成 marker 的图标
+     * @description 和 iconPath 一起使用，会将 iconPath 对应的图片及该字符串共同生成一个图片，当成 marker 的图标，marker 图片可以来源于 view。
+     */
+    iconAppendStr?: string;
+    /**
+     * @summary 底部描述文本颜色
+     * @description marker 图片可以来源于 view
+     * @default #33B276
+     */
+    iconAppendStrColor?: string;
+    /**
+     * @summary 基于屏幕位置扎点
+     */
+    fixedPoint?: IMapContextAddMarkersMarkersFixedPoint;
+    /**
+     * @summary marker 在地图上的绘制层级
+     * @description 与地图上其他覆盖物统一的 Z 坐标系
+     */
+    markerLevel?: number;
+    /**
+     * @summary marker 上的气泡
+     * @description 地图上可同时展示多个，绑定 onMarkerTap。
+     */
+    label?: IMapContextAddMarkersMarkersLabel;
+    /**
+     * @summary 自定义 marker 的样式和内容
+     */
+    style?: IMapContextAddMarkersMarkersStyle;
+  }
+  interface IMapContextAddMarkersMarkersCallout {
+    /**
+     * @summary 内容。
+     */
+    content?: string;
+  }
+  interface IMapContextAddMarkersMarkersCustomCallout {
+    /**
+     * @summary 样式类型。
+     * @description
+     * 有效值如下：
+     * - `0` 为黑色 style
+     * - `1` 为白色 style
+     * - `2` 为背景 + 文本
+     */
+    type: number;
+    /**
+     * @summary 时间值。
+     */
+    time: string;
+    /**
+     * @summary 描述数组。
+     */
+    descList: IMapContextAddMarkersMarkersCustomCalloutDescList[];
+    /**
+     * @summary 是否展示。
+     * @description
+     * 有效值如下：
+     * - `1` 展示
+     */
+    isShow: number;
+    /**
+     * @summary 使用 map 高级定制渲染
+     * @description 。优先级最高, layout 对象参照 layout 定义。
+     */
+    layout?: IMapContextAddMarkersMarkersCustomCalloutLayout;
+  }
+  interface IMapContextAddMarkersMarkersCustomCalloutDescList {
+    /**
+     * @summary 文案
+     */
+    desc: string;
+    /**
+     * @summary CSS 色值。
+     */
+    descColor: string;
+  }
+  interface IMapContextAddMarkersMarkersCustomCalloutLayout {}
+  interface IMapContextAddMarkersMarkersDisplayRanges {
+    /**
+     * @summary 缩放级别下边界
+     */
+    from: number;
+    /**
+     * @summary 缩放级别上边界
+     */
+    to: number;
+  }
+  interface IMapContextAddMarkersMarkersFixedPoint {
+    /**
+     * @summary 横向像素点
+     * @description 距离地图左上角的像素数值，从 `0` 开始。
+     */
+    originX: number;
+    /**
+     * @summary 横向像素点
+     * @description 距离地图左上角的像素数值，从 `0` 开始。
+     */
+    originY: number;
+  }
+  interface IMapContextAddMarkersMarkersIconLayout {}
+  interface IMapContextAddMarkersMarkersLabel {
+    /**
+     * @summary 文案
+     */
+    content: string;
+    /**
+     * @summary 文案颜色
+     * @default #000000
+     */
+    color?: string;
+    /**
+     * @summary 字体大小
+     * @default 14
+     */
+    fontsize?: number;
+    /**
+     * @summary 圆角尺寸
+     * @default 20
+     */
+    borderRadius?: number;
+    /**
+     * @summary 文本框背景色
+     * @default #FFFFFF
+     */
+    bgColor?: string;
+    /**
+     * @summary 内边距
+     * @default 20
+     */
+    padding?: number;
+  }
+  interface IMapContextAddMarkersMarkersStyle {
+    /**
+     * @summary 类型
+     */
+    type: 1 | 2 | 3;
+    text?: string;
+    icon?: string;
+    /**
+     * @summary 字体颜色
+     * @default #33B276
+     */
+    color?: string;
+    /**
+     * @summary 背景色
+     * @default #FFFFFF
+     */
+    bgColor?: string;
+    /**
+     * @default center
+     */
+    gravity?: 'left' | 'center' | 'right';
+    /**
+     * @summary 字体大小类型
+     * @default standard
+     */
+    fontType?: 'small' | 'standard' | 'large';
+  }
   interface IMapContextCalculateDistancePoints {
     /**
      * @summary 纬度。
@@ -17460,6 +18243,711 @@ declare namespace my {
      * @summary 内容。
      */
     content?: string;
+  }
+  interface IMapContextChangeMarkersAdd {
+    /**
+     * @summary 标记点 id
+     * @description 标记点 id，点击事件回调会返回此 id。
+     */
+    id: number;
+    /**
+     * @summary 纬度
+     * @description 范围 -90 ~ 90。
+     */
+    latitude: number;
+    /**
+     * @summary 经度
+     * @description 范围 -180 ~ 180。
+     */
+    longitude: number;
+    /**
+     * @summary 标注点名
+     */
+    title?: string;
+    /**
+     * @summary 项目目录下的图片路径
+     * @description 不能用相对路径只能用 / 开头的绝对路径。
+     */
+    iconPath: string;
+    /**
+     * @summary map 高级定制渲染绘制 marker 样式
+     * @description 优先级高于 iconPath, 对象参照 layout。
+     */
+    iconLayout?: IMapContextChangeMarkersAddIconLayout;
+    /**
+     * @summary 顺时针旋转的角度
+     * @description 范围 0 ~ 360
+     * @default 0
+     */
+    rotate?: number;
+    /**
+     * @summary 是否透明
+     * @default 1
+     */
+    alpha?: number;
+    /**
+     * @summary 宽度
+     * @description 默认为图片的实际宽度
+     */
+    width?: number;
+    /**
+     * @summary 高度
+     * @description 默认为图片的实际高度
+     */
+    height?: number;
+    /**
+     * @summary 标明在特定地图缩放级别下展示
+     */
+    displayRanges?: IMapContextChangeMarkersAddDisplayRanges;
+    /**
+     * @summary 自定义 marker 上的气泡窗口
+     * @description 地图上最多同时展示一个，绑定 onCalloutTap。
+     */
+    callout?: IMapContextChangeMarkersAddCallout;
+    /**
+     * @summary 经纬度在标注图标的锚点-横向值
+     * @description
+     * 这两个值需要成对出现，anchorX 表示横向(0-1)，Y 表示竖向(0-1)。
+     * anchorX: 0.5，anchorY: 1：表示底边中点。
+     */
+    anchorX?: number;
+    /**
+     * @summary 经纬度在标注图标的锚点-竖向值
+     */
+    anchorY?: number;
+    /**
+     * @summary callout 背景自定义
+     * @description 目前只支持高德地图 style。
+     */
+    customCallout?: IMapContextChangeMarkersAddCustomCallout;
+    /**
+     * @summary iconPath 对应的图片及该字符串共同生成 marker 的图标
+     * @description 和 iconPath 一起使用，会将 iconPath 对应的图片及该字符串共同生成一个图片，当成 marker 的图标，marker 图片可以来源于 view。
+     */
+    iconAppendStr?: string;
+    /**
+     * @summary 底部描述文本颜色
+     * @description marker 图片可以来源于 view
+     * @default #33B276
+     */
+    iconAppendStrColor?: string;
+    /**
+     * @summary 基于屏幕位置扎点
+     */
+    fixedPoint?: IMapContextChangeMarkersAddFixedPoint;
+    /**
+     * @summary marker 在地图上的绘制层级
+     * @description 与地图上其他覆盖物统一的 Z 坐标系
+     */
+    markerLevel?: number;
+    /**
+     * @summary marker 上的气泡
+     * @description 地图上可同时展示多个，绑定 onMarkerTap。
+     */
+    label?: IMapContextChangeMarkersAddLabel;
+    /**
+     * @summary 自定义 marker 的样式和内容
+     */
+    style?: IMapContextChangeMarkersAddStyle;
+  }
+  interface IMapContextChangeMarkersAddCallout {
+    /**
+     * @summary 内容。
+     */
+    content?: string;
+  }
+  interface IMapContextChangeMarkersAddCustomCallout {
+    /**
+     * @summary 样式类型。
+     * @description
+     * 有效值如下：
+     * - `0` 为黑色 style
+     * - `1` 为白色 style
+     * - `2` 为背景 + 文本
+     */
+    type: number;
+    /**
+     * @summary 时间值。
+     */
+    time: string;
+    /**
+     * @summary 描述数组。
+     */
+    descList: IMapContextChangeMarkersAddCustomCalloutDescList[];
+    /**
+     * @summary 是否展示。
+     * @description
+     * 有效值如下：
+     * - `1` 展示
+     */
+    isShow: number;
+    /**
+     * @summary 使用 map 高级定制渲染
+     * @description 。优先级最高, layout 对象参照 layout 定义。
+     */
+    layout?: IMapContextChangeMarkersAddCustomCalloutLayout;
+  }
+  interface IMapContextChangeMarkersAddCustomCalloutDescList {
+    /**
+     * @summary 文案
+     */
+    desc: string;
+    /**
+     * @summary CSS 色值。
+     */
+    descColor: string;
+  }
+  interface IMapContextChangeMarkersAddCustomCalloutLayout {}
+  interface IMapContextChangeMarkersAddDisplayRanges {
+    /**
+     * @summary 缩放级别下边界
+     */
+    from: number;
+    /**
+     * @summary 缩放级别上边界
+     */
+    to: number;
+  }
+  interface IMapContextChangeMarkersAddFixedPoint {
+    /**
+     * @summary 横向像素点
+     * @description 距离地图左上角的像素数值，从 `0` 开始。
+     */
+    originX: number;
+    /**
+     * @summary 横向像素点
+     * @description 距离地图左上角的像素数值，从 `0` 开始。
+     */
+    originY: number;
+  }
+  interface IMapContextChangeMarkersAddIconLayout {}
+  interface IMapContextChangeMarkersAddLabel {
+    /**
+     * @summary 文案
+     */
+    content: string;
+    /**
+     * @summary 文案颜色
+     * @default #000000
+     */
+    color?: string;
+    /**
+     * @summary 字体大小
+     * @default 14
+     */
+    fontsize?: number;
+    /**
+     * @summary 圆角尺寸
+     * @default 20
+     */
+    borderRadius?: number;
+    /**
+     * @summary 文本框背景色
+     * @default #FFFFFF
+     */
+    bgColor?: string;
+    /**
+     * @summary 内边距
+     * @default 20
+     */
+    padding?: number;
+  }
+  interface IMapContextChangeMarkersAddStyle {
+    /**
+     * @summary 类型
+     */
+    type: 1 | 2 | 3;
+    text?: string;
+    icon?: string;
+    /**
+     * @summary 字体颜色
+     * @default #33B276
+     */
+    color?: string;
+    /**
+     * @summary 背景色
+     * @default #FFFFFF
+     */
+    bgColor?: string;
+    /**
+     * @default center
+     */
+    gravity?: 'left' | 'center' | 'right';
+    /**
+     * @summary 字体大小类型
+     * @default standard
+     */
+    fontType?: 'small' | 'standard' | 'large';
+  }
+  interface IMapContextChangeMarkersRemove {
+    /**
+     * @summary 标记点 id
+     * @description 标记点 id，点击事件回调会返回此 id。
+     */
+    id: number;
+    /**
+     * @summary 纬度
+     * @description 范围 -90 ~ 90。
+     */
+    latitude: number;
+    /**
+     * @summary 经度
+     * @description 范围 -180 ~ 180。
+     */
+    longitude: number;
+    /**
+     * @summary 标注点名
+     */
+    title?: string;
+    /**
+     * @summary 项目目录下的图片路径
+     * @description 不能用相对路径只能用 / 开头的绝对路径。
+     */
+    iconPath: string;
+    /**
+     * @summary map 高级定制渲染绘制 marker 样式
+     * @description 优先级高于 iconPath, 对象参照 layout。
+     */
+    iconLayout?: IMapContextChangeMarkersRemoveIconLayout;
+    /**
+     * @summary 顺时针旋转的角度
+     * @description 范围 0 ~ 360
+     * @default 0
+     */
+    rotate?: number;
+    /**
+     * @summary 是否透明
+     * @default 1
+     */
+    alpha?: number;
+    /**
+     * @summary 宽度
+     * @description 默认为图片的实际宽度
+     */
+    width?: number;
+    /**
+     * @summary 高度
+     * @description 默认为图片的实际高度
+     */
+    height?: number;
+    /**
+     * @summary 标明在特定地图缩放级别下展示
+     */
+    displayRanges?: IMapContextChangeMarkersRemoveDisplayRanges;
+    /**
+     * @summary 自定义 marker 上的气泡窗口
+     * @description 地图上最多同时展示一个，绑定 onCalloutTap。
+     */
+    callout?: IMapContextChangeMarkersRemoveCallout;
+    /**
+     * @summary 经纬度在标注图标的锚点-横向值
+     * @description
+     * 这两个值需要成对出现，anchorX 表示横向(0-1)，Y 表示竖向(0-1)。
+     * anchorX: 0.5，anchorY: 1：表示底边中点。
+     */
+    anchorX?: number;
+    /**
+     * @summary 经纬度在标注图标的锚点-竖向值
+     */
+    anchorY?: number;
+    /**
+     * @summary callout 背景自定义
+     * @description 目前只支持高德地图 style。
+     */
+    customCallout?: IMapContextChangeMarkersRemoveCustomCallout;
+    /**
+     * @summary iconPath 对应的图片及该字符串共同生成 marker 的图标
+     * @description 和 iconPath 一起使用，会将 iconPath 对应的图片及该字符串共同生成一个图片，当成 marker 的图标，marker 图片可以来源于 view。
+     */
+    iconAppendStr?: string;
+    /**
+     * @summary 底部描述文本颜色
+     * @description marker 图片可以来源于 view
+     * @default #33B276
+     */
+    iconAppendStrColor?: string;
+    /**
+     * @summary 基于屏幕位置扎点
+     */
+    fixedPoint?: IMapContextChangeMarkersRemoveFixedPoint;
+    /**
+     * @summary marker 在地图上的绘制层级
+     * @description 与地图上其他覆盖物统一的 Z 坐标系
+     */
+    markerLevel?: number;
+    /**
+     * @summary marker 上的气泡
+     * @description 地图上可同时展示多个，绑定 onMarkerTap。
+     */
+    label?: IMapContextChangeMarkersRemoveLabel;
+    /**
+     * @summary 自定义 marker 的样式和内容
+     */
+    style?: IMapContextChangeMarkersRemoveStyle;
+  }
+  interface IMapContextChangeMarkersRemoveCallout {
+    /**
+     * @summary 内容。
+     */
+    content?: string;
+  }
+  interface IMapContextChangeMarkersRemoveCustomCallout {
+    /**
+     * @summary 样式类型。
+     * @description
+     * 有效值如下：
+     * - `0` 为黑色 style
+     * - `1` 为白色 style
+     * - `2` 为背景 + 文本
+     */
+    type: number;
+    /**
+     * @summary 时间值。
+     */
+    time: string;
+    /**
+     * @summary 描述数组。
+     */
+    descList: IMapContextChangeMarkersRemoveCustomCalloutDescList[];
+    /**
+     * @summary 是否展示。
+     * @description
+     * 有效值如下：
+     * - `1` 展示
+     */
+    isShow: number;
+    /**
+     * @summary 使用 map 高级定制渲染
+     * @description 。优先级最高, layout 对象参照 layout 定义。
+     */
+    layout?: IMapContextChangeMarkersRemoveCustomCalloutLayout;
+  }
+  interface IMapContextChangeMarkersRemoveCustomCalloutDescList {
+    /**
+     * @summary 文案
+     */
+    desc: string;
+    /**
+     * @summary CSS 色值。
+     */
+    descColor: string;
+  }
+  interface IMapContextChangeMarkersRemoveCustomCalloutLayout {}
+  interface IMapContextChangeMarkersRemoveDisplayRanges {
+    /**
+     * @summary 缩放级别下边界
+     */
+    from: number;
+    /**
+     * @summary 缩放级别上边界
+     */
+    to: number;
+  }
+  interface IMapContextChangeMarkersRemoveFixedPoint {
+    /**
+     * @summary 横向像素点
+     * @description 距离地图左上角的像素数值，从 `0` 开始。
+     */
+    originX: number;
+    /**
+     * @summary 横向像素点
+     * @description 距离地图左上角的像素数值，从 `0` 开始。
+     */
+    originY: number;
+  }
+  interface IMapContextChangeMarkersRemoveIconLayout {}
+  interface IMapContextChangeMarkersRemoveLabel {
+    /**
+     * @summary 文案
+     */
+    content: string;
+    /**
+     * @summary 文案颜色
+     * @default #000000
+     */
+    color?: string;
+    /**
+     * @summary 字体大小
+     * @default 14
+     */
+    fontsize?: number;
+    /**
+     * @summary 圆角尺寸
+     * @default 20
+     */
+    borderRadius?: number;
+    /**
+     * @summary 文本框背景色
+     * @default #FFFFFF
+     */
+    bgColor?: string;
+    /**
+     * @summary 内边距
+     * @default 20
+     */
+    padding?: number;
+  }
+  interface IMapContextChangeMarkersRemoveStyle {
+    /**
+     * @summary 类型
+     */
+    type: 1 | 2 | 3;
+    text?: string;
+    icon?: string;
+    /**
+     * @summary 字体颜色
+     * @default #33B276
+     */
+    color?: string;
+    /**
+     * @summary 背景色
+     * @default #FFFFFF
+     */
+    bgColor?: string;
+    /**
+     * @default center
+     */
+    gravity?: 'left' | 'center' | 'right';
+    /**
+     * @summary 字体大小类型
+     * @default standard
+     */
+    fontType?: 'small' | 'standard' | 'large';
+  }
+  interface IMapContextChangeMarkersUpdate {
+    /**
+     * @summary 标记点 id
+     * @description 标记点 id，点击事件回调会返回此 id。
+     */
+    id: number;
+    /**
+     * @summary 纬度
+     * @description 范围 -90 ~ 90。
+     */
+    latitude: number;
+    /**
+     * @summary 经度
+     * @description 范围 -180 ~ 180。
+     */
+    longitude: number;
+    /**
+     * @summary 标注点名
+     */
+    title?: string;
+    /**
+     * @summary 项目目录下的图片路径
+     * @description 不能用相对路径只能用 / 开头的绝对路径。
+     */
+    iconPath: string;
+    /**
+     * @summary map 高级定制渲染绘制 marker 样式
+     * @description 优先级高于 iconPath, 对象参照 layout。
+     */
+    iconLayout?: IMapContextChangeMarkersUpdateIconLayout;
+    /**
+     * @summary 顺时针旋转的角度
+     * @description 范围 0 ~ 360
+     * @default 0
+     */
+    rotate?: number;
+    /**
+     * @summary 是否透明
+     * @default 1
+     */
+    alpha?: number;
+    /**
+     * @summary 宽度
+     * @description 默认为图片的实际宽度
+     */
+    width?: number;
+    /**
+     * @summary 高度
+     * @description 默认为图片的实际高度
+     */
+    height?: number;
+    /**
+     * @summary 标明在特定地图缩放级别下展示
+     */
+    displayRanges?: IMapContextChangeMarkersUpdateDisplayRanges;
+    /**
+     * @summary 自定义 marker 上的气泡窗口
+     * @description 地图上最多同时展示一个，绑定 onCalloutTap。
+     */
+    callout?: IMapContextChangeMarkersUpdateCallout;
+    /**
+     * @summary 经纬度在标注图标的锚点-横向值
+     * @description
+     * 这两个值需要成对出现，anchorX 表示横向(0-1)，Y 表示竖向(0-1)。
+     * anchorX: 0.5，anchorY: 1：表示底边中点。
+     */
+    anchorX?: number;
+    /**
+     * @summary 经纬度在标注图标的锚点-竖向值
+     */
+    anchorY?: number;
+    /**
+     * @summary callout 背景自定义
+     * @description 目前只支持高德地图 style。
+     */
+    customCallout?: IMapContextChangeMarkersUpdateCustomCallout;
+    /**
+     * @summary iconPath 对应的图片及该字符串共同生成 marker 的图标
+     * @description 和 iconPath 一起使用，会将 iconPath 对应的图片及该字符串共同生成一个图片，当成 marker 的图标，marker 图片可以来源于 view。
+     */
+    iconAppendStr?: string;
+    /**
+     * @summary 底部描述文本颜色
+     * @description marker 图片可以来源于 view
+     * @default #33B276
+     */
+    iconAppendStrColor?: string;
+    /**
+     * @summary 基于屏幕位置扎点
+     */
+    fixedPoint?: IMapContextChangeMarkersUpdateFixedPoint;
+    /**
+     * @summary marker 在地图上的绘制层级
+     * @description 与地图上其他覆盖物统一的 Z 坐标系
+     */
+    markerLevel?: number;
+    /**
+     * @summary marker 上的气泡
+     * @description 地图上可同时展示多个，绑定 onMarkerTap。
+     */
+    label?: IMapContextChangeMarkersUpdateLabel;
+    /**
+     * @summary 自定义 marker 的样式和内容
+     */
+    style?: IMapContextChangeMarkersUpdateStyle;
+  }
+  interface IMapContextChangeMarkersUpdateCallout {
+    /**
+     * @summary 内容。
+     */
+    content?: string;
+  }
+  interface IMapContextChangeMarkersUpdateCustomCallout {
+    /**
+     * @summary 样式类型。
+     * @description
+     * 有效值如下：
+     * - `0` 为黑色 style
+     * - `1` 为白色 style
+     * - `2` 为背景 + 文本
+     */
+    type: number;
+    /**
+     * @summary 时间值。
+     */
+    time: string;
+    /**
+     * @summary 描述数组。
+     */
+    descList: IMapContextChangeMarkersUpdateCustomCalloutDescList[];
+    /**
+     * @summary 是否展示。
+     * @description
+     * 有效值如下：
+     * - `1` 展示
+     */
+    isShow: number;
+    /**
+     * @summary 使用 map 高级定制渲染
+     * @description 。优先级最高, layout 对象参照 layout 定义。
+     */
+    layout?: IMapContextChangeMarkersUpdateCustomCalloutLayout;
+  }
+  interface IMapContextChangeMarkersUpdateCustomCalloutDescList {
+    /**
+     * @summary 文案
+     */
+    desc: string;
+    /**
+     * @summary CSS 色值。
+     */
+    descColor: string;
+  }
+  interface IMapContextChangeMarkersUpdateCustomCalloutLayout {}
+  interface IMapContextChangeMarkersUpdateDisplayRanges {
+    /**
+     * @summary 缩放级别下边界
+     */
+    from: number;
+    /**
+     * @summary 缩放级别上边界
+     */
+    to: number;
+  }
+  interface IMapContextChangeMarkersUpdateFixedPoint {
+    /**
+     * @summary 横向像素点
+     * @description 距离地图左上角的像素数值，从 `0` 开始。
+     */
+    originX: number;
+    /**
+     * @summary 横向像素点
+     * @description 距离地图左上角的像素数值，从 `0` 开始。
+     */
+    originY: number;
+  }
+  interface IMapContextChangeMarkersUpdateIconLayout {}
+  interface IMapContextChangeMarkersUpdateLabel {
+    /**
+     * @summary 文案
+     */
+    content: string;
+    /**
+     * @summary 文案颜色
+     * @default #000000
+     */
+    color?: string;
+    /**
+     * @summary 字体大小
+     * @default 14
+     */
+    fontsize?: number;
+    /**
+     * @summary 圆角尺寸
+     * @default 20
+     */
+    borderRadius?: number;
+    /**
+     * @summary 文本框背景色
+     * @default #FFFFFF
+     */
+    bgColor?: string;
+    /**
+     * @summary 内边距
+     * @default 20
+     */
+    padding?: number;
+  }
+  interface IMapContextChangeMarkersUpdateStyle {
+    /**
+     * @summary 类型
+     */
+    type: 1 | 2 | 3;
+    text?: string;
+    icon?: string;
+    /**
+     * @summary 字体颜色
+     * @default #33B276
+     */
+    color?: string;
+    /**
+     * @summary 背景色
+     * @default #FFFFFF
+     */
+    bgColor?: string;
+    /**
+     * @default center
+     */
+    gravity?: 'left' | 'center' | 'right';
+    /**
+     * @summary 字体大小类型
+     * @default standard
+     */
+    fontType?: 'small' | 'standard' | 'large';
   }
   /**
    * @summary 自定义 callout 背景
@@ -17513,19 +19001,7 @@ declare namespace my {
      */
     to: number;
   }
-  /**
-   * @summary 视野在地图 padding 范围内展示
-   */
-  interface IMapContextIncludePadding {
-    left: number;
-    right: number;
-    top: number;
-    bottom: number;
-  }
-  /**
-   * @summary 视野将进行小范围延伸包含传入的坐标
-   */
-  interface IMapContextIncludePoint {
+  interface IMapContextIncludePointsPoints {
     /**
      * @summary 纬度
      */
@@ -17726,6 +19202,350 @@ declare namespace my {
    * @summary 经纬度点位。
    */
   interface IMapContextPoint {
+    /**
+     * @summary 纬度
+     */
+    latitude: number;
+    /**
+     * @summary 经度
+     */
+    longitude: number;
+  }
+  interface IMapContextPolygonContainsPointPoint {
+    /**
+     * @summary 纬度
+     */
+    latitude: number;
+    /**
+     * @summary 经度
+     */
+    longitude: number;
+  }
+  interface IMapContextPolygonContainsPointPolygon {
+    /**
+     * @summary 纬度
+     */
+    latitude: number;
+    /**
+     * @summary 经度
+     */
+    longitude: number;
+  }
+  interface IMapContextSmoothMovePolylinePoints {
+    /**
+     * @summary 纬度
+     */
+    latitude: number;
+    /**
+     * @summary 经度
+     */
+    longitude: number;
+  }
+  interface IMapContextUpdateComponentsCommand {
+    markerAnim?: IMapContextUpdateComponentsCommandMarkerAnim;
+  }
+  interface IMapContextUpdateComponentsCommandMarkerAnim {
+    type: number;
+    markerId: number;
+  }
+  interface IMapContextUpdateComponentsIncludePadding {
+    left: number;
+    right: number;
+    top: number;
+    bottom: number;
+  }
+  interface IMapContextUpdateComponentsIncludePoints {
+    /**
+     * @summary 纬度
+     */
+    latitude: number;
+    /**
+     * @summary 经度
+     */
+    longitude: number;
+  }
+  interface IMapContextUpdateComponentsMarkers {
+    /**
+     * @summary 标记点 id
+     * @description 标记点 id，点击事件回调会返回此 id。
+     */
+    id: number;
+    /**
+     * @summary 纬度
+     * @description 范围 -90 ~ 90。
+     */
+    latitude: number;
+    /**
+     * @summary 经度
+     * @description 范围 -180 ~ 180。
+     */
+    longitude: number;
+    /**
+     * @summary 标注点名
+     */
+    title?: string;
+    /**
+     * @summary 项目目录下的图片路径
+     * @description 不能用相对路径只能用 / 开头的绝对路径。
+     */
+    iconPath: string;
+    /**
+     * @summary map 高级定制渲染绘制 marker 样式
+     * @description 优先级高于 iconPath, 对象参照 layout。
+     */
+    iconLayout?: IMapContextUpdateComponentsMarkersIconLayout;
+    /**
+     * @summary 顺时针旋转的角度
+     * @description 范围 0 ~ 360
+     * @default 0
+     */
+    rotate?: number;
+    /**
+     * @summary 是否透明
+     * @default 1
+     */
+    alpha?: number;
+    /**
+     * @summary 宽度
+     * @description 默认为图片的实际宽度
+     */
+    width?: number;
+    /**
+     * @summary 高度
+     * @description 默认为图片的实际高度
+     */
+    height?: number;
+    /**
+     * @summary 标明在特定地图缩放级别下展示
+     */
+    displayRanges?: IMapContextUpdateComponentsMarkersDisplayRanges;
+    /**
+     * @summary 自定义 marker 上的气泡窗口
+     * @description 地图上最多同时展示一个，绑定 onCalloutTap。
+     */
+    callout?: IMapContextUpdateComponentsMarkersCallout;
+    /**
+     * @summary 经纬度在标注图标的锚点-横向值
+     * @description
+     * 这两个值需要成对出现，anchorX 表示横向(0-1)，Y 表示竖向(0-1)。
+     * anchorX: 0.5，anchorY: 1：表示底边中点。
+     */
+    anchorX?: number;
+    /**
+     * @summary 经纬度在标注图标的锚点-竖向值
+     */
+    anchorY?: number;
+    /**
+     * @summary callout 背景自定义
+     * @description 目前只支持高德地图 style。
+     */
+    customCallout?: IMapContextUpdateComponentsMarkersCustomCallout;
+    /**
+     * @summary iconPath 对应的图片及该字符串共同生成 marker 的图标
+     * @description 和 iconPath 一起使用，会将 iconPath 对应的图片及该字符串共同生成一个图片，当成 marker 的图标，marker 图片可以来源于 view。
+     */
+    iconAppendStr?: string;
+    /**
+     * @summary 底部描述文本颜色
+     * @description marker 图片可以来源于 view
+     * @default #33B276
+     */
+    iconAppendStrColor?: string;
+    /**
+     * @summary 基于屏幕位置扎点
+     */
+    fixedPoint?: IMapContextUpdateComponentsMarkersFixedPoint;
+    /**
+     * @summary marker 在地图上的绘制层级
+     * @description 与地图上其他覆盖物统一的 Z 坐标系
+     */
+    markerLevel?: number;
+    /**
+     * @summary marker 上的气泡
+     * @description 地图上可同时展示多个，绑定 onMarkerTap。
+     */
+    label?: IMapContextUpdateComponentsMarkersLabel;
+    /**
+     * @summary 自定义 marker 的样式和内容
+     */
+    style?: IMapContextUpdateComponentsMarkersStyle;
+  }
+  interface IMapContextUpdateComponentsMarkersCallout {
+    /**
+     * @summary 内容。
+     */
+    content?: string;
+  }
+  interface IMapContextUpdateComponentsMarkersCustomCallout {
+    /**
+     * @summary 样式类型。
+     * @description
+     * 有效值如下：
+     * - `0` 为黑色 style
+     * - `1` 为白色 style
+     * - `2` 为背景 + 文本
+     */
+    type: number;
+    /**
+     * @summary 时间值。
+     */
+    time: string;
+    /**
+     * @summary 描述数组。
+     */
+    descList: IMapContextUpdateComponentsMarkersCustomCalloutDescList[];
+    /**
+     * @summary 是否展示。
+     * @description
+     * 有效值如下：
+     * - `1` 展示
+     */
+    isShow: number;
+    /**
+     * @summary 使用 map 高级定制渲染
+     * @description 。优先级最高, layout 对象参照 layout 定义。
+     */
+    layout?: IMapContextUpdateComponentsMarkersCustomCalloutLayout;
+  }
+  interface IMapContextUpdateComponentsMarkersCustomCalloutDescList {
+    /**
+     * @summary 文案
+     */
+    desc: string;
+    /**
+     * @summary CSS 色值。
+     */
+    descColor: string;
+  }
+  interface IMapContextUpdateComponentsMarkersCustomCalloutLayout {}
+  interface IMapContextUpdateComponentsMarkersDisplayRanges {
+    /**
+     * @summary 缩放级别下边界
+     */
+    from: number;
+    /**
+     * @summary 缩放级别上边界
+     */
+    to: number;
+  }
+  interface IMapContextUpdateComponentsMarkersFixedPoint {
+    /**
+     * @summary 横向像素点
+     * @description 距离地图左上角的像素数值，从 `0` 开始。
+     */
+    originX: number;
+    /**
+     * @summary 横向像素点
+     * @description 距离地图左上角的像素数值，从 `0` 开始。
+     */
+    originY: number;
+  }
+  interface IMapContextUpdateComponentsMarkersIconLayout {}
+  interface IMapContextUpdateComponentsMarkersLabel {
+    /**
+     * @summary 文案
+     */
+    content: string;
+    /**
+     * @summary 文案颜色
+     * @default #000000
+     */
+    color?: string;
+    /**
+     * @summary 字体大小
+     * @default 14
+     */
+    fontsize?: number;
+    /**
+     * @summary 圆角尺寸
+     * @default 20
+     */
+    borderRadius?: number;
+    /**
+     * @summary 文本框背景色
+     * @default #FFFFFF
+     */
+    bgColor?: string;
+    /**
+     * @summary 内边距
+     * @default 20
+     */
+    padding?: number;
+  }
+  interface IMapContextUpdateComponentsMarkersStyle {
+    /**
+     * @summary 类型
+     */
+    type: 1 | 2 | 3;
+    text?: string;
+    icon?: string;
+    /**
+     * @summary 字体颜色
+     * @default #33B276
+     */
+    color?: string;
+    /**
+     * @summary 背景色
+     * @default #FFFFFF
+     */
+    bgColor?: string;
+    /**
+     * @default center
+     */
+    gravity?: 'left' | 'center' | 'right';
+    /**
+     * @summary 字体大小类型
+     * @default standard
+     */
+    fontType?: 'small' | 'standard' | 'large';
+  }
+  interface IMapContextUpdateComponentsPolyline {
+    /**
+     * @summary 路线的经纬度集合
+     */
+    points?: IMapContextUpdateComponentsPolylinePoints[];
+    /**
+     * @summary 轨迹动画的颜色
+     */
+    color?: string;
+    /**
+     * @summary 路线宽度
+     */
+    width?: number;
+    /**
+     * @summary 是否虚线
+     */
+    dottedLine?: boolean;
+  }
+  interface IMapContextUpdateComponentsPolylinePoints {
+    /**
+     * @summary 纬度
+     */
+    latitude: number;
+    /**
+     * @summary 经度
+     */
+    longitude: number;
+  }
+  interface IMapContextUpdateComponentsSetting {
+    gestureEnable?: 0 | 1;
+    showCompass?: 0 | 1;
+    showScale?: 0 | 1;
+    tiltGesturesEnabled?: 0 | 1;
+    rotateGesturesEnabled?: 0 | 1;
+    zoomGesturesEnabled?: 0 | 1;
+    scrollGesturesEnabled?: 0 | 1;
+    showMapText?: 0 | 1;
+    trafficEnabled?: 0 | 1;
+    enableBuilding?: 0 | 1;
+    logoPosition?: IMapContextUpdateComponentsSettingLogoPosition;
+    scaleByMapCenter?: 0 | 1;
+  }
+  interface IMapContextUpdateComponentsSettingLogoPosition {
+    centerX?: number;
+    centerY?: number;
+  }
+  interface IMapContextUpdateGroundOverlayIncludePoints {
     /**
      * @summary 纬度
      */
@@ -18130,6 +19950,11 @@ declare namespace my {
      * @summary 启动小程序的 [场景值](https://opendocs.alipay.com/mini/framework/scene)
      */
     scene?: number;
+    /**
+     * @summary API 类别
+     * @sdk 2.7.22
+     */
+    apiCategory?: 'default' | 'embedded';
   }
   interface IOnAppShowEventReferrerInfo {
     /**
