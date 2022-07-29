@@ -1,6 +1,12 @@
-# [2.0.0](https://github.com/ant-mini-program/api-typings/compare/v1.0.33...v2.0.0) (2022-06-22)
+# [](https://github.com/ant-mini-program/api-typings/compare/v2.0.1...v) (2022-07-29)
 
-**Breaking Changes**:
+## [2.0.1](https://github.com/ant-mini-program/api-typings/compare/v2.0.0...v2.0.1) (2022-07-29)
+
+### Features
+
+- update typings ([#7](https://github.com/ant-mini-program/api-typings/issues/7)) ([e1459a4](https://github.com/ant-mini-program/api-typings/commit/e1459a47be684546e6d25d4cde270ee88039dc9f))
+
+# [2.0.0](https://github.com/ant-mini-program/api-typings/compare/v1.0.33...v2.0.0) (2022-06-22)
 
 ### Bug Fixes
 
