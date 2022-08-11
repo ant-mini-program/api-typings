@@ -38,6 +38,7 @@ export interface IAppOnLaunchReferrerInfo {
   extraData: Record<string, any>;
 }
 
+
 export interface IAppOnLaunchOptions<
   Query extends Record<string, string> = Record<string, string>
 > {
@@ -520,12 +521,12 @@ export declare type IComponentInstance<
      * 创建 SelectorQuery 对象实例。
      * @version 基础库 2.7.4 起支持。
      */
-    createSelectorQuery(options?: any): any;
+    createSelectorQuery(): any;
     /**
      * 创建 IntersectionObserver 对象实例。
      * @version 基础库 2.7.4 起支持。
      */
-    createIntersectionObserver(options: any): any;
+    createIntersectionObserver(): any;
     /**
      * 选取当前组件的创建者（即 AXML 中定义了此组件的组件），返回它的组件实例对象（会被 `ref` 影响）。
      * @version 基础库 2.7.22 起支持。
