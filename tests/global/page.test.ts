@@ -40,6 +40,13 @@ Page({
   },
   onPageScroll(e) {
     expectAssignable<Function>(this.setData)
+    expectAssignable<Function>(this.getTabBar);
+    expectAssignable<Function>(this.createIntersectionObserver);
+    expectAssignable<Function>(this.createSelectorQuery);
+    expectAssignable<Function>(this.selectComposedParentComponent);
+    expectAssignable<Function>(this.selectComposedParentComponent().selectOwnerComponent);
+    expectAssignable<Function>(this.selectOwnerComponent);
+    expectAssignable<Function>(this.selectOwnerComponent().selectComposedParentComponent);
 
     const { scrollTop } = e;
     let titleOpacity = 1 - scrollTop * 0.02;

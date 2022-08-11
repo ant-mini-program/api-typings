@@ -332,14 +332,16 @@ export interface IElementQuery {
 export interface ISelectComponent {
   /**
    * 选取当前组件的创建者（即 AXML 中定义了此组件的组件），返回它的组件实例对象（会被 `ref` 影响）。
-   * 返回值可能是 undefined | null | 页面 | 自定义组件 | 用户 ref 的 Object
+   *
    * @version 基础库 2.7.22 起支持。
+   * @returns undefined | null | 页面 | 自定义组件 | 用户 ref 的 Object
    */
   selectOwnerComponent(): any;
   /**
    * 选取当前组件在事件冒泡路径上的父组件，返回它的组件实例对象（会被 `ref` 影响）。
-   * 返回值可能是 undefined | null | 页面 | 自定义组件 | 用户 ref 的 Object
+   *
    * @version 基础库 2.7.22 起支持。
+   * @returns undefined | null | 页面 | 自定义组件 | 用户 ref 的 Object
    */
   selectComposedParentComponent(): any;
 }
