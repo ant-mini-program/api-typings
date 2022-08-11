@@ -321,16 +321,16 @@ export type IPageInstance<
      * 获取自定义 tabBar 实例
      * @version 2.7.20+ 可以通过判断 `this.getTabBar` 是否为一个函数做兼容性处理
      */
-    getTabBar():
-      | IComponentInstance<
-          UnknownRecord,
-          UnknownRecord,
-          UnknownRecord,
-          UnknownRecord,
-          UnknownRecord,
-          []
-        >
-      | undefined;
+    getTabBar<
+      T extends any = IComponentInstance<
+        UnknownRecord,
+        UnknownRecord,
+        UnknownRecord,
+        UnknownRecord,
+        UnknownRecord,
+        []
+      >
+    >(): T | undefined;
     /**
      * $spliceData 同样用于将数据从逻辑层发送到视图层，但是相比于 setData，在处理长列表的时候，其具有更高的性能。
      * @param data
