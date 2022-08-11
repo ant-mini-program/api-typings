@@ -294,10 +294,57 @@ export interface IPageOptions<Data, ExtraOptions extends UnknownRecord> {
   readonly route: string;
 }
 
+export interface IGetTabBarMethod {
+  /**
+   * 获取自定义 tabBar 实例
+   * @version 2.7.20+ 可以通过判断 `this.getTabBar` 是否为一个函数做兼容性处理
+   */
+  getTabBar<
+    T extends any = IComponentInstance<
+      UnknownRecord,
+      UnknownRecord,
+      UnknownRecord,
+      UnknownRecord,
+      UnknownRecord,
+      []
+    >
+  >(): T | undefined;
+}
+
 /**
  * Additional properties in Page instance, for module augmentation
  */
 export interface IPageInstanceAdditionalProperties<ExtraOptions> {}
+
+export interface IElementQuery {
+  /**
+   * 创建 SelectorQuery 对象实例。
+   * @version 基础库 2.7.4 起支持。
+   */
+  createSelectorQuery(): any;
+  /**
+   * 创建 IntersectionObserver 对象实例。
+   * @version 基础库 2.7.4 起支持。
+   */
+  createIntersectionObserver(): any;
+}
+
+export interface ISelectComponent {
+  /**
+   * 选取当前组件的创建者（即 AXML 中定义了此组件的组件），返回它的组件实例对象（会被 `ref` 影响）。
+   *
+   * @version 基础库 2.7.22 起支持。
+   * @returns undefined | null | 页面 | 自定义组件 | 用户 ref 的 Object
+   */
+  selectOwnerComponent(): any;
+  /**
+   * 选取当前组件在事件冒泡路径上的父组件，返回它的组件实例对象（会被 `ref` 影响）。
+   *
+   * @version 基础库 2.7.22 起支持。
+   * @returns undefined | null | 页面 | 自定义组件 | 用户 ref 的 Object
+   */
+  selectComposedParentComponent(): any;
+}
 
 /**
  * `this` type of life cycle hooks in App.
@@ -317,20 +364,7 @@ export type IPageInstance<
       data: RecursivePartialAndDynamic<Data>,
       callback?: () => void
     ): void;
-    /**
-     * 获取自定义 tabBar 实例
-     * @version 2.7.20+ 可以通过判断 `this.getTabBar` 是否为一个函数做兼容性处理
-     */
-    getTabBar():
-      | IComponentInstance<
-          UnknownRecord,
-          UnknownRecord,
-          UnknownRecord,
-          UnknownRecord,
-          UnknownRecord,
-          []
-        >
-      | undefined;
+
     /**
      * $spliceData 同样用于将数据从逻辑层发送到视图层，但是相比于 setData，在处理长列表的时候，其具有更高的性能。
      * @param data
@@ -352,7 +386,10 @@ export type IPageInstance<
      * @readonly
      */
     readonly route: string;
-  } & IPageInstanceAdditionalProperties<ExtraOptions>;
+  } & IPageInstanceAdditionalProperties<ExtraOptions> &
+  IGetTabBarMethod &
+  IElementQuery &
+  ISelectComponent;
 
 /**
  * 用户可配置的 App Options
@@ -493,20 +530,6 @@ export declare type IComponentInstance<
       callback?: () => void
     ): void;
     /**
-     * 获取自定义 tabBar 实例
-     * @version 2.7.20+ 可以通过判断 `this.getTabBar` 是否为函数做兼容性处理
-     */
-    getTabBar():
-      | IComponentInstance<
-          UnknownRecord,
-          UnknownRecord,
-          UnknownRecord,
-          UnknownRecord,
-          UnknownRecord,
-          []
-        >
-      | undefined;
-    /**
      * $spliceData 同样用于将数据从逻辑层发送到视图层，但是相比于 setData，在处理长列表的时候，其具有更高的性能。
      * @param data
      * @param callback
@@ -516,7 +539,9 @@ export declare type IComponentInstance<
       data: RecursivePartialAndDynamic<Data> & Record<string, unknown>,
       callback?: () => void
     ): void;
-  };
+  } & IGetTabBarMethod &
+  IElementQuery &
+  ISelectComponent;
 
 /**
  * 用户可配置的 Component Options
