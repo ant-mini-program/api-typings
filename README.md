@@ -16,6 +16,8 @@
 
 ```sh
 npm install @mini-types/alipay --save-dev
+# or
+yarn add -D @mini-types/alipay
 ```
 
 然后使用 typeRoots 来配置：

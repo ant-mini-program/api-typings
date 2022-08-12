@@ -1,7 +1,7 @@
 {
   "name": "@mini-types/aliauto",
   "version": "1.0.0",
-  "description": "TypeScript declarations for Alipay's mini program.",
+  "description": "TypeScript declarations for AliAuto's mini program.",
   "scripts": {},
   "repository": {
     "type": "git",
