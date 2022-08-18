@@ -4882,10 +4882,13 @@ declare namespace my {
    * @summary 获取手机系统信息的同步接口
    */
   export function getSystemInfoSync(): {
+    /**
+     * @example "alipay"
+     */
     app: string;
     language: string;
     /**
-     * @summary 设备像素比。
+     * @summary 设备像素比
      * @example 3
      */
     pixelRatio: number;
@@ -4894,40 +4897,46 @@ declare namespace my {
      */
     platform: string;
     /**
+     * @summary 多端扩展平台名称
      * @example "ap"
-     * @ios false
      */
     platformType?: string;
     /**
-     * @summary 屏幕宽度。
+     * @summary 屏幕宽度
      * @example 1080
      */
     screenWidth: number;
     titleBarHeight: number;
     version: string;
     /**
-     * @summary 窗口宽度。
+     * @summary 窗口宽度
      * @example 360
      */
     windowWidth: number;
     /**
      * @summary 用于 Android API 版本
-     * @example 29
+     * @native 10.1.18
      * @ios false
+     * @example 29
      */
     apiLevel?: number;
     /**
-     * @summary 手机品牌。
+     * @summary 用来区分显示企业商家服务/个人等界面信息
+     */
+    appMode: string;
+    /**
+     * @summary 手机品牌
      * @example "HUAWEI"
      */
     brand: string;
     /**
      * @summary 当前电池电量，格式为 `{number}%`
+     * @example "100%"
      */
     currentBattery: string;
     fontSizeSetting: number;
     /**
-     * @summary 手机型号。
+     * @summary 手机型号
      * @example "HUAWEI TAS-AL00"
      */
     model: string;
@@ -4937,44 +4946,40 @@ declare namespace my {
      * @ios false
      */
     performance: `${EGetSystemInfoPerformance}`;
-    /**
-     * @example {height: 753,width: 360}
-     */
     screen: IMyGetSystemInfoSyncScreen;
     /**
-     * @summary 屏幕高度。
+     * @summary 屏幕高度
      * @example 2259
      */
     screenHeight: number;
     /**
-     * @summary 状态栏高度。
+     * @summary 状态栏高度
      * @example 27
      */
     statusBarHeight: number;
     /**
      * @example "118 GB"
      */
-    storage: `${number} GB`;
+    storage: string;
     /**
-     * @summary 系统版本。
+     * @summary 系统版本
      * @example "10"
      */
     system: string;
     /**
      * @summary 透明状态栏
-     * @ios 10.2.58
-     * @example true
+     * @native 10.2.58
+     * @android false
      */
-    transparentTitle: boolean;
+    transparentTitle?: boolean;
     /**
-     * @summary 窗口高度。
+     * @summary 窗口高度
      * @example 780
      */
     windowHeight: number;
     isIphoneXSeries: boolean;
     /**
      * @summary 在竖屏正方向下的安全区域
-     * @android false
      */
     safeArea?: IMyGetSystemInfoSyncSafeArea;
     /**
@@ -5016,7 +5021,6 @@ declare namespace my {
     /**
      * @summary 允许支付宝使用蓝牙的开关
      * @native 10.2.0
-     * @android false
      */
     bluetoothAuthorized: boolean;
     /**
@@ -19888,7 +19892,13 @@ declare namespace my {
     height: number;
   }
   interface IMyGetSystemInfoSyncScreen {
+    /**
+     * @example 360
+     */
     width: number;
+    /**
+     * @example 753
+     */
     height: number;
   }
   interface IMyGetWindowInfoSafeArea {
