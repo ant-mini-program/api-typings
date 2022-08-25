@@ -68,6 +68,7 @@ declare namespace my {
   /**
    * @summary 写入联系人资料到设备通讯录
    * @description 用户可以选择将表单以“创建新联系人”或“添加到现有联系人”的方式，写入联系人资料到手机系统的通讯录
+   * @see https://opendocs.alipay.com/mini/api/contact
    */
   export function addPhoneContact(r?: {
     /**
@@ -170,6 +171,7 @@ declare namespace my {
   /**
    * @summary 显示警告框
    * @description 可以设置警告框的标题、内容、按钮文字等，暂不支持设置图片等样式
+   * @see https://opendocs.alipay.com/mini/api/ui-feedback
    */
   export function alert(r?: {
     /**
@@ -218,6 +220,7 @@ declare namespace my {
    * @description
    * - 根据起点和终点的地理位置，智能规划最佳出行路线，并计算不同出行方式下的行动距离和所需时间。
    * - 默认规划步行路线，支持规划步行、公交、骑行和驾车四种路线
+   * @see https://opendocs.alipay.com/mini/api/calculate-route
    */
   export function calculateRoute(r: {
     /**
@@ -419,6 +422,7 @@ declare namespace my {
   }>;
   /**
    * @summary 从支付宝通讯录中选择联系人
+   * @see https://opendocs.alipay.com/mini/api/ui-contact
    */
   export function chooseAlipayContact(r?: {
     /**
@@ -466,6 +470,7 @@ declare namespace my {
   }>;
   /**
    * @summary 打开城市选择列表
+   * @see https://opendocs.alipay.com/mini/api/ui-city
    */
   export function chooseCity(r?: {
     /**
@@ -571,6 +576,7 @@ declare namespace my {
   /**
    * @summary 唤起选择人
    * @description 默认只包含支付宝联系人，可通过修改参数选择手机通讯录联系人或者双向通讯录联系人。
+   * @see https://opendocs.alipay.com/mini/api/eqx2u5
    */
   export function chooseContact(r: {
     /**
@@ -694,6 +700,7 @@ declare namespace my {
   }>;
   /**
    * @summary 拍照或从本地相册中选择图片
+   * @see https://opendocs.alipay.com/mini/api/media/image/my.chooseimage
    */
   export function chooseImage(r?: {
     /**
@@ -785,6 +792,7 @@ declare namespace my {
    * @description
    * - 暂无境外地图数据，在中国内地（不含港澳台）以外的地区可能无法正常调用此 API
    * - 仅支持高德地图 style 与火星坐标系。
+   * @see https://opendocs.alipay.com/mini/api/location
    */
   export function chooseLocation(r?: {
     /**
@@ -902,6 +910,7 @@ declare namespace my {
   }>;
   /**
    * @summary 选择设备通信录中联系人电话
+   * @see https://opendocs.alipay.com/mini/api/blghgl
    */
   export function choosePhoneContact(r?: {
     /**
@@ -1047,6 +1056,7 @@ declare namespace my {
    * @description
    * - 清空内嵌 webview 的存储时不会同时清空当前小程序本身的存储数据
    * - 支付宝设置中心清除缓存不会导致小程序缓存失效
+   * @see https://opendocs.alipay.com/mini/api/storage
    */
   export function clearStorage(r?: {
     /**
@@ -1077,12 +1087,14 @@ declare namespace my {
   }>;
   /**
    * @summary 同步清除本地数据缓存
+   * @see https://opendocs.alipay.com/mini/api/ulv85u
    */
   export function clearStorageSync(): {
     success: boolean;
   };
   /**
    * @summary 关闭本机蓝牙模块
+   * @see https://opendocs.alipay.com/mini/api/wvko0w
    */
   export function closeBluetoothAdapter(r?: {
     /**
@@ -1103,6 +1115,7 @@ declare namespace my {
   /**
    * @summary 关闭 WebSocket 连接
    * @deprecated 推荐使用 [WebSocketTask]() 进行多链接管理
+   * @see https://opendocs.alipay.com/mini/api/network
    */
   export function closeSocket(r?: {
     /**
@@ -1142,6 +1155,7 @@ declare namespace my {
   }>;
   /**
    * @summary 压缩图片
+   * @see https://opendocs.alipay.com/mini/api/ehndze
    */
   export function compressImage(r: {
     /**
@@ -1193,6 +1207,7 @@ declare namespace my {
   /**
    * @summary 显示确认框
    * @description 可以配置确认框的标题、内容、确认或取消按钮的文字等
+   * @see https://opendocs.alipay.com/mini/api/lt3uqc
    */
   export function confirm(r?: {
     /**
@@ -1260,6 +1275,7 @@ declare namespace my {
   }>;
   /**
    * @summary 连接蓝牙低功耗设备
+   * @see https://opendocs.alipay.com/mini/api/tmew6e
    */
   export function connectBLEDevice(r: {
     /**
@@ -1286,6 +1302,7 @@ declare namespace my {
    * @description
    * - 默认情况下一个小程序在一段时间内只能保留一个 WebSocket 连接，如果当前已存在 WebSocket 连接，那么会自动关闭该连接，并重新创建一个新的 WebSocket 连接。
    * - 如果需要同时创建多个 WebSocket 连接，需要使用 multiple 参数
+   * @see https://opendocs.alipay.com/mini/api/vx19c3
    */
   export function connectSocket(param: {
     multiple?: boolean;
@@ -1340,6 +1357,7 @@ declare namespace my {
   }>;
   /**
    * @summary 创建动画实例
+   * @see https://opendocs.alipay.com/mini/api/ui-animation
    */
   export function createAnimation(param?: {
     /**
@@ -1364,14 +1382,17 @@ declare namespace my {
   }): Animation;
   /**
    * @summary 创建并返回 <canvas> 组件上下文
+   * @see https://opendocs.alipay.com/mini/api/ui-canvas
    */
   export function createCanvasContext(canvasId: string): CanvasContext;
   /**
    * @summary 创建并返回内部音频上下文
+   * @see https://opendocs.alipay.com/mini/00bg4q
    */
   export function createInnerAudioContext(): InnerAudioContext;
   /**
    * @summary 创建并返回 IntersectionObserver 对象
+   * @see https://opendocs.alipay.com/mini/api/intersectionobserver
    */
   export function createIntersectionObserver(option?: IMyCreateIntersectionObserverOption): IntersectionObserver;
   /**
@@ -1380,19 +1401,23 @@ declare namespace my {
   export function createLottieContext(lottieId: string): LottieContext;
   /**
    * @summary 创建并返回 <map> 组件上下文
+   * @see https://opendocs.alipay.com/mini/api/ui-map
    */
   export function createMapContext(id: string): MapContext;
   /**
    * @summary 创建视图信息查询实例
    * @description - 在 `自定义组件` 或包含 `自定义组件` 页面中，希望仅查询自身模板（不跨组件）的视图信息，应使用 `this.createSelectorQuery()` 来代替
+   * @see https://opendocs.alipay.com/mini/api/selector-query
    */
   export function createSelectorQuery(option?: IMyCreateSelectorQueryOption): SelectorQuery;
   /**
    * @summary 创建并返回 <video> 组件上下文
+   * @see https://opendocs.alipay.com/mini/api/oglq4q
    */
   export function createVideoContext(id: string): VideoContext;
   /**
    * @summary 创建并返回 <web-view> 组件上下文
+   * @see https://opendocs.alipay.com/mini/api/webview-context
    */
   export function createWebViewContext(id: string): WebViewContext;
   /**
@@ -1404,6 +1429,7 @@ declare namespace my {
   export function createWorker(scriptPath: string): Worker;
   /**
    * @summary 选择日期
+   * @see https://opendocs.alipay.com/mini/api/ui-date
    */
   export function datePicker(r?: {
     /**
@@ -1514,6 +1540,7 @@ declare namespace my {
   }>;
   /**
    * @summary 断开与蓝牙低功耗设备的连接
+   * @see https://opendocs.alipay.com/mini/api/yqrmmk
    */
   export function disconnectBLEDevice(r: {
     /**
@@ -1538,6 +1565,7 @@ declare namespace my {
   /**
    * @summary 下载文件资源到本地
    * @description - 可下载任何格式的文件，不能被识别的文件将以 other 的方式存储起来
+   * @see https://opendocs.alipay.com/mini/api/xr054r
    */
   export function downloadFile(r: {
     /**
@@ -1634,96 +1662,8 @@ declare namespace my {
      * @sdk 2.7.23
      */
     tempFilePath: string;
-  }>;
-  /**
-   * @summary 下载文件资源到本地
-   * @description - 可下载任何格式的文件，不能被识别的文件将以 other 的方式存储起来
-   */
-  export function downloadFile(r: {
-    /**
-     * @summary 下载文件地址
-     */
-    url: string;
-    /**
-     * @summary HTTP 请求 Header
-     */
-    header?: Record<string, string>;
-    /**
-     * 接口调用成功的回调函数
-     * @param data 成功返回的数据
-     */
-    success?(data: {
-      /**
-       * @summary 临时文件路径(本地临时文件)
-       */
-      apFilePath: string;
-      /**
-       *
-       * @summary 临时文件路径(本地临时文件)
-       * @sdk 2.7.23
-       */
-      tempFilePath: string;
-    }): void;
-    /**
-     * 接口调用失败的回调函数
-     * @param err 错误信息
-     */
-    fail?(
-      err:
-        | {
-            error?: number;
-            errorMessage?: string;
-          }
-        | {
-            error: 12;
-            errorMessage: '下载失败';
-          }
-        | {
-            error: 13;
-            errorMessage: '没有权限';
-          }
-        | {
-            error: 20;
-            errorMessage: '请求的 URL 不支持 HTTP';
-          },
-    ): void;
-    /**
-     * 接口调用结束的回调函数（调用成功、失败都会执行）
-     */
-    complete?(
-      arg:
-        | {
-            /**
-             * @summary 临时文件路径(本地临时文件)
-             */
-            apFilePath: string;
-            /**
-             *
-             * @summary 临时文件路径(本地临时文件)
-             * @sdk 2.7.23
-             */
-            tempFilePath: string;
-          }
-        | (
-            | {
-                error?: number;
-                errorMessage?: string;
-              }
-            | {
-                error: 12;
-                errorMessage: '下载失败';
-              }
-            | {
-                error: 13;
-                errorMessage: '没有权限';
-              }
-            | {
-                error: 20;
-                errorMessage: '请求的 URL 不支持 HTTP';
-              }
-          ),
-    ): void;
-  }): DownloadTask;
+  }> &
+    DownloadTask;
   /**
    * @summary 开启小程序页面返回询问对话框
    */
@@ -1916,6 +1856,7 @@ declare namespace my {
   /**
    * @summary 选择收获地址
    * @description 商户在寄送外卖、快递或其他场景需要用户填写地址信息时，可通过调用此 API 直接获取地址数据，无需用户手动填写
+   * @see https://opendocs.alipay.com/mini/api/lymgfk
    */
   export function getAddress(r?: {
     /**
@@ -2169,6 +2110,7 @@ declare namespace my {
   };
   /**
    * @summary 同步获取小程序 appId
+   * @see https://opendocs.alipay.com/mini/api/gazkkm
    */
   export function getAppIdSync(): {
     /**
@@ -2179,6 +2121,7 @@ declare namespace my {
   export function getARSessionManager(): ARSessionManager;
   /**
    * @summary 获取授权码 (AuthCode)
+   * @see https://opendocs.alipay.com/mini/api/openapi-authorize
    */
   export function getAuthCode(r?: {
     /**
@@ -2249,6 +2192,7 @@ declare namespace my {
   }>;
   /**
    * @summary 获取支持的音频输入源
+   * @see https://opendocs.alipay.com/mini/00bg4t
    */
   export function getAvailableAudioSources(r?: {
     /**
@@ -2279,6 +2223,7 @@ declare namespace my {
   }>;
   /**
    * @summary 获取全局唯一的背景音频管理器
+   * @see https://opendocs.alipay.com/mini/00bifu
    */
   export function getBackgroundAudioManager(): BackgroundAudioManager;
   /**
@@ -2356,6 +2301,7 @@ declare namespace my {
   }>;
   /**
    * @summary 获取设备电量和充电状态
+   * @see https://opendocs.alipay.com/mini/api/nrnziy
    */
   export function getBatteryInfo(r?: {
     /**
@@ -2409,6 +2355,7 @@ declare namespace my {
   }>;
   /**
    * @summary 同步获取设备电量和充电状态
+   * @see https://opendocs.alipay.com/mini/api/vf7vn3
    */
   export function getBatteryInfoSync(): {
     /**
@@ -2422,6 +2369,7 @@ declare namespace my {
   };
   /**
    * @summary 获取已经搜索到的iBeacon设备
+   * @see https://opendocs.alipay.com/mini/api/yqleyc
    */
   export function getBeacons(r?: {
     /**
@@ -2478,6 +2426,7 @@ declare namespace my {
   }>;
   /**
    * @summary 获取蓝牙低功耗设备所有特征值  (characteristic)
+   * @see https://opendocs.alipay.com/mini/api/fmg9gg
    */
   export function getBLEDeviceCharacteristics(r: {
     /**
@@ -2558,6 +2507,7 @@ declare namespace my {
   }>;
   /**
    * @summary 获取蓝牙低功耗设备所有服务 (service)
+   * @see https://opendocs.alipay.com/mini/api/uzsg75
    */
   export function getBLEDeviceServices(r: {
     /**
@@ -2704,6 +2654,7 @@ declare namespace my {
   }>;
   /**
    * @summary 获取本机蓝牙适配器状态
+   * @see https://opendocs.alipay.com/mini/api/eid4o6
    */
   export function getBluetoothAdapterState(r?: {
     /**
@@ -2758,6 +2709,7 @@ declare namespace my {
   /**
    * @summary 获取已发现的蓝牙设备
    * @description 包括已经和本机处于连接状态的设备
+   * @see https://opendocs.alipay.com/mini/api/pelizr
    */
   export function getBluetoothDevices(r?: {
     /**
@@ -2830,6 +2782,7 @@ declare namespace my {
   /**
    * @summary 获取剪贴板数据
    * @deprecated 已对外下线，读取权限由客户端白名单控制
+   * @see https://opendocs.alipay.com/mini/api/clipboard
    */
   export function getClipboard(r?: {
     /**
@@ -2874,6 +2827,7 @@ declare namespace my {
    * @description
    * - 若小程序在之前已有搜索过某个蓝牙设备，即可直接传入之前搜索获取的 deviceId 尝试连接该设备，无需进行搜索操作。
    * - 若指定的蓝牙设备已经连接，重复连接将直接返回 success
+   * @see https://opendocs.alipay.com/mini/api/ge8nue
    */
   export function getConnectedBluetoothDevices(r?: {
     /**
@@ -3023,6 +2977,7 @@ declare namespace my {
   export function getExtConfigSync(): Record<string, unknown>;
   /**
    * @summary 获取文件信息
+   * @see https://opendocs.alipay.com/mini/api/file
    */
   export function getFileInfo(r: {
     filePath?: string;
@@ -3129,6 +3084,7 @@ declare namespace my {
   }>;
   /**
    * @summary 获取图片信息
+   * @see https://opendocs.alipay.com/mini/api/yv9n6t
    */
   export function getImageInfo(r: {
     src: string;
@@ -3197,6 +3153,7 @@ declare namespace my {
    * @description
    * - 仅支持高德地图 style 与火星坐标系
    * - 暂无境外地图数据，在中国内地（不含港澳台）以外的地区可能无法正常调用此 API
+   * @see https://opendocs.alipay.com/mini/api/mkxuqd
    */
   export function getLocation(r?: {
     /**
@@ -3583,6 +3540,7 @@ declare namespace my {
   /**
    * @summary 获取当前网络状态
    * @description 获取后续网络状态变化可以使用 [my.onNetworkStatusChange]() 进行持续监听
+   * @see https://opendocs.alipay.com/mini/api/network-status
    */
   export function getNetworkType(r?: {
     /**
@@ -3634,6 +3592,7 @@ declare namespace my {
    * @description
    * - 基础信息包含：头像图片地址、昵称、性别、国家码、省份、所在市区
    * - 如需获取支付宝会员标识 `user_id`，请调用 [my.getAuthCode]() 和 `alipay.system.oauth.token` 接口。
+   * @see https://opendocs.alipay.com/mini/api/ch8chh
    */
   export function getOpenUserInfo(r?: {
     /**
@@ -3715,6 +3674,7 @@ declare namespace my {
    * @description
    * - 需要户点击 ` <button open-type="getAuthorize"> `组件同意后，可以通过[my.getPhoneNumber]() 接口获取到支付宝服务器返回的加密数据， 才可在第三方服务端结合签名算法和AES密钥进行解密获取手机号
    * - 若用户未授权，直接调用 [my.getPhoneNumber]() 接口，则无法返回正确信息。
+   * @see https://opendocs.alipay.com/mini/api/getphonenumber
    */
   export function getPhoneNumber(r?: {
     /**
@@ -3787,6 +3747,7 @@ declare namespace my {
    * @description
    * 系统将自动会检查用户是否已授权。若用户尚未授权，则会弹出授权框。用户同意授权后，可获取到返回的加密数据。 然后在服务端结合签名算法和 AES 密钥进行解密，获取运动数据
    * 目前只支持查询最近 30 天内的运动数据，若超过 30 天，则返回的步数信息为 0。
+   * @see https://opendocs.alipay.com/mini/api/gxuu7v
    */
   export function getRunData(r: {
     /**
@@ -3881,6 +3842,7 @@ declare namespace my {
   }>;
   /**
    * @summary 用于获取当前小程序的运行版本
+   * @see https://opendocs.alipay.com/mini/api/runscene
    */
   export function getRunScene(r?: {
     /**
@@ -3922,6 +3884,7 @@ declare namespace my {
   }>;
   /**
    * @summary 获取保存的文件信息
+   * @see https://opendocs.alipay.com/mini/api/qrx6ze
    */
   export function getSavedFileInfo(r?: {
     filePath?: string;
@@ -3958,6 +3921,7 @@ declare namespace my {
   }>;
   /**
    * @summary 获取保存的所有文件信息
+   * @see https://opendocs.alipay.com/mini/api/cgohg1
    */
   export function getSavedFileList(r?: {
     /**
@@ -3990,6 +3954,7 @@ declare namespace my {
   }>;
   /**
    * @summary 获取屏幕亮度
+   * @see https://opendocs.alipay.com/mini/api/screen-brightness
    */
   export function getScreenBrightness(r?: {
     /**
@@ -4082,6 +4047,7 @@ declare namespace my {
   >;
   /**
    * @summary 获取当前服务器时间
+   * @see https://opendocs.alipay.com/mini/api/get-server-time
    */
   export function getServerTime(r?: {
     /**
@@ -4126,6 +4092,7 @@ declare namespace my {
   }>;
   /**
    * @summary 获取用户的当前设置
+   * @see https://opendocs.alipay.com/mini/api/xmk3ml
    */
   export function getSetting(r?: {
     /**
@@ -4156,6 +4123,7 @@ declare namespace my {
   }>;
   /**
    * @summary 获取缓存数据的异步接口
+   * @see https://opendocs.alipay.com/mini/api/azfobl
    */
   export function getStorage(r: {
     key: string;
@@ -4187,6 +4155,7 @@ declare namespace my {
   }>;
   /**
    * @summary 获取缓存数据相关信息
+   * @see https://opendocs.alipay.com/mini/api/zvmanq
    */
   export function getStorageInfo(r?: {
     /**
@@ -4252,6 +4221,7 @@ declare namespace my {
   }>;
   /**
    * @summary 同步获取缓存数据相关信息
+   * @see https://opendocs.alipay.com/mini/api/uw5rdl
    */
   export function getStorageInfoSync(): {
     /**
@@ -4269,12 +4239,14 @@ declare namespace my {
   };
   /**
    * @summary 同步获取缓存数据
+   * @see https://opendocs.alipay.com/mini/api/ox0wna
    */
   export function getStorageSync(r: { key: string }): {
     data: unknown;
   };
   /**
    * @summary 获取手机系统信息。
+   * @see https://opendocs.alipay.com/mini/api/system-info
    */
   export function getSystemInfo(r?: {
     /**
@@ -4880,6 +4852,7 @@ declare namespace my {
   }>;
   /**
    * @summary 获取手机系统信息的同步接口
+   * @see https://opendocs.alipay.com/mini/api/gawhvz
    */
   export function getSystemInfoSync(): {
     /**
@@ -5066,6 +5039,7 @@ declare namespace my {
   };
   /**
    * @summary 获取导航栏背景色
+   * @see https://opendocs.alipay.com/mini/api/dplf2s
    */
   export function getTitleColor(r?: {
     /**
@@ -5111,6 +5085,7 @@ declare namespace my {
   /**
    * @summary 获取版本更新管理器
    * @description 用于管理小程序更新。
+   * @see https://opendocs.alipay.com/mini/api/zdblqg
    */
   export function getUpdateManager(): UpdateManager;
   /**
@@ -5167,6 +5142,7 @@ declare namespace my {
   };
   /**
    * @summary 隐藏当前页面菜单中的添加到桌面功能
+   * @see https://opendocs.alipay.com/mini/api/optionmenuitem
    */
   export function hideAddToDesktopMenu(r?: {
     /**
@@ -5186,6 +5162,7 @@ declare namespace my {
   }): Promise<void>;
   /**
    * @summary 隐藏所有页面的菜单中的添加到桌面功能
+   * @see https://opendocs.alipay.com/mini/api/fdaplu
    */
   export function hideAllAddToDesktopMenu(r?: {
     /**
@@ -5208,6 +5185,7 @@ declare namespace my {
    * @description
    * 用户启动小程序时，若进入的页面不是小程序首页，则会在左上角出现返回首页图标。
    * 如果 app.json 中配置了 tabbar 跳转 pages/index/index 时，则左上角不会出现 返回首页 icon 图标。
+   * @see https://opendocs.alipay.com/mini/api/ui-navigate
    */
   export function hideBackHome(r?: {
     /**
@@ -5227,6 +5205,7 @@ declare namespace my {
   }): Promise<void>;
   /**
    * @summary 隐藏键盘
+   * @see https://opendocs.alipay.com/mini/api/ui-hidekeyboard
    */
   export function hideKeyboard(r?: {
     /**
@@ -5247,6 +5226,7 @@ declare namespace my {
   /**
    * @summary 隐藏加载提示的过渡效果
    * @description 可与 [my.showLoading]() 配合使用
+   * @see https://opendocs.alipay.com/mini/api/nzf540
    */
   export function hideLoading(r?: {
     /**
@@ -5270,6 +5250,7 @@ declare namespace my {
   }): Promise<void>;
   /**
    * @summary 在当前页面隐藏导航条的加载动画。
+   * @see https://opendocs.alipay.com/mini/api/ncgsga
    */
   export function hideNavigationBarLoading(r?: {
     /**
@@ -5289,6 +5270,7 @@ declare namespace my {
   }): Promise<void>;
   /**
    * @summary 隐藏分享按钮
+   * @see https://opendocs.alipay.com/mini/api/aimaqk
    */
   export function hideShareMenu(r?: {
     /**
@@ -5308,6 +5290,7 @@ declare namespace my {
   }): Promise<void>;
   /**
    * @summary 隐藏 TabBar
+   * @see https://opendocs.alipay.com/mini/api/at18z8
    */
   export function hideTabBar(r?: {
     /**
@@ -5332,6 +5315,7 @@ declare namespace my {
   }): Promise<void>;
   /**
    * @summary 隐藏 TabBar 某一项右上角的红点
+   * @see https://opendocs.alipay.com/mini/api/mg428a
    */
   export function hideTabBarRedDot(r: {
     /**
@@ -5355,6 +5339,7 @@ declare namespace my {
   }): Promise<void>;
   /**
    * @summary 隐藏弱提示
+   * @see https://opendocs.alipay.com/mini/api/iygd4e
    */
   export function hideToast(r?: {
     /**
@@ -5416,6 +5401,7 @@ declare namespace my {
   /**
    * @summary 动态加载网络字体
    * @description 支付宝小程序目前只支持 woff，otf，ttf，sfnt 字体，不支持 woff2 字体
+   * @see https://opendocs.alipay.com/mini/api/ggawf0
    */
   export function loadFontFace(r: {
     /**
@@ -5488,6 +5474,7 @@ declare namespace my {
   }>;
   /**
    * @summary 加载动态插件
+   * @see https://opendocs.alipay.com/mini/plugin/plugin-usage
    */
   export function loadPlugin(r: {
     /**
@@ -5548,6 +5535,7 @@ declare namespace my {
   }>;
   /**
    * @summary 拨打电话
+   * @see https://opendocs.alipay.com/mini/api/macke-call
    */
   export function makePhoneCall(r: {
     /**
@@ -5583,6 +5571,7 @@ declare namespace my {
   /**
    * @summary 显示多级联动选择菜单
    * @description 主要用于选择多级关联数据，比如省市区的信息选择。
+   * @see https://opendocs.alipay.com/mini/api/multi-level-select
    */
   export function multiLevelSelect(r: {
     title?: string;
@@ -5624,6 +5613,7 @@ declare namespace my {
   }>;
   /**
    * @summary 关闭当前页面，返回上一级或多级页面
+   * @see https://opendocs.alipay.com/mini/api/kc5zbx
    */
   export function navigateBack(r?: {
     /**
@@ -5650,6 +5640,7 @@ declare namespace my {
   /**
    * @summary 跳转回上一个小程序
    * @description - 只有当另一个小程序跳转到当前小程序时才会能调用成功。
+   * @see https://opendocs.alipay.com/mini/api/open-miniprogram
    */
   export function navigateBackMiniProgram(r?: {
     /**
@@ -5677,6 +5668,7 @@ declare namespace my {
    * 可使用 [my.navigateBack]() 返回到原来页面。
    * 小程序中页面栈最多十层。
    * [my.navigateTo]() 和 [my.redirectTo]() 不允许跳转到 Tab 页面；若需跳转到 Tab 页面，请使用 my.switchTab。
+   * @see https://opendocs.alipay.com/mini/api/zwi8gx
    */
   export function navigateTo(r: {
     /**
@@ -5731,6 +5723,7 @@ declare namespace my {
   }>;
   /**
    * @summary 跳转到其他小程序
+   * @see https://opendocs.alipay.com/mini/api/yz6gnx
    */
   export function navigateToMiniProgram(r: {
     /**
@@ -5771,6 +5764,7 @@ declare namespace my {
   }): Promise<void>;
   /**
    * @summary 启用蓝牙低功耗设备特征值变化时的 notify 功能
+   * @see https://opendocs.alipay.com/mini/api/pdzk44
    */
   export function notifyBLECharacteristicValueChange(r: {
     /**
@@ -5811,6 +5805,7 @@ declare namespace my {
   }): Promise<void>;
   /**
    * @summary 停止监听加速度数据变化的事件
+   * @see https://opendocs.alipay.com/mini/api/kape7p
    */
   export function offAccelerometerChange(
     cb?: (arg: {
@@ -5832,18 +5827,22 @@ declare namespace my {
   /**
    * @summary 取消监听小程序切后台事件
    * @description 请勿使用 API 监听匿名函数，否则将无法关闭监听
+   * @see https://opendocs.alipay.com/mini/api/dldh0a
    */
   export function offAppHide(cb?: () => void): void;
   /**
    * @summary 取消监听小程序切前台事件
+   * @see https://opendocs.alipay.com/mini/api/tkohmw
    */
   export function offAppShow(cb?: () => void): void;
   /**
    * @summary 取消监听音频因为系统占用而被中断的开始事件
+   * @see https://opendocs.alipay.com/mini/00jim9
    */
   export function offAudioInterruptionBegin(cb?: () => void): void;
   /**
    * @summary 取消监听音频被中断的结束事件
+   * @see https://opendocs.alipay.com/mini/00jfja
    */
   export function offAudioInterruptionEnd(cb?: () => void): void;
   /**
@@ -5874,6 +5873,7 @@ declare namespace my {
   ): void;
   /**
    * @summary 取消监听蓝牙低功耗设备的特征值变化的事件
+   * @see https://opendocs.alipay.com/mini/api/dlxobk
    */
   export function offBLECharacteristicValueChange(
     cb?: (arg: {
@@ -5888,6 +5888,7 @@ declare namespace my {
   ): void;
   /**
    * @summary 取消监听蓝牙低功耗设备的连接状态变化的事件
+   * @see https://opendocs.alipay.com/mini/api/xfuy7k
    */
   export function offBLEConnectionStateChanged(
     cb?: (arg: {
@@ -5903,6 +5904,7 @@ declare namespace my {
   ): void;
   /**
    * @summary 取消监听本机蓝牙状态变化的事件
+   * @see https://opendocs.alipay.com/mini/api/ocgwfe
    */
   export function offBluetoothAdapterStateChange(
     cb?: (arg: {
@@ -5918,6 +5920,7 @@ declare namespace my {
   ): void;
   /**
    * @summary 取消监听搜索到新蓝牙设备的事件
+   * @see https://opendocs.alipay.com/mini/api/snw2t7
    */
   export function offBluetoothDeviceFound(
     cb?: (arg: {
@@ -5929,6 +5932,7 @@ declare namespace my {
   ): void;
   /**
    * @summary 停止监听罗盘数据
+   * @see https://opendocs.alipay.com/mini/api/xf671t
    */
   export function offCompassChange(
     cb?: (arg: {
@@ -5997,6 +6001,7 @@ declare namespace my {
   ): void;
   /**
    * @summary 停止监听陀螺仪数据
+   * @see https://opendocs.alipay.com/mini/api/cpt55i
    */
   export function offGyroscopeChange(
     cb?: (arg: {
@@ -6037,6 +6042,7 @@ declare namespace my {
   ): void;
   /**
    * @summary 停止监听内存不足的告警事件
+   * @see https://opendocs.alipay.com/mini/api/hszexr
    */
   export function offMemoryWarning(
     cb?: (arg: {
@@ -6051,6 +6057,7 @@ declare namespace my {
   ): void;
   /**
    * @summary 取消监听网络状态变化事件
+   * @see https://opendocs.alipay.com/mini/api/gxpg1w
    */
   export function offNetworkStatusChange(
     cb?: (arg: {
@@ -6085,14 +6092,17 @@ declare namespace my {
   ): void;
   /**
    * @summary 取消监听 WebSocket 关闭事件
+   * @see https://opendocs.alipay.com/mini/api/qc4q3t
    */
   export function offSocketClose(cb?: (arg: { reason: string }) => void): void;
   /**
    * @summary 取消监听 WebSocket 错误事件
+   * @see https://opendocs.alipay.com/mini/api/kk7vv7
    */
   export function offSocketError(cb?: (arg: { errorMessage: string; error: number }) => void): void;
   /**
    * @summary 取消监听 WebSocket 接受到服务器的消息事件
+   * @see https://opendocs.alipay.com/mini/api/roziyq
    */
   export function offSocketMessage(
     cb?: (arg: {
@@ -6108,6 +6118,7 @@ declare namespace my {
   ): void;
   /**
    * @summary 取消监听 WebSocket 连接打开事件
+   * @see https://opendocs.alipay.com/mini/api/dva3t8
    */
   export function offSocketOpen(cb?: () => void): void;
   /**
@@ -6127,6 +6138,7 @@ declare namespace my {
   ): void;
   /**
    * @summary 取消监听用户发起的主动截屏事件
+   * @see https://opendocs.alipay.com/mini/api/umdxbg
    */
   export function offUserCaptureScreen(cb?: () => void): void;
   /**
@@ -6143,6 +6155,7 @@ declare namespace my {
   /**
    * @summary 监听加速度数据变化的事件
    * @description 回调间隔为 500ms，接口调用后会自动开始监听，可使用 [my.offAccelerometerChange]() 停止监听。
+   * @see https://opendocs.alipay.com/mini/api/accelerometer
    */
   export function onAccelerometerChange(
     cb: (arg: {
@@ -6166,6 +6179,7 @@ declare namespace my {
    * @description
    * 该事件与框架 app.js 注册小程序 时 onHide 参数的回调时机一致。对应的取消监听 API 请参见 [my.offAppHide]()。
    * 请勿使用 API 监听匿名函数，否则将无法关闭监听
+   * @see https://opendocs.alipay.com/mini/api/tv6qvi
    */
   export function onAppHide(cb: () => void): void;
   /**
@@ -6173,19 +6187,23 @@ declare namespace my {
    * @description
    * 该事件与框架 app.js 注册小程序 时 onShow 参数的回调时机一致。对应的取消监听 API 请参见 my.offAppShow。
    * 请勿使用 API 监听匿名函数，否则将无法关闭监听。
+   * @see https://opendocs.alipay.com/mini/api/nn7do1
    */
   export function onAppShow(cb: (arg: IOnAppShowEvent) => void): void;
   /**
    * @summary 监听音频因为系统占用而被中断的开始事件
+   * @see https://opendocs.alipay.com/mini/00jim8
    */
   export function onAudioInterruptionBegin(cb: () => void): void;
   /**
    * @summary 监听音频被中断的结束事件
    * @description 在收到 [my.onAudioInterruptionBegin]() 事件之后，小程序内的所有音频会暂停，收到此事件之后可再次播放成功
+   * @see https://opendocs.alipay.com/mini/00jgot
    */
   export function onAudioInterruptionEnd(cb: () => void): void;
   /**
    * @summary 监听 iBeacon 服务的状态变化
+   * @see https://opendocs.alipay.com/mini/api/rq1dl7
    */
   export function onBeaconServiceChange(
     cb: (arg: {
@@ -6201,6 +6219,7 @@ declare namespace my {
   ): void;
   /**
    * @summary 监听 iBeacon 设备的更新事件
+   * @see https://opendocs.alipay.com/mini/api/kvdg9y
    */
   export function onBeaconUpdate(
     cb: (arg: {
@@ -6212,6 +6231,7 @@ declare namespace my {
   ): void;
   /**
    * @summary 监听蓝牙低功耗设备的特征值变化的事件
+   * @see https://opendocs.alipay.com/mini/api/cdu501
    */
   export function onBLECharacteristicValueChange(
     cb: (arg: {
@@ -6226,6 +6246,7 @@ declare namespace my {
   ): void;
   /**
    * @summary 监听蓝牙低功耗设备的连接状态变化的事件
+   * @see https://opendocs.alipay.com/mini/api/utgyiu
    */
   export function onBLEConnectionStateChanged(
     cb: (arg: {
@@ -6241,6 +6262,7 @@ declare namespace my {
   ): void;
   /**
    * @summary 监听本机蓝牙状态变化的事件
+   * @see https://opendocs.alipay.com/mini/api/eegfbk
    */
   export function onBluetoothAdapterStateChange(
     cb: (arg: {
@@ -6256,6 +6278,7 @@ declare namespace my {
   ): void;
   /**
    * @summary 搜索到新的蓝牙设备时触发此事件
+   * @see https://opendocs.alipay.com/mini/api/mhzls9
    */
   export function onBluetoothDeviceFound(
     cb: (arg: {
@@ -6270,6 +6293,7 @@ declare namespace my {
    * @description
    * - 回调间隔为500ms
    * - 可使用 [my.offCompassChange]() 停止监听。
+   * @see https://opendocs.alipay.com/mini/api/compass
    */
   export function onCompassChange(
     cb: (arg: {
@@ -6347,6 +6371,7 @@ declare namespace my {
    * @description
    * - 回调间隔为500ms
    * - 可使用 [my.offGyroscopeChange]() 停止监听。
+   * @see https://opendocs.alipay.com/mini/api/gyroscope
    */
   export function onGyroscopeChange(
     cb: (arg: {
@@ -6368,6 +6393,7 @@ declare namespace my {
   /**
    * @summary 监听该页面地理位置定位完成的事件
    * @description 只针对 `chooseCity` 中属性 `setLocatedCity` 为 `true` 的情况。
+   * @see https://opendocs.alipay.com/mini/api/krzyo1
    */
   export function onLocatedComplete(
     cb: (arg: {
@@ -6387,6 +6413,7 @@ declare namespace my {
   ): void;
   /**
    * @summary 开始监听内存不足的告警事件
+   * @see https://opendocs.alipay.com/mini/api/rb9o8p
    */
   export function onMemoryWarning(
     cb: (arg: {
@@ -6401,6 +6428,7 @@ declare namespace my {
   ): void;
   /**
    * @summary 开始监听网络状态变化事件
+   * @see https://opendocs.alipay.com/mini/api/ympi0l
    */
   export function onNetworkStatusChange(
     cb: (arg: {
@@ -6442,14 +6470,17 @@ declare namespace my {
   ): void;
   /**
    * @summary 监听 WebSocket 关闭事件
+   * @see https://opendocs.alipay.com/mini/api/foqk6g
    */
   export function onSocketClose(cb: (arg: { reason: string }) => void): void;
   /**
    * @summary 监听 WebSocket 错误事件
+   * @see https://opendocs.alipay.com/mini/api/giu3c2
    */
   export function onSocketError(cb: (arg: { errorMessage: string; error: number }) => void): void;
   /**
    * @summary 监听 WebSocket 接受到服务器的消息事件
+   * @see https://opendocs.alipay.com/mini/api/gecnap
    */
   export function onSocketMessage(
     cb: (arg: {
@@ -6465,6 +6496,7 @@ declare namespace my {
   ): void;
   /**
    * @summary 监听 WebSocket 连接打开事件
+   * @see https://opendocs.alipay.com/mini/api/itm5og
    */
   export function onSocketOpen(cb: () => void): void;
   /**
@@ -6488,6 +6520,7 @@ declare namespace my {
    * @description
    * - 可以接收到系统以及第三方截屏工具的截屏事件通知。
    * - 可使用 [my.offUserCaptureScreen]() 取消监听。
+   * @see https://opendocs.alipay.com/mini/api/user-capture-screen
    */
   export function onUserCaptureScreen(cb: () => void): void;
   /**
@@ -6503,6 +6536,7 @@ declare namespace my {
   ): void;
   /**
    * @summary 初始化小程序蓝牙模块
+   * @see https://opendocs.alipay.com/mini/api/kunuy4
    */
   export function openBluetoothAdapter(r?: {
     /**
@@ -6550,6 +6584,7 @@ declare namespace my {
   /**
    * @summary 在新页面打开文件预览
    * @description 暂时只支持预览 PDF 格式文件
+   * @see https://opendocs.alipay.com/mini/api/mwpprc
    */
   export function openDocument(r: {
     /**
@@ -6664,6 +6699,7 @@ declare namespace my {
    * @description
    * - 暂无境外地图数据，在中国内地（不含港澳台）以外的地区可能无法正常调用
    * - 仅支持高德地图 style 与火星坐标系
+   * @see https://opendocs.alipay.com/mini/api/as9kin
    */
   export function openLocation(r: {
     /**
@@ -6751,6 +6787,7 @@ declare namespace my {
   /**
    * @summary 跳转到小程序设置界面
    * @description 返回用户权限设置的结果
+   * @see https://opendocs.alipay.com/mini/api/qflu8f
    */
   export function openSetting(r?: {
     /**
@@ -6908,6 +6945,7 @@ declare namespace my {
   /**
    * @summary 显示下拉列表选择器菜单
    * @description 一般用于 2 级数据的选择，但不支持 2 级数据之间的联动
+   * @see https://opendocs.alipay.com/mini/api/options-select
    */
   export function optionsSelect(r: {
     title?: string;
@@ -6963,6 +7001,7 @@ declare namespace my {
   }>;
   /**
    * @summary 滚动到页面的目标位置
+   * @see https://opendocs.alipay.com/mini/api/scroll
    */
   export function pageScrollTo(r?: {
     /**
@@ -7016,6 +7055,7 @@ declare namespace my {
   }): Promise<void>;
   /**
    * @summary 发起签约代扣
+   * @see https://opendocs.alipay.com/mini/006v6d
    */
   export function paySignCenter(r: {
     /**
@@ -7085,6 +7125,7 @@ declare namespace my {
   }>;
   /**
    * @summary 预览图片
+   * @see https://opendocs.alipay.com/mini/api/eei0av
    */
   export function previewImage(r: {
     /**
@@ -7123,6 +7164,7 @@ declare namespace my {
   }): Promise<void>;
   /**
    * @summary 显示输入对话框
+   * @see https://opendocs.alipay.com/mini/api/vqpy01
    */
   export function prompt(r: {
     /**
@@ -7192,6 +7234,7 @@ declare namespace my {
   /**
    * @summary 读取蓝牙低功耗设备特征值中的数据
    * @description 调用后在 [my.onBLECharacteristicValueChange]() 事件中接收数据返回。
+   * @see https://opendocs.alipay.com/mini/api/zro0ka
    */
   export function readBLECharacteristicValue(r: {
     /**
@@ -7245,6 +7288,7 @@ declare namespace my {
   }>;
   /**
    * @summary 将当前页面重定向到指定页面
+   * @see https://opendocs.alipay.com/mini/api/fh18ky
    */
   export function redirectTo(r: {
     /**
@@ -7356,6 +7400,7 @@ declare namespace my {
   }): Promise<void>;
   /**
    * @summary 关闭当前所有页面，并重新打开应用内的某个指定页面
+   * @see https://opendocs.alipay.com/mini/api/hmn54z
    */
   export function reLaunch(r: {
     /**
@@ -7386,6 +7431,7 @@ declare namespace my {
   }): Promise<void>;
   /**
    * @summary 删除某个保存的文件
+   * @see https://opendocs.alipay.com/mini/api/dgi1fr
    */
   export function removeSavedFile(r?: {
     /**
@@ -7413,6 +7459,7 @@ declare namespace my {
   }): Promise<void>;
   /**
    * @summary 删除缓存数据
+   * @see https://opendocs.alipay.com/mini/api/of9hze
    */
   export function removeStorage(r: {
     key: string;
@@ -7446,6 +7493,7 @@ declare namespace my {
   }>;
   /**
    * @summary 同步删除缓存数据
+   * @see https://opendocs.alipay.com/mini/api/ytfrk4
    */
   export function removeStorageSync(r: { key: string }): {
     success: true;
@@ -7453,6 +7501,7 @@ declare namespace my {
   };
   /**
    * @summary 移除 TabBar 某一项右上角的文本
+   * @see https://opendocs.alipay.com/mini/api/lpbp5g
    */
   export function removeTabBarBadge(r: {
     /**
@@ -7477,6 +7526,7 @@ declare namespace my {
   /**
    * @summary 发起网络请求
    * @description [my.httpRequest]() 已不再维护，建议使用 [my.request]()
+   * @see https://opendocs.alipay.com/mini/api/owycmh
    */
   export function request(r: {
     /**
@@ -7612,133 +7662,8 @@ declare namespace my {
      * @summary HTTP 响应头。
      */
     headers: Record<string, string>;
-  }>;
-  /**
-   * @summary 发起网络请求
-   * @description [my.httpRequest]() 已不再维护，建议使用 [my.request]()
-   */
-  export function request(r: {
-    /**
-     * @summary 目标服务器 URL
-     * @description
-     * - 目前只支持 HTTPS 协议的请求
-     * - 目前只支持与 *域名白名单* 中的域名通讯
-     *   - 开发过程中，可通过开发者工具 **详情 > 域名信息 > 忽略 httpRequest 域名合法性检查** 忽略该限制（模拟器、预览以及真机调试场景不会校验域名合法性）
-     *   - 正式/体验版本必须在 **支付宝小程序管理中心 > 小程序详情 > 设置 > 开发设置 > 服务器域名白名单** 中配置
-     *   - 域名添加或删除后仅对新版本生效，老版本仍使用修改前的域名配置
-     */
-    url: string;
-    /**
-     * @summary 返回的数据格式
-     * @default 'json'
-     */
-    dataType?: 'json' | 'text' | 'base64' | 'arraybuffer';
-    /**
-     * @summary HTTP 请求方法
-     * @default 'GET'
-     */
-    method?: 'GET' | 'POST' | 'PUT' | 'DELETE';
-    /**
-     * @summary 传给服务器的数据
-     * @description
-     * 传给服务器的数据最终会是 string 类型，如果 data 不是 string 类型，会被转换成 string 。转换规则如下：
-     * - 若方法为 `GET`，会将数据转换成 querystring 形式： `encodeURIComponent(k)=encodeURIComponent(v)&encodeURIComponent(k)=encodeURIComponent(v)...`
-     * - 若方法为 `POST` 且 `headers['content-type']` 为 `application/json` ，会对数据进行 JSON 序列化。
-     * - 若方法为 `POST` 且 `headers['content-type']` 为 `application/x-www-form-urlencoded` ，会将数据转换成 querystring形式： `encodeURIComponent(k)=encodeURIComponent(v)&encodeURIComponent(k)=encodeURIComponent(v)...`
-     */
-    data?: string | Record<string, string> | ArrayBuffer;
-    /**
-     * @summary 设置请求的 HTTP 头对象
-     * @description
-     * - "content-type" 字段默认为 `application/json`
-     * - `referer` 字段不可设置，其格式固定为 https://{appid}.hybrid.alipay-eco.com/{appid}/{version}/index.html#{page}，其中 {appid} 为小程序的 APPID，{version} 为小程序发布标识，{page} 为小程序当前页面。
-     */
-    headers?: Record<string, string>;
-    /**
-     * @summary 超时时间，单位 ms
-     * @default 30000
-     */
-    timeout?: number;
-    /**
-     * 接口调用成功的回调函数
-     * @param data 成功返回的数据
-     */
-    success?(data: {
-      /**
-       * @summary 响应数据，格式取决于请求时的 `dataType` 参数
-       */
-      data: string | Record<string, unknown> | ArrayBuffer;
-      /**
-       * @summary HTTP 响应码。
-       */
-      status: number;
-      /**
-       * @summary HTTP 响应头。
-       */
-      headers: Record<string, string>;
-    }): void;
-    /**
-     * 接口调用失败的回调函数
-     * @param err 错误信息
-     */
-    fail?(
-      err:
-        | {
-            error?: number;
-            errorMessage?: string;
-          }
-        | {
-            error: 19;
-            errorMessage: 'http status error';
-          }
-        | {
-            error: 14;
-            errorMessage: 'parse arraybuffer data error';
-          }
-        | {
-            error: 14;
-            errorMessage: 'JSON parse data error';
-          },
-    ): void;
-    /**
-     * 接口调用结束的回调函数（调用成功、失败都会执行）
-     */
-    complete?(
-      arg:
-        | {
-            /**
-             * @summary 响应数据，格式取决于请求时的 `dataType` 参数
-             */
-            data: string | Record<string, unknown> | ArrayBuffer;
-            /**
-             * @summary HTTP 响应码。
-             */
-            status: number;
-            /**
-             * @summary HTTP 响应头。
-             */
-            headers: Record<string, string>;
-          }
-        | (
-            | {
-                error?: number;
-                errorMessage?: string;
-              }
-            | {
-                error: 19;
-                errorMessage: 'http status error';
-              }
-            | {
-                error: 14;
-                errorMessage: 'parse arraybuffer data error';
-              }
-            | {
-                error: 14;
-                errorMessage: 'JSON parse data error';
-              }
-          ),
-    ): void;
-  }): RequestTask;
+  }> &
+    RequestTask;
   export function requestSubscribeMessage(r: {
     appId?: string;
     aboveContent?: boolean;
@@ -7808,6 +7733,7 @@ declare namespace my {
   /**
    * @summary 非对称加密
    * @description 加密与解密过程应分别放置在客户端与服务端，私钥也放在服务端（若私钥放在客户端，容易泄露而导致安全问题）。
+   * @see https://opendocs.alipay.com/mini/api/data-safe
    */
   export function rsa(r: {
     /**
@@ -7872,6 +7798,7 @@ declare namespace my {
   /**
    * @summary 保存文件到本地
    * @description 本地文件大小总容量限制：10 MB
+   * @see https://opendocs.alipay.com/mini/api/xbll1q
    */
   export function saveFile(r: {
     /**
@@ -7913,6 +7840,7 @@ declare namespace my {
   /**
    * @summary 将在线图片保存至本地相册
    * @description 推荐使用 [my.saveImageToPhotosAlbum]()
+   * @see https://opendocs.alipay.com/mini/api/izfoiz
    */
   export function saveImage(r: {
     /**
@@ -8009,6 +7937,7 @@ declare namespace my {
   /**
    * @summary 跳转到扫一扫界面
    * @description - 唤起扫一扫会触发以下生命周期: App.onHide → Page.onHide → App.onShow → Page.onShow
+   * @see https://opendocs.alipay.com/mini/api/scan
    */
   export function scan(r?: {
     /**
@@ -8153,6 +8082,7 @@ declare namespace my {
   }>;
   /**
    * @summary 通过socket发送数据
+   * @see https://opendocs.alipay.com/mini/api/mr91d1
    */
   export function sendSocketMessage(r: {
     /**
@@ -8184,6 +8114,7 @@ declare namespace my {
   }): Promise<void>;
   /**
    * @summary 设置窗口背景颜色
+   * @see https://opendocs.alipay.com/mini/api/set-background
    */
   export function setBackgroundColor(r?: {
     backgroundColor?: string;
@@ -8217,6 +8148,7 @@ declare namespace my {
   }>;
   /**
    * @summary 设置下拉背景文字样式
+   * @see https://opendocs.alipay.com/mini/api/aamqae
    */
   export function setBackgroundTextStyle(r: {
     /**
@@ -8304,6 +8236,7 @@ declare namespace my {
   /**
    * @summary 设置页面是否支持下拉
    * @description 默认支持页面下拉，可通过此接口关闭下拉或重新开启下来
+   * @see https://opendocs.alipay.com/mini/api/set-can-pull-down
    */
   export function setCanPullDown(r: {
     /**
@@ -8327,6 +8260,7 @@ declare namespace my {
   }): Promise<void>;
   /**
    * @summary 设置剪贴板数据。
+   * @see https://opendocs.alipay.com/mini/api/klbkbp
    */
   export function setClipboard(r: {
     /**
@@ -8362,6 +8296,7 @@ declare namespace my {
   /**
    * @summary 设置是否保持屏幕长亮状态
    * @description 仅在当前小程序生效，离开小程序后失效。
+   * @see https://opendocs.alipay.com/mini/api/qx0sap
    */
   export function setKeepScreenOn(r?: {
     keepScreenOn?: boolean;
@@ -8394,6 +8329,7 @@ declare namespace my {
   /**
    * @summary 修改默认定位城市的名称
    * @description 针对 [my.chooseCity]() 接口
+   * @see https://opendocs.alipay.com/mini/api/yw382g
    */
   export function setLocatedCity(r: {
     /**
@@ -8452,6 +8388,7 @@ declare namespace my {
   /**
    * @summary 设置导航栏样式
    * @description 样式包括：导航栏标题、导航栏背景色、导航栏底部边框颜色、导航栏左上角 logo 图片
+   * @see https://opendocs.alipay.com/mini/api/xwq8e6
    */
   export function setNavigationBar(r?: {
     /**
@@ -8503,6 +8440,7 @@ declare namespace my {
   }): Promise<void>;
   /**
    * @summary 设置屏幕亮度
+   * @see https://opendocs.alipay.com/mini/api/ccf32t
    */
   export function setScreenBrightness(r: {
     /**
@@ -8526,6 +8464,7 @@ declare namespace my {
   }): Promise<void>;
   /**
    * @summary 将数据存储在本地缓存的指定的 key 中
+   * @see https://opendocs.alipay.com/mini/api/eocm6v
    */
   export function setStorage(r: {
     /**
@@ -8553,10 +8492,12 @@ declare namespace my {
   }): Promise<void>;
   /**
    * @summary 同步将数据存储在本地缓存的指定的 key 中
+   * @see https://opendocs.alipay.com/mini/api/cog0du
    */
   export function setStorageSync(r: { data: unknown; key: string }): void;
   /**
    * @summary 动态设置 TabBar 某一项右上角的文本
+   * @see https://opendocs.alipay.com/mini/api/qm7t3v
    */
   export function setTabBarBadge(r: {
     /**
@@ -8584,6 +8525,7 @@ declare namespace my {
   }): Promise<void>;
   /**
    * @summary 动态设置 TabBar 某一项的内容
+   * @see https://opendocs.alipay.com/mini/api/zu37bk
    */
   export function setTabBarItem(r: {
     /**
@@ -8620,6 +8562,7 @@ declare namespace my {
   /**
    * @summary 动态设置 TabBar 的整体样式
    * @description 如文字颜色、标签背景色、标签边框颜色等
+   * @see https://opendocs.alipay.com/mini/api/wcf0sv
    */
   export function setTabBarStyle(r: {
     /**
@@ -8738,6 +8681,7 @@ declare namespace my {
   }>;
   /**
    * @summary 显示操作菜单
+   * @see https://opendocs.alipay.com/mini/api/hr092g
    */
   export function showActionSheet(r: {
     /**
@@ -8806,6 +8750,7 @@ declare namespace my {
    * @description
    * - 权限引导的核心是引导而非权限判断，调用时机应该在业务方确认所需权限被限制的时候
    * - 权限引导弹框受疲劳度等因素控制
+   * @see https://opendocs.alipay.com/mini/api/show-auth-guide
    */
   export function showAuthGuide(r: {
     /**
@@ -8920,6 +8865,7 @@ declare namespace my {
   /**
    * @summary 显示加载提示的过渡效果
    * @description 可与 [my.hideLoading]() 配合使用
+   * @see https://opendocs.alipay.com/mini/api/bm69kb
    */
   export function showLoading(r?: {
     /**
@@ -8949,6 +8895,7 @@ declare namespace my {
   }): Promise<void>;
   /**
    * @summary 在当前页面显示导航条的加载动画
+   * @see https://opendocs.alipay.com/mini/api/lydg2a
    */
   export function showNavigationBarLoading(r?: {
     /**
@@ -8969,10 +8916,12 @@ declare namespace my {
   /**
    * @summary 手动唤起分享面板
    * @description 此时 `Page.onShareAppMessage` 入参中 `from` 的值为 `code`
+   * @see https://opendocs.alipay.com/mini/api/omg2ye
    */
   export function showSharePanel(): void;
   /**
    * @summary 显示 TabBar
+   * @see https://opendocs.alipay.com/mini/api/dpq5dh
    */
   export function showTabBar(r?: {
     /**
@@ -8997,6 +8946,7 @@ declare namespace my {
   }): Promise<void>;
   /**
    * @summary 显示 TabBar 某一项的右上角的红点
+   * @see https://opendocs.alipay.com/mini/api/dquxiq
    */
   export function showTabBarRedDot(r: {
     /**
@@ -9021,6 +8971,7 @@ declare namespace my {
   /**
    * @summary 显示弱提示
    * @description 在到达设定的显示时间后，会自动消失
+   * @see https://opendocs.alipay.com/mini/api/fhur8f
    */
   export function showToast(r?: {
     /**
@@ -9182,6 +9133,7 @@ declare namespace my {
   }>;
   /**
    * @summary 开始搜索附近的 iBeacon 设备
+   * @see https://opendocs.alipay.com/mini/api/cy1g7k
    */
   export function startBeaconDiscovery(r: {
     /**
@@ -9210,6 +9162,7 @@ declare namespace my {
    * @description
    * - 搜索结果将在 [my.onBluetoothDeviceFound]() 事件中返回。
    * - 该操作比较耗费系统资源，请在搜索并连接到设备后调用 stop 方法停止搜索。
+   * @see https://opendocs.alipay.com/mini/api/ksew43
    */
   export function startBluetoothDevicesDiscovery(r?: {
     includeClassic?: boolean;
@@ -9311,6 +9264,7 @@ declare namespace my {
    * @description
    * 调用 [my.startPullDownRefresh]() 后触发下拉刷新动画，效果与用户手动下拉刷新一致（会触发 [my.onPullDownRefresh]() 监听方法）。
    * 当处理完数据刷新后，[my.stopPullDownRefresh]() 可停止当前页面的下拉刷新
+   * @see https://opendocs.alipay.com/mini/api/ui-pulldown
    */
   export function startPullDownRefresh(r?: {
     /**
@@ -9401,6 +9355,7 @@ declare namespace my {
   }>;
   /**
    * @summary 停止搜索附近的 iBeacon 设备
+   * @see https://opendocs.alipay.com/mini/api/yp5owa
    */
   export function stopBeaconDiscovery(r?: {
     /**
@@ -9420,6 +9375,7 @@ declare namespace my {
   }): Promise<void>;
   /**
    * @summary 停止搜寻附近的蓝牙外围设备
+   * @see https://opendocs.alipay.com/mini/api/syb4mi
    */
   export function stopBluetoothDevicesDiscovery(r?: {
     /**
@@ -9502,6 +9458,7 @@ declare namespace my {
    * @description
    * 调用 my.startPullDownRefresh 后触发下拉刷新动画，效果与用户手动下拉刷新一致（会触发 onPullDownRefresh 监听方法）。
    * 当处理完数据刷新后，my.stopPullDownRefresh 可停止当前页面的下拉刷新。
+   * @see https://opendocs.alipay.com/mini/api/pmhkbb
    */
   export function stopPullDownRefresh(r?: {
     /**
@@ -9554,6 +9511,7 @@ declare namespace my {
    * @description
    * 如果小程序是一个多标签（tab）应用，即客户端窗口的底部栏可以切换页面，那么可以通过标签页配置项指定标签栏的表现形式，以及标签切换时显示的对应页面。
    * 通过页面跳转 [my.navigateTo]() 或者页面重定向 [my.redirectTo]() 所到达的页面，即使是定义在标签页配置中的页面，也不会显示底部的标签栏。标签页的第一个页面必须是首页。
+   * @see https://opendocs.alipay.com/mini/api/ui-tabbar
    */
   export function switchTab(r: {
     /**
@@ -9582,6 +9540,7 @@ declare namespace my {
   }): Promise<void>;
   /**
    * @summary 发起支付
+   * @see https://opendocs.alipay.com/mini/api/openapi-pay
    */
   export function tradePay(r?: {
     /**
@@ -9657,6 +9616,7 @@ declare namespace my {
   }): Promise<void>;
   /**
    * @summary 上传本地资源到开发者服务器
+   * @see https://opendocs.alipay.com/mini/api/kmq4hc
    */
   export function uploadFile(r: {
     /**
@@ -9765,107 +9725,11 @@ declare namespace my {
      * @summary 服务器返回的 Header。
      */
     header: Record<string, unknown>;
-  }>;
-  /**
-   * @summary 上传本地资源到开发者服务器
-   */
-  export function uploadFile(r: {
-    /**
-     * @summary 开发者服务器地址。
-     */
-    url: string;
-    /**
-     * @summary 要上传文件资源的本地定位符。
-     */
-    filePath: string;
-    /**
-     * @summary 文件名，即对应的 key，开发者在服务器端通过这个 key 可以获取到文件二进制内容。
-     */
-    fileName: string;
-    /**
-     * @summary 文件类型支持图片、视频、音频（image / video / audio）。
-     */
-    fileType: string;
-    /**
-     * @summary 是否隐藏 loading 图。
-     * @default false
-     */
-    hideLoading?: boolean;
-    /**
-     * @summary HTTP 请求 Header。
-     */
-    header?: Record<string, unknown>;
-    headers?: Record<string, unknown>;
-    /**
-     * @summary HTTP 请求中其他额外的 form 数据。
-     */
-    formData?: Record<string, unknown>;
-    /**
-     * 接口调用成功的回调函数
-     * @param data 成功返回的数据
-     */
-    success?(data: {
-      /**
-       * @summary 服务器返回的数据。
-       */
-      data: string;
-      /**
-       * @summary HTTP 状态码。
-       */
-      statusCode: number;
-      /**
-       * @summary 服务器返回的 Header。
-       */
-      header: Record<string, unknown>;
-    }): void;
-    /**
-     * 接口调用失败的回调函数
-     * @param err 错误信息
-     */
-    fail?(
-      err:
-        | {
-            error?: number;
-            errorMessage?: string;
-          }
-        | {
-            error: 11;
-            errorMessage?: string;
-          },
-    ): void;
-    /**
-     * 接口调用结束的回调函数（调用成功、失败都会执行）
-     */
-    complete?(
-      arg:
-        | {
-            /**
-             * @summary 服务器返回的数据。
-             */
-            data: string;
-            /**
-             * @summary HTTP 状态码。
-             */
-            statusCode: number;
-            /**
-             * @summary 服务器返回的 Header。
-             */
-            header: Record<string, unknown>;
-          }
-        | (
-            | {
-                error?: number;
-                errorMessage?: string;
-              }
-            | {
-                error: 11;
-                errorMessage?: string;
-              }
-          ),
-    ): void;
-  }): UploadTask;
+  }> &
+    UploadTask;
   /**
    * @summary 触发设备震动
+   * @see https://opendocs.alipay.com/mini/api/vibrate
    */
   export function vibrate(r?: {
     /**
@@ -9897,6 +9761,7 @@ declare namespace my {
   /**
    * @summary 触发设备长时间震动
    * @description 400ms
+   * @see https://opendocs.alipay.com/mini/api/ucm2he
    */
   export function vibrateLong(r?: {
     /**
@@ -9927,6 +9792,7 @@ declare namespace my {
   }>;
   /**
    * @summary 触发设备短时间震动
+   * @see https://opendocs.alipay.com/mini/api/ad6c10
    */
   export function vibrateShort(r?: {
     /**
@@ -9958,6 +9824,7 @@ declare namespace my {
   /**
    * @summary 摇一摇功能
    * @description 每次调用 API，在摇一摇手机后触发回调，如需再次监听需要再次调用这个 API
+   * @see https://opendocs.alipay.com/mini/api/shake
    */
   export function watchShake(r?: {
     monitorAccelerometer?: boolean;
@@ -9992,6 +9859,7 @@ declare namespace my {
   }>;
   /**
    * @summary 向蓝牙低功耗设备特征值中写入数据
+   * @see https://opendocs.alipay.com/mini/api/vmp2r4
    */
   export function writeBLECharacteristicValue(r: {
     /**
@@ -21059,6 +20927,7 @@ declare namespace my.ap {
   /**
    * @summary 图片风险任务提交接口
    * @description 用于识别图片是否有色情、违禁违法等内容。
+   * @see https://opendocs.alipay.com/mini/api/img_risk
    */
   export function imgRisk(r: {
     /**
@@ -21157,6 +21026,7 @@ declare namespace my.ap {
   }>;
   /**
    * @summary 查询图片的风险识别结果的 API
+   * @see https://opendocs.alipay.com/mini/api/ze6675
    */
   export function imgRiskCallback(r: {
     /**
@@ -21323,6 +21193,7 @@ declare namespace my.ap {
   }>;
   /**
    * @summary 跳转到支付宝客户端内指定页面
+   * @see https://opendocs.alipay.com/mini/api/navigatetoalipaypage
    */
   export function navigateToAlipayPage(r: {
     /**
@@ -21372,6 +21243,7 @@ declare namespace my.ap {
   }>;
   /**
    * @summary 跳转到支付宝客户端内指定页面
+   * @see https://opendocs.alipay.com/mini/api/navigatetoalipaypage
    */
   export function navigateToAlipayPage(r: {
     /**
@@ -21582,6 +21454,7 @@ declare namespace my.ap {
   ): Promise<void>;
   /**
    * @summary 判断用户在先享后付场景下是否有风险的 API
+   * @see https://opendocs.alipay.com/mini/api/nsf
    */
   export function nsf(r: {
     /**
@@ -21987,6 +21860,7 @@ declare namespace my.ap {
   }): Promise<void>;
   /**
    * @summary 反作弊
+   * @see https://opendocs.alipay.com/mini/api/antimarketcheat
    */
   export function preventCheat(r: {
     /**
@@ -22240,6 +22114,7 @@ declare namespace my.ap {
   }>;
   /**
    * @summary 跳转到支付宝客户端升级界面
+   * @see https://opendocs.alipay.com/mini/api/updatealipayclient
    */
   export function updateAlipayClient(r?: {
     /**
