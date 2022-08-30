@@ -17292,15 +17292,15 @@ declare namespace my {
     title: string;
     /**
      * @summary 模块类型。枚举如下：
-     *  0：常规城市；
-     *  1：定位模块；
-     *  2：展示支付宝提供的热门城市模块。
+     *  0：常规城市，用户需要提供城市列表
+     *  1：定位模块，支付宝自动获取用户当前城市
+     *  2：展示支付宝提供的热门城市模块
      */
     type: EChooseDistrictHeadItemType;
     /**
-     * @summary 区块城市列表
+     * @summary type 设置为 0 时需要提供的区块城市列表
      */
-    list: IChooseDistrictListItem[];
+    list?: IChooseDistrictListItem[];
   }
   interface IChooseDistrictListItem {
     /**
@@ -17322,7 +17322,7 @@ declare namespace my {
     /**
      * @summary 额外信息
      */
-    ext: string;
+    ext?: string;
     /**
      * @summary 支持级联，自定义次级城市列表
      */
@@ -17536,7 +17536,7 @@ declare namespace my {
     /**
      * @summary 城市名对应拼音拼写，方便用户搜索。
      */
-    spell: string;
+    spell?: string;
   }
   interface IGetCitiesCustomHotCities {
     /**
@@ -17562,7 +17562,7 @@ declare namespace my {
     /**
      * @summary 城市名对应拼音拼写，方便用户搜索。
      */
-    spell: string;
+    spell?: string;
   }
   interface IGetConnectedBluetoothDevicesDevices {
     /**
