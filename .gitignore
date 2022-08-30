@@ -1,3 +1,6 @@
+# due to network reason, github actions cannot use npmmirror
+yarn.lock
+
 # Logs
 logs
 *.log
@@ -135,7 +138,8 @@ dist
 .LSOverride
 
 # Icon must end with two \r
-Icon
+Icon
+
 
 # Thumbnails
 ._*
