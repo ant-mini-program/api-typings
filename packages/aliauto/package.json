@@ -1,6 +1,6 @@
 {
   "name": "@mini-types/aliauto",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "TypeScript declarations for AliAuto's mini program.",
   "scripts": {},
   "repository": {
@@ -20,5 +20,6 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
     "access": "public"
-  }
+  },
+  "gitHead": "f6909ddcd793cd1df815378366fcdb7e653596ea"
 }
