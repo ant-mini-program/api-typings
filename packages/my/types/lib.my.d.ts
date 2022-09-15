@@ -6,17 +6,20 @@ declare namespace my {
   export const env: {
     /**
      * @summary 文件系统中的用户目录路径 (本地路径)
+     * @example "https://usr"
      */
     USER_DATA_PATH: string;
     /**
      * @summary 客户端名称简写
      * @description - 支付宝客户端为 'ap'。
      * @sdk 1.24.9
+     * @example "ap"
      */
     clientName: string;
     /**
      * @summary 客户端版本号
      * @sdk 1.24.9
+     * @example "10.2.90"
      */
     clientVersion: string;
     /**
@@ -27,6 +30,7 @@ declare namespace my {
      * - 繁体中文-香港: "zh-HK"
      * - 繁体中文-台湾: "zh-Hant"
      * @sdk 1.24.9
+     * @example "zh-Hans"
      */
     language: string;
     /**
@@ -36,8 +40,14 @@ declare namespace my {
      * - 安卓系统: 'Android'
      * - 其他系统: 'unknown'
      * @sdk 1.24.9
+     * @example "iOS"
      */
     platform: string;
+    /**
+     * @summary 当前客户端环境
+     * @sdk 2.7.24
+     */
+    clientEnv?: 'prod' | 'test' | 'stable' | 'pre' | 'unknown';
   };
   /**
    * @summary 获取基础库版本号
@@ -491,15 +501,15 @@ declare namespace my {
     /**
      * @summary 自定义城市列表。
      */
-    cities?: IGetCitiesCustomCities[];
+    cities?: ITypeCityInfo[];
     /**
      * @summary 自定义热门城市列表。
      */
-    hotCities?: IGetCitiesCustomHotCities[];
+    hotCities?: ITypeCityInfo[];
     /**
      * @summary 自定义历史访问城市列表。
      */
-    customHistoryCities?: IGetCitiesCustomHistoryCities[];
+    customHistoryCities?: ITypeCityInfo[];
     /**
      * 接口调用成功的回调函数
      * @param data 成功返回的数据
@@ -526,7 +536,17 @@ declare namespace my {
      * 接口调用失败的回调函数
      * @param err 错误信息
      */
-    fail?(err: { error?: number; errorMessage?: string }): void;
+    fail?(
+      err:
+        | {
+            error?: number;
+            errorMessage?: string;
+          }
+        | {
+            error: 11;
+            errorMessage: '用户取消操作';
+          },
+    ): void;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
@@ -550,10 +570,16 @@ declare namespace my {
              */
             latitude?: number;
           }
-        | {
-            error?: number;
-            errorMessage?: string;
-          },
+        | (
+            | {
+                error?: number;
+                errorMessage?: string;
+              }
+            | {
+                error: 11;
+                errorMessage: '用户取消操作';
+              }
+          ),
     ): void;
   }): Promise<{
     /**
@@ -572,7 +598,8 @@ declare namespace my {
      * @summary 纬度（注意：仅用户选择当前定位城市才会返回）。
      */
     latitude?: number;
-  }>;
+  }> &
+    ChooseCityTask;
   /**
    * @summary 唤起选择人
    * @description 默认只包含支付宝联系人，可通过修改参数选择手机通讯录联系人或者双向通讯录联系人。
@@ -1283,10 +1310,23 @@ declare namespace my {
      */
     deviceId: string;
     /**
+     * @summary 超时时间（单位毫秒）
+     */
+    timeout?: number;
+    /**
      * 接口调用成功的回调函数
      * @param data 成功返回的数据
      */
-    success?(data: {}): void;
+    success?(data: {
+      /**
+       * @summary 错误码
+       */
+      error: string;
+      /**
+       * @summary 错误信息
+       */
+      errorMessage: string;
+    }): void;
     /**
      * 接口调用失败的回调函数
      * @param err 错误信息
@@ -1295,8 +1335,33 @@ declare namespace my {
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?(arg: { error?: number; errorMessage?: string }): void;
-  }): Promise<void>;
+    complete?(
+      arg:
+        | {
+            /**
+             * @summary 错误码
+             */
+            error: string;
+            /**
+             * @summary 错误信息
+             */
+            errorMessage: string;
+          }
+        | {
+            error?: number;
+            errorMessage?: string;
+          },
+    ): void;
+  }): Promise<{
+    /**
+     * @summary 错误码
+     */
+    error: string;
+    /**
+     * @summary 错误信息
+     */
+    errorMessage: string;
+  }>;
   /**
    * @summary 创建一个 WebSocket 的连接
    * @description
@@ -1404,6 +1469,10 @@ declare namespace my {
    * @see https://opendocs.alipay.com/mini/api/ui-map
    */
   export function createMapContext(id: string): MapContext;
+  /**
+   * @summary 创建离屏 canvas 对象
+   */
+  export function createOffscreenCanvas(width?: number, height?: number, type?: '2d' | 'webgl'): OffScreenCanvas;
   /**
    * @summary 创建视图信息查询实例
    * @description - 在 `自定义组件` 或包含 `自定义组件` 页面中，希望仅查询自身模板（不跨组件）的视图信息，应使用 `this.createSelectorQuery()` 来代替
@@ -1551,7 +1620,16 @@ declare namespace my {
      * 接口调用成功的回调函数
      * @param data 成功返回的数据
      */
-    success?(data: {}): void;
+    success?(data: {
+      /**
+       * @summary 错误码
+       */
+      errorCode: string;
+      /**
+       * @summary 错误信息
+       */
+      errorMessage: string;
+    }): void;
     /**
      * 接口调用失败的回调函数
      * @param err 错误信息
@@ -1560,8 +1638,33 @@ declare namespace my {
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?(arg: { error?: number; errorMessage?: string }): void;
-  }): Promise<void>;
+    complete?(
+      arg:
+        | {
+            /**
+             * @summary 错误码
+             */
+            errorCode: string;
+            /**
+             * @summary 错误信息
+             */
+            errorMessage: string;
+          }
+        | {
+            error?: number;
+            errorMessage?: string;
+          },
+    ): void;
+  }): Promise<{
+    /**
+     * @summary 错误码
+     */
+    errorCode: string;
+    /**
+     * @summary 错误信息
+     */
+    errorMessage: string;
+  }>;
   /**
    * @summary 下载文件资源到本地
    * @description - 可下载任何格式的文件，不能被识别的文件将以 other 的方式存储起来
@@ -2445,7 +2548,7 @@ declare namespace my {
       /**
        * @summary 设备特征值列
        */
-      characteristics: IGetBLEDeviceCharacteristicsCharacteristics[];
+      characteristics: ITypeBLECharacteristic[];
     }): void;
     /**
      * 接口调用失败的回调函数
@@ -2461,7 +2564,7 @@ declare namespace my {
             /**
              * @summary 设备特征值列
              */
-            characteristics: IGetBLEDeviceCharacteristicsCharacteristics[];
+            characteristics: ITypeBLECharacteristic[];
           }
         | {
             error?: number;
@@ -2472,7 +2575,7 @@ declare namespace my {
     /**
      * @summary 设备特征值列
      */
-    characteristics: IGetBLEDeviceCharacteristicsCharacteristics[];
+    characteristics: ITypeBLECharacteristic[];
   }>;
   /**
    * @summary 获取蓝牙低功耗设备的信号强度 (RSSI)
@@ -2720,7 +2823,7 @@ declare namespace my {
       /**
        * @summary 已发现的设备列表。
        */
-      devices: IGetBluetoothDevicesDevices[];
+      devices: TypeBluetoothDevice[];
     }): void;
     /**
      * 接口调用失败的回调函数
@@ -2736,7 +2839,7 @@ declare namespace my {
             /**
              * @summary 已发现的设备列表。
              */
-            devices: IGetBluetoothDevicesDevices[];
+            devices: TypeBluetoothDevice[];
           }
         | {
             error?: number;
@@ -2747,7 +2850,7 @@ declare namespace my {
     /**
      * @summary 已发现的设备列表。
      */
-    devices: IGetBluetoothDevicesDevices[];
+    devices: TypeBluetoothDevice[];
   }>;
   /**
    * @summary 获取已经配对的蓝牙设备
@@ -2757,7 +2860,7 @@ declare namespace my {
      * 接口调用成功的回调函数
      * @param data 成功返回的数据
      */
-    success?(data: { devices: IGetBluetoothPairsDevices[] }): void;
+    success?(data: { devices: TypeBluetoothDevice[] }): void;
     /**
      * 接口调用失败的回调函数
      * @param err 错误信息
@@ -2769,7 +2872,7 @@ declare namespace my {
     complete?(
       arg:
         | {
-            devices: IGetBluetoothPairsDevices[];
+            devices: TypeBluetoothDevice[];
           }
         | {
             error?: number;
@@ -2777,7 +2880,7 @@ declare namespace my {
           },
     ): void;
   }): Promise<{
-    devices: IGetBluetoothPairsDevices[];
+    devices: TypeBluetoothDevice[];
   }>;
   /**
    * @summary 获取剪贴板数据
@@ -2838,7 +2941,7 @@ declare namespace my {
       /**
        * @summary 已连接的设备列表。
        */
-      devices: IGetConnectedBluetoothDevicesDevices[];
+      devices: TypeBluetoothDevice[];
     }): void;
     /**
      * 接口调用失败的回调函数
@@ -2854,7 +2957,7 @@ declare namespace my {
             /**
              * @summary 已连接的设备列表。
              */
-            devices: IGetConnectedBluetoothDevicesDevices[];
+            devices: TypeBluetoothDevice[];
           }
         | {
             error?: number;
@@ -2865,7 +2968,7 @@ declare namespace my {
     /**
      * @summary 已连接的设备列表。
      */
-    devices: IGetConnectedBluetoothDevicesDevices[];
+    devices: TypeBluetoothDevice[];
   }>;
   /**
    * @summary 获取已连接的 Wi-Fi 信息
@@ -2916,7 +3019,7 @@ declare namespace my {
      * @summary 来源信息
      * @description 部分版本在无 referrerInfo 的时候会返回 undefined，建议使用 options.referrerInfo && options.referrerInfo.appId 进行判断
      */
-    referrerInfo?: IMyGetEnterOptionsSyncReferrerInfo;
+    referrerInfo?: ITypeReferrerInfo;
     /**
      * @summary 启动小程序的 [场景值](https://opendocs.alipay.com/mini/framework/scene)
      */
@@ -3137,7 +3240,7 @@ declare namespace my {
      * @summary 来源信息
      * @description 部分版本在无 referrerInfo 的时候会返回 undefined，建议使用 options.referrerInfo && options.referrerInfo.appId 进行判断
      */
-    referrerInfo?: IMyGetLaunchOptionsSyncReferrerInfo;
+    referrerInfo?: ITypeReferrerInfo;
     /**
      * @summary 启动小程序的 [场景值](https://opendocs.alipay.com/mini/framework/scene)
      */
@@ -4245,208 +4348,14 @@ declare namespace my {
     data: unknown;
   };
   /**
-   * @summary 获取手机系统信息。
-   * @see https://opendocs.alipay.com/mini/api/system-info
+   * @summary 获取手机系统信息
    */
   export function getSystemInfo(r?: {
     /**
      * 接口调用成功的回调函数
      * @param data 成功返回的数据
      */
-    success?(data: {
-      /**
-       * @example "alipay"
-       */
-      app: string;
-      /**
-       * @example "zh-Hans"
-       */
-      language: string;
-      /**
-       * @summary 设备像素比。
-       * @example 3
-       */
-      pixelRatio: number;
-      /**
-       * @summary 平台
-       * @example "Android"
-       */
-      platform: string;
-      /**
-       * @example "ap"
-       * @ios false
-       */
-      platformType?: string;
-      /**
-       * @summary 屏幕宽度。
-       * @example 1080
-       */
-      screenWidth: number;
-      /**
-       * @example 48
-       */
-      titleBarHeight: number;
-      /**
-       * @example "10.2.28.1769"
-       */
-      version: string;
-      /**
-       * @summary 窗口宽度。
-       * @example 360
-       */
-      windowWidth: number;
-      /**
-       * 上方是可以进行参数近端化处理的
-       */
-      /**
-       * @summary 用于 Android API 版本
-       * @example 29
-       * @ios false
-       */
-      apiLevel?: number;
-      /**
-       * @summary 手机品牌。
-       * @example "HUAWEI"
-       */
-      brand: string;
-      /**
-       * @summary 当前电池电量，格式为 `{number}%`
-       * @example "79%"
-       */
-      currentBattery: string;
-      /**
-       * @example 1
-       */
-      fontSizeSetting: number;
-      /**
-       * @summary 手机型号。
-       * @example "HUAWEI TAS-AL00"
-       */
-      model: string;
-      /**
-       * @summary 设备性能分级
-       * @example "high"
-       * @native 10.1.62
-       * @ios false
-       */
-      performance: `${EGetSystemInfoPerformance}`;
-      /**
-       * @example {height: 753,width: 360}
-       */
-      screen: {
-        width: number;
-        height: number;
-      };
-      /**
-       * @summary 屏幕高度。
-       * @example 2259
-       */
-      screenHeight: number;
-      /**
-       * @summary 状态栏高度。
-       * @example 27
-       */
-      statusBarHeight: number;
-      /**
-       * @example "118 GB"
-       */
-      storage: `${number} GB`;
-      /**
-       * @summary 系统版本。
-       * @example "10"
-       */
-      system: string;
-      /**
-       * @summary 透明状态栏
-       * @ios 10.2.58
-       * @example true
-       */
-      transparentTitle: boolean;
-      /**
-       * @summary 窗口高度。
-       * @example 780
-       */
-      windowHeight: number;
-      isIphoneXSeries: boolean;
-      /**
-       * @summary 在竖屏正方向下的安全区域
-       * @native 10.2.20
-       * @android false
-       */
-      safeArea?: {
-        left: number;
-        right: number;
-        top: number;
-        bottom: number;
-        width: number;
-        height: number;
-      };
-      /**
-       * @summary 允许支付宝使用相册的开关
-       * @native 10.2.0
-       * @android false
-       */
-      albumAuthorized: boolean;
-      /**
-       * @summary 允许支付宝使用摄像头的开关
-       * @native 10.2.0
-       */
-      cameraAuthorized: boolean;
-      /**
-       * @summary 允许支付宝使用定位的开关
-       * @native 10.2.0
-       */
-      locationAuthorized: boolean;
-      /**
-       * @summary 允许支付宝使用麦克风的开关
-       * @native 10.2.0
-       */
-      microphoneAuthorized: boolean;
-      /**
-       * @summary 定位的系统开关
-       * @native 10.2.0
-       */
-      locationEnabled: boolean;
-      /**
-       * @summary Wi-Fi 的系统开关
-       * @native 10.2.0
-       */
-      wifiEnabled: boolean;
-      /**
-       * @summary 蓝牙的系统开关
-       * @native 10.2.0
-       */
-      bluetoothEnabled: boolean;
-      /**
-       * @summary 允许支付宝使用蓝牙的开关
-       * @native 10.2.0
-       * @android false
-       */
-      bluetoothAuthorized: boolean;
-      /**
-       * @summary 允许支付宝通知的开关
-       * @native 10.2.0
-       */
-      notificationAuthorized: boolean;
-      /**
-       * @summary 允许支付宝通知带有提醒的开关
-       * @native 10.2.0
-       * @android false
-       */
-      notificationAlertAuthorized: boolean;
-      /**
-       * @summary 允许支付宝通知带有标记的开关
-       * @native 10.2.0
-       * @android false
-       */
-      notificationBadgeAuthorized: boolean;
-      /**
-       * @summary 允许支付宝啊通知带有声音的开关
-       * @native 10.2.0
-       * @android false
-       */
-      notificationSoundAuthorized: boolean;
-    }): void;
+    success?(data: TypeSystemInfo): void;
     /**
      * 接口调用失败的回调函数
      * @param err 错误信息
@@ -4457,569 +4366,17 @@ declare namespace my {
      */
     complete?(
       arg:
-        | {
-            /**
-             * @example "alipay"
-             */
-            app: string;
-            /**
-             * @example "zh-Hans"
-             */
-            language: string;
-            /**
-             * @summary 设备像素比。
-             * @example 3
-             */
-            pixelRatio: number;
-            /**
-             * @summary 平台
-             * @example "Android"
-             */
-            platform: string;
-            /**
-             * @example "ap"
-             * @ios false
-             */
-            platformType?: string;
-            /**
-             * @summary 屏幕宽度。
-             * @example 1080
-             */
-            screenWidth: number;
-            /**
-             * @example 48
-             */
-            titleBarHeight: number;
-            /**
-             * @example "10.2.28.1769"
-             */
-            version: string;
-            /**
-             * @summary 窗口宽度。
-             * @example 360
-             */
-            windowWidth: number;
-            /**
-             * 上方是可以进行参数近端化处理的
-             */
-            /**
-             * @summary 用于 Android API 版本
-             * @example 29
-             * @ios false
-             */
-            apiLevel?: number;
-            /**
-             * @summary 手机品牌。
-             * @example "HUAWEI"
-             */
-            brand: string;
-            /**
-             * @summary 当前电池电量，格式为 `{number}%`
-             * @example "79%"
-             */
-            currentBattery: string;
-            /**
-             * @example 1
-             */
-            fontSizeSetting: number;
-            /**
-             * @summary 手机型号。
-             * @example "HUAWEI TAS-AL00"
-             */
-            model: string;
-            /**
-             * @summary 设备性能分级
-             * @example "high"
-             * @native 10.1.62
-             * @ios false
-             */
-            performance: `${EGetSystemInfoPerformance}`;
-            /**
-             * @example {height: 753,width: 360}
-             */
-            screen: {
-              width: number;
-              height: number;
-            };
-            /**
-             * @summary 屏幕高度。
-             * @example 2259
-             */
-            screenHeight: number;
-            /**
-             * @summary 状态栏高度。
-             * @example 27
-             */
-            statusBarHeight: number;
-            /**
-             * @example "118 GB"
-             */
-            storage: `${number} GB`;
-            /**
-             * @summary 系统版本。
-             * @example "10"
-             */
-            system: string;
-            /**
-             * @summary 透明状态栏
-             * @ios 10.2.58
-             * @example true
-             */
-            transparentTitle: boolean;
-            /**
-             * @summary 窗口高度。
-             * @example 780
-             */
-            windowHeight: number;
-            isIphoneXSeries: boolean;
-            /**
-             * @summary 在竖屏正方向下的安全区域
-             * @native 10.2.20
-             * @android false
-             */
-            safeArea?: {
-              left: number;
-              right: number;
-              top: number;
-              bottom: number;
-              width: number;
-              height: number;
-            };
-            /**
-             * @summary 允许支付宝使用相册的开关
-             * @native 10.2.0
-             * @android false
-             */
-            albumAuthorized: boolean;
-            /**
-             * @summary 允许支付宝使用摄像头的开关
-             * @native 10.2.0
-             */
-            cameraAuthorized: boolean;
-            /**
-             * @summary 允许支付宝使用定位的开关
-             * @native 10.2.0
-             */
-            locationAuthorized: boolean;
-            /**
-             * @summary 允许支付宝使用麦克风的开关
-             * @native 10.2.0
-             */
-            microphoneAuthorized: boolean;
-            /**
-             * @summary 定位的系统开关
-             * @native 10.2.0
-             */
-            locationEnabled: boolean;
-            /**
-             * @summary Wi-Fi 的系统开关
-             * @native 10.2.0
-             */
-            wifiEnabled: boolean;
-            /**
-             * @summary 蓝牙的系统开关
-             * @native 10.2.0
-             */
-            bluetoothEnabled: boolean;
-            /**
-             * @summary 允许支付宝使用蓝牙的开关
-             * @native 10.2.0
-             * @android false
-             */
-            bluetoothAuthorized: boolean;
-            /**
-             * @summary 允许支付宝通知的开关
-             * @native 10.2.0
-             */
-            notificationAuthorized: boolean;
-            /**
-             * @summary 允许支付宝通知带有提醒的开关
-             * @native 10.2.0
-             * @android false
-             */
-            notificationAlertAuthorized: boolean;
-            /**
-             * @summary 允许支付宝通知带有标记的开关
-             * @native 10.2.0
-             * @android false
-             */
-            notificationBadgeAuthorized: boolean;
-            /**
-             * @summary 允许支付宝啊通知带有声音的开关
-             * @native 10.2.0
-             * @android false
-             */
-            notificationSoundAuthorized: boolean;
-          }
+        | TypeSystemInfo
         | {
             error?: number;
             errorMessage?: string;
           },
     ): void;
-  }): Promise<{
-    /**
-     * @example "alipay"
-     */
-    app: string;
-    /**
-     * @example "zh-Hans"
-     */
-    language: string;
-    /**
-     * @summary 设备像素比。
-     * @example 3
-     */
-    pixelRatio: number;
-    /**
-     * @summary 平台
-     * @example "Android"
-     */
-    platform: string;
-    /**
-     * @example "ap"
-     * @ios false
-     */
-    platformType?: string;
-    /**
-     * @summary 屏幕宽度。
-     * @example 1080
-     */
-    screenWidth: number;
-    /**
-     * @example 48
-     */
-    titleBarHeight: number;
-    /**
-     * @example "10.2.28.1769"
-     */
-    version: string;
-    /**
-     * @summary 窗口宽度。
-     * @example 360
-     */
-    windowWidth: number;
-    /**
-     * 上方是可以进行参数近端化处理的
-     */
-    /**
-     * @summary 用于 Android API 版本
-     * @example 29
-     * @ios false
-     */
-    apiLevel?: number;
-    /**
-     * @summary 手机品牌。
-     * @example "HUAWEI"
-     */
-    brand: string;
-    /**
-     * @summary 当前电池电量，格式为 `{number}%`
-     * @example "79%"
-     */
-    currentBattery: string;
-    /**
-     * @example 1
-     */
-    fontSizeSetting: number;
-    /**
-     * @summary 手机型号。
-     * @example "HUAWEI TAS-AL00"
-     */
-    model: string;
-    /**
-     * @summary 设备性能分级
-     * @example "high"
-     * @native 10.1.62
-     * @ios false
-     */
-    performance: `${EGetSystemInfoPerformance}`;
-    /**
-     * @example {height: 753,width: 360}
-     */
-    screen: {
-      width: number;
-      height: number;
-    };
-    /**
-     * @summary 屏幕高度。
-     * @example 2259
-     */
-    screenHeight: number;
-    /**
-     * @summary 状态栏高度。
-     * @example 27
-     */
-    statusBarHeight: number;
-    /**
-     * @example "118 GB"
-     */
-    storage: `${number} GB`;
-    /**
-     * @summary 系统版本。
-     * @example "10"
-     */
-    system: string;
-    /**
-     * @summary 透明状态栏
-     * @ios 10.2.58
-     * @example true
-     */
-    transparentTitle: boolean;
-    /**
-     * @summary 窗口高度。
-     * @example 780
-     */
-    windowHeight: number;
-    isIphoneXSeries: boolean;
-    /**
-     * @summary 在竖屏正方向下的安全区域
-     * @native 10.2.20
-     * @android false
-     */
-    safeArea?: {
-      left: number;
-      right: number;
-      top: number;
-      bottom: number;
-      width: number;
-      height: number;
-    };
-    /**
-     * @summary 允许支付宝使用相册的开关
-     * @native 10.2.0
-     * @android false
-     */
-    albumAuthorized: boolean;
-    /**
-     * @summary 允许支付宝使用摄像头的开关
-     * @native 10.2.0
-     */
-    cameraAuthorized: boolean;
-    /**
-     * @summary 允许支付宝使用定位的开关
-     * @native 10.2.0
-     */
-    locationAuthorized: boolean;
-    /**
-     * @summary 允许支付宝使用麦克风的开关
-     * @native 10.2.0
-     */
-    microphoneAuthorized: boolean;
-    /**
-     * @summary 定位的系统开关
-     * @native 10.2.0
-     */
-    locationEnabled: boolean;
-    /**
-     * @summary Wi-Fi 的系统开关
-     * @native 10.2.0
-     */
-    wifiEnabled: boolean;
-    /**
-     * @summary 蓝牙的系统开关
-     * @native 10.2.0
-     */
-    bluetoothEnabled: boolean;
-    /**
-     * @summary 允许支付宝使用蓝牙的开关
-     * @native 10.2.0
-     * @android false
-     */
-    bluetoothAuthorized: boolean;
-    /**
-     * @summary 允许支付宝通知的开关
-     * @native 10.2.0
-     */
-    notificationAuthorized: boolean;
-    /**
-     * @summary 允许支付宝通知带有提醒的开关
-     * @native 10.2.0
-     * @android false
-     */
-    notificationAlertAuthorized: boolean;
-    /**
-     * @summary 允许支付宝通知带有标记的开关
-     * @native 10.2.0
-     * @android false
-     */
-    notificationBadgeAuthorized: boolean;
-    /**
-     * @summary 允许支付宝啊通知带有声音的开关
-     * @native 10.2.0
-     * @android false
-     */
-    notificationSoundAuthorized: boolean;
-  }>;
+  }): Promise<TypeSystemInfo>;
   /**
    * @summary 获取手机系统信息的同步接口
-   * @see https://opendocs.alipay.com/mini/api/gawhvz
    */
-  export function getSystemInfoSync(): {
-    /**
-     * @example "alipay"
-     */
-    app: string;
-    language: string;
-    /**
-     * @summary 设备像素比
-     * @example 3
-     */
-    pixelRatio: number;
-    /**
-     * @summary 平台
-     */
-    platform: string;
-    /**
-     * @summary 多端扩展平台名称
-     * @example "ap"
-     */
-    platformType?: string;
-    /**
-     * @summary 屏幕宽度
-     * @example 1080
-     */
-    screenWidth: number;
-    titleBarHeight: number;
-    version: string;
-    /**
-     * @summary 窗口宽度
-     * @example 360
-     */
-    windowWidth: number;
-    /**
-     * @summary 用于 Android API 版本
-     * @native 10.1.18
-     * @ios false
-     * @example 29
-     */
-    apiLevel?: number;
-    /**
-     * @summary 用来区分显示企业商家服务/个人等界面信息
-     */
-    appMode: string;
-    /**
-     * @summary 手机品牌
-     * @example "HUAWEI"
-     */
-    brand: string;
-    /**
-     * @summary 当前电池电量，格式为 `{number}%`
-     * @example "100%"
-     */
-    currentBattery: string;
-    fontSizeSetting: number;
-    /**
-     * @summary 手机型号
-     * @example "HUAWEI TAS-AL00"
-     */
-    model: string;
-    /**
-     * @summary 设备性能分级
-     * @native 10.1.62
-     * @ios false
-     */
-    performance: `${EGetSystemInfoPerformance}`;
-    screen: IMyGetSystemInfoSyncScreen;
-    /**
-     * @summary 屏幕高度
-     * @example 2259
-     */
-    screenHeight: number;
-    /**
-     * @summary 状态栏高度
-     * @example 27
-     */
-    statusBarHeight: number;
-    /**
-     * @example "118 GB"
-     */
-    storage: string;
-    /**
-     * @summary 系统版本
-     * @example "10"
-     */
-    system: string;
-    /**
-     * @summary 透明状态栏
-     * @native 10.2.58
-     * @android false
-     */
-    transparentTitle?: boolean;
-    /**
-     * @summary 窗口高度
-     * @example 780
-     */
-    windowHeight: number;
-    isIphoneXSeries: boolean;
-    /**
-     * @summary 在竖屏正方向下的安全区域
-     */
-    safeArea?: IMyGetSystemInfoSyncSafeArea;
-    /**
-     * @summary 允许支付宝使用相册的开关
-     * @native 10.2.0
-     * @android false
-     */
-    albumAuthorized: boolean;
-    /**
-     * @summary 允许支付宝使用摄像头的开关
-     * @native 10.2.0
-     */
-    cameraAuthorized: boolean;
-    /**
-     * @summary 允许支付宝使用定位的开关
-     * @native 10.2.0
-     */
-    locationAuthorized: boolean;
-    /**
-     * @summary 允许支付宝使用麦克风的开关
-     * @native 10.2.0
-     */
-    microphoneAuthorized: boolean;
-    /**
-     * @summary 定位的系统开关
-     * @native 10.2.0
-     */
-    locationEnabled: boolean;
-    /**
-     * @summary Wi-Fi 的系统开关
-     * @native 10.2.0
-     */
-    wifiEnabled: boolean;
-    /**
-     * @summary 蓝牙的系统开关
-     * @native 10.2.0
-     */
-    bluetoothEnabled: boolean;
-    /**
-     * @summary 允许支付宝使用蓝牙的开关
-     * @native 10.2.0
-     */
-    bluetoothAuthorized: boolean;
-    /**
-     * @summary 允许支付宝通知的开关
-     * @native 10.2.0
-     */
-    notificationAuthorized: boolean;
-    /**
-     * @summary 允许支付宝通知带有提醒的开关
-     * @native 10.2.0
-     * @android false
-     */
-    notificationAlertAuthorized: boolean;
-    /**
-     * @summary 允许支付宝通知带有标记的开关
-     * @native 10.2.0
-     * @android false
-     */
-    notificationBadgeAuthorized: boolean;
-    /**
-     * @summary 允许支付宝啊通知带有声音的开关
-     * @native 10.2.0
-     * @android false
-     */
-    notificationSoundAuthorized: boolean;
-  };
+  export function getSystemInfoSync(): TypeSystemInfo;
   /**
    * @summary 同步获取设备设置
    */
@@ -5780,7 +5137,9 @@ declare namespace my {
      */
     characteristicId: string;
     /**
-     * @summary notify 的 descriptor 的 UUID（Android 系统特有）
+     * @summary notify 的 descriptor 的 UUID
+     * @native 10.2.20
+     * @ios false
      * @default 00002902-0000-10008000-00805f9b34fb
      */
     descriptorId?: string;
@@ -5927,7 +5286,7 @@ declare namespace my {
       /**
        * @summary 新搜索到的设备列表。
        */
-      devices: IBluetoothDevice[];
+      devices: TypeBluetoothDevice[];
     }) => void,
   ): void;
   /**
@@ -6031,7 +5390,7 @@ declare namespace my {
        */
       longitude: number;
       /**
-       * @summary 当前定位城市经度。
+       * @summary 当前定位城市纬度。
        */
       latitude: number;
       /**
@@ -6185,11 +5544,35 @@ declare namespace my {
   /**
    * @summary 监听小程序切前台事件
    * @description
-   * 该事件与框架 app.js 注册小程序 时 onShow 参数的回调时机一致。对应的取消监听 API 请参见 my.offAppShow。
+   * 该事件与框架 app.js 注册小程序 时 onShow 参数的回调时机一致。对应的取消监听 API 请参见 [my.offAppShow]()。
    * 请勿使用 API 监听匿名函数，否则将无法关闭监听。
-   * @see https://opendocs.alipay.com/mini/api/nn7do1
    */
-  export function onAppShow(cb: (arg: IOnAppShowEvent) => void): void;
+  export function onAppShow(
+    cb: (param: {
+      /**
+       * @summary 启动小程序的路径
+       */
+      path?: string;
+      /**
+       * @summary 当前小程序的 query，从启动参数的 query 字段解析而来
+       */
+      query?: Record<string, unknown>;
+      /**
+       * @summary 来源信息
+       * @description 部分版本在无 referrerInfo 的时候会返回 undefined，建议使用 options.referrerInfo && options.referrerInfo.appId 进行判断
+       */
+      referrerInfo?: ITypeReferrerInfo;
+      /**
+       * @summary 启动小程序的 [场景值](https://opendocs.alipay.com/mini/framework/scene)
+       */
+      scene?: number;
+      /**
+       * @summary API 类别
+       * @sdk 2.7.22
+       */
+      apiCategory?: 'default' | 'embedded';
+    }) => void,
+  ): void;
   /**
    * @summary 监听音频因为系统占用而被中断的开始事件
    * @see https://opendocs.alipay.com/mini/00jim8
@@ -6285,7 +5668,7 @@ declare namespace my {
       /**
        * @summary 新搜索到的设备列表。
        */
-      devices: IBluetoothDevice[];
+      devices: TypeBluetoothDevice[];
     }) => void,
   ): void;
   /**
@@ -6402,7 +5785,7 @@ declare namespace my {
        */
       longitude: number;
       /**
-       * @summary 当前定位城市经度。
+       * @summary 当前定位城市纬度。
        */
       latitude: number;
       /**
@@ -7019,6 +6402,11 @@ declare namespace my {
      */
     duration?: number;
     /**
+     * @summary 偏移距离，需要和 selector 参数搭配使用，可以滚动到 selector 加偏移距离的位置，单位 px
+     * @sdk 2.8.0
+     */
+    offsetTop?: number;
+    /**
      * 接口调用成功的回调函数
      * @param data 成功返回的数据
      */
@@ -7257,7 +6645,7 @@ declare namespace my {
       /**
        * @summary 设备特征值信息
        */
-      characteristic: IReadBLECharacteristicValueCharacteristic;
+      characteristic: ITypeBLECharacteristic;
     }): void;
     /**
      * 接口调用失败的回调函数
@@ -7273,7 +6661,7 @@ declare namespace my {
             /**
              * @summary 设备特征值信息
              */
-            characteristic: IReadBLECharacteristicValueCharacteristic;
+            characteristic: ITypeBLECharacteristic;
           }
         | {
             error?: number;
@@ -7284,7 +6672,7 @@ declare namespace my {
     /**
      * @summary 设备特征值信息
      */
-    characteristic: IReadBLECharacteristicValueCharacteristic;
+    characteristic: ITypeBLECharacteristic;
   }>;
   /**
    * @summary 将当前页面重定向到指定页面
@@ -7664,71 +7052,162 @@ declare namespace my {
     headers: Record<string, string>;
   }> &
     RequestTask;
+  /**
+   * @summary 调起小程序订阅消息界面
+   */
   export function requestSubscribeMessage(r: {
     appId?: string;
     aboveContent?: boolean;
+    /**
+     * @summary 需要订阅的消息模板 id 的集合
+     */
     entityIds: string[];
+    /**
+     * @summary 模板小程序标识，仅在 ISV（独立软件开发商） 场景下需要传入。
+     */
     thirdTypeAppId?: string;
     /**
      * 接口调用成功的回调函数
      * @param data 成功返回的数据
      */
     success?(data: {
+      [entityId: string]: unknown;
       /**
-       * @summary 接口调用是否成功
+       * @summary 订阅行为结果
        */
-      success: boolean;
+      behavior: '' | 'subscribe' | 'cancel';
       /**
-       * @summary 错误码。
+       * @summary 本次订阅过程是否弹出了订阅面板
        */
-      error: number;
+      show: boolean;
       /**
-       * @summary 错误信息。
+       * @summary 单次订阅模板，用户同意订阅并勾选"不再询问"时为 true
        */
-      errorMessage: string;
+      keep: boolean;
+      /**
+       * @summary 长期订阅模板，用户点击"拒绝，不再询问"时为 true
+       */
+      refuse: boolean;
+      /**
+       * @summary 错误码
+       * @description 可参考：[错误码](https://opendocs.alipay.com/mini/api/requestSubscribeMessage#%E9%94%99%E8%AF%AF%E7%A0%81)
+       */
+      errorCode?: number;
+      /**
+       * @summary 错误信息
+       */
+      errorMessage?: string;
+      /**
+       * @summary 订阅数据
+       */
+      result?: IMyRequestSubscribeMessageResult;
     }): void;
     /**
      * 接口调用失败的回调函数
      * @param err 错误信息
      */
-    fail?(err: { error?: number; errorMessage?: string }): void;
+    fail?(
+      err:
+        | {
+            error?: number;
+            errorMessage?: string;
+          }
+        | {
+            /**
+             * @summary 错误码。
+             */
+            errorCode: number;
+            /**
+             * @summary 错误信息。
+             */
+            errorMessage: string;
+          },
+    ): void;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
     complete?(
       arg:
         | {
+            [entityId: string]: unknown;
             /**
-             * @summary 接口调用是否成功
+             * @summary 订阅行为结果
              */
-            success: boolean;
+            behavior: '' | 'subscribe' | 'cancel';
             /**
-             * @summary 错误码。
+             * @summary 本次订阅过程是否弹出了订阅面板
              */
-            error: number;
+            show: boolean;
             /**
-             * @summary 错误信息。
+             * @summary 单次订阅模板，用户同意订阅并勾选"不再询问"时为 true
              */
-            errorMessage: string;
-          }
-        | {
-            error?: number;
+            keep: boolean;
+            /**
+             * @summary 长期订阅模板，用户点击"拒绝，不再询问"时为 true
+             */
+            refuse: boolean;
+            /**
+             * @summary 错误码
+             * @description 可参考：[错误码](https://opendocs.alipay.com/mini/api/requestSubscribeMessage#%E9%94%99%E8%AF%AF%E7%A0%81)
+             */
+            errorCode?: number;
+            /**
+             * @summary 错误信息
+             */
             errorMessage?: string;
-          },
+            /**
+             * @summary 订阅数据
+             */
+            result?: IMyRequestSubscribeMessageResult;
+          }
+        | (
+            | {
+                error?: number;
+                errorMessage?: string;
+              }
+            | {
+                /**
+                 * @summary 错误码。
+                 */
+                errorCode: number;
+                /**
+                 * @summary 错误信息。
+                 */
+                errorMessage: string;
+              }
+          ),
     ): void;
   }): Promise<{
+    [entityId: string]: unknown;
     /**
-     * @summary 接口调用是否成功
+     * @summary 订阅行为结果
      */
-    success: boolean;
+    behavior: '' | 'subscribe' | 'cancel';
     /**
-     * @summary 错误码。
+     * @summary 本次订阅过程是否弹出了订阅面板
      */
-    error: number;
+    show: boolean;
     /**
-     * @summary 错误信息。
+     * @summary 单次订阅模板，用户同意订阅并勾选"不再询问"时为 true
      */
-    errorMessage: string;
+    keep: boolean;
+    /**
+     * @summary 长期订阅模板，用户点击"拒绝，不再询问"时为 true
+     */
+    refuse: boolean;
+    /**
+     * @summary 错误码
+     * @description 可参考：[错误码](https://opendocs.alipay.com/mini/api/requestSubscribeMessage#%E9%94%99%E8%AF%AF%E7%A0%81)
+     */
+    errorCode?: number;
+    /**
+     * @summary 错误信息
+     */
+    errorMessage?: string;
+    /**
+     * @summary 订阅数据
+     */
+    result?: IMyRequestSubscribeMessageResult;
   }>;
   /**
    * @summary 非对称加密
@@ -8825,11 +8304,17 @@ declare namespace my {
      */
     success?(data: {
       /**
-       * @summary 蓝牙是否可用
-       * - true 表示蓝牙完全可用
-       * - false
+       * @summary 蓝牙授权向导接口调用成功
        */
       success: boolean;
+      /**
+       * @summary 错误吗
+       */
+      error: string;
+      /**
+       * @summary 错误信息
+       */
+      errorMessage: string;
     }): void;
     /**
      * 接口调用失败的回调函数
@@ -8843,11 +8328,17 @@ declare namespace my {
       arg:
         | {
             /**
-             * @summary 蓝牙是否可用
-             * - true 表示蓝牙完全可用
-             * - false
+             * @summary 蓝牙授权向导接口调用成功
              */
             success: boolean;
+            /**
+             * @summary 错误吗
+             */
+            error: string;
+            /**
+             * @summary 错误信息
+             */
+            errorMessage: string;
           }
         | {
             error?: number;
@@ -8856,11 +8347,17 @@ declare namespace my {
     ): void;
   }): Promise<{
     /**
-     * @summary 蓝牙是否可用
-     * - true 表示蓝牙完全可用
-     * - false
+     * @summary 蓝牙授权向导接口调用成功
      */
     success: boolean;
+    /**
+     * @summary 错误吗
+     */
+    error: string;
+    /**
+     * @summary 错误信息
+     */
+    errorMessage: string;
   }>;
   /**
    * @summary 显示加载提示的过渡效果
@@ -9882,7 +9379,16 @@ declare namespace my {
      * 接口调用成功的回调函数
      * @param data 成功返回的数据
      */
-    success?(data: {}): void;
+    success?(data: {
+      /**
+       * @summary 错误码
+       */
+      errorCode: string;
+      /**
+       * @summary 错误信息
+       */
+      errorMessage: string;
+    }): void;
     /**
      * 接口调用失败的回调函数
      * @param err 错误信息
@@ -9891,8 +9397,33 @@ declare namespace my {
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?(arg: { error?: number; errorMessage?: string }): void;
-  }): Promise<void>;
+    complete?(
+      arg:
+        | {
+            /**
+             * @summary 错误码
+             */
+            errorCode: string;
+            /**
+             * @summary 错误信息
+             */
+            errorMessage: string;
+          }
+        | {
+            error?: number;
+            errorMessage?: string;
+          },
+    ): void;
+  }): Promise<{
+    /**
+     * @summary 错误码
+     */
+    errorCode: string;
+    /**
+     * @summary 错误信息
+     */
+    errorMessage: string;
+  }>;
   export interface RDSContext {}
   export interface FileSystemManager {
     /**
@@ -14685,7 +14216,7 @@ declare namespace my {
     /**
      * @summary 当前文本基线的属性
      */
-    readonly textBaseline: 'top' | 'bottom' | 'middle' | 'alphabetic' | 'hanging' | 'ideographic';
+    readonly textBaseline: 'top' | 'bottom' | 'alphabetic' | 'hanging' | 'ideographic' | 'middle';
     /**
      * @summary 绘制圆弧路径的方法
      * @description 圆弧路径的圆心在 (x, y) 位置，半径为 r ，根据anticlockwise （默认为顺时针）指定的方向从 startAngle 开始绘制，到 endAngle 结束。
@@ -16988,6 +16519,136 @@ declare namespace my {
       enabled: boolean;
     }>;
   }
+  export interface ChooseCityTask {
+    /**
+     * @summary 取消监听地理位置定位完成事件
+     * @description 只针对 `chooseCity` 中属性 `setLocatedCity` 为 `true` 的情况
+     * @sdk 2.8.0
+     */
+    offLocatedComplete(
+      cb?: (arg: {
+        /**
+         * @summary 当前定位城市经度。
+         */
+        longitude: number;
+        /**
+         * @summary 当前定位城市维度。
+         */
+        latitude: number;
+      }) => void,
+    ): void;
+    /**
+     * @summary 监听该页面地理位置定位完成的事件
+     * @description 只针对 `chooseCity` 中属性 `setLocatedCity` 为 `true` 的情况。
+     * @sdk 2.8.0
+     */
+    onLocatedComplete(
+      cb: (arg: {
+        /**
+         * @summary 当前定位城市经度。
+         */
+        longitude: number;
+        /**
+         * @summary 当前定位城市维度。
+         */
+        latitude: number;
+      }) => void,
+    ): void;
+    /**
+     * @summary 用于修改my.chooseCity中的默认定位城市名称
+     * @sdk 2.8.0
+     */
+    setLocatedCity(r: {
+      /**
+       * @summary 当前定位城市的名称。
+       */
+      locatedCityName: string;
+      /**
+       * @summary 当前定位城市的行政区划代码，不传值时以控件默认拿到的为准。
+       */
+      locatedCityAdCode?: string;
+      /**
+       * @summary 当前定位城市的拼音，不传值时以控件默认拿到的为准。
+       */
+      locatedCityPinyin?: string;
+      /**
+       * 接口调用成功的回调函数
+       * @param data 成功返回的数据
+       */
+      success?(data: {
+        /**
+         * @summary 修改后的定位城市名称
+         */
+        locatedCityName: string;
+      }): void;
+      /**
+       * 接口调用失败的回调函数
+       * @param err 错误信息
+       */
+      fail?(
+        err:
+          | {
+              error?: number;
+              errorMessage?: string;
+            }
+          | {
+              error: 11;
+              errorMessage: '参数类型错误';
+            }
+          | {
+              error: 12;
+              errorMessage: '必填参数为空';
+            }
+          | {
+              error: 13;
+              errorMessage: 'locatedCityId不匹配';
+            }
+          | {
+              error: 14;
+              errorMessage: '请等chooseCityTask.onLocatedComplete触发后再调用chooseCityTask.setLocatedCity';
+            },
+      ): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              /**
+               * @summary 修改后的定位城市名称
+               */
+              locatedCityName: string;
+            }
+          | (
+              | {
+                  error?: number;
+                  errorMessage?: string;
+                }
+              | {
+                  error: 11;
+                  errorMessage: '参数类型错误';
+                }
+              | {
+                  error: 12;
+                  errorMessage: '必填参数为空';
+                }
+              | {
+                  error: 13;
+                  errorMessage: 'locatedCityId不匹配';
+                }
+              | {
+                  error: 14;
+                  errorMessage: '请等chooseCityTask.onLocatedComplete触发后再调用chooseCityTask.setLocatedCity';
+                }
+            ),
+      ): void;
+    }): Promise<{
+      /**
+       * @summary 修改后的定位城市名称
+       */
+      locatedCityName: string;
+    }>;
+  }
   export interface ICanvasContext {}
   export interface IARSession {}
   interface DOMMatrix2DInit {
@@ -17245,36 +16906,6 @@ declare namespace my {
   interface IBeehiveMultilevelSelectResult {
     name: string;
   }
-  interface IBluetoothDevice {
-    /**
-     * @summary 蓝牙设备名称（某些设备可能没有）。
-     */
-    name: string;
-    /**
-     * @summary 低版本客户端提供，与 name 一致
-     */
-    deviceName: string;
-    /**
-     * @summary 广播设备名称。
-     */
-    localName: string;
-    /**
-     * @summary 设备 ID。Android 上为设备 MAC 地址，iOS 上为设备 UUID。需要分平台处理，iOS 可根据设备属性（ localName / advertisData / manufacturerData 等属性）进行动态匹配
-     */
-    deviceId: string;
-    /**
-     * @summary 设备信号强度。
-     */
-    RSSI: string;
-    /**
-     * @summary 设备的广播内容。为 16 进制Hex字符串
-     */
-    advertisData: string;
-    /**
-     * @summary 设备的 manufacturerData。为 16 进制Hex字符串
-     */
-    manufacturerData: string;
-  }
   interface ICalculateRouteThroughPoints {
     /**
      * @summary 纬度。
@@ -17347,42 +16978,6 @@ declare namespace my {
      */
     destPath: string;
   }
-  interface IGetBLEDeviceCharacteristicsCharacteristics {
-    /**
-     * @summary 蓝牙设备特征值的 UUID。
-     */
-    characteristicId: string;
-    /**
-     * @summary 蓝牙设备特征值对应服务的 UUID。
-     */
-    serviceId: string;
-    /**
-     * @summary 蓝牙设备特征值对应的 16 进制值。
-     */
-    value: string;
-    /**
-     * @summary 该特征值支持的操作类型。
-     */
-    properties?: IGetBLEDeviceCharacteristicsCharacteristicsProperties;
-  }
-  interface IGetBLEDeviceCharacteristicsCharacteristicsProperties {
-    /**
-     * @summary 该特征值是否支持 read 操作。
-     */
-    read: boolean;
-    /**
-     * @summary 该特征值是否支持 write 操作。
-     */
-    write: boolean;
-    /**
-     * @summary 该特征值是否支持 notify 操作。
-     */
-    notify: boolean;
-    /**
-     * @summary 该特征值是否支持 indicate 操作。
-     */
-    indicate: boolean;
-  }
   interface IGetBLEDeviceServicesServices {
     /**
      * @summary 蓝牙设备特征值对应服务的 UUID。
@@ -17425,174 +17020,6 @@ declare namespace my {
      * @summary iOS 13.0+
      */
     timestamp?: number;
-  }
-  interface IGetBluetoothDevicesDevices {
-    /**
-     * @summary 蓝牙设备名称（某些设备可能没有）。
-     */
-    name: string;
-    /**
-     * @summary 低版本客户端提供，与 name 一致
-     */
-    deviceName: string;
-    /**
-     * @summary 广播设备名称。
-     */
-    localName: string;
-    /**
-     * @summary 设备 ID。Android 上为设备 MAC 地址，iOS 上为设备 UUID。需要分平台处理，iOS 可根据设备属性（ localName / advertisData / manufacturerData 等属性）进行动态匹配
-     */
-    deviceId: string;
-    /**
-     * @summary 设备信号强度。
-     */
-    RSSI: string;
-    /**
-     * @summary 设备的广播内容。为 16 进制Hex字符串
-     */
-    advertisData: string;
-    /**
-     * @summary 设备的 manufacturerData。为 16 进制Hex字符串
-     */
-    manufacturerData: string;
-  }
-  interface IGetBluetoothPairsDevices {
-    /**
-     * @summary 蓝牙设备名称（某些设备可能没有）。
-     */
-    name: string;
-    /**
-     * @summary 低版本客户端提供，与 name 一致
-     */
-    deviceName: string;
-    /**
-     * @summary 广播设备名称。
-     */
-    localName: string;
-    /**
-     * @summary 设备 ID。Android 上为设备 MAC 地址，iOS 上为设备 UUID。需要分平台处理，iOS 可根据设备属性（ localName / advertisData / manufacturerData 等属性）进行动态匹配
-     */
-    deviceId: string;
-    /**
-     * @summary 设备信号强度。
-     */
-    RSSI: string;
-    /**
-     * @summary 设备的广播内容。为 16 进制Hex字符串
-     */
-    advertisData: string;
-    /**
-     * @summary 设备的 manufacturerData。为 16 进制Hex字符串
-     */
-    manufacturerData: string;
-  }
-  interface IGetCitiesCustomCities {
-    /**
-     * @summary 城市名。
-     */
-    name?: string;
-    /**
-     * @summary 行政区划代码。不同行政区域对应的代码可参见 中华人民共和国县以上行政区划代码。
-     */
-    adcode?: string;
-    /**
-     * @summary 城市名对应拼音拼写，方便用户搜索。
-     */
-    pinyin?: string;
-    /**
-     * @summary 城市名。
-     */
-    city: string;
-    /**
-     * @summary 行政区划代码。不同行政区域对应的代码可参见 中华人民共和国县以上行政区划代码。
-     */
-    adCode: string;
-    /**
-     * @summary 城市名对应拼音拼写，方便用户搜索。
-     */
-    spell: string;
-  }
-  interface IGetCitiesCustomHistoryCities {
-    /**
-     * @summary 城市名。
-     */
-    name?: string;
-    /**
-     * @summary 行政区划代码。不同行政区域对应的代码可参见 中华人民共和国县以上行政区划代码。
-     */
-    adcode?: string;
-    /**
-     * @summary 城市名对应拼音拼写，方便用户搜索。
-     */
-    pinyin?: string;
-    /**
-     * @summary 城市名。
-     */
-    city: string;
-    /**
-     * @summary 行政区划代码。不同行政区域对应的代码可参见 中华人民共和国县以上行政区划代码。
-     */
-    adCode: string;
-    /**
-     * @summary 城市名对应拼音拼写，方便用户搜索。
-     */
-    spell?: string;
-  }
-  interface IGetCitiesCustomHotCities {
-    /**
-     * @summary 城市名。
-     */
-    name?: string;
-    /**
-     * @summary 行政区划代码。不同行政区域对应的代码可参见 中华人民共和国县以上行政区划代码。
-     */
-    adcode?: string;
-    /**
-     * @summary 城市名对应拼音拼写，方便用户搜索。
-     */
-    pinyin?: string;
-    /**
-     * @summary 城市名。
-     */
-    city: string;
-    /**
-     * @summary 行政区划代码。不同行政区域对应的代码可参见 中华人民共和国县以上行政区划代码。
-     */
-    adCode: string;
-    /**
-     * @summary 城市名对应拼音拼写，方便用户搜索。
-     */
-    spell?: string;
-  }
-  interface IGetConnectedBluetoothDevicesDevices {
-    /**
-     * @summary 蓝牙设备名称（某些设备可能没有）。
-     */
-    name: string;
-    /**
-     * @summary 低版本客户端提供，与 name 一致
-     */
-    deviceName: string;
-    /**
-     * @summary 广播设备名称。
-     */
-    localName: string;
-    /**
-     * @summary 设备 ID。Android 上为设备 MAC 地址，iOS 上为设备 UUID。需要分平台处理，iOS 可根据设备属性（ localName / advertisData / manufacturerData 等属性）进行动态匹配
-     */
-    deviceId: string;
-    /**
-     * @summary 设备信号强度。
-     */
-    RSSI: string;
-    /**
-     * @summary 设备的广播内容。为 16 进制Hex字符串
-     */
-    advertisData: string;
-    /**
-     * @summary 设备的 manufacturerData。为 16 进制Hex字符串
-     */
-    manufacturerData: string;
   }
   interface IGetConnectedWifiWifi {
     /**
@@ -19703,34 +19130,6 @@ declare namespace my {
      */
     appId: string;
   }
-  interface IMyGetEnterOptionsSyncReferrerInfo {
-    /**
-     * @summary 来源小程序。
-     */
-    appId: string;
-    /**
-     * @summary 以小服务模式启动的来源信息，目前已废弃
-     */
-    sourceServiceId?: string;
-    /**
-     * @summary 来源小程序传过来的数据。
-     */
-    extraData: Record<string, unknown>;
-  }
-  interface IMyGetLaunchOptionsSyncReferrerInfo {
-    /**
-     * @summary 来源小程序。
-     */
-    appId: string;
-    /**
-     * @summary 以小服务模式启动的来源信息，目前已废弃
-     */
-    sourceServiceId?: string;
-    /**
-     * @summary 来源小程序传过来的数据。
-     */
-    extraData: Record<string, unknown>;
-  }
   interface IMyGetLocationPois {
     /**
      * @summary poi名称。
@@ -19750,24 +19149,6 @@ declare namespace my {
      * @summary 街道名称。
      */
     street: string;
-  }
-  interface IMyGetSystemInfoSyncSafeArea {
-    left: number;
-    right: number;
-    top: number;
-    bottom: number;
-    width: number;
-    height: number;
-  }
-  interface IMyGetSystemInfoSyncScreen {
-    /**
-     * @example 360
-     */
-    width: number;
-    /**
-     * @example 753
-     */
-    height: number;
   }
   interface IMyGetWindowInfoSafeArea {
     left: number;
@@ -19810,44 +19191,27 @@ declare namespace my {
      */
     [eventName: string]: (...args: unknown[]) => void;
   }
-  interface IOnAppShowEvent {
+  interface IMyRequestSubscribeMessageResult {
     /**
-     * @summary 启动小程序的路径
+     * @summary 仅在订阅成功场景下存在，表示订阅成功的模板列表
      */
-    path?: string;
+    subscribeEntityIds?: string[];
     /**
-     * @summary 当前小程序的 query，从启动参数的 query 字段解析而来
+     * @summary 最终订阅成功的模板列表
      */
-    query?: Record<string, unknown>;
+    subscribedEntityIds: string[];
     /**
-     * @summary 来源信息
-     * @description 部分版本在无 referrerInfo 的时候会返回 undefined，建议使用 options.referrerInfo && options.referrerInfo.appId 进行判断
+     * @summary 未订阅的模板列表
      */
-    referrerInfo?: IOnAppShowEventReferrerInfo;
+    unsubscribedEntityIds: string[];
     /**
-     * @summary 启动小程序的 [场景值](https://opendocs.alipay.com/mini/framework/scene)
+     * @summary 本次新增订阅成功的模板列表
      */
-    scene?: number;
+    currentSubscribedEntityIds: string[];
     /**
-     * @summary API 类别
-     * @sdk 2.7.22
+     * @summary 仅在取消订阅场景下存在，是传入的模板id集合
      */
-    apiCategory?: 'default' | 'embedded';
-  }
-  interface IOnAppShowEventReferrerInfo {
-    /**
-     * @summary 来源小程序。
-     */
-    appId: string;
-    /**
-     * @summary 以小服务模式启动的来源信息，目前已废弃
-     * @deprecated
-     */
-    sourceServiceId?: string;
-    /**
-     * @summary 来源小程序传过来的数据。
-     */
-    extraData: Record<string, unknown>;
+    entityList?: string[];
   }
   interface IOpenEmbeddedMiniProgramParam {
     [key: string]: unknown;
@@ -19881,42 +19245,6 @@ declare namespace my {
      * @summary 收货地址
      */
     aliaddress?: boolean;
-  }
-  interface IReadBLECharacteristicValueCharacteristic {
-    /**
-     * @summary 蓝牙设备特征值的 UUID。
-     */
-    characteristicId: string;
-    /**
-     * @summary 蓝牙设备特征值对应服务的 UUID。
-     */
-    serviceId: string;
-    /**
-     * @summary 蓝牙设备特征值对应的 16 进制值。
-     */
-    value: string;
-    /**
-     * @summary 该特征值支持的操作类型。
-     */
-    properties?: IReadBLECharacteristicValueCharacteristicProperties;
-  }
-  interface IReadBLECharacteristicValueCharacteristicProperties {
-    /**
-     * @summary 该特征值是否支持 read 操作。
-     */
-    read: boolean;
-    /**
-     * @summary 该特征值是否支持 write 操作。
-     */
-    write: boolean;
-    /**
-     * @summary 该特征值是否支持 notify 操作。
-     */
-    notify: boolean;
-    /**
-     * @summary 该特征值是否支持 indicate 操作。
-     */
-    indicate: boolean;
   }
   interface IReadFileRequest {
     /**
@@ -20248,6 +19576,82 @@ declare namespace my {
       chInfo: string;
     };
   }
+  interface ITypeBLECharacteristic {
+    /**
+     * @summary 蓝牙设备特征值的 UUID。
+     */
+    characteristicId: string;
+    /**
+     * @summary 蓝牙设备特征值对应服务的 UUID。
+     */
+    serviceId: string;
+    /**
+     * @summary 蓝牙设备特征值对应的 16 进制值。
+     */
+    value: string;
+    /**
+     * @summary 该特征值支持的操作类型。
+     */
+    properties?: ITypeBLECharacteristic$Properties;
+  }
+  interface ITypeBLECharacteristic$Properties {
+    /**
+     * @summary 该特征值是否支持 read 操作。
+     */
+    read: boolean;
+    /**
+     * @summary 该特征值是否支持 write 操作。
+     */
+    write: boolean;
+    /**
+     * @summary 该特征值是否支持 notify 操作。
+     */
+    notify: boolean;
+    /**
+     * @summary 该特征值是否支持 indicate 操作。
+     */
+    indicate: boolean;
+  }
+  interface ITypeCityInfo {
+    /**
+     * @summary 城市名。
+     */
+    name?: string;
+    /**
+     * @summary 行政区划代码。不同行政区域对应的代码可参见 中华人民共和国县以上行政区划代码。
+     */
+    adcode?: string;
+    /**
+     * @summary 城市名对应拼音拼写，方便用户搜索。
+     */
+    pinyin?: string;
+    /**
+     * @summary 城市名。
+     */
+    city: string;
+    /**
+     * @summary 行政区划代码。不同行政区域对应的代码可参见 中华人民共和国县以上行政区划代码。
+     */
+    adCode: string;
+    /**
+     * @summary 城市名对应拼音拼写，方便用户搜索。
+     */
+    spell: string;
+  }
+  interface ITypeReferrerInfo {
+    /**
+     * @summary 来源小程序。
+     */
+    appId: string;
+    /**
+     * @summary 以小服务模式启动的来源信息，目前已废弃
+     */
+    sourceServiceId?: string;
+    /**
+     * @summary 来源小程序传过来的数据。
+     */
+    extraData: Record<string, unknown>;
+  }
   interface IUnlinkRequest {
     /**
      * @summary 文件路径
@@ -20533,6 +19937,236 @@ declare namespace my {
     | 'ap_framework_scheme'
     | 'query';
   type TrackMode = 'camera' | string;
+  interface TypeBluetoothDevice {
+    /**
+     * @summary 蓝牙设备名称（某些设备可能没有）。
+     */
+    name: string;
+    /**
+     * @summary 低版本客户端提供，与 name 一致
+     */
+    deviceName: string;
+    /**
+     * @summary 广播设备名称。
+     */
+    localName: string;
+    /**
+     * @summary 设备 ID。Android 上为设备 MAC 地址，iOS 上为设备 UUID。需要分平台处理，iOS 可根据设备属性（ localName / advertisData / manufacturerData 等属性）进行动态匹配
+     */
+    deviceId: string;
+    /**
+     * @summary 设备信号强度。
+     */
+    RSSI: string;
+    /**
+     * @summary 设备的广播内容。为 16 进制Hex字符串
+     */
+    advertisData: string;
+    /**
+     * @summary 设备的 manufacturerData。为 16 进制Hex字符串
+     */
+    manufacturerData: string;
+  }
+  interface TypeSystemInfo {
+    /**
+     * @summary 当前运行的客户端
+     * @example "alipay"
+     */
+    app: string;
+    /**
+     * @summary 客户端设置的语言
+     * @example "zh-Hans"
+     */
+    language: string;
+    /**
+     * @summary 设备像素比
+     * @example 3
+     */
+    pixelRatio: number;
+    /**
+     * @summary 平台
+     * @example "Android"
+     */
+    platform: string;
+    /**
+     * @example "ap"
+     */
+    platformType?: string;
+    /**
+     * @summary 屏幕宽度
+     * @example 1080
+     */
+    screenWidth: number;
+    /**
+     * @summary 标题栏高度
+     * @example 48
+     */
+    titleBarHeight: number;
+    /**
+     * @summary 客户端版本号
+     * @example "10.2.28.1769"
+     */
+    version: string;
+    /**
+     * @summary 窗口宽度
+     * @example 360
+     */
+    windowWidth: number;
+    /**
+     * @summary 用于 Android API 版本
+     * @example 29
+     */
+    apiLevel?: number;
+    /**
+     * @summary 用来区分显示企业商家服务/个人等界面信息
+     */
+    appMode?: `${TypeSystemInfo$AppMode}`;
+    /**
+     * @summary 手机品牌
+     * @example "HUAWEI"
+     */
+    brand: string;
+    /**
+     * @summary 当前电池电量
+     * @example "79%"
+     */
+    currentBattery: string;
+    /**
+     * @summary 用户设置字体大小
+     * @example 1
+     */
+    fontSizeSetting: number;
+    /**
+     * @summary 手机型号
+     * @example "HUAWEI TAS-AL00"
+     */
+    model: string;
+    /**
+     * @summary 设备性能分级
+     * @native 10.1.62
+     * @ios false
+     */
+    performance: `${TypeSystemInfo$Performance}`;
+    screen: TypeSystemInfo$Screen;
+    /**
+     * @summary 屏幕高度
+     * @example 2259
+     */
+    screenHeight: number;
+    /**
+     * @summary 状态栏高度
+     * @example 27
+     */
+    statusBarHeight: number;
+    /**
+     * @summary 设备磁盘容量
+     * @example "118 GB"
+     */
+    storage: string;
+    /**
+     * @summary 系统版本
+     * @example "10"
+     */
+    system: string;
+    /**
+     * @summary 透明状态栏
+     * @native 10.2.58
+     */
+    transparentTitle: boolean;
+    /**
+     * @summary 窗口高度
+     * @example 780
+     */
+    windowHeight: number;
+    isIphoneXSeries: boolean;
+    /**
+     * @summary 在竖屏正方向下的安全区域
+     * @native 10.2.20
+     */
+    safeArea?: TypeSystemInfo$SafeArea;
+    /**
+     * @summary 允许支付宝使用相册的开关
+     * @native 10.2.0
+     * @android false
+     */
+    albumAuthorized: boolean;
+    /**
+     * @summary 允许支付宝使用摄像头的开关
+     * @native 10.2.0
+     */
+    cameraAuthorized: boolean;
+    /**
+     * @summary 允许支付宝使用定位的开关
+     * @native 10.2.0
+     */
+    locationAuthorized: boolean;
+    /**
+     * @summary 允许支付宝使用麦克风的开关
+     * @native 10.2.0
+     */
+    microphoneAuthorized: boolean;
+    /**
+     * @summary 定位的系统开关
+     * @native 10.2.0
+     */
+    locationEnabled: boolean;
+    /**
+     * @summary Wi-Fi 的系统开关
+     * @native 10.2.0
+     */
+    wifiEnabled: boolean;
+    /**
+     * @summary 蓝牙的系统开关
+     * @native 10.2.0
+     */
+    bluetoothEnabled: boolean;
+    /**
+     * @summary 允许支付宝使用蓝牙的开关
+     * @native 10.2.0
+     */
+    bluetoothAuthorized: boolean;
+    /**
+     * @summary 允许支付宝通知的开关
+     * @native 10.2.0
+     */
+    notificationAuthorized: boolean;
+    /**
+     * @summary 允许支付宝通知带有提醒的开关
+     * @native 10.2.0
+     * @android false
+     */
+    notificationAlertAuthorized: boolean;
+    /**
+     * @summary 允许支付宝通知带有标记的开关
+     * @native 10.2.0
+     * @android false
+     */
+    notificationBadgeAuthorized: boolean;
+    /**
+     * @summary 允许支付宝啊通知带有声音的开关
+     * @native 10.2.0
+     * @android false
+     */
+    notificationSoundAuthorized: boolean;
+  }
+  interface TypeSystemInfo$SafeArea {
+    left: number;
+    right: number;
+    top: number;
+    bottom: number;
+    width: number;
+    height: number;
+  }
+  interface TypeSystemInfo$Screen {
+    /**
+     * @summary 屏幕宽度
+     */
+    width: number;
+    /**
+     * @summary 屏幕高度
+     */
+    height: number;
+  }
   /**
    * @summary WebGLContextAttributes 对象
    * @description 一个包含实际上下文参数的 WebGLContextAttributes 的对象，如果上下文丢失，可能返回 null。
@@ -21213,6 +20847,7 @@ declare namespace my.ap {
        * @summary 跳转成功
        */
       success: true;
+      errorMsg?: never;
     }): void;
     /**
      * 接口调用失败的回调函数
@@ -21229,6 +20864,7 @@ declare namespace my.ap {
              * @summary 跳转成功
              */
             success: true;
+            errorMsg?: never;
           }
         | {
             error?: number;
@@ -21240,6 +20876,7 @@ declare namespace my.ap {
      * @summary 跳转成功
      */
     success: true;
+    errorMsg?: never;
   }>;
   /**
    * @summary 跳转到支付宝客户端内指定页面
@@ -21262,6 +20899,7 @@ declare namespace my.ap {
        * @summary 跳转成功
        */
       success: true;
+      errorMsg?: never;
     }): void;
     /**
      * 接口调用失败的回调函数
@@ -21278,6 +20916,7 @@ declare namespace my.ap {
              * @summary 跳转成功
              */
             success: true;
+            errorMsg?: never;
           }
         | {
             error?: number;
@@ -21289,6 +20928,7 @@ declare namespace my.ap {
      * @summary 跳转成功
      */
     success: true;
+    errorMsg?: never;
   }>;
   export function navigateToFinance(
     r: IAP$NavigateToFinanceOptionsFundDetail & {
@@ -22652,32 +22292,6 @@ declare const enum EGetNetworkTypeNetworkInfo {
   WWAN = 'WWAN',
 }
 
-declare const enum EGetSystemInfoPerformance {
-  /**
-   * @summary 高性能
-   * @description
-   * - iOS 设备运行内存大于等于 4GB (对应 iPhone Xs 及以上)
-   * - Android 设备运行内存大于等于 4GB
-   */
-  high = 'high',
-  /**
-   * @summary 性能中等
-   * @description
-   * - iOS 设备运行内存大于等于 2GB (对应 iPhone 6s ~ iPhone XR)
-   * - Android 设备运行内存大于等于 3GB 且 CPU 核心数大于 4
-   */
-  middle = 'middle',
-  /**
-   * @summary 性能较弱
-   */
-  low = 'low',
-  /**
-   * @summary 无法识别
-   * @description 设备运行内存无法识别
-   */
-  unknown = 'unknown',
-}
-
 declare const enum EInvokeType {
   /**
    * @summary 回跳至小程序地址
@@ -22821,6 +22435,59 @@ declare const enum EShowAuthGuideAuthType {
 declare const enum ESpuName {
   'power_bank' = 'power_bank',
   'umbrella' = 'umbrella',
+}
+
+declare const enum TypeSystemInfo$AppMode {
+  /**
+   * @summary 标准版
+   */
+  normal = 'normal',
+  /**
+   * @summary 大字体版
+   */
+  bigFontSize = 'bigFontSize',
+  /**
+   * @summary 国际版
+   */
+  INT = 'INT',
+  /**
+   * @summary 澳门版
+   */
+  MO = 'MO',
+  /**
+   * @summary 企业版
+   */
+  Enterprise = 'Enterprise',
+  /**
+   * @summary 青少年版
+   */
+  teenager = 'teenager',
+}
+
+declare const enum TypeSystemInfo$Performance {
+  /**
+   * @summary 高性能
+   * @description
+   * - iOS 设备运行内存大于等于 4GB (对应 iPhone Xs 及以上)
+   * - Android 设备运行内存大于等于 4GB
+   */
+  high = 'high',
+  /**
+   * @summary 性能中等
+   * @description
+   * - iOS 设备运行内存大于等于 2GB (对应 iPhone 6s ~ iPhone XR)
+   * - Android 设备运行内存大于等于 3GB 且 CPU 核心数大于 4
+   */
+  middle = 'middle',
+  /**
+   * @summary 性能较弱
+   */
+  low = 'low',
+  /**
+   * @summary 无法识别
+   * @description 设备运行内存无法识别
+   */
+  unknown = 'unknown',
 }
 
 declare namespace NFCAdapter {
