@@ -6,6 +6,17 @@ Component({
     x: 1,
     b: { c: 1 },
   },
+  options: {
+    observers: true,
+  },
+  observers: {
+    'field1,field2': function(val1, val2) {
+      console.log(val1, val2)
+    },
+    '**': function(state) {
+      console.log(state);
+    }
+  },
   props: { y: 1, b: { c: 1 } },
   didMount() {
     expectType<number>(this.data.x);
