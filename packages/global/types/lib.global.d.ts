@@ -292,6 +292,20 @@ export interface IPageOptions<Data, ExtraOptions extends UnknownRecord> {
    * @readonly
    */
   readonly route: string;
+  /**
+   * 开启某些功能项
+   */
+   options: {
+    /**
+     * 开启 observers 数据监听器
+     */
+    observers: boolean;
+  },
+  /**
+   * 数据监听器，监听和响应任何属性和数据字段的变化。
+   * @version 2.8.1
+   */
+  observers: Record<string, (...args: any[]) => void>;
 }
 
 export interface IGetTabBarMethod {
@@ -476,6 +490,20 @@ export interface IComponentOptions<
    * 监听所属页面的事件
    */
   pageEvents: Partial<IPageEvents>;
+  /**
+   * 开启某些功能项
+   */
+  options: {
+    /**
+     * 开启 observers 数据监听器
+     */
+    observers: boolean;
+  },
+  /**
+   * 数据监听器，监听和响应任何属性和数据字段的变化。
+   * @version 2.8.1
+   */
+  observers: Record<string, (...args: any[]) => void>;
 }
 
 /**
