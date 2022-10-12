@@ -38,6 +38,17 @@ Page({
     titleOpacity: 1,
     shadow: false,
   },
+  options: {
+    observers: true,
+  },
+  observers: {
+    'field1,field2': function(val1, val2) {
+      console.log(val1, val2)
+    },
+    '**': function(state) {
+      console.log(state);
+    }
+  },
   onPageScroll(e) {
     expectAssignable<Function>(this.setData)
     expectAssignable<Function>(this.getTabBar);
