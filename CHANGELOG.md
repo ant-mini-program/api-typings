@@ -1,9 +1,22 @@
-# [](https://github.com/ant-mini-program/api-typings/compare/v2.0.4...v) (2022-09-28)
+# [](https://github.com/ant-mini-program/api-typings/compare/v2.0.6...v) (2022-10-12)
 
 
 ### Features
 
+* add observers ([#12](https://github.com/ant-mini-program/api-typings/issues/12)) ([42d3f1f](https://github.com/ant-mini-program/api-typings/commit/42d3f1f758b61481727f9a0fc17668935b4d10d6))
 * update api typings ([c95b6df](https://github.com/ant-mini-program/api-typings/commit/c95b6df3aeb460cebff2056f8bb21be32d8badb9))
+
+
+
+## [2.0.6](https://github.com/ant-mini-program/api-typings/compare/v2.0.5...v2.0.6) (2022-09-15)
+
+
+
+## [2.0.5](https://github.com/ant-mini-program/api-typings/compare/v2.0.4...v2.0.5) (2022-09-15)
+
+
+### Features
+
 * update types ([303902c](https://github.com/ant-mini-program/api-typings/commit/303902c9db2a4a0affeeeb5646218e138b91ed99))
 
 
