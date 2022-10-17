@@ -297,12 +297,12 @@ export interface IPageOptions<Data, ExtraOptions extends UnknownRecord> {
    */
    options: {
     /**
-     * 开启 observers 数据监听器
+     * 开启 observers 数据变化观测器
      */
     observers: boolean;
   },
   /**
-   * 数据监听器，监听和响应任何数据字段的变化。
+   * 数据变化观测器，观测和响应任何数据字段的变化。
    * @version 2.8.1
    */
   observers: Record<string, (...args: any[]) => void>;
@@ -495,12 +495,12 @@ export interface IComponentOptions<
    */
   options: {
     /**
-     * 开启 observers 数据监听器
+     * 开启 observers 数据变化观测器
      */
     observers: boolean;
   },
   /**
-   * 数据监听器，监听和响应任何属性和数据字段的变化。
+   * 数据变化观测器，观测和响应任何属性和数据字段的变化。
    * @version 2.8.1
    */
   observers: Record<string, (...args: any[]) => void>;
