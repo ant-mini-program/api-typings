@@ -492,12 +492,21 @@ declare namespace my {
      * 接口调用成功的回调函数
      * @param data 成功返回的数据
      */
-    success?(data: {
-      /**
-       * @summary 该设备支持的可被 IFAA 识别的生物识别方式
-       */
-      supportMode: Array<'fingerPrint' | 'facial'>;
-    }): void;
+    success?(
+      data:
+        | {
+            /**
+             * @summary 该设备支持的可被 IFAA 识别的生物识别方式
+             */
+            supportMode?: string[];
+            success?: boolean;
+          }
+        | {
+            error: number;
+            errorMessage: string;
+            message?: string;
+          },
+    ): void;
     /**
      * 接口调用失败的回调函数
      * @param err 错误信息
@@ -508,23 +517,39 @@ declare namespace my {
      */
     complete?(
       arg:
-        | {
-            /**
-             * @summary 该设备支持的可被 IFAA 识别的生物识别方式
-             */
-            supportMode: Array<'fingerPrint' | 'facial'>;
-          }
+        | (
+            | {
+                /**
+                 * @summary 该设备支持的可被 IFAA 识别的生物识别方式
+                 */
+                supportMode?: string[];
+                success?: boolean;
+              }
+            | {
+                error: number;
+                errorMessage: string;
+                message?: string;
+              }
+          )
         | {
             error?: number;
             errorMessage?: string;
           },
     ): void;
-  }): Promise<{
-    /**
-     * @summary 该设备支持的可被 IFAA 识别的生物识别方式
-     */
-    supportMode: Array<'fingerPrint' | 'facial'>;
-  }>;
+  }): Promise<
+    | {
+        /**
+         * @summary 该设备支持的可被 IFAA 识别的生物识别方式
+         */
+        supportMode?: string[];
+        success?: boolean;
+      }
+    | {
+        error: number;
+        errorMessage: string;
+        message?: string;
+      }
+  >;
   /**
    * @summary 从支付宝通讯录中选择联系人
    * @see "https://opendocs.alipay.com/mini/api/ui-contact"
@@ -704,7 +729,7 @@ declare namespace my {
     /**
      * @summary 选择类型。
      */
-    chooseType: 'multi' | 'single';
+    chooseType: 'single' | 'multi';
     includeMe?: boolean;
     /**
      * @summary 选择手机通讯录联系人的模式。
@@ -1041,7 +1066,16 @@ declare namespace my {
      * 接口调用成功的回调函数
      * @param data 成功返回的数据
      */
-    success?(data: { name: string; mobile: string }): void;
+    success?(data: {
+      /**
+       * @summary 选中的联系人姓名
+       */
+      name: string;
+      /**
+       * @summary 选中的联系人手机号
+       */
+      mobile: string;
+    }): void;
     /**
      * 接口调用失败的回调函数
      * @param err 错误信息
@@ -1053,7 +1087,13 @@ declare namespace my {
     complete?(
       arg:
         | {
+            /**
+             * @summary 选中的联系人姓名
+             */
             name: string;
+            /**
+             * @summary 选中的联系人手机号
+             */
             mobile: string;
           }
         | {
@@ -1062,7 +1102,13 @@ declare namespace my {
           },
     ): void;
   }): Promise<{
+    /**
+     * @summary 选中的联系人姓名
+     */
     name: string;
+    /**
+     * @summary 选中的联系人手机号
+     */
     mobile: string;
   }>;
   /**
@@ -2813,24 +2859,27 @@ declare namespace my {
    */
   export function getBLEDeviceStatus(r?: {
     /**
+     * @summary 是否允许系统弹窗（仅iOS）
+     * @default false
+     */
+    sysAlert?: boolean;
+    /**
      * 接口调用成功的回调函数
      * @param data 成功返回的数据
      */
     success?(data: {
       /**
-       * @summary 蓝牙授权状态（仅iOS）, 仅需关注0,2,3三种状态码，其他错误码可以统一认为蓝牙授权状态无法确定
-       * - 0 表示应用从未用过蓝牙（第一次使用时，会有系统弹窗授权提示）
-       * - 2 表示当前蓝牙授权是被拒绝状态
-       * - 3 表示蓝牙已被授权
+       * @summary 授权状态
+       * @description - 除 0,2,3三种状态码之外，其他可以认为蓝牙授权状态无法确定
        */
-      authStatus: number;
+      authStatus: EGetBLEDeviceStatusAuthStatus;
       /**
-       * @summary 蓝牙开关状态 仅需关注2,4,5三种状态码，其他错误码可以统一认为蓝牙开关状态无法确定。
-       * - 2 表示设备不支持
-       * - 4 表示蓝牙开关是关闭的
-       * - 5 表示蓝牙开关是打开的
+       * @summary 蓝牙开关状态
+       * @description
+       * - 除 2,4,5三种状态码之外，其他可以认为蓝牙开关状态无法确定。
+       * - iOS系统，当authStatus=3(蓝牙已授权）时，powerStatus状态才有效
        */
-      powerStatus: number;
+      powerStatus: EGetBLEDeviceStatusPowerStatus;
     }): void;
     /**
      * 接口调用失败的回调函数
@@ -2844,19 +2893,17 @@ declare namespace my {
       arg:
         | {
             /**
-             * @summary 蓝牙授权状态（仅iOS）, 仅需关注0,2,3三种状态码，其他错误码可以统一认为蓝牙授权状态无法确定
-             * - 0 表示应用从未用过蓝牙（第一次使用时，会有系统弹窗授权提示）
-             * - 2 表示当前蓝牙授权是被拒绝状态
-             * - 3 表示蓝牙已被授权
+             * @summary 授权状态
+             * @description - 除 0,2,3三种状态码之外，其他可以认为蓝牙授权状态无法确定
              */
-            authStatus: number;
+            authStatus: EGetBLEDeviceStatusAuthStatus;
             /**
-             * @summary 蓝牙开关状态 仅需关注2,4,5三种状态码，其他错误码可以统一认为蓝牙开关状态无法确定。
-             * - 2 表示设备不支持
-             * - 4 表示蓝牙开关是关闭的
-             * - 5 表示蓝牙开关是打开的
+             * @summary 蓝牙开关状态
+             * @description
+             * - 除 2,4,5三种状态码之外，其他可以认为蓝牙开关状态无法确定。
+             * - iOS系统，当authStatus=3(蓝牙已授权）时，powerStatus状态才有效
              */
-            powerStatus: number;
+            powerStatus: EGetBLEDeviceStatusPowerStatus;
           }
         | {
             error?: number;
@@ -2865,19 +2912,17 @@ declare namespace my {
     ): void;
   }): Promise<{
     /**
-     * @summary 蓝牙授权状态（仅iOS）, 仅需关注0,2,3三种状态码，其他错误码可以统一认为蓝牙授权状态无法确定
-     * - 0 表示应用从未用过蓝牙（第一次使用时，会有系统弹窗授权提示）
-     * - 2 表示当前蓝牙授权是被拒绝状态
-     * - 3 表示蓝牙已被授权
+     * @summary 授权状态
+     * @description - 除 0,2,3三种状态码之外，其他可以认为蓝牙授权状态无法确定
      */
-    authStatus: number;
+    authStatus: EGetBLEDeviceStatusAuthStatus;
     /**
-     * @summary 蓝牙开关状态 仅需关注2,4,5三种状态码，其他错误码可以统一认为蓝牙开关状态无法确定。
-     * - 2 表示设备不支持
-     * - 4 表示蓝牙开关是关闭的
-     * - 5 表示蓝牙开关是打开的
+     * @summary 蓝牙开关状态
+     * @description
+     * - 除 2,4,5三种状态码之外，其他可以认为蓝牙开关状态无法确定。
+     * - iOS系统，当authStatus=3(蓝牙已授权）时，powerStatus状态才有效
      */
-    powerStatus: number;
+    powerStatus: EGetBLEDeviceStatusPowerStatus;
   }>;
   /**
    * @summary 获取蓝牙低功耗设备的最大传输单元 (MTU)
@@ -3355,12 +3400,40 @@ declare namespace my {
    * @see "https://opendocs.alipay.com/mini/api/media/image/my.getimageinfo"
    */
   export function getImageInfo(r: {
+    /**
+     * @summary 图片路径，目前支持：
+     * - 网络图片路径
+     * - apFilePath路径
+     * - 相对路径
+     */
     src: string;
     /**
      * 接口调用成功的回调函数
      * @param data 成功返回的数据
      */
-    success?(data: { width: number; height: number; path: string; size?: number }): void;
+    success?(data: {
+      /**
+       * @summary 图片宽度（单位px）
+       */
+      width: number;
+      /**
+       * @summary 图片高度（单位px）
+       */
+      height: number;
+      /**
+       * @summary 图片本地路径
+       */
+      path: string;
+      size?: number;
+      /**
+       * @summary 返回图片的格式
+       */
+      type: number;
+      /**
+       * @summary 返回图片的方向
+       */
+      orientation: 'right' | 'left' | 'up' | 'down' | 'up-mirrored' | 'down-mirrored' | 'left-mirrored' | 'right-mirrored';
+    }): void;
     /**
      * 接口调用失败的回调函数
      * @param err 错误信息
@@ -3372,10 +3445,27 @@ declare namespace my {
     complete?(
       arg:
         | {
+            /**
+             * @summary 图片宽度（单位px）
+             */
             width: number;
+            /**
+             * @summary 图片高度（单位px）
+             */
             height: number;
+            /**
+             * @summary 图片本地路径
+             */
             path: string;
             size?: number;
+            /**
+             * @summary 返回图片的格式
+             */
+            type: number;
+            /**
+             * @summary 返回图片的方向
+             */
+            orientation: 'right' | 'left' | 'up' | 'down' | 'up-mirrored' | 'down-mirrored' | 'left-mirrored' | 'right-mirrored';
           }
         | {
             error?: number;
@@ -3383,10 +3473,27 @@ declare namespace my {
           },
     ): void;
   }): Promise<{
+    /**
+     * @summary 图片宽度（单位px）
+     */
     width: number;
+    /**
+     * @summary 图片高度（单位px）
+     */
     height: number;
+    /**
+     * @summary 图片本地路径
+     */
     path: string;
     size?: number;
+    /**
+     * @summary 返回图片的格式
+     */
+    type: number;
+    /**
+     * @summary 返回图片的方向
+     */
+    orientation: 'right' | 'left' | 'up' | 'down' | 'up-mirrored' | 'down-mirrored' | 'left-mirrored' | 'right-mirrored';
   }>;
   /**
    * @summary 获取小程序启动时的参数
@@ -7803,7 +7910,7 @@ declare namespace my {
      * 接口调用成功的回调函数
      * @param data 成功返回的数据
      */
-    success?(data: {}): void;
+    success?(data: { success: boolean }): void;
     /**
      * 接口调用失败的回调函数
      * @param err 错误信息
@@ -7812,8 +7919,19 @@ declare namespace my {
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?(arg: { error?: number; errorMessage?: string }): void;
-  }): Promise<void>;
+    complete?(
+      arg:
+        | {
+            success: boolean;
+          }
+        | {
+            error?: number;
+            errorMessage?: string;
+          },
+    ): void;
+  }): Promise<{
+    success: boolean;
+  }>;
   /**
    * @summary 设置窗口背景颜色
    * @see "https://opendocs.alipay.com/mini/api/set-background"
@@ -9003,13 +9121,29 @@ declare namespace my {
      * 接口调用成功的回调函数
      * @param data 成功返回的数据
      */
-    success?(data: {
-      /**
-       * @summary 核身校验唯一标识
-       * @description 业务服务端二次校验时对应的入参verify_id
-       */
-      verifyId: string;
-    }): void;
+    success?(
+      data:
+        | {
+            code: string;
+            message?: string;
+            srcCode?: string;
+            token?: string;
+            verifyCode?: string;
+            /**
+             * @summary 核身校验唯一标识
+             * @description 业务服务端二次校验时对应的入参verify_id
+             */
+            verifyId: string;
+            nextIsCasherPament2?: boolean;
+            subCode?: string;
+            bizResponseData?: string;
+          }
+        | {
+            error: number;
+            errorMessage: string;
+            verifyId?: string;
+          },
+    ): void;
     /**
      * 接口调用失败的回调函数
      * @param err 错误信息
@@ -9020,25 +9154,55 @@ declare namespace my {
      */
     complete?(
       arg:
-        | {
-            /**
-             * @summary 核身校验唯一标识
-             * @description 业务服务端二次校验时对应的入参verify_id
-             */
-            verifyId: string;
-          }
+        | (
+            | {
+                code: string;
+                message?: string;
+                srcCode?: string;
+                token?: string;
+                verifyCode?: string;
+                /**
+                 * @summary 核身校验唯一标识
+                 * @description 业务服务端二次校验时对应的入参verify_id
+                 */
+                verifyId: string;
+                nextIsCasherPament2?: boolean;
+                subCode?: string;
+                bizResponseData?: string;
+              }
+            | {
+                error: number;
+                errorMessage: string;
+                verifyId?: string;
+              }
+          )
         | {
             error?: number;
             errorMessage?: string;
           },
     ): void;
-  }): Promise<{
-    /**
-     * @summary 核身校验唯一标识
-     * @description 业务服务端二次校验时对应的入参verify_id
-     */
-    verifyId: string;
-  }>;
+  }): Promise<
+    | {
+        code: string;
+        message?: string;
+        srcCode?: string;
+        token?: string;
+        verifyCode?: string;
+        /**
+         * @summary 核身校验唯一标识
+         * @description 业务服务端二次校验时对应的入参verify_id
+         */
+        verifyId: string;
+        nextIsCasherPament2?: boolean;
+        subCode?: string;
+        bizResponseData?: string;
+      }
+    | {
+        error: number;
+        errorMessage: string;
+        verifyId?: string;
+      }
+  >;
   /**
    * @summary 触发页面下拉刷新
    * @description
@@ -20894,6 +21058,9 @@ declare namespace my.ap {
    */
   export function getMainSelectedCity(r?: {
     /**
+     * @summary 是否需要获取城市的全称；
+     * 比如北京的全称为北京市；
+     * 默认返回简称
      * @default false
      */
     needFullName?: boolean;
@@ -20902,10 +21069,18 @@ declare namespace my.ap {
      * @param data 成功返回的数据
      */
     success?(data: {
+      /**
+       * @summary 城市的全称，比如北京，对应的全称为北京市
+       */
       fullName?: string;
+      /**
+       * @summary 城市英文名称
+       * @native 10.2.18
+       */
       enName?: string;
       /**
-       * @summary 英文区县
+       * @summary 区县英文名称
+       * @native 10.2.18
        */
       enDistrictName?: string;
       /**
@@ -20930,10 +21105,12 @@ declare namespace my.ap {
       settingTime: number;
       /**
        * @summary 区县名
+       * @native 10.1.99
        */
       districtName?: string;
       /**
        * @summary 区县编码
+       * @native 10.1.99
        */
       districtCode?: string;
     }): void;
@@ -20948,10 +21125,18 @@ declare namespace my.ap {
     complete?(
       arg:
         | {
+            /**
+             * @summary 城市的全称，比如北京，对应的全称为北京市
+             */
             fullName?: string;
+            /**
+             * @summary 城市英文名称
+             * @native 10.2.18
+             */
             enName?: string;
             /**
-             * @summary 英文区县
+             * @summary 区县英文名称
+             * @native 10.2.18
              */
             enDistrictName?: string;
             /**
@@ -20976,10 +21161,12 @@ declare namespace my.ap {
             settingTime: number;
             /**
              * @summary 区县名
+             * @native 10.1.99
              */
             districtName?: string;
             /**
              * @summary 区县编码
+             * @native 10.1.99
              */
             districtCode?: string;
           }
@@ -20989,10 +21176,18 @@ declare namespace my.ap {
           },
     ): void;
   }): Promise<{
+    /**
+     * @summary 城市的全称，比如北京，对应的全称为北京市
+     */
     fullName?: string;
+    /**
+     * @summary 城市英文名称
+     * @native 10.2.18
+     */
     enName?: string;
     /**
-     * @summary 英文区县
+     * @summary 区县英文名称
+     * @native 10.2.18
      */
     enDistrictName?: string;
     /**
@@ -21017,10 +21212,12 @@ declare namespace my.ap {
     settingTime: number;
     /**
      * @summary 区县名
+     * @native 10.1.99
      */
     districtName?: string;
     /**
      * @summary 区县编码
+     * @native 10.1.99
      */
     districtCode?: string;
   }>;
@@ -22725,6 +22922,36 @@ declare const enum EGetAuthCodeScopeNicks {
    * @summary 获取用户芝麻信息。
    */
   auth_zhima = 'auth_zhima',
+}
+
+declare const enum EGetBLEDeviceStatusAuthStatus {
+  /**
+   * @summary 表示应用从未用过蓝牙（第一次使用时，会有系统弹窗授权提示）
+   */
+  _0 = 0,
+  /**
+   * @summary 表示当前蓝牙授权是被拒绝状态
+   */
+  _2 = 2,
+  /**
+   * @summary 表示蓝牙已被授权
+   */
+  _3 = 3,
+}
+
+declare const enum EGetBLEDeviceStatusPowerStatus {
+  /**
+   * @summary 表示设备不支持
+   */
+  _2 = 2,
+  /**
+   * @summary 表示蓝牙开关是关闭的
+   */
+  _4 = 4,
+  /**
+   * @summary 表示蓝牙开关是打开的
+   */
+  _5 = 5,
 }
 
 declare const enum EGetNetworkTypeNetworkInfo {
