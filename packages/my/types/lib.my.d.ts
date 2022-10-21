@@ -12,7 +12,7 @@ declare namespace my {
     USER_DATA_PATH: string;
     /**
      * 客户端名称简写
-     * @description - 支付宝客户端为 'ap'。
+     * @description 支付宝客户端为 'ap'。
      * @sdk 1.24.9
      * @example "ap"
      */
@@ -1575,7 +1575,7 @@ declare namespace my {
   export function createOffscreenCanvas(width?: number, height?: number, type?: '2d' | 'webgl'): OffScreenCanvas;
   /**
    * 创建视图信息查询实例
-   * @description - 在 `自定义组件` 或包含 `自定义组件` 页面中，希望仅查询自身模板（不跨组件）的视图信息，应使用 `this.createSelectorQuery()` 来代替
+   * @description 在 `自定义组件` 或包含 `自定义组件` 页面中，希望仅查询自身模板（不跨组件）的视图信息，应使用 `this.createSelectorQuery()` 来代替
    * @see https://opendocs.alipay.com/mini/api/selector-query
    */
   export function createSelectorQuery(option?: IMyCreateSelectorQueryOption): SelectorQuery;
@@ -1763,7 +1763,7 @@ declare namespace my {
   }>;
   /**
    * 下载文件资源到本地
-   * @description - 可下载任何格式的文件，不能被识别的文件将以 other 的方式存储起来
+   * @description 可下载任何格式的文件，不能被识别的文件将以 other 的方式存储起来
    * @see https://opendocs.alipay.com/mini/api/xr054r
    */
   export function downloadFile(r: {
@@ -2791,7 +2791,7 @@ declare namespace my {
     success?(data: {
       /**
        * 授权状态
-       * @description - 除 0,2,3三种状态码之外，其他可以认为蓝牙授权状态无法确定
+       * @description 除 0,2,3三种状态码之外，其他可以认为蓝牙授权状态无法确定
        */
       authStatus: EGetBLEDeviceStatusAuthStatus;
       /**
@@ -2814,7 +2814,7 @@ declare namespace my {
         | {
             /**
              * 授权状态
-             * @description - 除 0,2,3三种状态码之外，其他可以认为蓝牙授权状态无法确定
+             * @description 除 0,2,3三种状态码之外，其他可以认为蓝牙授权状态无法确定
              */
             authStatus: EGetBLEDeviceStatusAuthStatus;
             /**
@@ -2833,7 +2833,7 @@ declare namespace my {
   }): Promise<{
     /**
      * 授权状态
-     * @description - 除 0,2,3三种状态码之外，其他可以认为蓝牙授权状态无法确定
+     * @description 除 0,2,3三种状态码之外，其他可以认为蓝牙授权状态无法确定
      */
     authStatus: EGetBLEDeviceStatusAuthStatus;
     /**
@@ -3116,7 +3116,7 @@ declare namespace my {
   }>;
   /**
    * 获得小程序本次唤起的参数
-   * @description - 如果当前是冷启动，则返回值与 App.onLaunch 的回调参数一致；如果当前是热启动，则返回值与 App.onShow 一致。
+   * @description 如果当前是冷启动，则返回值与 App.onLaunch 的回调参数一致；如果当前是热启动，则返回值与 App.onShow 一致。
    * @see https://opendocs.alipay.com/mini/api/029i75
    */
   export function getEnterOptionsSync(): {
@@ -5125,7 +5125,7 @@ declare namespace my {
   }): Promise<void>;
   /**
    * 跳转回上一个小程序
-   * @description - 只有当另一个小程序跳转到当前小程序时才会能调用成功。
+   * @description 只有当另一个小程序跳转到当前小程序时才会能调用成功。
    * @see https://opendocs.alipay.com/mini/api/open-miniprogram
    */
   export function navigateBackMiniProgram(r?: {
@@ -5538,7 +5538,7 @@ declare namespace my {
     cb?: (arg: {
       /**
        * 系统内存的告警等级
-       * @description - 仅 Android 返回，iOS 不返回，需要兼容判断
+       * @description 仅 Android 返回，iOS 不返回，需要兼容判断
        * @native 10.1.35
        * @ios false
        */
@@ -5941,7 +5941,7 @@ declare namespace my {
     cb: (arg: {
       /**
        * 系统内存的告警等级
-       * @description - 仅 Android 返回，iOS 不返回，需要兼容判断
+       * @description 仅 Android 返回，iOS 不返回，需要兼容判断
        * @native 10.1.35
        * @ios false
        */
@@ -7495,7 +7495,7 @@ declare namespace my {
   }>;
   /**
    * 跳转到扫一扫界面
-   * @description - 唤起扫一扫会触发以下生命周期: App.onHide → Page.onHide → App.onShow → Page.onShow
+   * @description 唤起扫一扫会触发以下生命周期: App.onHide → Page.onHide → App.onShow → Page.onShow
    * @see https://opendocs.alipay.com/mini/api/scan
    */
   export function scan(r?: {
@@ -8529,7 +8529,7 @@ declare namespace my {
     type?: 'none' | 'success' | 'fail' | 'exception' | 'loading';
     /**
      * 显示时长，单位为 ms
-     * @description - 安卓10.1.2以下版本中，duration 显示时长实际只支持 2000/3500 两种，小于或等于2000的相当于2000, 大于2000的相当于3500
+     * @description 安卓10.1.2以下版本中，duration 显示时长实际只支持 2000/3500 两种，小于或等于2000的相当于2000, 大于2000的相当于3500
      * @default 3000
      */
     duration?: number;
