@@ -1,6 +1,6 @@
 {
   "name": "@mini-types/aliauto",
-  "version": "2.0.11",
+  "version": "2.0.12",
   "description": "TypeScript declarations for AliAuto's mini program.",
   "scripts": {},
   "repository": {
