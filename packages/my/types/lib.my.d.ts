@@ -4588,6 +4588,159 @@ declare namespace my {
    */
   export function getUpdateManager(): UpdateManager;
   /**
+   * 获取视频信息
+   *
+   */
+  export function getVideoInfo(r: {
+    /**
+     * 给定的媒体流地址
+     * @example https://gw.alipayobjects.com/v/LIV/afts/video/A*hcLmS6rtkjwAAAAAAAAAAAAAAVx1AA/720P?t=1XVtu6jLPP4FMnSheZr1EwAAAABnA-hjJSws
+     */
+    src: string;
+    /**
+     * 接口调用成功的回调函数
+     */
+    success?(data: {
+      /**
+       * 视频没有旋转角度
+       * @example 0
+       */
+      orientation: EGetVideoInfoOrientation;
+      /**
+       * 视频封装格式为flv
+       * @example flv
+       */
+      type: string;
+      /**
+       * 时长为30000ms
+       * @example 30000
+       */
+      duration: number;
+      /**
+       * 视频大小为60000kb
+       * @example 60000
+       */
+      size: number;
+      /**
+       * 视频高度为720
+       * @example 720
+       */
+      height: number;
+      /**
+       * 视频宽度为1080
+       * @example 1080
+       */
+      width: number;
+      /**
+       * 视频帧率为30
+       * @example 30
+       */
+      fps: number;
+      /**
+       * 视频码率为2000kbps
+       * @example 2000
+       */
+      bitrate: number;
+    }): void;
+    /**
+     * 接口调用失败的回调函数
+     */
+    fail?(err: { error?: number; errorMessage?: string }): void;
+    /**
+     * 接口调用结束的回调函数（调用成功、失败都会执行）
+     */
+    complete?(
+      arg:
+        | {
+            /**
+             * 视频没有旋转角度
+             * @example 0
+             */
+            orientation: EGetVideoInfoOrientation;
+            /**
+             * 视频封装格式为flv
+             * @example flv
+             */
+            type: string;
+            /**
+             * 时长为30000ms
+             * @example 30000
+             */
+            duration: number;
+            /**
+             * 视频大小为60000kb
+             * @example 60000
+             */
+            size: number;
+            /**
+             * 视频高度为720
+             * @example 720
+             */
+            height: number;
+            /**
+             * 视频宽度为1080
+             * @example 1080
+             */
+            width: number;
+            /**
+             * 视频帧率为30
+             * @example 30
+             */
+            fps: number;
+            /**
+             * 视频码率为2000kbps
+             * @example 2000
+             */
+            bitrate: number;
+          }
+        | {
+            error?: number;
+            errorMessage?: string;
+          },
+    ): void;
+  }): Promise<{
+    /**
+     * 视频没有旋转角度
+     * @example 0
+     */
+    orientation: EGetVideoInfoOrientation;
+    /**
+     * 视频封装格式为flv
+     * @example flv
+     */
+    type: string;
+    /**
+     * 时长为30000ms
+     * @example 30000
+     */
+    duration: number;
+    /**
+     * 视频大小为60000kb
+     * @example 60000
+     */
+    size: number;
+    /**
+     * 视频高度为720
+     * @example 720
+     */
+    height: number;
+    /**
+     * 视频宽度为1080
+     * @example 1080
+     */
+    width: number;
+    /**
+     * 视频帧率为30
+     * @example 30
+     */
+    fps: number;
+    /**
+     * 视频码率为2000kbps
+     * @example 2000
+     */
+    bitrate: number;
+  }>;
+  /**
    * 请求获取 Wi-Fi 列表
    * @see https://opendocs.alipay.com/mini/api/getwifilist
    */
@@ -7365,6 +7518,45 @@ declare namespace my {
    * @see https://opendocs.alipay.com/mini/api/xbll1q
    */
   export function saveFile(r: {
+    /**
+     * 文件路径。
+     */
+    apFilePath: string;
+    filePath: string;
+    /**
+     * 是否将文件保存到外部存储目录
+     * @native 10.1.85
+     * @default false
+     */
+    toDisk?: boolean;
+    /**
+     * 接口调用成功的回调函数
+     */
+    success?(data: { success: true }): void;
+    /**
+     * 接口调用失败的回调函数
+     */
+    fail?(err: { error?: number; errorMessage?: string }): void;
+    /**
+     * 接口调用结束的回调函数（调用成功、失败都会执行）
+     */
+    complete?(
+      arg:
+        | {
+            success: true;
+          }
+        | {
+            error?: number;
+            errorMessage?: string;
+          },
+    ): void;
+  }): Promise<{
+    success: true;
+  }>;
+  /**
+   * 保存文件系统的文件到系统存储空间
+   */
+  export function saveFileToDisk(r: {
     /**
      * 文件路径。
      */
@@ -12860,6 +13052,12 @@ declare namespace my {
       left?: number;
     }): this;
   }
+  export interface MediaQueryObserver {
+    /**
+     * 停止监听。回调函数将不再触发
+     */
+    disconnect(): void;
+  }
   export interface TCPSocket {}
   export interface UDPSocket {}
   export interface RecorderManager {
@@ -16041,6 +16239,23 @@ declare namespace my {
       complete?(arg: { error?: number; errorMessage?: string }): void;
     }): Promise<void>;
     /**
+     * 退出画中画
+     */
+    exitPictureInPicture(r?: {
+      /**
+       * 接口调用成功的回调函数
+       */
+      success?(data: {}): void;
+      /**
+       * 接口调用失败的回调函数
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(arg: { error?: number; errorMessage?: string }): void;
+    }): Promise<void>;
+    /**
      * 获取当前播放进度
      */
     getCurrentTime(r?: {
@@ -16470,6 +16685,23 @@ declare namespace my {
      * 取消本次任务
      */
     abort(): void;
+    /**
+     * 移除 HTTP Response Header 事件的监听函数
+     */
+    offHeadersReceived(cb?: () => void): void;
+    /**
+     * 监听 HTTP Response Header 事件。会比请求完成事件更早
+     */
+    onHeadersReceived(
+      cb: (arg: {
+        /**
+         * 开发者服务器返回的 HTTP Response Header
+         */
+        header: {
+          [key: string]: string;
+        };
+      }) => void,
+    ): void;
     /**
      * 监听上传进度变化事件
      */
@@ -22405,6 +22637,25 @@ declare const enum EGetNetworkTypeNetworkInfo {
    * WWAN
    */
   WWAN = 'WWAN',
+}
+
+declare const enum EGetVideoInfoOrientation {
+  /**
+   * 默认
+   */
+  _0 = 0,
+  /**
+   * 180度旋转
+   */
+  _1 = 1,
+  /**
+   * 逆时针旋转90度
+   */
+  _2 = 2,
+  /**
+   * 顺时针旋转90度
+   */
+  _3 = 3,
 }
 
 declare const enum EInvokeType {
