@@ -360,6 +360,16 @@ export interface ISelectComponent {
   selectComposedParentComponent(): any;
 }
 
+export interface IHasMixin {
+  /**
+   * 检查组件是否具有 mixin(须是通过Mixin()创建的mixin实例)。
+   * 若自定义组件注册时传入了ref以指定组件返回值，则可通过hasMixin('ref')检查到
+   * @version 基础库 2.8.2 起支持
+   * @return boolean
+   */
+  hasMixin(mixin: IMixinIdentifier): boolean
+}
+
 /**
  * `this` type of life cycle hooks in App.
  */
@@ -569,7 +579,8 @@ export declare type IComponentInstance<
     ): void;
   } & IGetTabBarMethod &
   IElementQuery &
-  ISelectComponent;
+  ISelectComponent &
+  IHasMixin;
 
 /**
  * 用户可配置的 Component Options

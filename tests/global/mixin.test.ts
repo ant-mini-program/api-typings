@@ -1,10 +1,11 @@
-import { expectType } from 'tsd-lite';
+import { expectType, expectAssignable } from 'tsd-lite';
 const mixin = Mixin({
   data: {
     aaa: 1,
   },
   didMount() {
     expectType<number>(this.data.aaa);
+    expectAssignable<Function>(this.hasMixin);
   },
 });
 
