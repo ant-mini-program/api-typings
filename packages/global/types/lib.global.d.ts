@@ -649,7 +649,7 @@ type IMixinOptions<
   > | 'definitionFilter' | 'mixins'
     ? unknown
     : ExtraOptions[P];
-} & Partial<IComponentOptions<Data, Props, Methods, ExtraOptions, Mixin>> & Partial<{
+} & Omit<Partial<IComponentOptions<Data, Props, Methods, ExtraOptions, Mixin>>, 'ref' | 'options'> & Partial<{
   /**
   * 定义段过滤器，用于自定义组件扩展
   */
