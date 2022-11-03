@@ -440,7 +440,7 @@ export interface IComponentOptions<
   Props,
   Methods,
   ExtraOptions extends UnknownRecord,
-  Mixins extends Array< MiniProgram.Mixin.IMixin4Legacy | MiniProgram.Mixin.MixinIdentifier>
+  Mixin extends any[]
 > {
   /**
    * 组件内部状态
@@ -475,7 +475,7 @@ export interface IComponentOptions<
   /**
    * 组件间代码复用机制
    */
-  mixins: Mixins;
+  mixins: Mixin;
   /**
    * 组件的方法，可以是事件响应函数或任意的自定义方法
    * Object of Functions
@@ -619,6 +619,57 @@ export interface IComponent<
   ): any;
 }
 
+/**
+ * 传统的组件间代码复用，仅Component的mixins参数支持传入，Mixin参数mixins 则只支持传入Mixin()的返回值
+ */
+type IMixin4Legacy = Partial<Omit<IComponentOptions<UnknownRecord, UnknownRecord, UnknownRecord, UnknownRecord, []>, 'ref' | 'options' | 'mixins'>>;
+
+/**
+ * Mixin() 返回值
+ */
+type IMixinIdentifier = string;
+
+/**
+* Mixin构造器参数
+*/
+type IMixinOptions<
+  Data,
+  Props,
+  Methods,
+  ExtraThis,
+  ExtraOptions extends UnknownRecord,
+  IGlobalMiniProgramExtraThis4Component extends Array<IMixinIdentifier>
+> = {
+  [P in keyof ExtraOptions]: P extends keyof IComponentOptions<
+    Data,
+    Props,
+    Methods,
+    ExtraOptions,
+    Mixin
+  > | 'definitionFilter' | 'mixins'
+    ? unknown
+    : ExtraOptions[P];
+} & Partial<IComponentOptions<Data, Props, Methods, ExtraOptions, Mixin>> & Partial<{
+  /**
+  * 定义段过滤器，用于自定义组件扩展
+  */
+    definitionFilter: IMixinDefinitionFilter,
+    /**
+    * 组件间代码复用，用于Mixin()的mixins 只支持传入Mixin()注册生成的返回值。不支持传入 js Object
+    */
+    mixins: Array<IMixinIdentifier>
+}> &
+  ThisType<
+    IComponentInstance<Data, Props, Methods, ExtraThis, ExtraOptions, Mixin>
+  >;
+
+type IMixinDefinitionFilter = <T extends IComponentOptions>(
+  /** 使用该 mixin 的 component/mixin 的定义对象 */
+  defFields: T,
+  /** 该 mixin 所使用的 mixin 的 definitionFilter 函数列表 */
+  definitionFilterArr?: IMixinDefinitionFilter[]
+) => void
+
 // 获取 mixins 数组的每一个元素的类型
 type TExtractValuesOfTuple<T extends any[]> = T[keyof T & number];
 
@@ -736,41 +787,20 @@ declare global {
    * 注册一个 `mixin`，接受一个 `Object` 类型的参数。
    * 
    */
-  let Mixin: MiniProgram.Mixin.Constructor;
+  function Mixin<
+    Data = {},
+    Props = {},
+    Methods = {},
+    ExtraThis = {},
+    ExtraOptions extends Record<string, unknown> = {},
+    Mixin extends IMixinIdentifier[] = IMixinIdentifier[]
+  >(options: IMixinOptions<
+    Data,
+    Props,
+    Methods,
+    ExtraThis & IGlobalMiniProgramExtraThis4Component,
+    ExtraOptions,
+    Mixin
+  >): IMixinIdentifier;
 }
 
-export declare namespace MiniProgram.Mixin{
-  /**
-   * 传统的组件间代码复用，仅Component的mixins参数支持传入，Mixin参数mixins 则只支持传入Mixin()的返回值
-   */
-  type IMixin4Legacy = Partial<Omit<IComponentOptions<UnknownRecord, UnknownRecord, UnknownRecord, UnknownRecord, []>, 'ref' | 'options' | 'mixins'>>;
-  /**
-   * Mixin() 返回值
-   */
-  type MixinIdentifier = string;
-
-  /**
-   * Mixin构造器参数
-   */
-  type IOptions = Partial<IMixin4Legacy & {
-    /**
-     * 定义段过滤器，用于自定义组件扩展
-     */
-    definitionFilter: DefinitionFilter,
-    /**
-     * 组件间代码复用，用于Mixin()的mixins 只支持传入Mixin()注册生成的返回值。不支持传入 js Object
-     */
-    mixins: Array<MixinIdentifier>
-  }>;
-
-  interface Constructor {
-    (options: IOptions): MixinIdentifier
-  }
-
-  type DefinitionFilter = <T extends IOptions>(
-    /** 使用该 mixin 的 component/mixin 的定义对象 */
-    defFields: T,
-    /** 该 mixin 所使用的 mixin 的 definitionFilter 函数列表 */
-    definitionFilterArr?: DefinitionFilter[]
-  ) => void
-}
