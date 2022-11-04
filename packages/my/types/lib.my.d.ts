@@ -13298,11 +13298,31 @@ declare namespace my {
     /**
      * 停止监听可以开始播放的事件
      */
-    offCanPlay(cb?: (arg: { audioPlayerID: string }) => void): void;
+    offCanPlay(cb?: (arg: {}) => void): void;
     /**
      * 停止监听播放完成的事件
      */
-    offEnded(cb?: (arg: { audioPlayerID: string }) => void): void;
+    offEnded(cb?: (arg: {}) => void): void;
+    /**
+     * 取消监听 onError 事件
+     */
+    offError(
+      cb?: (
+        arg:
+          | {
+              errCode: 10007;
+              errMessage: 'Parse audio src error';
+            }
+          | {
+              errCode: 10006;
+              errMessage: 'Audio illegal';
+            }
+          | {
+              errCode: number;
+              errMessage: string;
+            },
+      ) => void,
+    ): void;
     /**
      * 停止监听播放下一首的事件
      */
@@ -13310,11 +13330,11 @@ declare namespace my {
     /**
      * 停止监听播放暂停的事件
      */
-    offPause(cb?: (arg: { audioPlayerID: string }) => void): void;
+    offPause(cb?: (arg: {}) => void): void;
     /**
      * 停止监听播放开始事件
      */
-    offPlay(cb?: (arg: { audioPlayerID: string }) => void): void;
+    offPlay(cb?: (arg: {}) => void): void;
     /**
      * 停止监听播放上一首的事件
      */
@@ -13322,31 +13342,51 @@ declare namespace my {
     /**
      * 停止监听跳转到进度的事件
      */
-    offSeeked(cb?: (arg: { audioPlayerID: string }) => void): void;
+    offSeeked(cb?: (arg: {}) => void): void;
     /**
      * 停止监听开始跳转到进度的事件
      */
-    offSeeking(cb?: (arg: { audioPlayerID: string }) => void): void;
+    offSeeking(cb?: (arg: {}) => void): void;
     /**
      * 停止监听播放停止的事件
      */
-    offStop(cb?: (arg: { audioPlayerID: string }) => void): void;
+    offStop(cb?: (arg: {}) => void): void;
     /**
      * 停止监听时间更新事件
      */
-    offTimeUpdate(cb?: (arg: { audioPlayerID: string }) => void): void;
+    offTimeUpdate(cb?: (arg: {}) => void): void;
     /**
      * 停止监听音频还在准备中的事件
      */
-    offWaiting(cb?: (arg: { audioPlayerID: string }) => void): void;
+    offWaiting(cb?: (arg: {}) => void): void;
     /**
      * 监听可以开始播放的事件，缓冲完成可以开始播放，但不保证后面可以流畅播放。
      */
-    onCanPlay(cb: (arg: { audioPlayerID: string }) => void): void;
+    onCanPlay(cb: (arg: {}) => void): void;
     /**
      * 监听播放完成的事件
      */
-    onEnded(cb: (arg: { audioPlayerID: string }) => void): void;
+    onEnded(cb: (arg: {}) => void): void;
+    /**
+     * 监听前景音频播放错误事件
+     */
+    onError(
+      cb: (
+        arg:
+          | {
+              errCode: 10007;
+              errMessage: 'Parse audio src error';
+            }
+          | {
+              errCode: 10006;
+              errMessage: 'Audio illegal';
+            }
+          | {
+              errCode: number;
+              errMessage: string;
+            },
+      ) => void,
+    ): void;
     /**
      * 监听播放下一首的事件
      */
@@ -13354,11 +13394,11 @@ declare namespace my {
     /**
      * 监听播放暂停的事件
      */
-    onPause(cb: (arg: { audioPlayerID: string }) => void): void;
+    onPause(cb: (arg: {}) => void): void;
     /**
      * 监听播放开始事件，播放过程中缓存不会再次触发
      */
-    onPlay(cb: (arg: { audioPlayerID: string }) => void): void;
+    onPlay(cb: (arg: {}) => void): void;
     /**
      * 监听播放上一首的事件
      */
@@ -13366,23 +13406,23 @@ declare namespace my {
     /**
      * 监听跳转到进度的事件
      */
-    onSeeked(cb: (arg: { audioPlayerID: string }) => void): void;
+    onSeeked(cb: (arg: {}) => void): void;
     /**
      * 监听开始跳转到进度的事件
      */
-    onSeeking(cb: (arg: { audioPlayerID: string }) => void): void;
+    onSeeking(cb: (arg: {}) => void): void;
     /**
      * 监听播放停止的事件
      */
-    onStop(cb: (arg: { audioPlayerID: string }) => void): void;
+    onStop(cb: (arg: {}) => void): void;
     /**
      * 监听时间更新事件
      */
-    onTimeUpdate(cb: (arg: { audioPlayerID: string }) => void): void;
+    onTimeUpdate(cb: (arg: {}) => void): void;
     /**
      * 监听音频还在准备中的事件，在缓冲期间会被触发多次
      */
-    onWaiting(cb: (arg: { audioPlayerID: string }) => void): void;
+    onWaiting(cb: (arg: {}) => void): void;
     /**
      * 暂停音频，再次播放会从暂停处播放
      */
