@@ -360,6 +360,16 @@ export interface ISelectComponent {
   selectComposedParentComponent(): any;
 }
 
+export interface IHasMixin {
+  /**
+   * 检查组件是否具有 mixin(须是通过Mixin()创建的mixin实例)。
+   * 若自定义组件注册时传入了ref以指定组件返回值，则可通过hasMixin('ref')检查到
+   * @version 基础库 2.8.2 起支持
+   * @return boolean
+   */
+  hasMixin(mixin: IMixinIdentifier): boolean
+}
+
 /**
  * `this` type of life cycle hooks in App.
  */
@@ -569,7 +579,8 @@ export declare type IComponentInstance<
     ): void;
   } & IGetTabBarMethod &
   IElementQuery &
-  ISelectComponent;
+  ISelectComponent &
+  IHasMixin;
 
 /**
  * 用户可配置的 Component Options
@@ -618,6 +629,57 @@ export interface IComponent<
     >
   ): any;
 }
+
+/**
+ * 传统的组件间代码复用，仅Component的mixins参数支持传入，Mixin参数mixins 则只支持传入Mixin()的返回值
+ */
+type IMixin4Legacy = Partial<Omit<IComponentOptions<UnknownRecord, UnknownRecord, UnknownRecord, UnknownRecord, []>, 'ref' | 'options' | 'mixins'>>;
+
+/**
+ * Mixin() 返回值
+ */
+type IMixinIdentifier = string;
+
+/**
+* Mixin构造器参数
+*/
+type IMixinOptions<
+  Data,
+  Props,
+  Methods,
+  ExtraThis,
+  ExtraOptions extends UnknownRecord,
+  IGlobalMiniProgramExtraThis4Component extends Array<IMixinIdentifier>
+> = {
+  [P in keyof ExtraOptions]: P extends keyof IComponentOptions<
+    Data,
+    Props,
+    Methods,
+    ExtraOptions,
+    Mixin
+  > | 'definitionFilter' | 'mixins'
+    ? unknown
+    : ExtraOptions[P];
+} & Omit<Partial<IComponentOptions<Data, Props, Methods, ExtraOptions, Mixin>>, 'ref' | 'options'> & Partial<{
+  /**
+  * 定义段过滤器，用于自定义组件扩展
+  */
+    definitionFilter: IMixinDefinitionFilter,
+    /**
+    * 组件间代码复用，用于Mixin()的mixins 只支持传入Mixin()注册生成的返回值。不支持传入 js Object
+    */
+    mixins: Array<IMixinIdentifier>
+}> &
+  ThisType<
+    IComponentInstance<Data, Props, Methods, ExtraThis, ExtraOptions, Mixin>
+  >;
+
+type IMixinDefinitionFilter = <T extends IComponentOptions>(
+  /** 使用该 mixin 的 component/mixin 的定义对象 */
+  defFields: T,
+  /** 该 mixin 所使用的 mixin 的 definitionFilter 函数列表 */
+  definitionFilterArr?: IMixinDefinitionFilter[]
+) => void
 
 // 获取 mixins 数组的每一个元素的类型
 type TExtractValuesOfTuple<T extends any[]> = T[keyof T & number];
@@ -731,4 +793,25 @@ declare global {
       Mixin
     >
   ): void;
+
+  /**
+   * 注册一个 `mixin`，接受一个 `Object` 类型的参数。
+   * 
+   */
+  function Mixin<
+    Data = {},
+    Props = {},
+    Methods = {},
+    ExtraThis = {},
+    ExtraOptions extends Record<string, unknown> = {},
+    Mixin extends IMixinIdentifier[] = IMixinIdentifier[]
+  >(options: IMixinOptions<
+    Data,
+    Props,
+    Methods,
+    ExtraThis & IGlobalMiniProgramExtraThis4Component,
+    ExtraOptions,
+    Mixin
+  >): IMixinIdentifier;
 }
+
