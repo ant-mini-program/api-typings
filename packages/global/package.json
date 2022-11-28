@@ -1,6 +1,6 @@
 {
   "name": "@mini-types/global",
-  "version": "2.0.15",
+  "version": "2.0.16",
   "description": "TypeScript declarations for Alipay's mini program.",
   "scripts": {},
   "repository": {
