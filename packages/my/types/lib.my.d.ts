@@ -51,6 +51,10 @@ declare namespace my {
     clientEnv?: 'prod' | 'test' | 'stable' | 'pre' | 'unknown';
   };
   /**
+   * 判断当前是否为 IDE 环境
+   */
+  export const isIDE: boolean;
+  /**
    * 获取基础库版本号
    * @description
    * 以 `major.minor.patch` 3 段数字作为版本号
@@ -76,7 +80,7 @@ declare namespace my {
   /**
    * 创建离屏 canvas 对象
    */
-  export function _createOffscreenCanvas(width?: number, height?: number, type?: '2d' | 'webgl'): OffScreenCanvas;
+  export function _createOffscreenCanvas(width?: number, height?: number): OffScreenCanvas;
   /**
    * 写入联系人资料到设备通讯录
    * @description 用户可以选择将表单以“创建新联系人”或“添加到现有联系人”的方式，写入联系人资料到手机系统的通讯录
@@ -1572,7 +1576,7 @@ declare namespace my {
   /**
    * 创建离屏 canvas 对象
    */
-  export function createOffscreenCanvas(width?: number, height?: number, type?: '2d' | 'webgl'): OffScreenCanvas;
+  export function createOffscreenCanvas(width?: number, height?: number): OffScreenCanvas;
   /**
    * 创建视图信息查询实例
    * @description 在 `自定义组件` 或包含 `自定义组件` 页面中，希望仅查询自身模板（不跨组件）的视图信息，应使用 `this.createSelectorQuery()` 来代替
@@ -7692,30 +7696,15 @@ declare namespace my {
    */
   export function scan(r?: {
     /**
-     * @deprecated 请使用 `scanType`
-     * @default "qr"
-     */
-    type?: 'bar' | 'lottery' | 'qr';
-    /**
      * 扫码识别类型
+     * @default "['qrCode', 'barCode']"
      */
-    scanType?: ('qrCode' | 'barCode' | 'dmCode' | 'pdf417Code' | 'narrowCode' | 'hmCode')[];
-    charset?: string;
+    scanType?: EScanScanType[];
     /**
      * 不允许从相册选择图片，只能从相机扫码
      * @default false
      */
     hideAlbum?: boolean;
-    /**
-     * 扫码动作
-     * @default "scan"
-     */
-    actionType?: 'scan' | 'route' | 'scanAndRoute' | 'scanAndRpc';
-    /**
-     * 指定用于”route”操作类型的码值
-     */
-    qrcode?: string;
-    needPath?: boolean;
     /**
      * 接口调用成功的回调函数
      */
@@ -9719,6 +9708,7 @@ declare namespace my {
      */
     errorMessage: string;
   }>;
+  export interface CloudContext {}
   export interface RDSContext {}
   export interface FileSystemManager {
     /**
@@ -13055,6 +13045,7 @@ declare namespace my {
   export interface MediaQueryObserver {
     /**
      * 停止监听。回调函数将不再触发
+     * @see https://opendocs.alipay.com/mini/05bb9o
      */
     disconnect(): void;
   }
@@ -20022,6 +20013,16 @@ declare namespace my {
      */
     targetPath: string;
   }
+  interface IWIdAuthResultData {
+    /**
+     * @example "MGVsbAo="
+     */
+    certPwdData: string;
+    /**
+     * @example "MGVsbAo="
+     */
+    idCardAuthData: string;
+  }
   interface IWifiInfo {
     /**
      * Wifi 的 SSID。
@@ -21541,6 +21542,7 @@ declare namespace my.ap {
   }>;
   /**
    * 打开支付宝里的官方应用
+   * @see https://opendocs.alipay.com/mini/04p771
    */
   export function openAlipayApp(r: {
     /**
@@ -22156,6 +22158,112 @@ declare namespace my.ap {
     success: true;
   }>;
   /**
+   * 网络身份认证
+   */
+  export function wIdAuth(r: {
+    /**
+     * 机构 ID，业务接入申请时，w分配给机 构的唯一标识 8位
+     * @default ''
+     * @example 90000006
+     */
+    orgID: string;
+    /**
+     * 应用 ID，业务接入申请时，w分配给网 络应用 APP 的唯一标识 4位
+     * @default ''
+     * @example 0012
+     */
+    appID: string;
+    /**
+     * 调用方业务序列号 :
+     * 由调用方生成的具有唯一性的业务序 列号 32位
+     * @default ''
+     * @example 00520211229094537128225903984632
+     */
+    bizSeq: string;
+    /**
+     * 业务类型
+     * @default "0"
+     * @example "0"
+     */
+    type: '0' | '1' | '6';
+    /**
+     * 接口调用成功的回调函数
+     */
+    success?(data: {
+      /**
+       * 响应结果码
+       * 同 网络身份认证App （测试版）SDK接口说明书V2.0.pdf
+       * @example "C0000000"
+       */
+      resultCode: string;
+      /**
+       * 响应结果描述
+       * 同 网络身份认证App （测试版）SDK接口说明书V2.0.pdf
+       * @example "成功"
+       */
+      resultDesc: string;
+      /**
+             * resultData 数据结构说明
+             * 同 网络身份认证App （测试版）SDK接口说明书V2.0.pdf
+             
+             */
+      resultData: IWIdAuthResultData;
+    }): void;
+    /**
+     * 接口调用失败的回调函数
+     */
+    fail?(err: { error?: number; errorMessage?: string }): void;
+    /**
+     * 接口调用结束的回调函数（调用成功、失败都会执行）
+     */
+    complete?(
+      arg:
+        | {
+            /**
+             * 响应结果码
+             * 同 网络身份认证App （测试版）SDK接口说明书V2.0.pdf
+             * @example "C0000000"
+             */
+            resultCode: string;
+            /**
+             * 响应结果描述
+             * 同 网络身份认证App （测试版）SDK接口说明书V2.0.pdf
+             * @example "成功"
+             */
+            resultDesc: string;
+            /**
+             * resultData 数据结构说明
+             * 同 网络身份认证App （测试版）SDK接口说明书V2.0.pdf
+             
+             */
+            resultData: IWIdAuthResultData;
+          }
+        | {
+            error?: number;
+            errorMessage?: string;
+          },
+    ): void;
+  }): Promise<{
+    /**
+     * 响应结果码
+     * 同 网络身份认证App （测试版）SDK接口说明书V2.0.pdf
+     * @example "C0000000"
+     */
+    resultCode: string;
+    /**
+     * 响应结果描述
+     * 同 网络身份认证App （测试版）SDK接口说明书V2.0.pdf
+     * @example "成功"
+     */
+    resultDesc: string;
+    /**
+         * resultData 数据结构说明
+         * 同 网络身份认证App （测试版）SDK接口说明书V2.0.pdf
+         
+         */
+    resultData: IWIdAuthResultData;
+  }>;
+  /**
    * 支付宝刷脸获取metaInfo和刷脸启动的JSAPI
    */
   export function zimIdentity(option: {
@@ -22769,6 +22877,60 @@ declare const enum ERentUnit {
    *  元/次
    */
   'YUAN_ONCE' = 'YUAN_ONCE',
+}
+
+declare const enum EScanScanType {
+  /**
+   * 二维码
+   */
+  qrCode = 'qrCode',
+  /**
+   * 条码
+   */
+  barCode = 'barCode',
+  /**
+   * DM码
+   */
+  dmCode = 'dmCode',
+  /**
+   * PDF417码
+   */
+  pdf417Code = 'pdf417Code',
+  /**
+   * 窄条二维码
+   */
+  narrowCode = 'narrowCode',
+  /**
+   * 异构码
+   */
+  hmCode = 'hmCode',
+}
+
+declare const enum EScanScanType {
+  /**
+   * 二维码
+   */
+  qrCode = 'qrCode',
+  /**
+   * 条码
+   */
+  barCode = 'barCode',
+  /**
+   * DM码
+   */
+  dmCode = 'dmCode',
+  /**
+   * PDF417码
+   */
+  pdf417Code = 'pdf417Code',
+  /**
+   * 窄条二维码
+   */
+  narrowCode = 'narrowCode',
+  /**
+   * 异构码
+   */
+  hmCode = 'hmCode',
 }
 
 declare const enum EShowAuthGuideAuthType {
