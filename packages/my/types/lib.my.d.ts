@@ -13102,7 +13102,20 @@ declare namespace my {
      * 取消监听录音结束事件
      * @see https://opendocs.alipay.com/mini/api/recordermanager/offstop
      */
-    offStop(cb?: (arg: { identifier: string; tempFilePath: string; duration: number }) => void): void;
+    offStop(
+      cb?: (arg: {
+        identifier: string;
+        tempFilePath: string;
+        /**
+         * @native 10.2.90
+         */
+        duration: number;
+        /**
+         * @native 10.2.90
+         */
+        fileSize: number;
+      }) => void,
+    ): void;
     /**
      * 监听声音的分贝变化回调事件
      * @see https://opendocs.alipay.com/mini/01acgm
@@ -13153,7 +13166,20 @@ declare namespace my {
      * 监听录音结束事件
      * @see https://opendocs.alipay.com/mini/api/recordermanager/onstop
      */
-    onStop(cb: (arg: { identifier: string; tempFilePath: string; duration: number }) => void): void;
+    onStop(
+      cb: (arg: {
+        identifier: string;
+        tempFilePath: string;
+        /**
+         * @native 10.2.90
+         */
+        duration: number;
+        /**
+         * @native 10.2.90
+         */
+        fileSize: number;
+      }) => void,
+    ): void;
     /**
      * 暂停录音
      * @see https://opendocs.alipay.com/mini/api/recordermanager/pause
