@@ -23122,33 +23122,6 @@ declare const enum EScanScanType {
   hmCode = 'hmCode',
 }
 
-declare const enum EScanScanType {
-  /**
-   * 二维码
-   */
-  qrCode = 'qrCode',
-  /**
-   * 条码
-   */
-  barCode = 'barCode',
-  /**
-   * DM码
-   */
-  dmCode = 'dmCode',
-  /**
-   * PDF417码
-   */
-  pdf417Code = 'pdf417Code',
-  /**
-   * 窄条二维码
-   */
-  narrowCode = 'narrowCode',
-  /**
-   * 异构码
-   */
-  hmCode = 'hmCode',
-}
-
 declare const enum EShowAuthGuideAuthType {
   /**
    * 蓝牙
