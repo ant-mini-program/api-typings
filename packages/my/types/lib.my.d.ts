@@ -369,6 +369,8 @@ declare namespace my {
     canvasId?: string;
     /**
      * 画布标识，传入 canvas 组件实例 （canvas type="2d/webgl" 时使用该属性）。
+     * @sdk 2.7.15
+     * @native 10.2.35
      */
     canvas?: CanvasContext;
     x: number;
@@ -4501,6 +4503,18 @@ declare namespace my {
    */
   export function getSystemInfo(r?: {
     /**
+     * 额外返回 `notification*Authorized` 相关字段
+     * @native 10.2.0
+     * @android false
+     */
+    includeNotification?: boolean;
+    /**
+     * 额外返回 `bluetooth*`相关字段
+     * @native 10.2.0
+     * @android false
+     */
+    includeBluetooth?: boolean;
+    /**
      * 接口调用成功的回调函数
      */
     success?(data: TypeSystemInfo): void;
@@ -4524,7 +4538,20 @@ declare namespace my {
    * 获取手机系统信息的同步接口
    * @see https://opendocs.alipay.com/mini/api/gawhvz
    */
-  export function getSystemInfoSync(): TypeSystemInfo;
+  export function getSystemInfoSync(r?: {
+    /**
+     * 额外返回 `notification*Authorized` 相关字段
+     * @native 10.2.0
+     * @android false
+     */
+    includeNotification?: boolean;
+    /**
+     * 额外返回 bluetooth*相关字段
+     * @native 10.2.0
+     * @android false
+     */
+    includeBluetooth?: boolean;
+  }): TypeSystemInfo;
   /**
    * 同步获取设备设置
    */
@@ -4593,7 +4620,6 @@ declare namespace my {
   export function getUpdateManager(): UpdateManager;
   /**
    * 获取视频信息
-   *
    */
   export function getVideoInfo(r: {
     /**
@@ -5044,7 +5070,7 @@ declare namespace my {
   export function loadFontFace(r: {
     /**
      * 是否同时加载 NativeCanvas 字体
-     * @native 2.6.2
+     * @sdk 2.6.2
      * @default true
      */
     nativeCanvas?: boolean;
@@ -5973,9 +5999,15 @@ declare namespace my {
   export function onCompassChange(
     cb: (arg: {
       /**
-       * 面对的方向与正北方向的度数，值的范围为 `[0, 360)`。
+       * 面对的方向与正北方向的度数，值的范围为 [0, 360)
        */
       direction: number;
+      /**
+       * 时间戳
+       * @native 10.2.30
+       * @sdk 2.7.5
+       */
+      timestamp: number;
     }) => void,
   ): void;
   /**
@@ -7303,6 +7335,10 @@ declare namespace my {
    */
   export function requestSubscribeMessage(r: {
     appId?: string;
+    /**
+     * @sdk 2.7.15
+     * @native 10.2.56
+     */
     aboveContent?: boolean;
     /**
      * 需要订阅的消息模板 id 的集合
@@ -9708,7 +9744,211 @@ declare namespace my {
      */
     errorMessage: string;
   }>;
-  export interface CloudContext {}
+  export interface CloudContext {
+    /**
+     * 云托管服务调用
+     * @sdk 2.8.3
+     * @native 10.3.20
+     */
+    callContainer(r: {
+      /**
+       * 云环境服务路径
+       */
+      path: string;
+      /**
+       * 云环境配置
+       */
+      config: Record<string, string>;
+      /**
+       * 云环境服务配置
+       */
+      header: Record<string, string>;
+      /**
+       * 云服务器请求类型
+       */
+      method?: string;
+      /**
+       * 请求数据
+       */
+      data?: object;
+      /**
+       * 超时时间
+       */
+      timeout?: number;
+      /**
+       * 返回的resultData字段数据格式
+       */
+      dataType?: string;
+      /**
+       * 返回的resultData字段数据流类型
+       */
+      responseType?: string;
+      /**
+       * 接口调用成功的回调函数
+       */
+      success?(data: {
+        /**
+         * 响应结果码，正常返回为200
+         */
+        resultCode?: number;
+        /**
+         * 响应数据
+         */
+        resultData: Record<string, unknown>;
+      }): void;
+      /**
+       * 接口调用失败的回调函数
+       */
+      fail?(
+        err:
+          | {
+              error?: number;
+              errorMessage?: string;
+            }
+          | {
+              error: 60001;
+              errorMessage: '非法入参，非法入参，请在config字段中传入云环境ID参数env';
+            }
+          | {
+              error: 60002;
+              errorMessage: '调用前，请先初始化云环境';
+            }
+          | {
+              error: 60005;
+              errorMessage: '云调用失败';
+            },
+      ): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              /**
+               * 响应结果码，正常返回为200
+               */
+              resultCode?: number;
+              /**
+               * 响应数据
+               */
+              resultData: Record<string, unknown>;
+            }
+          | (
+              | {
+                  error?: number;
+                  errorMessage?: string;
+                }
+              | {
+                  error: 60001;
+                  errorMessage: '非法入参，非法入参，请在config字段中传入云环境ID参数env';
+                }
+              | {
+                  error: 60002;
+                  errorMessage: '调用前，请先初始化云环境';
+                }
+              | {
+                  error: 60005;
+                  errorMessage: '云调用失败';
+                }
+            ),
+      ): void;
+    }): Promise<{
+      /**
+       * 响应结果码，正常返回为200
+       */
+      resultCode?: number;
+      /**
+       * 响应数据
+       */
+      resultData: Record<string, unknown>;
+    }>;
+    /**
+     * 云托管初始化
+     * @sdk 2.8.3
+     * @native 10.3.20
+     */
+    init(r?: {
+      /**
+       * 接口调用成功的回调函数
+       */
+      success?(data: { success: boolean }): void;
+      /**
+       * 接口调用失败的回调函数
+       */
+      fail?(
+        err:
+          | {
+              error?: number;
+              errorMessage?: string;
+            }
+          | {
+              error: 60001;
+              errorMessage: '系统错误';
+            }
+          | {
+              error: 60002;
+              errorMessage: '小程序不存在';
+            }
+          | {
+              error: 60003;
+              errorMessage: '小程序云环境不存在';
+            }
+          | {
+              error: 60004;
+              errorMessage: '无权限调用';
+            }
+          | {
+              error: 60005;
+              errorMessage: '网络异常';
+            }
+          | {
+              error: 2;
+              errorMessage: '接口参数无效';
+            },
+      ): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              success: boolean;
+            }
+          | (
+              | {
+                  error?: number;
+                  errorMessage?: string;
+                }
+              | {
+                  error: 60001;
+                  errorMessage: '系统错误';
+                }
+              | {
+                  error: 60002;
+                  errorMessage: '小程序不存在';
+                }
+              | {
+                  error: 60003;
+                  errorMessage: '小程序云环境不存在';
+                }
+              | {
+                  error: 60004;
+                  errorMessage: '无权限调用';
+                }
+              | {
+                  error: 60005;
+                  errorMessage: '网络异常';
+                }
+              | {
+                  error: 2;
+                  errorMessage: '接口参数无效';
+                }
+            ),
+      ): void;
+    }): Promise<{
+      success: boolean;
+    }>;
+  }
   export interface RDSContext {}
   export interface FileSystemManager {
     /**
@@ -10992,104 +11232,112 @@ declare namespace my {
     writeFileSync(filePath: string, data: string | ArrayBuffer, encoding?: `${EFileSystemEncoding}`): void;
     /**
      * 压缩文件
+     * @sdk 2.6.7
+     * @native 10.2.10
      */
-    zip(
-      r: IZipRequest & {
-        /**
-         * 接口调用成功的回调函数
-         */
-        success?(data: { success: true }): void;
-        /**
-         * 接口调用失败的回调函数
-         */
-        fail?(
-          err:
-            | {
-                error?: number;
-                errorMessage?: string;
-              }
-            | {
-                error: 2;
-                errorMessage: '接口参数无效';
-              }
-            | {
-                error: 10022;
-                errorMessage: '源文件不存在';
-              }
-            | {
-                error: 10022;
-                errorMessage: '上层目录不存在';
-              }
-            | {
-                error: 10022;
-                errorMessage: '打包源文件为空';
-              }
-            | {
-                error: 10024;
-                errorMessage: '指定的路径没有权限';
-              }
-            | {
-                error: 10024;
-                errorMessage: '指定的源文件路径没有读权限';
-              }
-            | {
-                error: 10024;
-                errorMessage: '指定的目标文件路径没有写权限';
-              }
-            | {
-                error: 3;
-                errorMessage: '压缩失败';
-              },
-        ): void;
-        /**
-         * 接口调用结束的回调函数（调用成功、失败都会执行）
-         */
-        complete?(
-          arg:
-            | {
-                success: true;
-              }
-            | (
-                | {
-                    error?: number;
-                    errorMessage?: string;
-                  }
-                | {
-                    error: 2;
-                    errorMessage: '接口参数无效';
-                  }
-                | {
-                    error: 10022;
-                    errorMessage: '源文件不存在';
-                  }
-                | {
-                    error: 10022;
-                    errorMessage: '上层目录不存在';
-                  }
-                | {
-                    error: 10022;
-                    errorMessage: '打包源文件为空';
-                  }
-                | {
-                    error: 10024;
-                    errorMessage: '指定的路径没有权限';
-                  }
-                | {
-                    error: 10024;
-                    errorMessage: '指定的源文件路径没有读权限';
-                  }
-                | {
-                    error: 10024;
-                    errorMessage: '指定的目标文件路径没有写权限';
-                  }
-                | {
-                    error: 3;
-                    errorMessage: '压缩失败';
-                  }
-              ),
-        ): void;
-      },
-    ): Promise<{
+    zip(r: {
+      /**
+       * 源文件路径
+       */
+      zipFilePaths: string;
+      /**
+       * 目标路径
+       */
+      targetPath: string;
+      /**
+       * 接口调用成功的回调函数
+       */
+      success?(data: { success: true }): void;
+      /**
+       * 接口调用失败的回调函数
+       */
+      fail?(
+        err:
+          | {
+              error?: number;
+              errorMessage?: string;
+            }
+          | {
+              error: 2;
+              errorMessage: '接口参数无效';
+            }
+          | {
+              error: 10022;
+              errorMessage: '源文件不存在';
+            }
+          | {
+              error: 10022;
+              errorMessage: '上层目录不存在';
+            }
+          | {
+              error: 10022;
+              errorMessage: '打包源文件为空';
+            }
+          | {
+              error: 10024;
+              errorMessage: '指定的路径没有权限';
+            }
+          | {
+              error: 10024;
+              errorMessage: '指定的源文件路径没有读权限';
+            }
+          | {
+              error: 10024;
+              errorMessage: '指定的目标文件路径没有写权限';
+            }
+          | {
+              error: 3;
+              errorMessage: '压缩失败';
+            },
+      ): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              success: true;
+            }
+          | (
+              | {
+                  error?: number;
+                  errorMessage?: string;
+                }
+              | {
+                  error: 2;
+                  errorMessage: '接口参数无效';
+                }
+              | {
+                  error: 10022;
+                  errorMessage: '源文件不存在';
+                }
+              | {
+                  error: 10022;
+                  errorMessage: '上层目录不存在';
+                }
+              | {
+                  error: 10022;
+                  errorMessage: '打包源文件为空';
+                }
+              | {
+                  error: 10024;
+                  errorMessage: '指定的路径没有权限';
+                }
+              | {
+                  error: 10024;
+                  errorMessage: '指定的源文件路径没有读权限';
+                }
+              | {
+                  error: 10024;
+                  errorMessage: '指定的目标文件路径没有写权限';
+                }
+              | {
+                  error: 3;
+                  errorMessage: '压缩失败';
+                }
+            ),
+      ): void;
+    }): Promise<{
       success: true;
     }>;
   }
@@ -11676,6 +11924,8 @@ declare namespace my {
     /**
      * 创建自定义图片图层
      * @description 图片会随着地图缩放而缩放
+     * @sdk 2.7.2
+     * @native 10.2.20
      */
     addGroundOverlay(r: {
       /**
@@ -11721,6 +11971,8 @@ declare namespace my {
     }): Promise<void>;
     /**
      * 添加 marker
+     * @sdk 2.7.2
+     * @native 10.2.20
      */
     addMarkers(r: {
       /**
@@ -11814,6 +12066,7 @@ declare namespace my {
     /**
      * 添加、删除、更新指定的 marker
      * @see https://opendocs.alipay.com/mini/00k9uj
+     * @native 10.1.80
      */
     changeMarkers(r: {
       /**
@@ -12094,6 +12347,8 @@ declare namespace my {
     /**
      * 获取当前地图的旋转角
      * @see https://opendocs.alipay.com/mini/api/getrotate
+     * @sdk 2.6.2
+     * @native 10.2.0
      */
     getRotate(r?: {
       /**
@@ -12134,6 +12389,7 @@ declare namespace my {
     /**
      * 获取地图的缩放级别
      * @see https://opendocs.alipay.com/mini/api/getScale
+     * @native 10.1.92
      */
     getScale(r?: {
       /**
@@ -12180,6 +12436,8 @@ declare namespace my {
     /**
      * 获取当前地图的倾斜角
      * @see https://opendocs.alipay.com/mini/api/getskew
+     * @sdk 2.6.2
+     * @native 10.2.0
      */
     getSkew(r?: {
       /**
@@ -12223,6 +12481,8 @@ declare namespace my {
     /**
      * 缩放视野到指定可视区域
      * @see https://opendocs.alipay.com/mini/api/includepoints
+     * @sdk 2.6.2
+     * @native 10.2.0
      */
     includePoints(r: {
       /**
@@ -12250,12 +12510,14 @@ declare namespace my {
     /**
      * 初始化点聚合的配置
      * @description 未调用时采用默认配置
+     * @sdk 2.7.2
+     * @native 10.2.20
      */
     initMarkerCluster(r: {
       /**
        * 聚合算法可聚合的缩放级别
        */
-      clusterRanges: IMapContextDisplayRange[];
+      clusterRanges: IMapContextInitMarkerClusterClusterRanges[];
       /**
        * 聚合算法的可聚合距离
        * @description 即距离小于该值的点会聚合至一起，以像素为单位
@@ -12270,7 +12532,7 @@ declare namespace my {
       /**
        * 使用“Map高级定制渲染”进行聚合点样式自定义
        */
-      iconLayout?: object;
+      iconLayout?: IMapContextInitMarkerClusterIconLayout;
       /**
        * 接口调用成功的回调函数
        */
@@ -12360,6 +12622,8 @@ declare namespace my {
     /**
      * 判断矩形区域是否包含传入的经纬度点
      * @see https://opendocs.alipay.com/mini/api/polygonContainsPoint
+     * @sdk 2.7.9
+     * @native 10.2.33
      */
     polygonContainsPoint(r: {
       /**
@@ -12407,6 +12671,8 @@ declare namespace my {
     }>;
     /**
      * 移除自定义图片图层
+     * @sdk 2.7.2
+     * @native 10.2.20
      */
     removeGroundOverlay(r: {
       /**
@@ -12428,6 +12694,8 @@ declare namespace my {
     }): Promise<void>;
     /**
      * 移除 marker
+     * @sdk 2.7.2
+     * @native 10.2.20
      */
     removeMarkers(r: {
       /**
@@ -12483,6 +12751,8 @@ declare namespace my {
      * 设置地图中心点偏移
      * @description 向后向下为增长，屏幕比例范围为 (0~1)，默认偏移为 [0.5, 0.5]。
      * @see https://opendocs.alipay.com/mini/api/setcenteroffset
+     * @sdk 2.6.2
+     * @native 10.2.0
      */
     setCenterOffset(r: {
       /**
@@ -12505,6 +12775,7 @@ declare namespace my {
     /**
      * 设置地图主题类型
      * @see https://opendocs.alipay.com/mini/api/setmaptype
+     * @native 10.1.92
      */
     setMapType(r: {
       /**
@@ -12881,6 +13152,8 @@ declare namespace my {
     }): Promise<void>;
     /**
      * 增量更新地图的接口
+     * @sdk 2.7.2
+     * @native 10.2.20
      */
     updateGroundOverlay(r: {
       /**
@@ -13055,6 +13328,8 @@ declare namespace my {
     /**
      * 停止监听声音的分贝变化回调事件
      * @see https://opendocs.alipay.com/mini/03hbnp
+     * @sdk 2.6.2
+     * @native 10.2.0
      */
     offDecibelChange(cb?: (arg: { decibel: number }) => void): void;
     /**
@@ -13119,6 +13394,8 @@ declare namespace my {
     /**
      * 监听声音的分贝变化回调事件
      * @see https://opendocs.alipay.com/mini/01acgm
+     * @sdk 2.6.2
+     * @native 10.2.0
      */
     onDecibelChange(cb: (arg: { decibel: number }) => void): void;
     /**
@@ -13289,8 +13566,10 @@ declare namespace my {
     /**
      * 播放速度
      * @description 范围 0.5-2.0，默认为 1
+     * @sdk 2.6.0
+     * @native 10.1.99
      */
-    playbackRate: number;
+    readonly playbackRate: number;
     /**
      * 音频资源的地址。
      */
@@ -13302,8 +13581,10 @@ declare namespace my {
     startTime: number;
     /**
      * 是否支持后台播放
+     * @sdk 2.7.2
+     * @native 10.2.20
      */
-    supportBackgroundPlay: boolean;
+    readonly supportBackgroundPlay: boolean;
     /**
      * 当前音量。范围 0~1。默认为 1
      */
@@ -13504,6 +13785,7 @@ declare namespace my {
     }>;
     /**
      * 获取 Lottie 渲染信息
+     * @native 10.1.80
      */
     getLottieInfo(r?: {
       /**
@@ -13692,9 +13974,12 @@ declare namespace my {
      */
     readonly paused: number;
     /**
-     * 播放速度。范围 0.5-2.0，默认为 1。
+     * 获取/更新背景音频的播放速度
+     * @description 范围 0.5-2.0，默认为 1。
+     * @sdk 2.6.0
+     * @native 10.1.99
      */
-    playbackRate: number;
+    readonly playbackRate: number;
     /**
      * 歌手名
      */
@@ -14293,6 +14578,8 @@ declare namespace my {
     getContext(contextId: 'webgl', options?: WebGLContextAttributes): WebGLRenderingContext;
     /**
      * 录制视频
+     * @native 10.2.26
+     * @sdk 2.7.4
      */
     getVideoRecorder(): CanvasVideoRecorder;
     /**
@@ -14305,6 +14592,8 @@ declare namespace my {
     toDataURL(type: 'image/png' | ' image/jpeg', quality: number): string;
     /**
      * 画布导出生成图片的方法
+     * @native 10.2.35
+     * @sdk 2.7.15
      */
     toTempFilePath(r?: {
       /**
@@ -14426,6 +14715,8 @@ declare namespace my {
     toDataURL(type: 'image/png' | ' image/jpeg', quality: number): string;
     /**
      * 画布导出生成图片的方法
+     * @native 10.2.35
+     * @sdk 2.7.15
      */
     toTempFilePath(r?: {
       /**
@@ -16297,6 +16588,8 @@ declare namespace my {
     }): Promise<void>;
     /**
      * 退出画中画
+     * @sdk 2.8.2
+     * @native 10.1.92
      */
     exitPictureInPicture(r?: {
       /**
@@ -16331,6 +16624,7 @@ declare namespace my {
     }): Promise<void>;
     /**
      * 隐藏控制控件
+     * @native 10.2.23
      */
     hideControl(r: {
       /**
@@ -16436,6 +16730,8 @@ declare namespace my {
     seek(time: number): void;
     /**
      * 显示控制控件
+     * @sdk 2.7.3
+     * @native 10.2.23
      */
     showControl(r: {
       /**
@@ -16458,6 +16754,7 @@ declare namespace my {
     }): Promise<void>;
     /**
      * 显示/隐藏浮窗
+     * @native 10.1.92
      */
     showFloatingWindow(isShow: boolean): void;
     /**
@@ -16479,8 +16776,13 @@ declare namespace my {
     }): Promise<void>;
     /**
      * 开启互动能力
+     * @sdk 2.7.10
+     * @native 10.2.36
      */
-    startInteractions(r?: {
+    startInteractions(r: {
+      element: string;
+      actionType: string;
+      data: Record<string, unknown>;
       /**
        * 接口调用成功的回调函数
        */
@@ -16513,8 +16815,13 @@ declare namespace my {
     }): Promise<void>;
     /**
      * 停止互动能力，并清理所有的互动组件
+     * @sdk 2.7.10
+     * @native 10.2.36
      */
-    stopInteractions(r?: {
+    stopInteractions(r: {
+      element: string;
+      actionType: string;
+      data: Record<string, unknown>;
       /**
        * 接口调用成功的回调函数
        */
@@ -16530,6 +16837,7 @@ declare namespace my {
     }): Promise<void>;
     /**
      * 切换清晰度
+     * @native 10.1.82
      */
     switchQuality(r: {
       /**
@@ -16551,6 +16859,7 @@ declare namespace my {
     }): Promise<void>;
     /**
      * 更新清晰度列表
+     * @native 10.1.82
      */
     updateQualityList(r: {
       /**
@@ -16744,10 +17053,14 @@ declare namespace my {
     abort(): void;
     /**
      * 移除 HTTP Response Header 事件的监听函数
+     * @sdk 2.8.2
+     * @native 10.2.90
      */
     offHeadersReceived(cb?: () => void): void;
     /**
      * 监听 HTTP Response Header 事件。会比请求完成事件更早
+     * @sdk 2.8.2
+     * @native 10.2.90
      */
     onHeadersReceived(
       cb: (arg: {
@@ -16823,6 +17136,8 @@ declare namespace my {
   export interface AccessibilityManager {
     /**
      * 无障碍模式下语音播报
+     * @sdk 2.7.23
+     * @native 10.2.0
      */
     announce(r: {
       text: string;
@@ -16876,6 +17191,8 @@ declare namespace my {
     }>;
     /**
      * 是否开启无障碍语音播报 (iOS 旁白、Android talkBack)
+     * @sdk 2.7.23
+     * @native 10.1.87
      */
     isScreenReaderEnabled(r?: {
       /**
@@ -16908,6 +17225,7 @@ declare namespace my {
      * 取消监听地理位置定位完成事件
      * @description 只针对 `chooseCity` 中属性 `setLocatedCity` 为 `true` 的情况
      * @sdk 2.8.0
+     * @native 10.2.70
      */
     offLocatedComplete(
       cb?: (arg: {
@@ -16925,6 +17243,7 @@ declare namespace my {
      * 监听该页面地理位置定位完成的事件
      * @description 只针对 `chooseCity` 中属性 `setLocatedCity` 为 `true` 的情况。
      * @sdk 2.8.0
+     * @native 10.2.70
      */
     onLocatedComplete(
       cb: (arg: {
@@ -16939,8 +17258,10 @@ declare namespace my {
       }) => void,
     ): void;
     /**
-     * 用于修改my.chooseCity中的默认定位城市名称
+     * 修改定位城市名称
+     * @description 用于在调用 [my.chooseCity]() 后修改当次定位城市名称
      * @sdk 2.8.0
+     * @native 10.2.70
      */
     setLocatedCity(r: {
       /**
@@ -18674,6 +18995,17 @@ declare namespace my {
      */
     longitude: number;
   }
+  interface IMapContextInitMarkerClusterClusterRanges {
+    /**
+     * 缩放级别下边界
+     */
+    from: number;
+    /**
+     * 缩放级别上边界
+     */
+    to: number;
+  }
+  interface IMapContextInitMarkerClusterIconLayout {}
   /**
    * marker 对象
    * @description 标记点，用于在地图上显示标记的位置。
@@ -20155,16 +20487,6 @@ declare namespace my {
      */
     verifyCode: string;
   }
-  interface IZipRequest {
-    /**
-     * 源文件路径
-     */
-    zipFilePaths: string;
-    /**
-     * 目标路径
-     */
-    targetPath: string;
-  }
   /**
    * 跳转到地图页面。
    */
@@ -20497,10 +20819,14 @@ declare namespace my {
      * @example 780
      */
     windowHeight: number;
+    /**
+     * @android false
+     */
     isIphoneXSeries: boolean;
     /**
      * 在竖屏正方向下的安全区域
      * @native 10.2.20
+     * @android false
      */
     safeArea?: TypeSystemInfo$SafeArea;
     /**
@@ -21943,142 +22269,6 @@ declare namespace my.ap {
      */
     result: IMyApPreventCheatResult;
   }>;
-  export function startVerifyIdentity(r: {
-    /**
-     * 标识一次完整的核身流程
-     */
-    verifyId: string;
-    /**
-     * 核身类型
-     */
-    verifyType: 'standard' | 'verify_init' | 'verify_module︎';
-    /**
-     * 核身产品数据
-     */
-    moduleData?: unknown;
-    /**
-     * 接口调用成功的回调函数
-     */
-    success?(data: {
-      /**
-       * 核身流程Id
-       */
-      verifyId: string;
-      /**
-       * 核身结果返回值
-       */
-      code: string;
-      /**
-       * 核身结果描述信息
-       */
-      message: string;
-      /**
-       * 核身返回时最近一次校验的token
-       */
-      token: string;
-      /**
-       * 核身产品的校验结果
-       */
-      verifyCode: 'SYSTEM_ERROR' | 'NOT_SAME_PERSON' | 'UNABLE_GET_IMAGE' | 'PPW_LOCK_USER_CANCEL';
-      /**
-       * 透传的业务数据，为空时表示业务出错
-       */
-      bizResponseData: unknown;
-    }): void;
-    /**
-     * 接口调用失败的回调函数
-     */
-    fail?(
-      err:
-        | {
-            error?: number;
-            errorMessage?: string;
-          }
-        | {
-            /**
-             * 错误码
-             */
-            error: string;
-            /**
-             * 错误描述
-             */
-            errorMessage: string;
-          },
-    ): void;
-    /**
-     * 接口调用结束的回调函数（调用成功、失败都会执行）
-     */
-    complete?(
-      arg:
-        | {
-            /**
-             * 核身流程Id
-             */
-            verifyId: string;
-            /**
-             * 核身结果返回值
-             */
-            code: string;
-            /**
-             * 核身结果描述信息
-             */
-            message: string;
-            /**
-             * 核身返回时最近一次校验的token
-             */
-            token: string;
-            /**
-             * 核身产品的校验结果
-             */
-            verifyCode: 'SYSTEM_ERROR' | 'NOT_SAME_PERSON' | 'UNABLE_GET_IMAGE' | 'PPW_LOCK_USER_CANCEL';
-            /**
-             * 透传的业务数据，为空时表示业务出错
-             */
-            bizResponseData: unknown;
-          }
-        | (
-            | {
-                error?: number;
-                errorMessage?: string;
-              }
-            | {
-                /**
-                 * 错误码
-                 */
-                error: string;
-                /**
-                 * 错误描述
-                 */
-                errorMessage: string;
-              }
-          ),
-    ): void;
-  }): Promise<{
-    /**
-     * 核身流程Id
-     */
-    verifyId: string;
-    /**
-     * 核身结果返回值
-     */
-    code: string;
-    /**
-     * 核身结果描述信息
-     */
-    message: string;
-    /**
-     * 核身返回时最近一次校验的token
-     */
-    token: string;
-    /**
-     * 核身产品的校验结果
-     */
-    verifyCode: 'SYSTEM_ERROR' | 'NOT_SAME_PERSON' | 'UNABLE_GET_IMAGE' | 'PPW_LOCK_USER_CANCEL';
-    /**
-     * 透传的业务数据，为空时表示业务出错
-     */
-    bizResponseData: unknown;
-  }>;
   /**
    * （已废弃）订阅服务提醒消息
    * @deprecated
@@ -22962,6 +23152,8 @@ declare const enum EScanScanType {
 declare const enum EShowAuthGuideAuthType {
   /**
    * 蓝牙
+   * @native 10.2.33
+   * @sdk 2.7.10
    */
   BLUETOOTH = 'BLUETOOTH',
   /**
