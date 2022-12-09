@@ -999,17 +999,6 @@ interface Date {
 }
 
 interface DateConstructor {
-  new (): Date;
-  new (value: number | string): Date;
-  new (
-    year: number,
-    month: number,
-    date?: number,
-    hours?: number,
-    minutes?: number,
-    seconds?: number,
-    ms?: number
-  ): Date;
   (): string;
   readonly prototype: Date;
   /**
@@ -1054,6 +1043,7 @@ interface ISjsGetDate {
 }
 
 declare var getDate: ISjsGetDate;
+declare var Date: DateConstructor;
 
 interface RegExpMatchArray extends Array<string> {
   /**
@@ -1110,8 +1100,6 @@ interface RegExp {
 }
 
 interface RegExpConstructor {
-  new (pattern: RegExp | string): RegExp;
-  new (pattern: string, flags?: string): RegExp;
   (pattern: RegExp | string): RegExp;
   (pattern: string, flags?: string): RegExp;
   readonly prototype: RegExp;
@@ -1163,6 +1151,7 @@ interface ISjsGetRegExp {
 }
 
 declare var getRegExp: ISjsGetRegExp;
+declare var RegExp: RegExpConstructor;
 
 interface Error {
   name: string;
