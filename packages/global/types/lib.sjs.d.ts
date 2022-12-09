@@ -15,9 +15,12 @@ and limitations under the License.
 
 /**
  * Original from https://github.com/microsoft/TypeScript/blob/main/lib/lib.es5.d.ts
- * 1. removed unsupported typing.
- * 2. add `console`.
- * 3. add `getDate`, `getRegRex`.
+ * - removed unsupported declare var.
+ * - removed unsupported declare function.
+ * - only keep `Object.keys`.
+ * - add `getDate`, `getRegExp`.
+ * - remove unsupported `Intl.x`.
+ * - add `console.x`.
  */
 
 /// <reference no-default-lib="true"/>
