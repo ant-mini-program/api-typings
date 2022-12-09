@@ -13,6 +13,13 @@ See the Apache Version 2.0 License for specific language governing permissions
 and limitations under the License.
 ***************************************************************************** */
 
+/**
+ * Original from https://github.com/microsoft/TypeScript/blob/main/lib/lib.es5.d.ts
+ * 1. removed unsupported typing.
+ * 2. add `console`.
+ * 3. add `getDate`, `getRegRex`.
+ */
+
 /// <reference no-default-lib="true"/>
 
 /////////////////////////////
@@ -21,13 +28,6 @@ and limitations under the License.
 
 declare var NaN: number;
 declare var Infinity: number;
-
-/**
- * Evaluates JavaScript code and executes it.
- * @param x A String value that contains valid JavaScript code.
- * not support in SJS
- */
-// declare function eval(x: string): any;
 
 /**
  * Converts a string to an integer.
@@ -81,22 +81,6 @@ declare function encodeURI(uri: string): string;
 declare function encodeURIComponent(
   uriComponent: string | number | boolean
 ): string;
-
-/**
- * Computes a new string in which certain characters have been replaced by a hexadecimal escape sequence.
- * @deprecated A legacy feature for browser compatibility
- * @param string A string value
- * not support in SJS
- */
-// declare function escape(string: string): string;
-
-/**
- * Computes a new string in which hexadecimal escape sequences are replaced with the character that it represents.
- * @deprecated A legacy feature for browser compatibility
- * @param string A string value
- * not support in SJS
- */
-// declare function unescape(string: string): string;
 
 interface Symbol {
   /** Returns a string representation of an object. */
@@ -203,19 +187,6 @@ interface Function {
   arguments: any;
   caller: Function;
 }
-
-interface FunctionConstructor {
-  /**
-   * Creates a new function.
-   * @param args A list of arguments the function accepts.
-   */
-  new (...args: string[]): Function;
-  (...args: string[]): Function;
-  readonly prototype: Function;
-}
-
-// not support in SJS
-// declare var Function: FunctionConstructor;
 
 /**
  * Extracts the type of the 'this' parameter of a function type, or 'unknown' if the function type has no 'this' parameter.
@@ -501,25 +472,10 @@ interface StringConstructor {
   fromCharCode(...codes: number[]): string;
 }
 
-/**
- * Allows manipulation and formatting of text strings and determination and location of substrings within strings.
- */
-// not support in SJS
-// declare var String: StringConstructor;
-
 interface Boolean {
   /** Returns the primitive value of the specified object. */
   valueOf(): boolean;
 }
-
-interface BooleanConstructor {
-  new (value?: any): Boolean;
-  <T>(value?: T): boolean;
-  readonly prototype: Boolean;
-}
-
-// not support in SJS
-// declare var Boolean: BooleanConstructor;
 
 interface Number {
   /**
@@ -1044,75 +1000,6 @@ interface ErrorConstructor {
   readonly prototype: Error;
 }
 
-// not support in SJS
-// declare var Error: ErrorConstructor;
-
-interface EvalError extends Error {}
-
-interface EvalErrorConstructor extends ErrorConstructor {
-  new (message?: string): EvalError;
-  (message?: string): EvalError;
-  readonly prototype: EvalError;
-}
-
-// not support in SJS
-// declare var EvalError: EvalErrorConstructor;
-
-interface RangeError extends Error {}
-
-interface RangeErrorConstructor extends ErrorConstructor {
-  new (message?: string): RangeError;
-  (message?: string): RangeError;
-  readonly prototype: RangeError;
-}
-
-// not support in SJS
-// declare var RangeError: RangeErrorConstructor;
-
-interface ReferenceError extends Error {}
-
-interface ReferenceErrorConstructor extends ErrorConstructor {
-  new (message?: string): ReferenceError;
-  (message?: string): ReferenceError;
-  readonly prototype: ReferenceError;
-}
-
-// not support in SJS
-// declare var ReferenceError: ReferenceErrorConstructor;
-
-interface SyntaxError extends Error {}
-
-interface SyntaxErrorConstructor extends ErrorConstructor {
-  new (message?: string): SyntaxError;
-  (message?: string): SyntaxError;
-  readonly prototype: SyntaxError;
-}
-
-// not support in SJS
-// declare var SyntaxError: SyntaxErrorConstructor;
-
-interface TypeError extends Error {}
-
-interface TypeErrorConstructor extends ErrorConstructor {
-  new (message?: string): TypeError;
-  (message?: string): TypeError;
-  readonly prototype: TypeError;
-}
-
-// not support in SJS
-// declare var TypeError: TypeErrorConstructor;
-
-interface URIError extends Error {}
-
-interface URIErrorConstructor extends ErrorConstructor {
-  new (message?: string): URIError;
-  (message?: string): URIError;
-  readonly prototype: URIError;
-}
-
-// not support in SJS
-// declare var URIError: URIErrorConstructor;
-
 interface JSON {
   /**
    * Converts a JavaScript Object Notation (JSON) string into an object.
@@ -1609,20 +1496,6 @@ interface Array<T> {
   [n: number]: T;
 }
 
-interface ArrayConstructor {
-  new (arrayLength?: number): any[];
-  new <T>(arrayLength: number): T[];
-  new <T>(...items: T[]): T[];
-  (arrayLength?: number): any[];
-  <T>(arrayLength: number): T[];
-  <T>(...items: T[]): T[];
-  isArray(arg: any): arg is any[];
-  readonly prototype: any[];
-}
-
-// not support in SJS
-// declare var Array: ArrayConstructor;
-
 interface TypedPropertyDescriptor<T> {
   enumerable?: boolean;
   configurable?: boolean;
@@ -1862,14 +1735,6 @@ interface ArrayBufferTypes {
 }
 type ArrayBufferLike = ArrayBufferTypes[keyof ArrayBufferTypes];
 
-interface ArrayBufferConstructor {
-  readonly prototype: ArrayBuffer;
-  new (byteLength: number): ArrayBuffer;
-  isView(arg: any): arg is ArrayBufferView;
-}
-// not support in SJS
-// declare var ArrayBuffer: ArrayBufferConstructor;
-
 interface ArrayBufferView {
   /**
    * The ArrayBuffer instance referenced by the array.
@@ -1886,145 +1751,6 @@ interface ArrayBufferView {
    */
   byteOffset: number;
 }
-
-interface DataView {
-  readonly buffer: ArrayBuffer;
-  readonly byteLength: number;
-  readonly byteOffset: number;
-  /**
-   * Gets the Float32 value at the specified byte offset from the start of the view. There is
-   * no alignment constraint; multi-byte values may be fetched from any offset.
-   * @param byteOffset The place in the buffer at which the value should be retrieved.
-   * @param littleEndian If false or undefined, a big-endian value should be read.
-   */
-  getFloat32(byteOffset: number, littleEndian?: boolean): number;
-
-  /**
-   * Gets the Float64 value at the specified byte offset from the start of the view. There is
-   * no alignment constraint; multi-byte values may be fetched from any offset.
-   * @param byteOffset The place in the buffer at which the value should be retrieved.
-   * @param littleEndian If false or undefined, a big-endian value should be read.
-   */
-  getFloat64(byteOffset: number, littleEndian?: boolean): number;
-
-  /**
-   * Gets the Int8 value at the specified byte offset from the start of the view. There is
-   * no alignment constraint; multi-byte values may be fetched from any offset.
-   * @param byteOffset The place in the buffer at which the value should be retrieved.
-   */
-  getInt8(byteOffset: number): number;
-
-  /**
-   * Gets the Int16 value at the specified byte offset from the start of the view. There is
-   * no alignment constraint; multi-byte values may be fetched from any offset.
-   * @param byteOffset The place in the buffer at which the value should be retrieved.
-   * @param littleEndian If false or undefined, a big-endian value should be read.
-   */
-  getInt16(byteOffset: number, littleEndian?: boolean): number;
-  /**
-   * Gets the Int32 value at the specified byte offset from the start of the view. There is
-   * no alignment constraint; multi-byte values may be fetched from any offset.
-   * @param byteOffset The place in the buffer at which the value should be retrieved.
-   * @param littleEndian If false or undefined, a big-endian value should be read.
-   */
-  getInt32(byteOffset: number, littleEndian?: boolean): number;
-
-  /**
-   * Gets the Uint8 value at the specified byte offset from the start of the view. There is
-   * no alignment constraint; multi-byte values may be fetched from any offset.
-   * @param byteOffset The place in the buffer at which the value should be retrieved.
-   */
-  getUint8(byteOffset: number): number;
-
-  /**
-   * Gets the Uint16 value at the specified byte offset from the start of the view. There is
-   * no alignment constraint; multi-byte values may be fetched from any offset.
-   * @param byteOffset The place in the buffer at which the value should be retrieved.
-   * @param littleEndian If false or undefined, a big-endian value should be read.
-   */
-  getUint16(byteOffset: number, littleEndian?: boolean): number;
-
-  /**
-   * Gets the Uint32 value at the specified byte offset from the start of the view. There is
-   * no alignment constraint; multi-byte values may be fetched from any offset.
-   * @param byteOffset The place in the buffer at which the value should be retrieved.
-   * @param littleEndian If false or undefined, a big-endian value should be read.
-   */
-  getUint32(byteOffset: number, littleEndian?: boolean): number;
-
-  /**
-   * Stores an Float32 value at the specified byte offset from the start of the view.
-   * @param byteOffset The place in the buffer at which the value should be set.
-   * @param value The value to set.
-   * @param littleEndian If false or undefined, a big-endian value should be written.
-   */
-  setFloat32(byteOffset: number, value: number, littleEndian?: boolean): void;
-
-  /**
-   * Stores an Float64 value at the specified byte offset from the start of the view.
-   * @param byteOffset The place in the buffer at which the value should be set.
-   * @param value The value to set.
-   * @param littleEndian If false or undefined, a big-endian value should be written.
-   */
-  setFloat64(byteOffset: number, value: number, littleEndian?: boolean): void;
-
-  /**
-   * Stores an Int8 value at the specified byte offset from the start of the view.
-   * @param byteOffset The place in the buffer at which the value should be set.
-   * @param value The value to set.
-   */
-  setInt8(byteOffset: number, value: number): void;
-
-  /**
-   * Stores an Int16 value at the specified byte offset from the start of the view.
-   * @param byteOffset The place in the buffer at which the value should be set.
-   * @param value The value to set.
-   * @param littleEndian If false or undefined, a big-endian value should be written.
-   */
-  setInt16(byteOffset: number, value: number, littleEndian?: boolean): void;
-
-  /**
-   * Stores an Int32 value at the specified byte offset from the start of the view.
-   * @param byteOffset The place in the buffer at which the value should be set.
-   * @param value The value to set.
-   * @param littleEndian If false or undefined, a big-endian value should be written.
-   */
-  setInt32(byteOffset: number, value: number, littleEndian?: boolean): void;
-
-  /**
-   * Stores an Uint8 value at the specified byte offset from the start of the view.
-   * @param byteOffset The place in the buffer at which the value should be set.
-   * @param value The value to set.
-   */
-  setUint8(byteOffset: number, value: number): void;
-
-  /**
-   * Stores an Uint16 value at the specified byte offset from the start of the view.
-   * @param byteOffset The place in the buffer at which the value should be set.
-   * @param value The value to set.
-   * @param littleEndian If false or undefined, a big-endian value should be written.
-   */
-  setUint16(byteOffset: number, value: number, littleEndian?: boolean): void;
-
-  /**
-   * Stores an Uint32 value at the specified byte offset from the start of the view.
-   * @param byteOffset The place in the buffer at which the value should be set.
-   * @param value The value to set.
-   * @param littleEndian If false or undefined, a big-endian value should be written.
-   */
-  setUint32(byteOffset: number, value: number, littleEndian?: boolean): void;
-}
-
-interface DataViewConstructor {
-  readonly prototype: DataView;
-  new (
-    buffer: ArrayBufferLike,
-    byteOffset?: number,
-    byteLength?: number
-  ): DataView;
-}
-// not support in SJS
-// declare var DataView: DataViewConstructor;
 
 /**
  * A typed array of 8-bit integer values. The contents are initialized to 0. If the requested
@@ -2340,47 +2066,6 @@ interface Int8Array {
 
   [index: number]: number;
 }
-interface Int8ArrayConstructor {
-  readonly prototype: Int8Array;
-  new (length: number): Int8Array;
-  new (array: ArrayLike<number> | ArrayBufferLike): Int8Array;
-  new (
-    buffer: ArrayBufferLike,
-    byteOffset?: number,
-    length?: number
-  ): Int8Array;
-
-  /**
-   * The size in bytes of each element in the array.
-   */
-  readonly BYTES_PER_ELEMENT: number;
-
-  /**
-   * Returns a new array from a set of elements.
-   * @param items A set of elements to include in the new array object.
-   */
-  of(...items: number[]): Int8Array;
-
-  /**
-   * Creates an array from an array-like or iterable object.
-   * @param arrayLike An array-like or iterable object to convert to an array.
-   */
-  from(arrayLike: ArrayLike<number>): Int8Array;
-
-  /**
-   * Creates an array from an array-like or iterable object.
-   * @param arrayLike An array-like or iterable object to convert to an array.
-   * @param mapfn A mapping function to call on every element of the array.
-   * @param thisArg Value of 'this' used to invoke the mapfn.
-   */
-  from<T>(
-    arrayLike: ArrayLike<T>,
-    mapfn: (v: T, k: number) => number,
-    thisArg?: any
-  ): Int8Array;
-}
-// not support in SJS
-// declare var Int8Array: Int8ArrayConstructor;
 
 /**
  * A typed array of 8-bit unsigned integer values. The contents are initialized to 0. If the
@@ -2696,48 +2381,6 @@ interface Uint8Array {
 
   [index: number]: number;
 }
-
-interface Uint8ArrayConstructor {
-  readonly prototype: Uint8Array;
-  new (length: number): Uint8Array;
-  new (array: ArrayLike<number> | ArrayBufferLike): Uint8Array;
-  new (
-    buffer: ArrayBufferLike,
-    byteOffset?: number,
-    length?: number
-  ): Uint8Array;
-
-  /**
-   * The size in bytes of each element in the array.
-   */
-  readonly BYTES_PER_ELEMENT: number;
-
-  /**
-   * Returns a new array from a set of elements.
-   * @param items A set of elements to include in the new array object.
-   */
-  of(...items: number[]): Uint8Array;
-
-  /**
-   * Creates an array from an array-like or iterable object.
-   * @param arrayLike An array-like or iterable object to convert to an array.
-   */
-  from(arrayLike: ArrayLike<number>): Uint8Array;
-
-  /**
-   * Creates an array from an array-like or iterable object.
-   * @param arrayLike An array-like or iterable object to convert to an array.
-   * @param mapfn A mapping function to call on every element of the array.
-   * @param thisArg Value of 'this' used to invoke the mapfn.
-   */
-  from<T>(
-    arrayLike: ArrayLike<T>,
-    mapfn: (v: T, k: number) => number,
-    thisArg?: any
-  ): Uint8Array;
-}
-// not support in SJS
-// declare var Uint8Array: Uint8ArrayConstructor;
 
 /**
  * A typed array of 8-bit unsigned integer (clamped) values. The contents are initialized to 0.
@@ -3078,48 +2721,6 @@ interface Uint8ClampedArray {
   [index: number]: number;
 }
 
-interface Uint8ClampedArrayConstructor {
-  readonly prototype: Uint8ClampedArray;
-  new (length: number): Uint8ClampedArray;
-  new (array: ArrayLike<number> | ArrayBufferLike): Uint8ClampedArray;
-  new (
-    buffer: ArrayBufferLike,
-    byteOffset?: number,
-    length?: number
-  ): Uint8ClampedArray;
-
-  /**
-   * The size in bytes of each element in the array.
-   */
-  readonly BYTES_PER_ELEMENT: number;
-
-  /**
-   * Returns a new array from a set of elements.
-   * @param items A set of elements to include in the new array object.
-   */
-  of(...items: number[]): Uint8ClampedArray;
-
-  /**
-   * Creates an array from an array-like or iterable object.
-   * @param arrayLike An array-like or iterable object to convert to an array.
-   */
-  from(arrayLike: ArrayLike<number>): Uint8ClampedArray;
-
-  /**
-   * Creates an array from an array-like or iterable object.
-   * @param arrayLike An array-like or iterable object to convert to an array.
-   * @param mapfn A mapping function to call on every element of the array.
-   * @param thisArg Value of 'this' used to invoke the mapfn.
-   */
-  from<T>(
-    arrayLike: ArrayLike<T>,
-    mapfn: (v: T, k: number) => number,
-    thisArg?: any
-  ): Uint8ClampedArray;
-}
-// not support in SJS
-// declare var Uint8ClampedArray: Uint8ClampedArrayConstructor;
-
 /**
  * A typed array of 16-bit signed integer values. The contents are initialized to 0. If the
  * requested number of bytes could not be allocated an exception is raised.
@@ -3433,48 +3034,6 @@ interface Int16Array {
 
   [index: number]: number;
 }
-
-interface Int16ArrayConstructor {
-  readonly prototype: Int16Array;
-  new (length: number): Int16Array;
-  new (array: ArrayLike<number> | ArrayBufferLike): Int16Array;
-  new (
-    buffer: ArrayBufferLike,
-    byteOffset?: number,
-    length?: number
-  ): Int16Array;
-
-  /**
-   * The size in bytes of each element in the array.
-   */
-  readonly BYTES_PER_ELEMENT: number;
-
-  /**
-   * Returns a new array from a set of elements.
-   * @param items A set of elements to include in the new array object.
-   */
-  of(...items: number[]): Int16Array;
-
-  /**
-   * Creates an array from an array-like or iterable object.
-   * @param arrayLike An array-like or iterable object to convert to an array.
-   */
-  from(arrayLike: ArrayLike<number>): Int16Array;
-
-  /**
-   * Creates an array from an array-like or iterable object.
-   * @param arrayLike An array-like or iterable object to convert to an array.
-   * @param mapfn A mapping function to call on every element of the array.
-   * @param thisArg Value of 'this' used to invoke the mapfn.
-   */
-  from<T>(
-    arrayLike: ArrayLike<T>,
-    mapfn: (v: T, k: number) => number,
-    thisArg?: any
-  ): Int16Array;
-}
-// not support in SJS
-// declare var Int16Array: Int16ArrayConstructor;
 
 /**
  * A typed array of 16-bit unsigned integer values. The contents are initialized to 0. If the
@@ -3791,47 +3350,6 @@ interface Uint16Array {
   [index: number]: number;
 }
 
-interface Uint16ArrayConstructor {
-  readonly prototype: Uint16Array;
-  new (length: number): Uint16Array;
-  new (array: ArrayLike<number> | ArrayBufferLike): Uint16Array;
-  new (
-    buffer: ArrayBufferLike,
-    byteOffset?: number,
-    length?: number
-  ): Uint16Array;
-
-  /**
-   * The size in bytes of each element in the array.
-   */
-  readonly BYTES_PER_ELEMENT: number;
-
-  /**
-   * Returns a new array from a set of elements.
-   * @param items A set of elements to include in the new array object.
-   */
-  of(...items: number[]): Uint16Array;
-
-  /**
-   * Creates an array from an array-like or iterable object.
-   * @param arrayLike An array-like or iterable object to convert to an array.
-   */
-  from(arrayLike: ArrayLike<number>): Uint16Array;
-
-  /**
-   * Creates an array from an array-like or iterable object.
-   * @param arrayLike An array-like or iterable object to convert to an array.
-   * @param mapfn A mapping function to call on every element of the array.
-   * @param thisArg Value of 'this' used to invoke the mapfn.
-   */
-  from<T>(
-    arrayLike: ArrayLike<T>,
-    mapfn: (v: T, k: number) => number,
-    thisArg?: any
-  ): Uint16Array;
-}
-// not support in SJS
-// declare var Uint16Array: Uint16ArrayConstructor;
 /**
  * A typed array of 32-bit signed integer values. The contents are initialized to 0. If the
  * requested number of bytes could not be allocated an exception is raised.
@@ -4147,48 +3665,6 @@ interface Int32Array {
   [index: number]: number;
 }
 
-interface Int32ArrayConstructor {
-  readonly prototype: Int32Array;
-  new (length: number): Int32Array;
-  new (array: ArrayLike<number> | ArrayBufferLike): Int32Array;
-  new (
-    buffer: ArrayBufferLike,
-    byteOffset?: number,
-    length?: number
-  ): Int32Array;
-
-  /**
-   * The size in bytes of each element in the array.
-   */
-  readonly BYTES_PER_ELEMENT: number;
-
-  /**
-   * Returns a new array from a set of elements.
-   * @param items A set of elements to include in the new array object.
-   */
-  of(...items: number[]): Int32Array;
-
-  /**
-   * Creates an array from an array-like or iterable object.
-   * @param arrayLike An array-like or iterable object to convert to an array.
-   */
-  from(arrayLike: ArrayLike<number>): Int32Array;
-
-  /**
-   * Creates an array from an array-like or iterable object.
-   * @param arrayLike An array-like or iterable object to convert to an array.
-   * @param mapfn A mapping function to call on every element of the array.
-   * @param thisArg Value of 'this' used to invoke the mapfn.
-   */
-  from<T>(
-    arrayLike: ArrayLike<T>,
-    mapfn: (v: T, k: number) => number,
-    thisArg?: any
-  ): Int32Array;
-}
-// not support in SJS
-// declare var Int32Array: Int32ArrayConstructor;
-
 /**
  * A typed array of 32-bit unsigned integer values. The contents are initialized to 0. If the
  * requested number of bytes could not be allocated an exception is raised.
@@ -4502,48 +3978,6 @@ interface Uint32Array {
 
   [index: number]: number;
 }
-
-interface Uint32ArrayConstructor {
-  readonly prototype: Uint32Array;
-  new (length: number): Uint32Array;
-  new (array: ArrayLike<number> | ArrayBufferLike): Uint32Array;
-  new (
-    buffer: ArrayBufferLike,
-    byteOffset?: number,
-    length?: number
-  ): Uint32Array;
-
-  /**
-   * The size in bytes of each element in the array.
-   */
-  readonly BYTES_PER_ELEMENT: number;
-
-  /**
-   * Returns a new array from a set of elements.
-   * @param items A set of elements to include in the new array object.
-   */
-  of(...items: number[]): Uint32Array;
-
-  /**
-   * Creates an array from an array-like or iterable object.
-   * @param arrayLike An array-like or iterable object to convert to an array.
-   */
-  from(arrayLike: ArrayLike<number>): Uint32Array;
-
-  /**
-   * Creates an array from an array-like or iterable object.
-   * @param arrayLike An array-like or iterable object to convert to an array.
-   * @param mapfn A mapping function to call on every element of the array.
-   * @param thisArg Value of 'this' used to invoke the mapfn.
-   */
-  from<T>(
-    arrayLike: ArrayLike<T>,
-    mapfn: (v: T, k: number) => number,
-    thisArg?: any
-  ): Uint32Array;
-}
-// not support in SJS
-// declare var Uint32Array: Uint32ArrayConstructor;
 
 /**
  * A typed array of 32-bit float values. The contents are initialized to 0. If the requested number
@@ -4860,48 +4294,6 @@ interface Float32Array {
   [index: number]: number;
 }
 
-interface Float32ArrayConstructor {
-  readonly prototype: Float32Array;
-  new (length: number): Float32Array;
-  new (array: ArrayLike<number> | ArrayBufferLike): Float32Array;
-  new (
-    buffer: ArrayBufferLike,
-    byteOffset?: number,
-    length?: number
-  ): Float32Array;
-
-  /**
-   * The size in bytes of each element in the array.
-   */
-  readonly BYTES_PER_ELEMENT: number;
-
-  /**
-   * Returns a new array from a set of elements.
-   * @param items A set of elements to include in the new array object.
-   */
-  of(...items: number[]): Float32Array;
-
-  /**
-   * Creates an array from an array-like or iterable object.
-   * @param arrayLike An array-like or iterable object to convert to an array.
-   */
-  from(arrayLike: ArrayLike<number>): Float32Array;
-
-  /**
-   * Creates an array from an array-like or iterable object.
-   * @param arrayLike An array-like or iterable object to convert to an array.
-   * @param mapfn A mapping function to call on every element of the array.
-   * @param thisArg Value of 'this' used to invoke the mapfn.
-   */
-  from<T>(
-    arrayLike: ArrayLike<T>,
-    mapfn: (v: T, k: number) => number,
-    thisArg?: any
-  ): Float32Array;
-}
-// not support in SJS
-// declare var Float32Array: Float32ArrayConstructor;
-
 /**
  * A typed array of 64-bit float values. The contents are initialized to 0. If the requested
  * number of bytes could not be allocated an exception is raised.
@@ -5208,189 +4600,111 @@ interface Float64Array {
   [index: number]: number;
 }
 
-interface Float64ArrayConstructor {
-  readonly prototype: Float64Array;
-  new (length: number): Float64Array;
-  new (array: ArrayLike<number> | ArrayBufferLike): Float64Array;
-  new (
-    buffer: ArrayBufferLike,
-    byteOffset?: number,
-    length?: number
-  ): Float64Array;
-
-  /**
-   * The size in bytes of each element in the array.
-   */
-  readonly BYTES_PER_ELEMENT: number;
-
-  /**
-   * Returns a new array from a set of elements.
-   * @param items A set of elements to include in the new array object.
-   */
-  of(...items: number[]): Float64Array;
-
-  /**
-   * Creates an array from an array-like or iterable object.
-   * @param arrayLike An array-like or iterable object to convert to an array.
-   */
-  from(arrayLike: ArrayLike<number>): Float64Array;
-
-  /**
-   * Creates an array from an array-like or iterable object.
-   * @param arrayLike An array-like or iterable object to convert to an array.
-   * @param mapfn A mapping function to call on every element of the array.
-   * @param thisArg Value of 'this' used to invoke the mapfn.
-   */
-  from<T>(
-    arrayLike: ArrayLike<T>,
-    mapfn: (v: T, k: number) => number,
-    thisArg?: any
-  ): Float64Array;
-}
-// not support in SJS
-// declare var Float64Array: Float64ArrayConstructor;
-
 /////////////////////////////
 /// ECMAScript Internationalization API
 /////////////////////////////
 
-// not support in SJS
-// declare namespace Intl {
-//   interface CollatorOptions {
-//     usage?: string | undefined;
-//     localeMatcher?: string | undefined;
-//     numeric?: boolean | undefined;
-//     caseFirst?: string | undefined;
-//     sensitivity?: string | undefined;
-//     ignorePunctuation?: boolean | undefined;
-//   }
+declare namespace Intl {
+  interface CollatorOptions {
+    usage?: string | undefined;
+    localeMatcher?: string | undefined;
+    numeric?: boolean | undefined;
+    caseFirst?: string | undefined;
+    sensitivity?: string | undefined;
+    ignorePunctuation?: boolean | undefined;
+  }
 
-//   interface ResolvedCollatorOptions {
-//     locale: string;
-//     usage: string;
-//     sensitivity: string;
-//     ignorePunctuation: boolean;
-//     collation: string;
-//     caseFirst: string;
-//     numeric: boolean;
-//   }
+  interface ResolvedCollatorOptions {
+    locale: string;
+    usage: string;
+    sensitivity: string;
+    ignorePunctuation: boolean;
+    collation: string;
+    caseFirst: string;
+    numeric: boolean;
+  }
 
-//   interface Collator {
-//     compare(x: string, y: string): number;
-//     resolvedOptions(): ResolvedCollatorOptions;
-//   }
-//   var Collator: {
-//     new (locales?: string | string[], options?: CollatorOptions): Collator;
-//     (locales?: string | string[], options?: CollatorOptions): Collator;
-//     supportedLocalesOf(
-//       locales: string | string[],
-//       options?: CollatorOptions
-//     ): string[];
-//   };
+  interface Collator {
+    compare(x: string, y: string): number;
+    resolvedOptions(): ResolvedCollatorOptions;
+  }
 
-//   interface NumberFormatOptions {
-//     localeMatcher?: string | undefined;
-//     style?: string | undefined;
-//     currency?: string | undefined;
-//     currencySign?: string | undefined;
-//     useGrouping?: boolean | undefined;
-//     minimumIntegerDigits?: number | undefined;
-//     minimumFractionDigits?: number | undefined;
-//     maximumFractionDigits?: number | undefined;
-//     minimumSignificantDigits?: number | undefined;
-//     maximumSignificantDigits?: number | undefined;
-//   }
+  interface NumberFormatOptions {
+    localeMatcher?: string | undefined;
+    style?: string | undefined;
+    currency?: string | undefined;
+    currencySign?: string | undefined;
+    useGrouping?: boolean | undefined;
+    minimumIntegerDigits?: number | undefined;
+    minimumFractionDigits?: number | undefined;
+    maximumFractionDigits?: number | undefined;
+    minimumSignificantDigits?: number | undefined;
+    maximumSignificantDigits?: number | undefined;
+  }
 
-//   interface ResolvedNumberFormatOptions {
-//     locale: string;
-//     numberingSystem: string;
-//     style: string;
-//     currency?: string;
-//     minimumIntegerDigits: number;
-//     minimumFractionDigits: number;
-//     maximumFractionDigits: number;
-//     minimumSignificantDigits?: number;
-//     maximumSignificantDigits?: number;
-//     useGrouping: boolean;
-//   }
+  interface ResolvedNumberFormatOptions {
+    locale: string;
+    numberingSystem: string;
+    style: string;
+    currency?: string;
+    minimumIntegerDigits: number;
+    minimumFractionDigits: number;
+    maximumFractionDigits: number;
+    minimumSignificantDigits?: number;
+    maximumSignificantDigits?: number;
+    useGrouping: boolean;
+  }
 
-//   interface NumberFormat {
-//     format(value: number): string;
-//     resolvedOptions(): ResolvedNumberFormatOptions;
-//   }
-//   var NumberFormat: {
-//     new (
-//       locales?: string | string[],
-//       options?: NumberFormatOptions
-//     ): NumberFormat;
-//     (locales?: string | string[], options?: NumberFormatOptions): NumberFormat;
-//     supportedLocalesOf(
-//       locales: string | string[],
-//       options?: NumberFormatOptions
-//     ): string[];
-//     readonly prototype: NumberFormat;
-//   };
+  interface NumberFormat {
+    format(value: number): string;
+    resolvedOptions(): ResolvedNumberFormatOptions;
+  }
 
-//   interface DateTimeFormatOptions {
-//     localeMatcher?: 'best fit' | 'lookup' | undefined;
-//     weekday?: 'long' | 'short' | 'narrow' | undefined;
-//     era?: 'long' | 'short' | 'narrow' | undefined;
-//     year?: 'numeric' | '2-digit' | undefined;
-//     month?: 'numeric' | '2-digit' | 'long' | 'short' | 'narrow' | undefined;
-//     day?: 'numeric' | '2-digit' | undefined;
-//     hour?: 'numeric' | '2-digit' | undefined;
-//     minute?: 'numeric' | '2-digit' | undefined;
-//     second?: 'numeric' | '2-digit' | undefined;
-//     timeZoneName?:
-//       | 'short'
-//       | 'long'
-//       | 'shortOffset'
-//       | 'longOffset'
-//       | 'shortGeneric'
-//       | 'longGeneric'
-//       | undefined;
-//     formatMatcher?: 'best fit' | 'basic' | undefined;
-//     hour12?: boolean | undefined;
-//     timeZone?: string | undefined;
-//   }
+  interface DateTimeFormatOptions {
+    localeMatcher?: 'best fit' | 'lookup' | undefined;
+    weekday?: 'long' | 'short' | 'narrow' | undefined;
+    era?: 'long' | 'short' | 'narrow' | undefined;
+    year?: 'numeric' | '2-digit' | undefined;
+    month?: 'numeric' | '2-digit' | 'long' | 'short' | 'narrow' | undefined;
+    day?: 'numeric' | '2-digit' | undefined;
+    hour?: 'numeric' | '2-digit' | undefined;
+    minute?: 'numeric' | '2-digit' | undefined;
+    second?: 'numeric' | '2-digit' | undefined;
+    timeZoneName?:
+      | 'short'
+      | 'long'
+      | 'shortOffset'
+      | 'longOffset'
+      | 'shortGeneric'
+      | 'longGeneric'
+      | undefined;
+    formatMatcher?: 'best fit' | 'basic' | undefined;
+    hour12?: boolean | undefined;
+    timeZone?: string | undefined;
+  }
 
-//   interface ResolvedDateTimeFormatOptions {
-//     locale: string;
-//     calendar: string;
-//     numberingSystem: string;
-//     timeZone: string;
-//     hour12?: boolean;
-//     weekday?: string;
-//     era?: string;
-//     year?: string;
-//     month?: string;
-//     day?: string;
-//     hour?: string;
-//     minute?: string;
-//     second?: string;
-//     timeZoneName?: string;
-//   }
+  interface ResolvedDateTimeFormatOptions {
+    locale: string;
+    calendar: string;
+    numberingSystem: string;
+    timeZone: string;
+    hour12?: boolean;
+    weekday?: string;
+    era?: string;
+    year?: string;
+    month?: string;
+    day?: string;
+    hour?: string;
+    minute?: string;
+    second?: string;
+    timeZoneName?: string;
+  }
 
-//   interface DateTimeFormat {
-//     format(date?: Date | number): string;
-//     resolvedOptions(): ResolvedDateTimeFormatOptions;
-//   }
-//   var DateTimeFormat: {
-//     new (
-//       locales?: string | string[],
-//       options?: DateTimeFormatOptions
-//     ): DateTimeFormat;
-//     (
-//       locales?: string | string[],
-//       options?: DateTimeFormatOptions
-//     ): DateTimeFormat;
-//     supportedLocalesOf(
-//       locales: string | string[],
-//       options?: DateTimeFormatOptions
-//     ): string[];
-//     readonly prototype: DateTimeFormat;
-//   };
-// }
+  interface DateTimeFormat {
+    format(date?: Date | number): string;
+    resolvedOptions(): ResolvedDateTimeFormatOptions;
+  }
+}
 
 interface String {
   /**
