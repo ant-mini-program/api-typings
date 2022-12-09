@@ -25,8 +25,9 @@ declare var Infinity: number;
 /**
  * Evaluates JavaScript code and executes it.
  * @param x A String value that contains valid JavaScript code.
+ * not support in SJS
  */
-declare function eval(x: string): any;
+// declare function eval(x: string): any;
 
 /**
  * Converts a string to an integer.
@@ -85,15 +86,17 @@ declare function encodeURIComponent(
  * Computes a new string in which certain characters have been replaced by a hexadecimal escape sequence.
  * @deprecated A legacy feature for browser compatibility
  * @param string A string value
+ * not support in SJS
  */
-declare function escape(string: string): string;
+// declare function escape(string: string): string;
 
 /**
  * Computes a new string in which hexadecimal escape sequences are replaced with the character that it represents.
  * @deprecated A legacy feature for browser compatibility
  * @param string A string value
+ * not support in SJS
  */
-declare function unescape(string: string): string;
+// declare function unescape(string: string): string;
 
 interface Symbol {
   /** Returns a string representation of an object. */
@@ -150,135 +153,8 @@ interface Object {
   propertyIsEnumerable(v: PropertyKey): boolean;
 }
 
+// Only Support `Object.keys()`
 interface ObjectConstructor {
-  new (value?: any): Object;
-  (): any;
-  (value: any): any;
-
-  /** A reference to the prototype for a class of objects. */
-  readonly prototype: Object;
-
-  /**
-   * Returns the prototype of an object.
-   * @param o The object that references the prototype.
-   */
-  getPrototypeOf(o: any): any;
-
-  /**
-   * Gets the own property descriptor of the specified object.
-   * An own property descriptor is one that is defined directly on the object and is not inherited from the object's prototype.
-   * @param o Object that contains the property.
-   * @param p Name of the property.
-   */
-  getOwnPropertyDescriptor(
-    o: any,
-    p: PropertyKey
-  ): PropertyDescriptor | undefined;
-
-  /**
-   * Returns the names of the own properties of an object. The own properties of an object are those that are defined directly
-   * on that object, and are not inherited from the object's prototype. The properties of an object include both fields (objects) and functions.
-   * @param o Object that contains the own properties.
-   */
-  getOwnPropertyNames(o: any): string[];
-
-  /**
-   * Creates an object that has the specified prototype or that has null prototype.
-   * @param o Object to use as a prototype. May be null.
-   */
-  create(o: object | null): any;
-
-  /**
-   * Creates an object that has the specified prototype, and that optionally contains specified properties.
-   * @param o Object to use as a prototype. May be null
-   * @param properties JavaScript object that contains one or more property descriptors.
-   */
-  create(
-    o: object | null,
-    properties: PropertyDescriptorMap & ThisType<any>
-  ): any;
-
-  /**
-   * Adds a property to an object, or modifies attributes of an existing property.
-   * @param o Object on which to add or modify the property. This can be a native JavaScript object (that is, a user-defined object or a built in object) or a DOM object.
-   * @param p The property name.
-   * @param attributes Descriptor for the property. It can be for a data property or an accessor property.
-   */
-  defineProperty<T>(
-    o: T,
-    p: PropertyKey,
-    attributes: PropertyDescriptor & ThisType<any>
-  ): T;
-
-  /**
-   * Adds one or more properties to an object, and/or modifies attributes of existing properties.
-   * @param o Object on which to add or modify the properties. This can be a native JavaScript object or a DOM object.
-   * @param properties JavaScript object that contains one or more descriptor objects. Each descriptor object describes a data property or an accessor property.
-   */
-  defineProperties<T>(
-    o: T,
-    properties: PropertyDescriptorMap & ThisType<any>
-  ): T;
-
-  /**
-   * Prevents the modification of attributes of existing properties, and prevents the addition of new properties.
-   * @param o Object on which to lock the attributes.
-   */
-  seal<T>(o: T): T;
-
-  /**
-   * Prevents the modification of existing property attributes and values, and prevents the addition of new properties.
-   * @param a Object on which to lock the attributes.
-   */
-  freeze<T>(a: T[]): readonly T[];
-
-  /**
-   * Prevents the modification of existing property attributes and values, and prevents the addition of new properties.
-   * @param f Object on which to lock the attributes.
-   */
-  freeze<T extends Function>(f: T): T;
-
-  /**
-   * Prevents the modification of existing property attributes and values, and prevents the addition of new properties.
-   * @param o Object on which to lock the attributes.
-   */
-  freeze<
-    T extends { [idx: string]: U | null | undefined | object },
-    U extends string | bigint | number | boolean | symbol
-  >(
-    o: T
-  ): Readonly<T>;
-
-  /**
-   * Prevents the modification of existing property attributes and values, and prevents the addition of new properties.
-   * @param o Object on which to lock the attributes.
-   */
-  freeze<T>(o: T): Readonly<T>;
-
-  /**
-   * Prevents the addition of new properties to an object.
-   * @param o Object to make non-extensible.
-   */
-  preventExtensions<T>(o: T): T;
-
-  /**
-   * Returns true if existing property attributes cannot be modified in an object and new properties cannot be added to the object.
-   * @param o Object to test.
-   */
-  isSealed(o: any): boolean;
-
-  /**
-   * Returns true if existing property attributes and values cannot be modified in an object, and new properties cannot be added to the object.
-   * @param o Object to test.
-   */
-  isFrozen(o: any): boolean;
-
-  /**
-   * Returns a value that indicates whether new properties can be added to an object.
-   * @param o Object to test.
-   */
-  isExtensible(o: any): boolean;
-
   /**
    * Returns the names of the enumerable string properties and methods of an object.
    * @param o Object that contains the properties and methods. This can be an object that you created or an existing Document Object Model (DOM) object.
@@ -338,7 +214,8 @@ interface FunctionConstructor {
   readonly prototype: Function;
 }
 
-declare var Function: FunctionConstructor;
+// not support in SJS
+// declare var Function: FunctionConstructor;
 
 /**
  * Extracts the type of the 'this' parameter of a function type, or 'unknown' if the function type has no 'this' parameter.
@@ -627,7 +504,8 @@ interface StringConstructor {
 /**
  * Allows manipulation and formatting of text strings and determination and location of substrings within strings.
  */
-declare var String: StringConstructor;
+// not support in SJS
+// declare var String: StringConstructor;
 
 interface Boolean {
   /** Returns the primitive value of the specified object. */
@@ -640,7 +518,8 @@ interface BooleanConstructor {
   readonly prototype: Boolean;
 }
 
-declare var Boolean: BooleanConstructor;
+// not support in SJS
+// declare var Boolean: BooleanConstructor;
 
 interface Number {
   /**
@@ -1165,7 +1044,8 @@ interface ErrorConstructor {
   readonly prototype: Error;
 }
 
-declare var Error: ErrorConstructor;
+// not support in SJS
+// declare var Error: ErrorConstructor;
 
 interface EvalError extends Error {}
 
@@ -1175,7 +1055,8 @@ interface EvalErrorConstructor extends ErrorConstructor {
   readonly prototype: EvalError;
 }
 
-declare var EvalError: EvalErrorConstructor;
+// not support in SJS
+// declare var EvalError: EvalErrorConstructor;
 
 interface RangeError extends Error {}
 
@@ -1185,7 +1066,8 @@ interface RangeErrorConstructor extends ErrorConstructor {
   readonly prototype: RangeError;
 }
 
-declare var RangeError: RangeErrorConstructor;
+// not support in SJS
+// declare var RangeError: RangeErrorConstructor;
 
 interface ReferenceError extends Error {}
 
@@ -1195,7 +1077,8 @@ interface ReferenceErrorConstructor extends ErrorConstructor {
   readonly prototype: ReferenceError;
 }
 
-declare var ReferenceError: ReferenceErrorConstructor;
+// not support in SJS
+// declare var ReferenceError: ReferenceErrorConstructor;
 
 interface SyntaxError extends Error {}
 
@@ -1205,7 +1088,8 @@ interface SyntaxErrorConstructor extends ErrorConstructor {
   readonly prototype: SyntaxError;
 }
 
-declare var SyntaxError: SyntaxErrorConstructor;
+// not support in SJS
+// declare var SyntaxError: SyntaxErrorConstructor;
 
 interface TypeError extends Error {}
 
@@ -1215,7 +1099,8 @@ interface TypeErrorConstructor extends ErrorConstructor {
   readonly prototype: TypeError;
 }
 
-declare var TypeError: TypeErrorConstructor;
+// not support in SJS
+// declare var TypeError: TypeErrorConstructor;
 
 interface URIError extends Error {}
 
@@ -1225,7 +1110,8 @@ interface URIErrorConstructor extends ErrorConstructor {
   readonly prototype: URIError;
 }
 
-declare var URIError: URIErrorConstructor;
+// not support in SJS
+// declare var URIError: URIErrorConstructor;
 
 interface JSON {
   /**
@@ -1734,7 +1620,8 @@ interface ArrayConstructor {
   readonly prototype: any[];
 }
 
-declare var Array: ArrayConstructor;
+// not support in SJS
+// declare var Array: ArrayConstructor;
 
 interface TypedPropertyDescriptor<T> {
   enumerable?: boolean;
@@ -1980,7 +1867,8 @@ interface ArrayBufferConstructor {
   new (byteLength: number): ArrayBuffer;
   isView(arg: any): arg is ArrayBufferView;
 }
-declare var ArrayBuffer: ArrayBufferConstructor;
+// not support in SJS
+// declare var ArrayBuffer: ArrayBufferConstructor;
 
 interface ArrayBufferView {
   /**
@@ -2135,7 +2023,8 @@ interface DataViewConstructor {
     byteLength?: number
   ): DataView;
 }
-declare var DataView: DataViewConstructor;
+// not support in SJS
+// declare var DataView: DataViewConstructor;
 
 /**
  * A typed array of 8-bit integer values. The contents are initialized to 0. If the requested
@@ -2490,7 +2379,8 @@ interface Int8ArrayConstructor {
     thisArg?: any
   ): Int8Array;
 }
-declare var Int8Array: Int8ArrayConstructor;
+// not support in SJS
+// declare var Int8Array: Int8ArrayConstructor;
 
 /**
  * A typed array of 8-bit unsigned integer values. The contents are initialized to 0. If the
@@ -2846,7 +2736,8 @@ interface Uint8ArrayConstructor {
     thisArg?: any
   ): Uint8Array;
 }
-declare var Uint8Array: Uint8ArrayConstructor;
+// not support in SJS
+// declare var Uint8Array: Uint8ArrayConstructor;
 
 /**
  * A typed array of 8-bit unsigned integer (clamped) values. The contents are initialized to 0.
@@ -3226,7 +3117,8 @@ interface Uint8ClampedArrayConstructor {
     thisArg?: any
   ): Uint8ClampedArray;
 }
-declare var Uint8ClampedArray: Uint8ClampedArrayConstructor;
+// not support in SJS
+// declare var Uint8ClampedArray: Uint8ClampedArrayConstructor;
 
 /**
  * A typed array of 16-bit signed integer values. The contents are initialized to 0. If the
@@ -3581,7 +3473,8 @@ interface Int16ArrayConstructor {
     thisArg?: any
   ): Int16Array;
 }
-declare var Int16Array: Int16ArrayConstructor;
+// not support in SJS
+// declare var Int16Array: Int16ArrayConstructor;
 
 /**
  * A typed array of 16-bit unsigned integer values. The contents are initialized to 0. If the
@@ -3937,7 +3830,8 @@ interface Uint16ArrayConstructor {
     thisArg?: any
   ): Uint16Array;
 }
-declare var Uint16Array: Uint16ArrayConstructor;
+// not support in SJS
+// declare var Uint16Array: Uint16ArrayConstructor;
 /**
  * A typed array of 32-bit signed integer values. The contents are initialized to 0. If the
  * requested number of bytes could not be allocated an exception is raised.
@@ -4292,7 +4186,8 @@ interface Int32ArrayConstructor {
     thisArg?: any
   ): Int32Array;
 }
-declare var Int32Array: Int32ArrayConstructor;
+// not support in SJS
+// declare var Int32Array: Int32ArrayConstructor;
 
 /**
  * A typed array of 32-bit unsigned integer values. The contents are initialized to 0. If the
@@ -4647,7 +4542,8 @@ interface Uint32ArrayConstructor {
     thisArg?: any
   ): Uint32Array;
 }
-declare var Uint32Array: Uint32ArrayConstructor;
+// not support in SJS
+// declare var Uint32Array: Uint32ArrayConstructor;
 
 /**
  * A typed array of 32-bit float values. The contents are initialized to 0. If the requested number
@@ -5003,7 +4899,8 @@ interface Float32ArrayConstructor {
     thisArg?: any
   ): Float32Array;
 }
-declare var Float32Array: Float32ArrayConstructor;
+// not support in SJS
+// declare var Float32Array: Float32ArrayConstructor;
 
 /**
  * A typed array of 64-bit float values. The contents are initialized to 0. If the requested
@@ -5350,7 +5247,8 @@ interface Float64ArrayConstructor {
     thisArg?: any
   ): Float64Array;
 }
-declare var Float64Array: Float64ArrayConstructor;
+// not support in SJS
+// declare var Float64Array: Float64ArrayConstructor;
 
 /////////////////////////////
 /// ECMAScript Internationalization API
