@@ -9,7 +9,7 @@
     "init": "yarn install && lerna bootstrap",
     "publish:prod": "lerna publish --exact --force-publish='*' --no-push",
     "publish:prod:patch": "lerna publish patch --exact --force-publish='*' --no-push",
-    "publish:rc": "lerna publish --preid rc-$(date +%s) --dist-tag rc --force-publish='*' --no-push --no-git-tag-version prepatch --ignore-prepublish --ignore-scripts --no-private -y",
+    "publish:next": "lerna publish --preid next-$(date +%s) --dist-tag next --force-publish='*' --no-push --no-git-tag-version prepatch --ignore-prepublish --ignore-scripts --no-private -y",
     "disttag:release": "sh ./scripts/set-release-tag.sh",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
     "test": "jest",
