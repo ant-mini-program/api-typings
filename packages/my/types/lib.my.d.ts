@@ -13,13 +13,13 @@ declare namespace my {
     /**
      * 客户端名称简写
      * @description 支付宝客户端为 'ap'。
-     * @sdk 1.24.9
+     * @sdk2 2.6.2
      * @example "ap"
      */
     clientName: string;
     /**
      * 客户端版本号
-     * @sdk 1.24.9
+     * @sdk2 2.6.2
      * @example "10.2.90"
      */
     clientVersion: string;
@@ -30,7 +30,7 @@ declare namespace my {
      * - 英文: "en"
      * - 繁体中文-香港: "zh-HK"
      * - 繁体中文-台湾: "zh-Hant"
-     * @sdk 1.24.9
+     * @sdk2 2.6.2
      * @example "zh-Hans"
      */
     language: string;
@@ -40,13 +40,13 @@ declare namespace my {
      * - iOS 系统: 'iOS'
      * - 安卓系统: 'Android'
      * - 其他系统: 'unknown'
-     * @sdk 1.24.9
+     * @sdk2 2.6.2
      * @example "iOS"
      */
     platform: string;
     /**
      * 当前客户端环境
-     * @sdk 2.7.24
+     * @sdk2 2.7.24
      */
     clientEnv?: 'prod' | 'test' | 'stable' | 'pre' | 'unknown';
   };
@@ -207,6 +207,7 @@ declare namespace my {
     buttonText?: string;
     /**
      * "确认" 按钮颜色，HEX 格式
+     * @sdk2 2.3.1
      */
     confirmColor?: string;
     /**
@@ -369,7 +370,7 @@ declare namespace my {
     canvasId?: string;
     /**
      * 画布标识，传入 canvas 组件实例 （canvas type="2d/webgl" 时使用该属性）。
-     * @sdk 2.7.15
+     * @sdk2 2.7.15
      * @native 10.2.35
      */
     canvas?: CanvasContext;
@@ -842,6 +843,7 @@ declare namespace my {
     count?: number;
     /**
      * 图片类型。
+     * @sdk2 2.3.1
      * @native 10.1.35
      * @default ["original","compressed"]
      */
@@ -852,13 +854,43 @@ declare namespace my {
      */
     sourceType?: Array<`${EChooseImageSourceType}`> | `${EChooseImageSourceType}`;
     /**
+     * 选图过程中拍摄的照片是否落相册（默认不落相册）
+     * @native 10.2.10
+     */
+    storeToAlbum?: boolean;
+    /**
      * 接口调用成功的回调函数
      */
-    success?(data: { apFilePaths: string[]; tempFilePaths: string[] }): void;
+    success?(data: {
+      apFilePaths: string[];
+      /**
+       * 图片的 [本地临时文件](https://opendocs.alipay.com/mini/03dt4s#本地临时文件) 路径列表
+       */
+      tempFilePaths: string[];
+      /**
+       * 图片的 [本地临时文件](https://opendocs.alipay.com/mini/03dt4s#本地临时文件) 列表
+       * @sdk2 2.3.1
+       */
+      tempFiles: IMyChooseImageTempFiles;
+    }): void;
     /**
      * 接口调用失败的回调函数
      */
-    fail?(err: { error?: number; errorMessage?: string }): void;
+    fail?(
+      err:
+        | {
+            error?: number;
+            errorMessage?: string;
+          }
+        | {
+            error: 11;
+            errorMessage: '用户取消操作';
+          }
+        | {
+            error: 2001;
+            errorMessage: '在申请授权时用户拒绝授权';
+          },
+    ): void;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
@@ -866,16 +898,42 @@ declare namespace my {
       arg:
         | {
             apFilePaths: string[];
+            /**
+             * 图片的 [本地临时文件](https://opendocs.alipay.com/mini/03dt4s#本地临时文件) 路径列表
+             */
             tempFilePaths: string[];
+            /**
+             * 图片的 [本地临时文件](https://opendocs.alipay.com/mini/03dt4s#本地临时文件) 列表
+             * @sdk2 2.3.1
+             */
+            tempFiles: IMyChooseImageTempFiles;
           }
-        | {
-            error?: number;
-            errorMessage?: string;
-          },
+        | (
+            | {
+                error?: number;
+                errorMessage?: string;
+              }
+            | {
+                error: 11;
+                errorMessage: '用户取消操作';
+              }
+            | {
+                error: 2001;
+                errorMessage: '在申请授权时用户拒绝授权';
+              }
+          ),
     ): void;
   }): Promise<{
     apFilePaths: string[];
+    /**
+     * 图片的 [本地临时文件](https://opendocs.alipay.com/mini/03dt4s#本地临时文件) 路径列表
+     */
     tempFilePaths: string[];
+    /**
+     * 图片的 [本地临时文件](https://opendocs.alipay.com/mini/03dt4s#本地临时文件) 列表
+     * @sdk2 2.3.1
+     */
+    tempFiles: IMyChooseImageTempFiles;
   }>;
   /**
    * 选择发票抬头
@@ -1119,6 +1177,7 @@ declare namespace my {
     success?(data: {
       /**
        * 选定视频的临时文件路径。
+       * @sdk2 2.4.4
        */
       filePath: string;
       /**
@@ -1137,6 +1196,11 @@ declare namespace my {
        * 返回选定视频的宽度。
        */
       width: number;
+      /**
+       * 选定视频的临时文件路径。
+       * @sdk2 2.4.4
+       */
+      tempFilePath: string;
     }): void;
     /**
      * 接口调用失败的回调函数
@@ -1150,6 +1214,7 @@ declare namespace my {
         | {
             /**
              * 选定视频的临时文件路径。
+             * @sdk2 2.4.4
              */
             filePath: string;
             /**
@@ -1168,6 +1233,11 @@ declare namespace my {
              * 返回选定视频的宽度。
              */
             width: number;
+            /**
+             * 选定视频的临时文件路径。
+             * @sdk2 2.4.4
+             */
+            tempFilePath: string;
           }
         | {
             error?: number;
@@ -1177,6 +1247,7 @@ declare namespace my {
   }): Promise<{
     /**
      * 选定视频的临时文件路径。
+     * @sdk2 2.4.4
      */
     filePath: string;
     /**
@@ -1195,6 +1266,11 @@ declare namespace my {
      * 返回选定视频的宽度。
      */
     width: number;
+    /**
+     * 选定视频的临时文件路径。
+     * @sdk2 2.4.4
+     */
+    tempFilePath: string;
   }>;
   /**
    * 清除本地数据缓存
@@ -1261,11 +1337,13 @@ declare namespace my {
   export function closeSocket(r?: {
     /**
      * 关闭连接的状态号
+     * @sdk2 2.3.1
      * @default 1000
      */
     code?: number;
     /**
      * 连接被关闭的原因
+     * @sdk2 2.3.1
      */
     reason?: string;
     /**
@@ -1367,10 +1445,12 @@ declare namespace my {
     cancelButtonText?: string;
     /**
      * "确认" 按钮颜色，HEX 格式
+     * @sdk2 2.3.1
      */
     confirmColor?: string;
     /**
      * "取消" 按钮颜色，HEX 格式
+     * @sdk2 2.3.1
      */
     cancelColor?: string;
     /**
@@ -1476,6 +1556,9 @@ declare namespace my {
    * @see https://opendocs.alipay.com/mini/api/vx19c3
    */
   export function connectSocket(param: {
+    /**
+     * @sdk2 2.3.1
+     */
     multiple?: boolean;
     /**
      * 目标服务器接口地址。
@@ -1490,6 +1573,11 @@ declare namespace my {
      * 设置请求的头部。
      */
     header?: Record<string, string>;
+    /**
+     * 协议
+     * @sdk2 2.3.1
+     */
+    protocols?: string[];
   }): void;
   /**
    * 连接 Wi-Fi
@@ -1561,7 +1649,7 @@ declare namespace my {
    */
   export function createInnerAudioContext(): InnerAudioContext;
   /**
-   * 创建并返回 IntersectionObserver 对象
+   * 创建并返回 [IntersectionObserver](miniapi) 对象
    * @see https://opendocs.alipay.com/mini/api/intersectionobserver
    */
   export function createIntersectionObserver(option?: IMyCreateIntersectionObserverOption): IntersectionObserver;
@@ -1616,14 +1704,17 @@ declare namespace my {
     /**
      * 初始选择的日期时间
      * @description 默认当前本地时间
+     * @example "2016-10-10"
      */
     currentDate?: string;
     /**
      * 最小日期时间。
+     * @example "2016-10-9"
      */
     startDate?: string;
     /**
      * 最大日期时间。
+     * @example "2017-10-9"
      */
     endDate?: string;
     /**
@@ -1790,9 +1881,8 @@ declare namespace my {
        */
       apFilePath: string;
       /**
-       *
        * 临时文件路径(本地临时文件)
-       * @sdk 2.7.23
+       * @sdk2 2.7.23
        */
       tempFilePath: string;
     }): void;
@@ -1829,9 +1919,8 @@ declare namespace my {
              */
             apFilePath: string;
             /**
-             *
              * 临时文件路径(本地临时文件)
-             * @sdk 2.7.23
+             * @sdk2 2.7.23
              */
             tempFilePath: string;
           }
@@ -1860,15 +1949,17 @@ declare namespace my {
      */
     apFilePath: string;
     /**
-     *
      * 临时文件路径(本地临时文件)
-     * @sdk 2.7.23
+     * @sdk2 2.7.23
      */
     tempFilePath: string;
   }> &
     DownloadTask;
   /**
    * 开启小程序页面返回询问对话框
+   * @description
+   * - 不支持在小程序首页调用
+   * - 用户通过 Home 键或右上角胶囊按钮的“×”退出小程序时不会触发询问对话框
    * @see https://opendocs.alipay.com/mini/api/my.enableAlertBeforeUnload
    */
   export function enableAlertBeforeUnload(r?: {
@@ -3249,6 +3340,10 @@ declare namespace my {
    */
   export function getIDNumber(r?: {
     /**
+     * @sdk2 2.4.4
+     */
+    protocols?: IMyGetIDNumberProtocols;
+    /**
      * 接口调用成功的回调函数
      */
     success?(data: {
@@ -3329,20 +3424,43 @@ declare namespace my {
        * 图片本地路径
        */
       path: string;
+      /**
+       * 图片尺寸
+       */
       size?: number;
       /**
        * 返回图片的格式
+       * @sdk2 2.3.1
        */
       type: number;
       /**
        * 返回图片的方向
+       * @sdk2 2.3.1
        */
       orientation: 'right' | 'left' | 'up' | 'down' | 'up-mirrored' | 'down-mirrored' | 'left-mirrored' | 'right-mirrored';
     }): void;
     /**
      * 接口调用失败的回调函数
      */
-    fail?(err: { error?: number; errorMessage?: string }): void;
+    fail?(
+      err:
+        | {
+            error?: number;
+            errorMessage?: string;
+          }
+        | {
+            error: 12;
+            errorMessage: '路径不能为空';
+          }
+        | {
+            error: 18;
+            errorMessage: '获取图片信息失败';
+          }
+        | {
+            error: 22;
+            errorMessage: '不支持的地址后缀名';
+          },
+    ): void;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
@@ -3361,20 +3479,39 @@ declare namespace my {
              * 图片本地路径
              */
             path: string;
+            /**
+             * 图片尺寸
+             */
             size?: number;
             /**
              * 返回图片的格式
+             * @sdk2 2.3.1
              */
             type: number;
             /**
              * 返回图片的方向
+             * @sdk2 2.3.1
              */
             orientation: 'right' | 'left' | 'up' | 'down' | 'up-mirrored' | 'down-mirrored' | 'left-mirrored' | 'right-mirrored';
           }
-        | {
-            error?: number;
-            errorMessage?: string;
-          },
+        | (
+            | {
+                error?: number;
+                errorMessage?: string;
+              }
+            | {
+                error: 12;
+                errorMessage: '路径不能为空';
+              }
+            | {
+                error: 18;
+                errorMessage: '获取图片信息失败';
+              }
+            | {
+                error: 22;
+                errorMessage: '不支持的地址后缀名';
+              }
+          ),
     ): void;
   }): Promise<{
     /**
@@ -3389,13 +3526,18 @@ declare namespace my {
      * 图片本地路径
      */
     path: string;
+    /**
+     * 图片尺寸
+     */
     size?: number;
     /**
      * 返回图片的格式
+     * @sdk2 2.3.1
      */
     type: number;
     /**
      * 返回图片的方向
+     * @sdk2 2.3.1
      */
     orientation: 'right' | 'left' | 'up' | 'down' | 'up-mirrored' | 'down-mirrored' | 'left-mirrored' | 'right-mirrored';
   }>;
@@ -3431,7 +3573,7 @@ declare namespace my {
   /**
    * 获取用户当前的地理位置信息
    * @description
-   * - 仅支持高德地图 style 与火星坐标系
+   * - 地图相关接口使用的坐标格式为 GCJ-02（火星坐标系）
    * - 暂无境外地图数据，在中国内地（不含港澳台）以外的地区可能无法正常调用此 API
    * @see https://opendocs.alipay.com/mini/api/mkxuqd
    */
@@ -3444,6 +3586,7 @@ declare namespace my {
     cacheTimeout?: number;
     /**
      * 获取经纬度数据的类型。
+     * @sdk2 2.3.1
      * @default 0
      */
     type?: EMyGetLocationType;
@@ -3529,7 +3672,45 @@ declare namespace my {
     /**
      * 接口调用失败的回调函数
      */
-    fail?(err: { error?: number; errorMessage?: string }): void;
+    fail?(
+      err:
+        | {
+            error?: number;
+            errorMessage?: string;
+          }
+        | {
+            error: 11;
+            errorMessage: '请确认定位相关权限已开启';
+          }
+        | {
+            error: 12;
+            errorMessage: '网络异常，请稍后再试';
+          }
+        | {
+            error: 13;
+            errorMessage: '定位失败，请稍后再试';
+          }
+        | {
+            error: 14;
+            errorMessage: '业务定位超时';
+          }
+        | {
+            error: 18;
+            errorMessage: '获取到的基站与 WIFI 为空，请您打开 WIFI 开关，如已打开，建议移动到有 WIFI 的区域在发起定位';
+          }
+        | {
+            error: 2001;
+            errorMessage: '用户拒绝给小程序授权';
+          }
+        | {
+            error: 2002;
+            errorMessage: '保持拒绝后再触发定位';
+          }
+        | {
+            error: 2003;
+            errorMessage: '勾选保持后再点选了拒绝';
+          },
+    ): void;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
@@ -3605,10 +3786,44 @@ declare namespace my {
              */
             pois?: IMyGetLocationPois[];
           }
-        | {
-            error?: number;
-            errorMessage?: string;
-          },
+        | (
+            | {
+                error?: number;
+                errorMessage?: string;
+              }
+            | {
+                error: 11;
+                errorMessage: '请确认定位相关权限已开启';
+              }
+            | {
+                error: 12;
+                errorMessage: '网络异常，请稍后再试';
+              }
+            | {
+                error: 13;
+                errorMessage: '定位失败，请稍后再试';
+              }
+            | {
+                error: 14;
+                errorMessage: '业务定位超时';
+              }
+            | {
+                error: 18;
+                errorMessage: '获取到的基站与 WIFI 为空，请您打开 WIFI 开关，如已打开，建议移动到有 WIFI 的区域在发起定位';
+              }
+            | {
+                error: 2001;
+                errorMessage: '用户拒绝给小程序授权';
+              }
+            | {
+                error: 2002;
+                errorMessage: '保持拒绝后再触发定位';
+              }
+            | {
+                error: 2003;
+                errorMessage: '勾选保持后再点选了拒绝';
+              }
+          ),
     ): void;
   }): Promise<{
     /**
@@ -3872,6 +4087,10 @@ declare namespace my {
    */
   export function getOpenUserInfo(r?: {
     /**
+     * @sdk2 2.4.4
+     */
+    protocols?: IMyGetOpenUserInfoProtocols;
+    /**
      * 接口调用成功的回调函数
      */
     success?(data: {
@@ -3952,6 +4171,10 @@ declare namespace my {
    */
   export function getPhoneNumber(r?: {
     /**
+     * @sdk2 2.4.4
+     */
+    protocols?: IMyGetPhoneNumberProtocols;
+    /**
      * 接口调用成功的回调函数
      */
     success?(data: {
@@ -4027,6 +4250,10 @@ declare namespace my {
      * 要查询的步数日期（`yyyy-mm-dd`）的字符串，例如：`'2018-12-19'`。
      */
     countDate: string;
+    /**
+     * @sdk2 2.4.4
+     */
+    protocols?: IMyGetRunDataProtocols;
     /**
      * 接口调用成功的回调函数
      */
@@ -5070,7 +5297,7 @@ declare namespace my {
   export function loadFontFace(r: {
     /**
      * 是否同时加载 NativeCanvas 字体
-     * @sdk 2.6.2
+     * @sdk2 2.6.2
      * @default true
      */
     nativeCanvas?: boolean;
@@ -5091,7 +5318,7 @@ declare namespace my {
     desc?: IMyLoadFontFaceDesc;
     /**
      * 是否全局生效
-     * @sdk 2.7.15
+     * @sdk2 2.7.15
      */
     global?: boolean;
     /**
@@ -5402,6 +5629,7 @@ declare namespace my {
     /**
      * 用于设置目标小程序的app级别query参数
      * @description 目标小程序可在 App.onLaunch()，App.onShow() 中的 query 字段获取到这份数据。
+     * @sdk2 2.7.16
      */
     query?: IMyNavigateToMiniProgramQuery;
     /**
@@ -5847,6 +6075,10 @@ declare namespace my {
        * z 轴。
        */
       z: number;
+      /**
+       * @sdk2 2.7.5
+       * @native 10.2.30
+       */
       timestamp: number;
     }) => void,
   ): void;
@@ -5999,13 +6231,13 @@ declare namespace my {
   export function onCompassChange(
     cb: (arg: {
       /**
-       * 面对的方向与正北方向的度数，值的范围为 [0, 360)
+       * 面对的方向与正北方向的度数，值的范围为 `[0, 360)`。
        */
       direction: number;
       /**
-       * 时间戳
+       * 时间戳。
+       * @sdk2 2.7.5
        * @native 10.2.30
-       * @sdk 2.7.5
        */
       timestamp: number;
     }) => void,
@@ -6695,16 +6927,18 @@ declare namespace my {
     scrollTop?: number;
     /**
      * 滚动到选择器处于页面可见的位置
+     * @sdk2 2.6.0
      */
     selector?: string;
     /**
      * 滚动动画的时长，单位 ms
+     * @sdk2 2.6.0
      * @default 0
      */
     duration?: number;
     /**
      * 偏移距离，需要和 selector 参数搭配使用，可以滚动到 selector 加偏移距离的位置，单位 px
-     * @sdk 2.8.0
+     * @sdk2 2.8.0
      */
     offsetTop?: number;
     /**
@@ -6815,11 +7049,13 @@ declare namespace my {
   export function previewImage(r: {
     /**
      * 照片支持长按下载。
+     * @sdk2 2.4.4
      * @native 10.1.35
      */
     enableSavePhoto?: boolean;
     /**
      * 是否在右下角显示下载入口。
+     * @sdk2 2.4.4
      * @native 10.1.35
      */
     enableShowPhotoDownload?: boolean;
@@ -6870,10 +7106,12 @@ declare namespace my {
     placeholder?: string;
     /**
      * "确认" 按钮颜色，HEX 格式
+     * @sdk2 2.3.1
      */
     confirmColor?: string;
     /**
      * "取消" 按钮颜色，HEX 格式
+     * @sdk2 2.3.1
      */
     cancelColor?: string;
     /**
@@ -7215,7 +7453,7 @@ declare namespace my {
      * HTTP 请求方法
      * @default 'GET'
      */
-    method?: 'GET' | 'POST' | 'PUT' | 'DELETE';
+    method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'OPTIONS' | 'HEAD' | 'TRACE' | 'CONNECT';
     /**
      * 传给服务器的数据
      * @description
@@ -7336,7 +7574,7 @@ declare namespace my {
   export function requestSubscribeMessage(r: {
     appId?: string;
     /**
-     * @sdk 2.7.15
+     * @sdk2 2.7.15
      * @native 10.2.56
      */
     aboveContent?: boolean;
@@ -7644,9 +7882,16 @@ declare namespace my {
     url: string;
     /**
      * 是否显示图片操作菜单。
+     * @sdk2 2.4.4
      * @default false
      */
     showActionSheet?: boolean;
+    /**
+     * 返回具体错误码
+     * @sdk2 2.4.4
+     * @default true
+     */
+    cusHandleResult?: boolean;
     /**
      * 接口调用成功的回调函数
      */
@@ -7654,11 +7899,55 @@ declare namespace my {
     /**
      * 接口调用失败的回调函数
      */
-    fail?(err: { error?: number; errorMessage?: string }): void;
+    fail?(
+      err:
+        | {
+            error?: number;
+            errorMessage?: string;
+          }
+        | {
+            error: 2;
+            errorMessage: '参数无效，没有传 url 参数';
+          }
+        | {
+            error: 15;
+            errorMessage: '没有开启相册权限(ios only)';
+          }
+        | {
+            error: 16;
+            errorMessage: '手机相册存储空间不足(ios only)';
+          }
+        | {
+            error: 17;
+            errorMessage: '保存图片过程中的其他错误';
+          },
+    ): void;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?(arg: { error?: number; errorMessage?: string }): void;
+    complete?(
+      arg:
+        | {
+            error?: number;
+            errorMessage?: string;
+          }
+        | {
+            error: 2;
+            errorMessage: '参数无效，没有传 url 参数';
+          }
+        | {
+            error: 15;
+            errorMessage: '没有开启相册权限(ios only)';
+          }
+        | {
+            error: 16;
+            errorMessage: '手机相册存储空间不足(ios only)';
+          }
+        | {
+            error: 17;
+            errorMessage: '保存图片过程中的其他错误';
+          },
+    ): void;
   }): Promise<void>;
   /**
    * 保存图片到本地相册
@@ -7733,18 +8022,39 @@ declare namespace my {
   export function scan(r?: {
     /**
      * 扫码识别类型
+     * @sdk2 2.6.0
      * @default "['qrCode', 'barCode']"
      */
     scanType?: EScanScanType[];
     /**
      * 不允许从相册选择图片，只能从相机扫码
+     * @sdk2 2.3.1
      * @default false
      */
     hideAlbum?: boolean;
     /**
+     * 不允许从相册选择图片，只能从相机扫码
+     * @sdk2 2.6.0
+     * @default false
+     */
+    onlyFromCamera?: boolean;
+    /**
+     * 扫码动作
+     * @sdk2 2.4.4
+     */
+    actionType?: 'scan' | 'route' | 'scanAndRoute' | 'scanAndRpc';
+    /**
+     * 是否返回跳转后的路径
+     */
+    needPath?: boolean;
+    /**
      * 接口调用成功的回调函数
      */
     success?(data: {
+      /**
+       * 扫码结果
+       */
+      code: string;
       /**
        * 扫描二维码时返回的结果
        * @deprecated 请使用 code 字段
@@ -7756,23 +8066,23 @@ declare namespace my {
        */
       qrCode?: string;
       /**
-       * 扫码结果
-       */
-      code: string;
-      /**
        * base64 编码的结果
+       * @sdk2 2.6.0
        */
       rawData: string;
       /**
        * 来源
+       * @sdk2 2.6.0
        */
       imageChannel: string;
       /**
        * 码内容
+       * @sdk2 2.6.0
        */
       result: string;
       /**
        * 码类型
+       * @sdk2 2.6.0
        */
       scanType: string;
     }): void;
@@ -7787,6 +8097,10 @@ declare namespace my {
       arg:
         | {
             /**
+             * 扫码结果
+             */
+            code: string;
+            /**
              * 扫描二维码时返回的结果
              * @deprecated 请使用 code 字段
              */
@@ -7797,23 +8111,23 @@ declare namespace my {
              */
             qrCode?: string;
             /**
-             * 扫码结果
-             */
-            code: string;
-            /**
              * base64 编码的结果
+             * @sdk2 2.6.0
              */
             rawData: string;
             /**
              * 来源
+             * @sdk2 2.6.0
              */
             imageChannel: string;
             /**
              * 码内容
+             * @sdk2 2.6.0
              */
             result: string;
             /**
              * 码类型
+             * @sdk2 2.6.0
              */
             scanType: string;
           }
@@ -7823,6 +8137,10 @@ declare namespace my {
           },
     ): void;
   }): Promise<{
+    /**
+     * 扫码结果
+     */
+    code: string;
     /**
      * 扫描二维码时返回的结果
      * @deprecated 请使用 code 字段
@@ -7834,23 +8152,23 @@ declare namespace my {
      */
     qrCode?: string;
     /**
-     * 扫码结果
-     */
-    code: string;
-    /**
      * base64 编码的结果
+     * @sdk2 2.6.0
      */
     rawData: string;
     /**
      * 来源
+     * @sdk2 2.6.0
      */
     imageChannel: string;
     /**
      * 码内容
+     * @sdk2 2.6.0
      */
     result: string;
     /**
      * 码类型
+     * @sdk2 2.6.0
      */
     scanType: string;
   }>;
@@ -8450,6 +8768,7 @@ declare namespace my {
     destructiveBtnIndex?: number;
     /**
      * 需飘红选项的数组
+     * @sdk2 2.3.1
      */
     badges?: IActionSheetBadges[];
     /**
@@ -9459,7 +9778,11 @@ declare namespace my {
     /**
      * 文件名，即对应的 key，开发者在服务器端通过这个 key 可以获取到文件二进制内容。
      */
-    fileName: string;
+    name: string;
+    /**
+     * 文件名，会转换成 name 字段
+     */
+    fileName?: string;
     /**
      * 文件类型支持图片、视频、音频（image / video / audio）。
      */
@@ -10017,11 +10340,13 @@ declare namespace my {
     /**
      * 同步判断文件、目录是否存在
      * @see https://opendocs.alipay.com/mini/api/025027
+     * @sdk2 2.7.4
      */
     accessSync(request: IAccessRequest): void;
     /**
      * 同步判断文件、目录是否存在
      * @see https://opendocs.alipay.com/mini/api/025027
+     * @sdk2 2.7.4
      */
     accessSync(path: string): void;
     /**
@@ -10106,11 +10431,13 @@ declare namespace my {
     /**
      * 同步在文件结尾追加内容
      * @see https://opendocs.alipay.com/mini/api/025028
+     * @sdk2 2.7.4
      */
     appendFileSync(request: IAppendFileRequest): void;
     /**
      * 同步在文件结尾追加内容
      * @see https://opendocs.alipay.com/mini/api/025028
+     * @sdk2 2.7.4
      */
     appendFileSync(filePath: string, data: string | ArrayBuffer, encoding?: `${EFileSystemEncoding}`): void;
     /**
@@ -10196,11 +10523,13 @@ declare namespace my {
     /**
      * 同步复制文件
      * @see https://opendocs.alipay.com/mini/api/024ytt
+     * @sdk2 2.7.4
      */
     copyFileSync(request: ICopyFileRequest): void;
     /**
      * 同步复制文件
      * @see https://opendocs.alipay.com/mini/api/024ytt
+     * @sdk2 2.7.4
      */
     copyFileSync(srcPath: string, destPath: string): void;
     /**
@@ -10281,11 +10610,13 @@ declare namespace my {
     /**
      * 同步获取该小程序下的本地临时文件或本地缓存文件信息
      * @see https://opendocs.alipay.com/mini/api/0226og
+     * @sdk2 2.7.4
      */
     getFileInfoSync(request: IGetFileInfoRequest): IGetFileInfoResponse;
     /**
      * 同步获取该小程序下的本地临时文件或本地缓存文件信息
      * @see https://opendocs.alipay.com/mini/api/0226og
+     * @sdk2 2.7.4
      */
     getFileInfoSync(filePath: string, digestAlgorithm?: 'md5' | 'sha1'): IGetFileInfoResponse;
     /**
@@ -10316,6 +10647,7 @@ declare namespace my {
     /**
      * 同步获取该小程序下已保存的本地缓存文件列表
      * @see https://opendocs.alipay.com/mini/api/0228qj
+     * @sdk2 2.7.4
      */
     getSavedFileListSync(): IGetSavedFileListResponse;
     /**
@@ -10385,11 +10717,13 @@ declare namespace my {
     /**
      * 同步创建文件系统目录
      * @see https://opendocs.alipay.com/mini/api/024ytu
+     * @sdk2 2.7.4
      */
     mkdirSync(request: IMkdirRequest): void;
     /**
      * 同步创建文件系统目录
      * @see https://opendocs.alipay.com/mini/api/024ytu
+     * @sdk2 2.7.4
      */
     mkdirSync(dirPath: string, recursive?: boolean): void;
     /**
@@ -10462,11 +10796,13 @@ declare namespace my {
     /**
      * 同步读取目录内文件列表
      * @see https://opendocs.alipay.com/mini/api/024ytv
+     * @sdk2 2.7.4
      */
     readdirSync(request: IReaddirRequest): IReaddirResponse;
     /**
      * 同步读取目录内文件列表
      * @see https://opendocs.alipay.com/mini/api/024ytv
+     * @sdk2 2.7.4
      */
     readdirSync(dirPath: string): IReaddirResponse;
     /**
@@ -10539,11 +10875,13 @@ declare namespace my {
     /**
      * 同步读取本地文件内容
      * @see https://opendocs.alipay.com/mini/api/025029
+     * @sdk2 2.7.4
      */
     readFileSync(request: IReadFileRequest): IReadFileResponse;
     /**
      * 同步读取本地文件内容
      * @see https://opendocs.alipay.com/mini/api/025029
+     * @sdk2 2.7.4
      */
     readFileSync(filePath: string, encoding?: `${EFileSystemEncoding}`): IReadFileResponse;
     /**
@@ -10620,11 +10958,13 @@ declare namespace my {
     /**
      * 同步删除该小程序下已保存的本地缓存文件
      * @see https://opendocs.alipay.com/mini/api/0229pv
+     * @sdk2 2.7.4
      */
     removeSavedFileSync(request: IRemoveSavedFileRequest): void;
     /**
      * 同步删除该小程序下已保存的本地缓存文件
      * @see https://opendocs.alipay.com/mini/api/0229pv
+     * @sdk2 2.7.4
      */
     removeSavedFileSync(filePath: string): void;
     /**
@@ -10703,12 +11043,14 @@ declare namespace my {
      * 同步重命名文件
      * @description 可以把文件从 oldPath 移动到 newPath。
      * @see https://opendocs.alipay.com/mini/api/024ytw
+     * @sdk2 2.7.4
      */
     renameSync(request: IRenameRequest): void;
     /**
      * 同步重命名文件
      * @description 可以把文件从 oldPath 移动到 newPath。
      * @see https://opendocs.alipay.com/mini/api/024ytw
+     * @sdk2 2.7.4
      */
     renameSync(oldPath: string, newPath: string): void;
     /**
@@ -10793,11 +11135,13 @@ declare namespace my {
     /**
      * 同步删除目录
      * @see https://opendocs.alipay.com/mini/api/024ytx
+     * @sdk2 2.7.4
      */
     rmdirSync(request: IRmdirRequest): void;
     /**
      * 同步删除目录
      * @see https://opendocs.alipay.com/mini/api/024ytx
+     * @sdk2 2.7.4
      */
     rmdirSync(dirPath: string, recursive?: boolean): void;
     /**
@@ -10872,12 +11216,14 @@ declare namespace my {
      * 同步保存临时文件到本地
      * @description 此接口会移动临时文件，因此调用成功后，tempFilePath 将不可用
      * @see https://opendocs.alipay.com/mini/api/02502a
+     * @sdk2 2.7.4
      */
     saveFileSync(request: ISaveFileRequest): ISaveFileResponse;
     /**
      * 同步保存临时文件到本地
      * @description 此接口会移动临时文件，因此调用成功后，tempFilePath 将不可用
      * @see https://opendocs.alipay.com/mini/api/02502a
+     * @sdk2 2.7.4
      */
     saveFileSync(tempFilePath: string, filePath?: boolean): ISaveFileResponse;
     /**
@@ -10942,11 +11288,13 @@ declare namespace my {
     /**
      * 同步获取文件信息
      * @see https://opendocs.alipay.com/mini/api/024whe
+     * @sdk2 2.7.4
      */
     statSync(request: IStatRequest): IStatResponse;
     /**
      * 同步获取文件信息
      * @see https://opendocs.alipay.com/mini/api/024whe
+     * @sdk2 2.7.4
      */
     statSync(path: string, recursive?: boolean): IStatResponse;
     /**
@@ -11023,11 +11371,13 @@ declare namespace my {
     /**
      * 同步删除文件
      * @see https://opendocs.alipay.com/mini/api/024whc
+     * @sdk2 2.7.4
      */
     unlinkSync(request: IUnlinkRequest): void;
     /**
      * 同步删除文件
      * @see https://opendocs.alipay.com/mini/api/024whc
+     * @sdk2 2.7.4
      */
     unlinkSync(filePath: string): void;
     /**
@@ -11223,16 +11573,18 @@ declare namespace my {
     /**
      * 同步用于写文件
      * @see https://opendocs.alipay.com/mini/api/024whd
+     * @sdk2 2.7.4
      */
     writeFileSync(request: IWriteFileRequest): void;
     /**
      * 同步用于写文件
      * @see https://opendocs.alipay.com/mini/api/024whd
+     * @sdk2 2.7.4
      */
     writeFileSync(filePath: string, data: string | ArrayBuffer, encoding?: `${EFileSystemEncoding}`): void;
     /**
      * 压缩文件
-     * @sdk 2.6.7
+     * @sdk2 2.6.7
      * @native 10.2.10
      */
     zip(r: {
@@ -11878,6 +12230,7 @@ declare namespace my {
     /**
      * 添加节点 Context 实例查询请求
      * @see https://opendocs.alipay.com/mini/api/021yfe
+     * @sdk2 2.7.3
      */
     context(callback: (res: unknown) => void): this;
     /**
@@ -11892,13 +12245,15 @@ declare namespace my {
     fields(option: ISelectorQueryFieldsOption, callback?: (res: unknown) => void): this;
     /**
      * 将选择器的选取范围更改为自定义组件内
+     * @sdk2 2.6.7
      */
     in(component: unknown): this;
     /**
      * 获取 Node 节点实例
      * @see https://opendocs.alipay.com/mini/api/node
+     * @sdk2 2.7.0
      */
-    node(callback?: (res: unknown) => void): this;
+    node(callback: (res: unknown) => void): this;
     /**
      * 将当前选择节点的滚动信息放入查询结果
      * @see https://opendocs.alipay.com/mini/api/euyxnr
@@ -11924,7 +12279,7 @@ declare namespace my {
     /**
      * 创建自定义图片图层
      * @description 图片会随着地图缩放而缩放
-     * @sdk 2.7.2
+     * @sdk2 2.7.2
      * @native 10.2.20
      */
     addGroundOverlay(r: {
@@ -11971,7 +12326,7 @@ declare namespace my {
     }): Promise<void>;
     /**
      * 添加 marker
-     * @sdk 2.7.2
+     * @sdk2 2.7.2
      * @native 10.2.20
      */
     addMarkers(r: {
@@ -12001,6 +12356,7 @@ declare namespace my {
      * 通过给定坐标点序列计算路径长度及特定距离坐标点
      * @description 计算由一系列坐标点所定义的路径的长度，并可计算出该路径上距起始点指定距离的点的坐标。
      * @see https://opendocs.alipay.com/mini/00nfnc
+     * @sdk2 2.4.4
      */
     calculateDistance(r: {
       /**
@@ -12067,6 +12423,7 @@ declare namespace my {
      * 添加、删除、更新指定的 marker
      * @see https://opendocs.alipay.com/mini/00k9uj
      * @native 10.1.80
+     * @sdk2 2.6.0
      */
     changeMarkers(r: {
       /**
@@ -12097,6 +12454,7 @@ declare namespace my {
     /**
      * 清除地图上的步行导航路线
      * @see https://opendocs.alipay.com/mini/api/qb6sf9
+     * @sdk2 2.4.4
      */
     clearRoute(r: {
       element: string;
@@ -12118,6 +12476,7 @@ declare namespace my {
     /**
      * 设置所有手势是否可用
      * @see https://opendocs.alipay.com/mini/api/sgwf36
+     * @sdk2 2.4.4
      */
     gestureEnable(r: {
       /**
@@ -12195,6 +12554,7 @@ declare namespace my {
     /**
      * 获取地图的属性信息
      * @see https://opendocs.alipay.com/mini/00nfn7
+     * @sdk2 2.4.4
      */
     getMapProperties(r?: {
       /**
@@ -12295,6 +12655,7 @@ declare namespace my {
     /**
      * 获取地图的属性信息
      * @see https://opendocs.alipay.com/mini/00nbqs
+     * @sdk2 2.6.0
      */
     getRegion(r?: {
       /**
@@ -12347,7 +12708,7 @@ declare namespace my {
     /**
      * 获取当前地图的旋转角
      * @see https://opendocs.alipay.com/mini/api/getrotate
-     * @sdk 2.6.2
+     * @sdk2 2.6.2
      * @native 10.2.0
      */
     getRotate(r?: {
@@ -12390,6 +12751,7 @@ declare namespace my {
      * 获取地图的缩放级别
      * @see https://opendocs.alipay.com/mini/api/getScale
      * @native 10.1.92
+     * @sdk2 2.6.0
      */
     getScale(r?: {
       /**
@@ -12436,7 +12798,7 @@ declare namespace my {
     /**
      * 获取当前地图的倾斜角
      * @see https://opendocs.alipay.com/mini/api/getskew
-     * @sdk 2.6.2
+     * @sdk2 2.6.2
      * @native 10.2.0
      */
     getSkew(r?: {
@@ -12481,7 +12843,7 @@ declare namespace my {
     /**
      * 缩放视野到指定可视区域
      * @see https://opendocs.alipay.com/mini/api/includepoints
-     * @sdk 2.6.2
+     * @sdk2 2.6.2
      * @native 10.2.0
      */
     includePoints(r: {
@@ -12510,7 +12872,7 @@ declare namespace my {
     /**
      * 初始化点聚合的配置
      * @description 未调用时采用默认配置
-     * @sdk 2.7.2
+     * @sdk2 2.7.2
      * @native 10.2.20
      */
     initMarkerCluster(r: {
@@ -12622,7 +12984,7 @@ declare namespace my {
     /**
      * 判断矩形区域是否包含传入的经纬度点
      * @see https://opendocs.alipay.com/mini/api/polygonContainsPoint
-     * @sdk 2.7.9
+     * @sdk2 2.7.9
      * @native 10.2.33
      */
     polygonContainsPoint(r: {
@@ -12671,7 +13033,7 @@ declare namespace my {
     }>;
     /**
      * 移除自定义图片图层
-     * @sdk 2.7.2
+     * @sdk2 2.7.2
      * @native 10.2.20
      */
     removeGroundOverlay(r: {
@@ -12694,7 +13056,7 @@ declare namespace my {
     }): Promise<void>;
     /**
      * 移除 marker
-     * @sdk 2.7.2
+     * @sdk2 2.7.2
      * @native 10.2.20
      */
     removeMarkers(r: {
@@ -12751,7 +13113,7 @@ declare namespace my {
      * 设置地图中心点偏移
      * @description 向后向下为增长，屏幕比例范围为 (0~1)，默认偏移为 [0.5, 0.5]。
      * @see https://opendocs.alipay.com/mini/api/setcenteroffset
-     * @sdk 2.6.2
+     * @sdk2 2.6.2
      * @native 10.2.0
      */
     setCenterOffset(r: {
@@ -12776,6 +13138,7 @@ declare namespace my {
      * 设置地图主题类型
      * @see https://opendocs.alipay.com/mini/api/setmaptype
      * @native 10.1.92
+     * @sdk2 2.6.0
      */
     setMapType(r: {
       /**
@@ -12817,6 +13180,7 @@ declare namespace my {
      * 默认规划步行路线
      * @description 只能显示一条。
      * @see https://opendocs.alipay.com/mini/api/uwffxx
+     * @sdk2 2.4.4
      */
     showRoute(r: {
       /**
@@ -12844,7 +13208,7 @@ declare namespace my {
        * 终点经度
        * @description 仅驾车规划有效，即 searchType=“drive”时有效。
        */
-      throughPoints?: IMapContextPoint[];
+      throughPoints?: IMapContextShowRouteThroughPoints[];
       /**
        * 路线颜色
        * @description 该值仅在 2D 地图中生效。
@@ -12871,7 +13235,7 @@ declare namespace my {
        * 模式
        * @description 仅在驾车模式和公交模式支持。
        */
-      mode?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+      mode?: EMapContextShowRouteMode;
       /**
        * 公交模式下必填
        */
@@ -12940,6 +13304,7 @@ declare namespace my {
     /**
      * 指定 marker 动画
      * @see https://opendocs.alipay.com/mini/00nedv
+     * @sdk2 2.4.4
      */
     smoothMoveMarker(r: {
       /**
@@ -12985,6 +13350,7 @@ declare namespace my {
     /**
      * 指定轨迹动画
      * @see https://opendocs.alipay.com/mini/00nd0e
+     * @sdk2 2.4.4
      */
     smoothMovePolyline(r: {
       /**
@@ -13050,8 +13416,9 @@ declare namespace my {
     /**
      * 平移 marker
      * @see https://opendocs.alipay.com/mini/api/sg7chr
+     * @sdk2 2.4.4
      */
-    translateMaker(r: {
+    translateMarker(r: {
       /**
        * 指定 marker
        */
@@ -13094,6 +13461,7 @@ declare namespace my {
     /**
      * 增量更新地图的接口
      * @see https://opendocs.alipay.com/mini/api/bph944
+     * @sdk2 2.4.4
      */
     updateComponents(r?: {
       /**
@@ -13152,7 +13520,7 @@ declare namespace my {
     }): Promise<void>;
     /**
      * 增量更新地图的接口
-     * @sdk 2.7.2
+     * @sdk2 2.7.2
      * @native 10.2.20
      */
     updateGroundOverlay(r: {
@@ -13281,6 +13649,9 @@ declare namespace my {
      * @see https://opendocs.alipay.com/mini/api/xacdmn
      */
     disconnect(): void;
+    /**
+     * @sdk2 2.6.7
+     */
     in(component: unknown): this;
     /**
      * 指定目标节点并开始监听相交状态变化情况
@@ -13328,7 +13699,7 @@ declare namespace my {
     /**
      * 停止监听声音的分贝变化回调事件
      * @see https://opendocs.alipay.com/mini/03hbnp
-     * @sdk 2.6.2
+     * @sdk2 2.6.2
      * @native 10.2.0
      */
     offDecibelChange(cb?: (arg: { decibel: number }) => void): void;
@@ -13356,16 +13727,19 @@ declare namespace my {
     /**
      * 取消监听已录制完制定帧大小的文件事件
      * @see https://opendocs.alipay.com/mini/api/recordermanager/offframerecorded
+     * @sdk2 2.7.4
      */
     offFrameRecorded(cb?: (arg: { frameBuffer: ArrayBuffer; isLastFrame: boolean }) => void): void;
     /**
      * 取消监听录音暂停事件
      * @see https://opendocs.alipay.com/mini/api/recordermanager/offpause
+     * @sdk2 2.4.4
      */
     offPause(cb?: () => void): void;
     /**
      * 取消监听录音继续事件
      * @see https://opendocs.alipay.com/mini/api/recordermanager/offresume
+     * @sdk2 2.4.4
      */
     offResume(cb?: () => void): void;
     /**
@@ -13394,7 +13768,7 @@ declare namespace my {
     /**
      * 监听声音的分贝变化回调事件
      * @see https://opendocs.alipay.com/mini/01acgm
-     * @sdk 2.6.2
+     * @sdk2 2.6.2
      * @native 10.2.0
      */
     onDecibelChange(cb: (arg: { decibel: number }) => void): void;
@@ -13422,16 +13796,19 @@ declare namespace my {
     /**
      * 监听已录制完制定帧大小的文件事件。如果设置了 frameSize，则会回调此事件
      * @see https://opendocs.alipay.com/mini/api/recordermanager/onframerecorded
+     * @sdk2 2.7.4
      */
     onFrameRecorded(cb: (arg: { frameBuffer: ArrayBuffer; isLastFrame: boolean }) => void): void;
     /**
      * 监听录音暂停事件
      * @see https://opendocs.alipay.com/mini/api/recordermanager/onpause
+     * @sdk2 2.4.4
      */
     onPause(cb: () => void): void;
     /**
      * 监听录音继续事件
      * @see https://opendocs.alipay.com/mini/api/recordermanager/onresume
+     * @sdk2 2.4.4
      */
     onResume(cb: () => void): void;
     /**
@@ -13460,11 +13837,13 @@ declare namespace my {
     /**
      * 暂停录音
      * @see https://opendocs.alipay.com/mini/api/recordermanager/pause
+     * @sdk2 2.4.4
      */
     pause(): void;
     /**
      * 继续录音
      * @see https://opendocs.alipay.com/mini/api/recordermanager/resume
+     * @sdk2 2.4.4
      */
     resume(): void;
     /**
@@ -13521,7 +13900,102 @@ declare namespace my {
      */
     stop(): void;
   }
-  export interface WebSocketTask {}
+  export interface WebSocketTask {
+    /**
+     * 取消监听 WebSocket 关闭消息
+     * @sdk2 2.3.1
+     */
+    offClose(
+      cb?: (arg: {
+        data: {
+          socketTaskID: string;
+        };
+      }) => void,
+    ): void;
+    /**
+     * 取消监听 WebSocket 错误消息
+     * @sdk2 2.3.1
+     */
+    offError(
+      cb?: (arg: {
+        data: {
+          socketTaskID: string;
+        };
+        error: number;
+      }) => void,
+    ): void;
+    /**
+     * 取消监听 WebSocket 消息
+     * @sdk2 2.3.1
+     */
+    offMessage(
+      cb?: (arg: {
+        data: {
+          socketTaskID: string;
+          data: string | ArrayBuffer;
+          isBuffer: boolean;
+        };
+      }) => void,
+    ): void;
+    /**
+     * 取消监听 WebSocket open 事件
+     * @sdk2 2.3.1
+     */
+    offOpen(
+      cb?: (arg: {
+        data: {
+          socketTaskID: string;
+        };
+      }) => void,
+    ): void;
+    /**
+     * 监听 WebSocket 关闭消息
+     * @sdk2 2.3.1
+     */
+    onClose(
+      cb: (arg: {
+        data: {
+          socketTaskID: string;
+        };
+      }) => void,
+    ): void;
+    /**
+     * 监听 WebSocket 错误消息
+     * @sdk2 2.3.1
+     */
+    onError(
+      cb: (arg: {
+        data: {
+          socketTaskID: string;
+        };
+        error: number;
+      }) => void,
+    ): void;
+    /**
+     * 监听 WebSocket 消息
+     * @sdk2 2.3.1
+     */
+    onMessage(
+      cb: (arg: {
+        data: {
+          socketTaskID: string;
+          data: string | ArrayBuffer;
+          isBuffer: boolean;
+        };
+      }) => void,
+    ): void;
+    /**
+     * 监听 WebSocket open 事件
+     * @sdk2 2.3.1
+     */
+    onOpen(
+      cb: (arg: {
+        data: {
+          socketTaskID: string;
+        };
+      }) => void,
+    ): void;
+  }
   export interface InnerAudioContext {
     /**
      * 是否自动播放
@@ -13548,6 +14022,7 @@ declare namespace my {
     readonly duration: number;
     /**
      * 是否支持断点续播
+     * @sdk2 2.4.4
      */
     isRecordAudioPlayState: boolean;
     /**
@@ -13566,10 +14041,10 @@ declare namespace my {
     /**
      * 播放速度
      * @description 范围 0.5-2.0，默认为 1
-     * @sdk 2.6.0
+     * @sdk2 2.6.0
      * @native 10.1.99
      */
-    readonly playbackRate: number;
+    playbackRate: number;
     /**
      * 音频资源的地址。
      */
@@ -13581,10 +14056,10 @@ declare namespace my {
     startTime: number;
     /**
      * 是否支持后台播放
-     * @sdk 2.7.2
+     * @sdk2 2.7.2
      * @native 10.2.20
      */
-    readonly supportBackgroundPlay: boolean;
+    supportBackgroundPlay: boolean;
     /**
      * 当前音量。范围 0~1。默认为 1
      */
@@ -13659,6 +14134,7 @@ declare namespace my {
     offWaiting(cb?: (arg: {}) => void): void;
     /**
      * 监听可以开始播放的事件，缓冲完成可以开始播放，但不保证后面可以流畅播放。
+     * @sdk2 2.4.4
      */
     onCanPlay(cb: (arg: {}) => void): void;
     /**
@@ -13739,7 +14215,13 @@ declare namespace my {
     stop(): void;
   }
   export interface AICameraContext {}
-  export interface ARContext {}
+  export interface ARContext {
+    /**
+     * 截屏
+     * @sdk2 2.4.4
+     */
+    snapshot(): void;
+  }
   export interface AudioContext {}
   export interface InsuranceXReplaySession {}
   export interface LivePlayerContext {}
@@ -13747,10 +14229,12 @@ declare namespace my {
   export interface LottieContext {
     /**
      * 当前 Lottie 视图指定降级为展示 placeholder
+     * @sdk2 2.6.0
      */
     downgradeToPlaceholder(): void;
     /**
      * 填充 Lottie 参数
+     * @sdk2 2.6.0
      */
     fillVariableValue(param: { [key: string]: any }): void;
     /**
@@ -13785,6 +14269,7 @@ declare namespace my {
     }>;
     /**
      * 获取 Lottie 渲染信息
+     * @sdk2 2.6.0
      * @native 10.1.80
      */
     getLottieInfo(r?: {
@@ -13967,6 +14452,7 @@ declare namespace my {
     epname: number;
     /**
      * 是否支持断点续播
+     * @sdk2 2.4.4
      */
     isRecordAudioPlayState: boolean;
     /**
@@ -13976,10 +14462,10 @@ declare namespace my {
     /**
      * 获取/更新背景音频的播放速度
      * @description 范围 0.5-2.0，默认为 1。
-     * @sdk 2.6.0
+     * @sdk2 2.6.0
      * @native 10.1.99
      */
-    readonly playbackRate: number;
+    playbackRate: number;
     /**
      * 歌手名
      */
@@ -14051,7 +14537,9 @@ declare namespace my {
      */
     offWaiting(cb?: (arg: {}) => void): void;
     /**
-     * 监听可以开始播放的事件，缓冲完成可以开始播放，但不保证后面可以流畅播放。
+     * 监听可以开始播放的事件
+     * @description ，缓冲完成可以开始播放，但不保证后面可以流畅播放。
+     * @sdk2 2.4.4
      */
     onCanPlay(cb: (arg: {}) => void): void;
     /**
@@ -14233,6 +14721,7 @@ declare namespace my {
      * 异步返回 Canvas 指定区域像素数据
      * @description 返回一个 ImageData 对象，用来描述canvas区域隐含的像素数据
      * @see https://opendocs.alipay.com/mini/api/bukvhw
+     * @sdk2 2.4.4
      */
     getImageData(r: {
       x: number;
@@ -14282,6 +14771,7 @@ declare namespace my {
     /**
      * 返回一个文本包含的信息
      * @see https://opendocs.alipay.com/mini/api/rn2r7f
+     * @sdk2 2.4.4
      */
     measureText(text: string): {
       /**
@@ -14298,6 +14788,7 @@ declare namespace my {
     /**
      * 更新 Canvas 指定区域像素数据
      * @see https://opendocs.alipay.com/mini/api/pusaxg
+     * @sdk2 2.4.4
      */
     putImageData(r: {
       data: Uint8ClampedArray;
@@ -14433,6 +14924,7 @@ declare namespace my {
     /**
      * 画布上的绘制内容以 data URI 的格式返回
      * @see https://opendocs.alipay.com/mini/api/vemgc6
+     * @sdk2 2.4.4
      */
     toDataURL(r: {
       x: number;
@@ -14441,7 +14933,7 @@ declare namespace my {
       height: number;
       destWidth: number;
       destHeight: number;
-      fileType: 'jpg' | 'png';
+      fileType: 'png' | 'jpg';
       quality: number;
       /**
        * 接口调用成功的回调函数
@@ -16571,8 +17063,12 @@ declare namespace my {
   export interface VideoContext {
     /**
      * 退出全屏
+     * @sdk2 2.4.4
      */
-    exitFullScreen(r?: {
+    exitFullScreen(r: {
+      element: string;
+      actionType: string;
+      data: Record<string, unknown>;
       /**
        * 接口调用成功的回调函数
        */
@@ -16588,7 +17084,7 @@ declare namespace my {
     }): Promise<void>;
     /**
      * 退出画中画
-     * @sdk 2.8.2
+     * @sdk2 2.8.2
      * @native 10.1.92
      */
     exitPictureInPicture(r?: {
@@ -16624,6 +17120,7 @@ declare namespace my {
     }): Promise<void>;
     /**
      * 隐藏控制控件
+     * @sdk2 2.7.4
      * @native 10.2.23
      */
     hideControl(r: {
@@ -16645,7 +17142,9 @@ declare namespace my {
       complete?(arg: { error?: number; errorMessage?: string }): void;
     }): Promise<void>;
     /**
-     * 隐藏状态栏，仅在 iOS 全屏下有效
+     * 隐藏状态栏
+     * @description 仅在 iOS 全屏下有效
+     * @sdk2 2.4.4
      */
     hideStatusBar(r?: {
       /**
@@ -16663,6 +17162,7 @@ declare namespace my {
     }): Promise<void>;
     /**
      * 切换静音状态
+     * @sdk2 2.4.4
      */
     mute(enable: boolean): void;
     /**
@@ -16701,10 +17201,12 @@ declare namespace my {
     }): Promise<void>;
     /**
      * 设置倍速播放（0.5 <= rate <= 2.0）
+     * @sdk2 2.4.4
      */
     playbackRate(rate: number): void;
     /**
      * 进入全屏
+     * @sdk2 2.4.4
      */
     requestFullScreen(r: {
       /**
@@ -16730,7 +17232,7 @@ declare namespace my {
     seek(time: number): void;
     /**
      * 显示控制控件
-     * @sdk 2.7.3
+     * @sdk2 2.7.4
      * @native 10.2.23
      */
     showControl(r: {
@@ -16754,13 +17256,18 @@ declare namespace my {
     }): Promise<void>;
     /**
      * 显示/隐藏浮窗
+     * @sdk2 2.6.0
      * @native 10.1.92
      */
     showFloatingWindow(isShow: boolean): void;
     /**
      * 显示状态栏，仅在 iOS 全屏下有效。
+     * @sdk2 2.4.4
      */
-    showStatusBar(r?: {
+    showStatusBar(r: {
+      element: string;
+      actionType: string;
+      data: Record<string, unknown>;
       /**
        * 接口调用成功的回调函数
        */
@@ -16776,7 +17283,7 @@ declare namespace my {
     }): Promise<void>;
     /**
      * 开启互动能力
-     * @sdk 2.7.10
+     * @sdk2 2.7.10
      * @native 10.2.36
      */
     startInteractions(r: {
@@ -16798,8 +17305,12 @@ declare namespace my {
     }): Promise<void>;
     /**
      * 停止
+     * @sdk2 2.4.4
      */
-    stop(r?: {
+    stop(r: {
+      element: string;
+      actionType: string;
+      data: Record<string, unknown>;
       /**
        * 接口调用成功的回调函数
        */
@@ -16815,7 +17326,7 @@ declare namespace my {
     }): Promise<void>;
     /**
      * 停止互动能力，并清理所有的互动组件
-     * @sdk 2.7.10
+     * @sdk2 2.7.10
      * @native 10.2.36
      */
     stopInteractions(r: {
@@ -16837,6 +17348,7 @@ declare namespace my {
     }): Promise<void>;
     /**
      * 切换清晰度
+     * @sdk2 2.4.8
      * @native 10.1.82
      */
     switchQuality(r: {
@@ -16859,6 +17371,7 @@ declare namespace my {
     }): Promise<void>;
     /**
      * 更新清晰度列表
+     * @sdk2 2.4.8
      * @native 10.1.82
      */
     updateQualityList(r: {
@@ -17049,17 +17562,18 @@ declare namespace my {
   export interface UploadTask {
     /**
      * 取消本次任务
+     * @sdk2 2.3.1
      */
     abort(): void;
     /**
      * 移除 HTTP Response Header 事件的监听函数
-     * @sdk 2.8.2
+     * @sdk2 2.8.2
      * @native 10.2.90
      */
-    offHeadersReceived(cb?: () => void): void;
+    offHeadersReceived(cb?: (arg: {}) => void): void;
     /**
      * 监听 HTTP Response Header 事件。会比请求完成事件更早
-     * @sdk 2.8.2
+     * @sdk2 2.8.2
      * @native 10.2.90
      */
     onHeadersReceived(
@@ -17067,13 +17581,12 @@ declare namespace my {
         /**
          * 开发者服务器返回的 HTTP Response Header
          */
-        header: {
-          [key: string]: string;
-        };
+        header: IUploadTaskOnHeadersReceivedHeader;
       }) => void,
     ): void;
     /**
      * 监听上传进度变化事件
+     * @sdk2 2.4.4
      */
     onProgressUpdate(
       cb: (arg: {
@@ -17089,10 +17602,12 @@ declare namespace my {
   export interface DownloadTask {
     /**
      * 取消本次任务
+     * @sdk2 2.3.1
      */
     abort(): void;
     /**
      * 监听下载进度变化事件
+     * @sdk2 2.4.4
      */
     onProgressUpdate(cb: (arg: { progress: number; totalBytesWritten: number; totalBytesExpectedToWrite: number }) => void): void;
   }
@@ -17136,7 +17651,7 @@ declare namespace my {
   export interface AccessibilityManager {
     /**
      * 无障碍模式下语音播报
-     * @sdk 2.7.23
+     * @sdk2 2.7.23
      * @native 10.2.0
      */
     announce(r: {
@@ -17191,7 +17706,7 @@ declare namespace my {
     }>;
     /**
      * 是否开启无障碍语音播报 (iOS 旁白、Android talkBack)
-     * @sdk 2.7.23
+     * @sdk2 2.7.23
      * @native 10.1.87
      */
     isScreenReaderEnabled(r?: {
@@ -17224,7 +17739,7 @@ declare namespace my {
     /**
      * 取消监听地理位置定位完成事件
      * @description 只针对 `chooseCity` 中属性 `setLocatedCity` 为 `true` 的情况
-     * @sdk 2.8.0
+     * @sdk2 2.8.0
      * @native 10.2.70
      */
     offLocatedComplete(
@@ -17242,7 +17757,7 @@ declare namespace my {
     /**
      * 监听该页面地理位置定位完成的事件
      * @description 只针对 `chooseCity` 中属性 `setLocatedCity` 为 `true` 的情况。
-     * @sdk 2.8.0
+     * @sdk2 2.8.0
      * @native 10.2.70
      */
     onLocatedComplete(
@@ -17260,7 +17775,7 @@ declare namespace my {
     /**
      * 修改定位城市名称
      * @description 用于在调用 [my.chooseCity]() 后修改当次定位城市名称
-     * @sdk 2.8.0
+     * @sdk2 2.8.0
      * @native 10.2.70
      */
     setLocatedCity(r: {
@@ -19226,6 +19741,16 @@ declare namespace my {
      */
     longitude: number;
   }
+  interface IMapContextShowRouteThroughPoints {
+    /**
+     * 纬度
+     */
+    latitude: number;
+    /**
+     * 经度
+     */
+    longitude: number;
+  }
   interface IMapContextSmoothMovePolylinePoints {
     /**
      * 纬度
@@ -19775,10 +20300,23 @@ declare namespace my {
     displayName: string;
     account?: never;
   }
+  interface IMyChooseImageTempFiles {
+    /**
+     * 路径
+     */
+    path: string;
+    /**
+     * 大小，单位为 B
+     */
+    size: number;
+  }
   interface IMyCreateIntersectionObserverOption {
     thresholds?: number[];
     initialRatio?: number;
     selectAll?: boolean;
+    /**
+     * @sdk2 2.7.0
+     */
     dataset?: boolean;
     strict?: boolean;
   }
@@ -19826,6 +20364,9 @@ declare namespace my {
      */
     appId: string;
   }
+  interface IMyGetIDNumberProtocols {
+    [key: string]: unknown;
+  }
   interface IMyGetLocationPois {
     /**
      * poi名称。
@@ -19845,6 +20386,15 @@ declare namespace my {
      * 街道名称。
      */
     street: string;
+  }
+  interface IMyGetOpenUserInfoProtocols {
+    [key: string]: unknown;
+  }
+  interface IMyGetPhoneNumberProtocols {
+    [key: string]: unknown;
+  }
+  interface IMyGetRunDataProtocols {
+    [key: string]: unknown;
   }
   interface IMyGetWindowInfoSafeArea {
     left: number;
@@ -20110,6 +20660,7 @@ declare namespace my {
   interface ISelectorQueryFieldsOption {
     /**
      * 是否返回节点 id
+     * @sdk2 2.7.4
      */
     id?: boolean;
     /**
@@ -20370,6 +20921,9 @@ declare namespace my {
      * 目标路径
      */
     targetPath: string;
+  }
+  interface IUploadTaskOnHeadersReceivedHeader {
+    [key: string]: string;
   }
   interface IWIdAuthResultData {
     /**
@@ -20764,16 +21318,19 @@ declare namespace my {
     appMode?: `${TypeSystemInfo$AppMode}`;
     /**
      * 手机品牌
+     * @sdk2 2.3.1
      * @example "HUAWEI"
      */
     brand: string;
     /**
      * 当前电池电量
+     * @sdk2 2.3.1
      * @example "79%"
      */
     currentBattery: string;
     /**
      * 用户设置字体大小
+     * @sdk2 2.3.1
      * @example 1
      */
     fontSizeSetting: number;
@@ -20801,6 +21358,7 @@ declare namespace my {
     statusBarHeight: number;
     /**
      * 设备磁盘容量
+     * @sdk2 2.3.1
      * @example "118 GB"
      */
     storage: string;
@@ -20821,11 +21379,13 @@ declare namespace my {
     windowHeight: number;
     /**
      * @android false
+     * @sdk2 2.6.0
      */
     isIphoneXSeries: boolean;
     /**
      * 在竖屏正方向下的安全区域
      * @native 10.2.20
+     * @sdk2 2.7.14
      * @android false
      */
     safeArea?: TypeSystemInfo$SafeArea;
@@ -23031,6 +23591,49 @@ declare const enum EInvokeType {
    * 支付宝服务窗
    */
   WINDOWS = 'WINDOWS',
+}
+
+declare const enum EMapContextShowRouteMode {
+  /**
+   * 公交 - 最快捷模式，驾车 - 速度优先（时间）
+   */
+  _0 = 0,
+  /**
+   * 公交 - 最经济模式，驾车 - 费用优先（不走收费路段的最快道路）
+   */
+  _1 = 1,
+  /**
+   * 公交 - 最少换乘模式，驾车 - 距离优先
+   */
+  _2 = 2,
+  /**
+   * 公交 - 最少步行模式，驾车 - 不走快速路
+   */
+  _3 = 3,
+  /**
+   * 公交 - 最舒适模式，驾车 - 结合实时交通（躲避拥堵）
+   */
+  _4 = 4,
+  /**
+   * 公交 - 不乘地铁模式，驾车 - 多策略（同时使用速度优先、费用优先、距离优先三个策略）
+   */
+  _5 = 5,
+  /**
+   * 驾车 - 不走高速
+   */
+  _6 = 6,
+  /**
+   * 驾车 - 不走高速且避免收费
+   */
+  _7 = 7,
+  /**
+   * 驾车 - 躲避收费和拥堵
+   */
+  _8 = 8,
+  /**
+   * 驾车 - 不走高速且躲避收费和拥堵
+   */
+  _9 = 9,
 }
 
 declare const enum EMemoryWarningLevel {
