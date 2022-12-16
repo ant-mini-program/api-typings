@@ -6592,6 +6592,10 @@ declare namespace my {
      */
     complete?(arg: { error?: number; errorMessage?: string }): void;
   }): Promise<void>;
+  /**
+   * 跳转到当前用户的某张券的（口碑）详情页
+   * @see https://opendocs.alipay.com/mini/api/tfa5s0
+   */
   export function openKBVoucherDetail(r: {
     /**
      * 卡实例 ID，调用 [券发放接口](https://docs.open.alipay.com/api_24/alipay.pass.instance.add) 可以获取该参数。
@@ -6610,6 +6614,10 @@ declare namespace my {
      */
     complete?(arg: { error?: number; errorMessage?: string }): void;
   }): Promise<void>;
+  /**
+   * 跳转到当前用户的某张券的（口碑）详情页
+   * @see https://opendocs.alipay.com/mini/api/tfa5s0
+   */
   export function openKBVoucherDetail(r: {
     /**
      * 商户编号。
@@ -6676,6 +6684,7 @@ declare namespace my {
   }): Promise<void>;
   /**
    * 跳转到当前用户在指定商户的已领取票列表界面
+   * @see https://opendocs.alipay.com/mini/api/yee76y
    */
   export function openMerchantTicketList(r: {
     /**
@@ -6697,6 +6706,7 @@ declare namespace my {
   }): Promise<void>;
   /**
    * 跳转到当前用户在指定商户的已领取券列表界面
+   * @see https://opendocs.alipay.com/mini/api/sgvgu6
    */
   export function openMerchantVoucherList(r: {
     /**
@@ -6746,6 +6756,10 @@ declare namespace my {
   }): Promise<{
     authSetting: IOpenSettingAuthSetting;
   }>;
+  /**
+   * 跳转到当前用户领取某张票的详情界面
+   * @see https://opendocs.alipay.com/mini/api/ry7ftz
+   */
   export function openTicketDetail(r: {
     /**
      * 卡实例 ID，调用 [券发放接口](https://docs.open.alipay.com/api_24/alipay.pass.instance.add) 可以获取该参数。
@@ -6764,6 +6778,10 @@ declare namespace my {
      */
     complete?(arg: { error?: number; errorMessage?: string }): void;
   }): Promise<void>;
+  /**
+   * 跳转到当前用户领取某张票的详情界面
+   * @see https://opendocs.alipay.com/mini/api/ry7ftz
+   */
   export function openTicketDetail(r: {
     /**
      * 商户编号。
@@ -6788,6 +6806,7 @@ declare namespace my {
   }): Promise<void>;
   /**
    * 跳转到支付宝票列表界面
+   * @see https://opendocs.alipay.com/mini/api/ezt6u3
    */
   export function openTicketList(r?: {
     /**
@@ -6803,6 +6822,10 @@ declare namespace my {
      */
     complete?(arg: { error?: number; errorMessage?: string }): void;
   }): Promise<void>;
+  /**
+   * 跳转到当前用户领取某张券的详情页（非口碑券）
+   * @see https://opendocs.alipay.com/mini/api/ga4obi
+   */
   export function openVoucherDetail(r: {
     /**
      * 卡实例 ID，调用 [券发放接口](https://docs.open.alipay.com/api_24/alipay.pass.instance.add) 可以获取该参数。
@@ -6821,6 +6844,10 @@ declare namespace my {
      */
     complete?(arg: { error?: number; errorMessage?: string }): void;
   }): Promise<void>;
+  /**
+   * 跳转到当前用户领取某张券的详情页（非口碑券）
+   * @see https://opendocs.alipay.com/mini/api/ga4obi
+   */
   export function openVoucherDetail(r: {
     /**
      * 商户编号。
@@ -6845,6 +6872,7 @@ declare namespace my {
   }): Promise<void>;
   /**
    * 跳转到支付宝券列表界面
+   * @see https://opendocs.alipay.com/mini/api/vq3mgn
    */
   export function openVoucherList(r?: {
     /**
@@ -10067,212 +10095,6 @@ declare namespace my {
      */
     errorMessage: string;
   }>;
-  export interface CloudContext {
-    /**
-     * 云托管服务调用
-     * @sdk 2.8.3
-     * @native 10.3.20
-     */
-    callContainer(r: {
-      /**
-       * 云环境服务路径
-       */
-      path: string;
-      /**
-       * 云环境配置
-       */
-      config: Record<string, string>;
-      /**
-       * 云环境服务配置
-       */
-      header: Record<string, string>;
-      /**
-       * 云服务器请求类型
-       */
-      method?: string;
-      /**
-       * 请求数据
-       */
-      data?: object;
-      /**
-       * 超时时间
-       */
-      timeout?: number;
-      /**
-       * 返回的resultData字段数据格式
-       */
-      dataType?: string;
-      /**
-       * 返回的resultData字段数据流类型
-       */
-      responseType?: string;
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: {
-        /**
-         * 响应结果码，正常返回为200
-         */
-        resultCode?: number;
-        /**
-         * 响应数据
-         */
-        resultData: Record<string, unknown>;
-      }): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(
-        err:
-          | {
-              error?: number;
-              errorMessage?: string;
-            }
-          | {
-              error: 60001;
-              errorMessage: '非法入参，非法入参，请在config字段中传入云环境ID参数env';
-            }
-          | {
-              error: 60002;
-              errorMessage: '调用前，请先初始化云环境';
-            }
-          | {
-              error: 60005;
-              errorMessage: '云调用失败';
-            },
-      ): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(
-        arg:
-          | {
-              /**
-               * 响应结果码，正常返回为200
-               */
-              resultCode?: number;
-              /**
-               * 响应数据
-               */
-              resultData: Record<string, unknown>;
-            }
-          | (
-              | {
-                  error?: number;
-                  errorMessage?: string;
-                }
-              | {
-                  error: 60001;
-                  errorMessage: '非法入参，非法入参，请在config字段中传入云环境ID参数env';
-                }
-              | {
-                  error: 60002;
-                  errorMessage: '调用前，请先初始化云环境';
-                }
-              | {
-                  error: 60005;
-                  errorMessage: '云调用失败';
-                }
-            ),
-      ): void;
-    }): Promise<{
-      /**
-       * 响应结果码，正常返回为200
-       */
-      resultCode?: number;
-      /**
-       * 响应数据
-       */
-      resultData: Record<string, unknown>;
-    }>;
-    /**
-     * 云托管初始化
-     * @sdk 2.8.3
-     * @native 10.3.20
-     */
-    init(r?: {
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: { success: boolean }): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(
-        err:
-          | {
-              error?: number;
-              errorMessage?: string;
-            }
-          | {
-              error: 60001;
-              errorMessage: '系统错误';
-            }
-          | {
-              error: 60002;
-              errorMessage: '小程序不存在';
-            }
-          | {
-              error: 60003;
-              errorMessage: '小程序云环境不存在';
-            }
-          | {
-              error: 60004;
-              errorMessage: '无权限调用';
-            }
-          | {
-              error: 60005;
-              errorMessage: '网络异常';
-            }
-          | {
-              error: 2;
-              errorMessage: '接口参数无效';
-            },
-      ): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(
-        arg:
-          | {
-              success: boolean;
-            }
-          | (
-              | {
-                  error?: number;
-                  errorMessage?: string;
-                }
-              | {
-                  error: 60001;
-                  errorMessage: '系统错误';
-                }
-              | {
-                  error: 60002;
-                  errorMessage: '小程序不存在';
-                }
-              | {
-                  error: 60003;
-                  errorMessage: '小程序云环境不存在';
-                }
-              | {
-                  error: 60004;
-                  errorMessage: '无权限调用';
-                }
-              | {
-                  error: 60005;
-                  errorMessage: '网络异常';
-                }
-              | {
-                  error: 2;
-                  errorMessage: '接口参数无效';
-                }
-            ),
-      ): void;
-    }): Promise<{
-      success: boolean;
-    }>;
-  }
-  export interface RDSContext {}
   export interface FileSystemManager {
     /**
      * 判断文件、目录是否存在
@@ -13566,7 +13388,6 @@ declare namespace my {
       complete?(arg: { error?: number; errorMessage?: string }): void;
     }): Promise<void>;
   }
-  export interface CameraContext {}
   export interface CameraFrameListener {}
   export interface UpdateManager {
     /**
@@ -13693,8 +13514,6 @@ declare namespace my {
      */
     disconnect(): void;
   }
-  export interface TCPSocket {}
-  export interface UDPSocket {}
   export interface RecorderManager {
     /**
      * 停止监听声音的分贝变化回调事件
@@ -14214,18 +14033,6 @@ declare namespace my {
      */
     stop(): void;
   }
-  export interface AICameraContext {}
-  export interface ARContext {
-    /**
-     * 截屏
-     * @sdk2 2.4.4
-     */
-    snapshot(): void;
-  }
-  export interface AudioContext {}
-  export interface InsuranceXReplaySession {}
-  export interface LivePlayerContext {}
-  export interface LivePusherContext {}
   export interface LottieContext {
     /**
      * 当前 Lottie 视图指定降级为展示 placeholder
@@ -14422,7 +14229,6 @@ declare namespace my {
      */
     stop(): void;
   }
-  export interface XnnManager {}
   export interface BackgroundAudioManager {
     /**
      * 音频缓冲的时间点，仅保证当前播放时间点到此时间点内容已缓冲（只读）
@@ -16861,7 +16667,6 @@ declare namespace my {
     matrixTransform(matrix?: TypeDOMMatrixInit): DOMPoint;
     toJSON(): unknown;
   }
-  export interface RtcRoomContext {}
   export interface Tracert {
     readonly apFrameworkScheme: string;
     readonly appId: string;
@@ -18096,12 +17901,6 @@ declare namespace my {
      * 子条目列表, 对象参见list对象
      */
     subList?: IBeehiveMultilevelSelectList[];
-  }
-  interface IBeehiveMultilevelSelectResult {
-    /**
-     * 上一次选择的子条目
-     */
-    name: string;
   }
   interface IBeehiveMultilevelSelectResult {
     name: string;
@@ -20314,18 +20113,11 @@ declare namespace my {
     thresholds?: number[];
     initialRatio?: number;
     selectAll?: boolean;
-    /**
-     * @sdk2 2.7.0
-     */
     dataset?: boolean;
     strict?: boolean;
   }
-  interface IMyCreateIntersectionObserverOption {
-    thresholds?: number[];
-    initialRatio?: number;
-    selectAll?: boolean;
-    dataset?: boolean;
-    strict?: boolean;
+  interface IMyCreateRDSContextOption {
+    appId: string;
   }
   interface IMyCreateSelectorQueryOption {
     /**
@@ -20395,14 +20187,6 @@ declare namespace my {
   }
   interface IMyGetRunDataProtocols {
     [key: string]: unknown;
-  }
-  interface IMyGetWindowInfoSafeArea {
-    left: number;
-    right: number;
-    top: number;
-    bottom: number;
-    height: number;
-    width: number;
   }
   interface IMyGetWindowInfoSafeArea {
     left: number;
