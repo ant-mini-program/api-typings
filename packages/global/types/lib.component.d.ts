@@ -5,7 +5,7 @@ declare namespace MiniProgram.Component {
      * @version 2.7.20+ 可以通过判断 `this.getTabBar` 是否为一个函数做兼容性处理
      */
     getTabBar<
-      T extends any = IComponentInstance<
+      T extends any = IInstance<
         UnknownRecord,
         UnknownRecord,
         UnknownRecord,
@@ -59,82 +59,82 @@ declare namespace MiniProgram.Component {
    * Additional properties in Component instance, for module augmentation
    */
   interface IComponentInstanceAdditionalProperties<
-  ExtraOptions extends UnknownRecord
+    ExtraOptions extends UnknownRecord
   > {}
   /**
    * component\/*\/index.js Component(options) 中 options 的内部类型
    * ref: https://opendocs.alipay.com/mini/framework/component_object
    */
- interface IComponentOptions<
+  interface IOptions<
     Data,
     Props,
     Methods,
     ExtraOptions extends UnknownRecord,
     Mixin extends any[]
   > {
-  /**
-   * 组件内部状态
-   */
-  data: Data | (() => Data);
-  /**
-   * 为外部传入的数据设置默认值
-   */
-  props: Props;
-  /**
-   * 组件生命周期函数，组件创建时触发
-   * @version 1.14.0+
-   */
-  onInit(): void;
-  /**
-   * 组件生命周期函数，组件创建时和更新前触发
-   *  @version 1.14.0+
-   */
-  deriveDataFromProps(nextProps: Partial<Props>): void;
-  /**
-   * 组件生命周期函数，组件创建完毕时触发
-   */
-  didMount(): void;
-  /**
-   * 组件生命周期函数，组件更新完毕时触发
-   */
-  didUpdate(prevProps: Partial<Props>, prevData: Partial<Data>): void;
-  /**
-   * 组件生命周期函数，组件删除时触发
-   */
-  didUnmount(): void;
-  /**
-   * 组件间代码复用机制
-   */
-  mixins: Mixin;
-  /**
-   * 组件的方法，可以是事件响应函数或任意的自定义方法
-   * Object of Functions
-   */
-  methods: Methods;
-  /**
-   * 指定组件被ref引用时的返回值
-   * @version 1.18.0+
-   */
-  ref(): void;
-  /**
-   * 监听所属页面的事件
-   */
-  pageEvents: Partial<Page.Events>;
-  /**
-   * 开启某些功能项
-   */
-  options: {
     /**
-     * 开启 observers 数据变化观测器
+     * 组件内部状态
      */
-    observers: boolean;
-  },
-  /**
-   * 数据变化观测器，观测和响应任何属性和数据字段的变化。
-   * @version 2.8.1
-   */
-  observers: Record<string, (...args: any[]) => void>;
-}
+    data: Data | (() => Data);
+    /**
+     * 为外部传入的数据设置默认值
+     */
+    props: Props;
+    /**
+     * 组件生命周期函数，组件创建时触发
+     * @version 1.14.0+
+     */
+    onInit(): void;
+    /**
+     * 组件生命周期函数，组件创建时和更新前触发
+     *  @version 1.14.0+
+     */
+    deriveDataFromProps(nextProps: Partial<Props>): void;
+    /**
+     * 组件生命周期函数，组件创建完毕时触发
+     */
+    didMount(): void;
+    /**
+     * 组件生命周期函数，组件更新完毕时触发
+     */
+    didUpdate(prevProps: Partial<Props>, prevData: Partial<Data>): void;
+    /**
+     * 组件生命周期函数，组件删除时触发
+     */
+    didUnmount(): void;
+    /**
+     * 组件间代码复用机制
+     */
+    mixins: Mixin;
+    /**
+     * 组件的方法，可以是事件响应函数或任意的自定义方法
+     * Object of Functions
+     */
+    methods: Methods;
+    /**
+     * 指定组件被ref引用时的返回值
+     * @version 1.18.0+
+     */
+    ref(): void;
+    /**
+     * 监听所属页面的事件
+     */
+    pageEvents: Partial<Page.Events>;
+    /**
+     * 开启某些功能项
+     */
+    options: {
+      /**
+       * 开启 observers 数据变化观测器
+       */
+      observers: boolean;
+    },
+    /**
+     * 数据变化观测器，观测和响应任何属性和数据字段的变化。
+     * @version 2.8.1
+     */
+    observers: Record<string, (...args: any[]) => void>;
+  }
   /**
    * 用户可配置的 Component Options
    */
@@ -146,7 +146,7 @@ declare namespace MiniProgram.Component {
     ExtraOptions extends UnknownRecord,
     Mixin extends any[]
   > = {
-    [P in keyof ExtraOptions]: P extends keyof IComponentOptions<
+    [P in keyof ExtraOptions]: P extends keyof IOptions<
       Data,
       Props,
       Methods,
@@ -155,69 +155,69 @@ declare namespace MiniProgram.Component {
     >
       ? unknown
       : ExtraOptions[P];
-  } & Partial<IComponentOptions<Data, Props, Methods, ExtraOptions, Mixin>> &
+  } & Partial<IOptions<Data, Props, Methods, ExtraOptions, Mixin>> &
     ThisType<
-      IComponentInstance<Data, Props, Methods, ExtraThis, ExtraOptions, Mixin>
+      IInstance<Data, Props, Methods, ExtraThis, ExtraOptions, Mixin>
     >;
 
-/**
- * Public instance
- */
-type IComponentInstance<
-  Data,
-  Props,
-  Methods,
-  ExtraThis,
-  ExtraOptions extends UnknownRecord,
-  Mixin extends any[]
+  /**
+   * Public instance
+   */
+  type IInstance<
+    Data,
+    Props,
+    Methods,
+    ExtraThis,
+    ExtraOptions extends UnknownRecord,
+    Mixin extends any[]
   > = {
-  data: Data & UnionToIntersection<TGetMixinData<TExtractValuesOfTuple<Mixin>>>;
-  props: Readonly<
-    Props & UnionToIntersection<TGetMixinProps<TExtractValuesOfTuple<Mixin>>>
-  >;
-  } & Methods &
-  UnionToIntersection<TGetMixinMethods<TExtractValuesOfTuple<Mixin>>> &
-  ExtraThis &
-  Omit<
-    ExtraOptions,
-    keyof IComponentOptions<Data, Props, Methods, ExtraOptions, Mixin>
-  > &
-  IComponentInstanceAdditionalProperties<ExtraOptions> & {
-    /**
-     * 组件路径
-     */
-    readonly is: string;
-    /**
-     * 组件 id，可直接在组件 axml 中渲染值
-     */
-    readonly $id: number;
-    /**
-     * 组件所属页面实例
-     */
-    readonly $page: Record<string, any>;
-    /**
-     * 将数据从逻辑层发送到视图层
-     * @param data
-     * @param callback
-     */
-    setData(
-      data: RecursivePartialAndDynamic<Data> & Record<string, unknown>,
-      callback?: () => void
-    ): void;
-    /**
-     * $spliceData 同样用于将数据从逻辑层发送到视图层，但是相比于 setData，在处理长列表的时候，其具有更高的性能。
-     * @param data
-     * @param callback
-     * @version 1.7.2+ 可以使用 my.canIUse('page.$spliceData') 做兼容性处理
-     */
-    $spliceData(
-      data: RecursivePartialAndDynamic<Data> & Record<string, unknown>,
-      callback?: () => void
-    ): void;
-  } & IGetTabBarMethod &
-  IElementQuery &
-  ISelectComponent &
-  IHasMixin;
+    data: Data & UnionToIntersection<TGetMixinData<TExtractValuesOfTuple<Mixin>>>;
+    props: Readonly<
+      Props & UnionToIntersection<TGetMixinProps<TExtractValuesOfTuple<Mixin>>>
+    >;
+    } & Methods &
+    UnionToIntersection<TGetMixinMethods<TExtractValuesOfTuple<Mixin>>> &
+    ExtraThis &
+    Omit<
+      ExtraOptions,
+      keyof IOptions<Data, Props, Methods, ExtraOptions, Mixin>
+    > &
+    IComponentInstanceAdditionalProperties<ExtraOptions> & {
+      /**
+       * 组件路径
+       */
+      readonly is: string;
+      /**
+       * 组件 id，可直接在组件 axml 中渲染值
+       */
+      readonly $id: number;
+      /**
+       * 组件所属页面实例
+       */
+      readonly $page: Record<string, any>;
+      /**
+       * 将数据从逻辑层发送到视图层
+       * @param data
+       * @param callback
+       */
+      setData(
+        data: RecursivePartialAndDynamic<Data> & Record<string, unknown>,
+        callback?: () => void
+      ): void;
+      /**
+       * $spliceData 同样用于将数据从逻辑层发送到视图层，但是相比于 setData，在处理长列表的时候，其具有更高的性能。
+       * @param data
+       * @param callback
+       * @version 1.7.2+ 可以使用 my.canIUse('page.$spliceData') 做兼容性处理
+       */
+      $spliceData(
+        data: RecursivePartialAndDynamic<Data> & Record<string, unknown>,
+        callback?: () => void
+      ): void;
+    } & IGetTabBarMethod &
+    IElementQuery &
+    ISelectComponent &
+    IHasMixin;
   interface Constructor {
     <
       Data = {},

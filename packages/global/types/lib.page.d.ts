@@ -7,7 +7,7 @@ declare namespace MiniProgram.Page {
   /**
    * 页面事件处理对象
    */
-  export interface Events {
+  interface Events {
     /**
      * 页面返回时触发
      * @since 1.13.7
@@ -73,7 +73,7 @@ declare namespace MiniProgram.Page {
    * pages\/*\/index.js Page(options) 中 options 的内部类型
    * ref: https://opendocs.alipay.com/mini/framework/app-detail
    */
-  interface IPageOptions<Data, ExtraOptions extends UnknownRecord> {
+  interface IOptions<Data, ExtraOptions extends UnknownRecord> {
     /**
      * 初始数据或返回初始化数据的函数
      */
@@ -142,17 +142,17 @@ declare namespace MiniProgram.Page {
   /**
    * Additional properties in Page instance, for module augmentation
    */
-  interface IPageInstanceAdditionalProperties<ExtraOptions> {}
+  interface IInstanceAdditionalProperties<ExtraOptions> {}
 
   /**
    * `this` type of life cycle hooks in App.
    */
-  type IPageInstance<
+  type IInstance<
     Data,
     ExtraThis,
     ExtraOptions extends UnknownRecord
     > = { data: Data & UnknownRecord } & ExtraThis &
-    Omit<ExtraOptions, keyof IPageOptions<Data, ExtraOptions>> & {
+    Omit<ExtraOptions, keyof IOptions<Data, ExtraOptions>> & {
       /**
        * 将数据从逻辑层发送到视图层
        * @param data
@@ -184,13 +184,13 @@ declare namespace MiniProgram.Page {
        * @readonly
        */
       readonly route: string;
-    } & IPageInstanceAdditionalProperties<ExtraOptions> &
+    } & IInstanceAdditionalProperties<ExtraOptions> &
     Component.IGetTabBarMethod &
     Component.IElementQuery &
     Component.ISelectComponent;
 
   /**
-   * 用户可配置的 App Options
+   * 用户可配置的 Page Options
    */
   type IUserPageOptions<
     Data,
@@ -199,14 +199,14 @@ declare namespace MiniProgram.Page {
   > = Partial<
     UniqueLeft<
       UniqueLeft<ExtraThis, ExtraOptions>,
-      IPageOptions<Data, ExtraOptions>
+      IOptions<Data, ExtraOptions>
     >
   > & {
-    [P in keyof ExtraOptions]: P extends keyof IPageOptions<Data, ExtraOptions>
+    [P in keyof ExtraOptions]: P extends keyof IOptions<Data, ExtraOptions>
       ? unknown
       : ExtraOptions[P];
-  } & Partial<IPageOptions<Data, ExtraOptions>> &
-    ThisType<IPageInstance<Data, ExtraThis, ExtraOptions>>;
+  } & Partial<IOptions<Data, ExtraOptions>> &
+    ThisType<IInstance<Data, ExtraThis, ExtraOptions>>;
 
   interface Constructor {
     <
@@ -222,6 +222,6 @@ declare namespace MiniProgram.Page {
     ): void;
   }
   interface GetCurrentPages {
-    (): IPageInstance<object, {}, {}>[];
+    (): IInstance<object, {}, {}>[];
   }
 }

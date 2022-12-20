@@ -11,11 +11,10 @@ declare global {
    * 使用插件提供的 JS 接口，函数返回值为 \`插件\` 通过 \`main\` 字段暴露的 JS 接口。
    */
   const requirePlugin: IRequirePlugin;
-
   /**
    * Extra `this` for App instance.
    */
-  export interface IGlobalMiniProgramExtraThis4App {}
+  interface IGlobalMiniProgramExtraThis4App {}
 
   /**
    * App's constructor
@@ -32,12 +31,7 @@ declare global {
   /**
    * Extra `this` for Page instance.
    */
-  export interface IGlobalMiniProgramExtraThis4Page {}
-
-  /**
-   * Extra `this` for Component instance.
-   */
-  export interface IGlobalMiniProgramExtraThis4Component {}
+  interface IGlobalMiniProgramExtraThis4Page {}
 
   /**
    * Get Current Pages
@@ -50,6 +44,11 @@ declare global {
    * @link https://opendocs.alipay.com/mini/framework/page-detail
    */
   let Page: MiniProgram.Page.Constructor
+
+  /**
+   * Extra `this` for Component instance.
+   */
+  interface IGlobalMiniProgramExtraThis4Component {}
 
   /**
    * Component's constructor

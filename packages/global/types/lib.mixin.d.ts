@@ -2,13 +2,13 @@ declare namespace MiniProgram.Mixin {
   /**
    * 传统的组件间代码复用，仅Component的mixins参数支持传入，Mixin参数mixins 则只支持传入Mixin()的返回值
    */
-  type IMixin4Legacy = Partial<Omit<Component.IComponentOptions<UnknownRecord, UnknownRecord, UnknownRecord, UnknownRecord, []>, 'ref' | 'options' | 'mixins'>>;
+  type IMixin4Legacy = Partial<Omit<Component.IOptions<UnknownRecord, UnknownRecord, UnknownRecord, UnknownRecord, []>, 'ref' | 'options' | 'mixins'>>;
   /**
    * Mixin() 返回值
    */
   type IMixinIdentifier = string;
 
-  type IMixinDefinitionFilter = <T extends Component.IComponentOptions<any, any, any, any, any> | IMixinOptions<any, any, any, any, any, any> | Page.IPageOptions<any, any>>(
+  type IMixinDefinitionFilter = <T extends Component.IOptions<any, any, any, any, any> | IMixinOptions<any, any, any, any, any, any> | Page.IOptions<any, any>>(
     /** 使用该 mixin 的 component/mixin 的定义对象 */
     defFields: T,
     /** 该 mixin 所使用的 mixin 的 definitionFilter 函数列表 */
@@ -26,7 +26,7 @@ declare namespace MiniProgram.Mixin {
     ExtraOptions extends UnknownRecord,
     IGlobalMiniProgramExtraThis4Component extends Array<IMixinIdentifier>
     > = {
-    [P in keyof ExtraOptions]: P extends keyof Component.IComponentOptions<
+    [P in keyof ExtraOptions]: P extends keyof Component.IOptions<
       Data,
       Props,
       Methods,
@@ -35,7 +35,7 @@ declare namespace MiniProgram.Mixin {
     > | 'definitionFilter' | 'mixins'
       ? unknown
       : ExtraOptions[P];
-    } & Omit<Partial<Component.IComponentOptions<Data, Props, Methods, ExtraOptions, IMixinIdentifier[]>>, 'ref' | 'options'> & Partial<{
+    } & Omit<Partial<Component.IOptions<Data, Props, Methods, ExtraOptions, IMixinIdentifier[]>>, 'ref' | 'options'> & Partial<{
     /**
     * 定义段过滤器，用于自定义组件扩展
     */
@@ -46,7 +46,7 @@ declare namespace MiniProgram.Mixin {
       mixins: Array<IMixinIdentifier>
     }> &
     ThisType<
-      Component.IComponentInstance<Data, Props, Methods, ExtraThis, ExtraOptions, IMixinIdentifier[]>
+      Component.IInstance<Data, Props, Methods, ExtraThis, ExtraOptions, IMixinIdentifier[]>
   >;
 
   interface Constructor {

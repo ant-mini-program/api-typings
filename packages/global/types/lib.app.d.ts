@@ -1,5 +1,5 @@
 declare namespace MiniProgram.App {
-  export interface ReferrerInfo {
+  interface ReferrerInfo {
     /**
      * 来源小程序
      */
@@ -14,7 +14,7 @@ declare namespace MiniProgram.App {
     extraData: Record<string, any>;
   }
 
-  export interface LaunchOptions<
+  interface LaunchOptions<
     Query extends Record<string, string> = Record<string, string>
   > {
     /**
@@ -36,7 +36,7 @@ declare namespace MiniProgram.App {
     referrerInfo: ReferrerInfo;
   }
 
-  export interface OnUnhandledRejectionRes {
+  interface UnhandledRejectionRes {
     /**
      * reject 的原因
      */
@@ -80,7 +80,7 @@ declare namespace MiniProgram.App {
      * 监听 unhandledrejection 事件
      * 当 Promise 被 reject 且没有 reject 处理器时，会触发 onUnhandledRejection 事件
      */
-    onUnhandledRejection(res: OnUnhandledRejectionRes): void;
+    onUnhandledRejection(res: UnhandledRejectionRes): void;
     /**
      * 全局数据
      */
@@ -90,28 +90,28 @@ declare namespace MiniProgram.App {
   /**
    * Additional properties in App instance, for module augmentation
    */
-  export interface InstanceAdditionalProperties<
+  interface IInstanceAdditionalProperties<
     ExtraOptions extends UnknownRecord
   > {}
 
   /**
    * App 的类型
    */
-  export interface IApp<ExtraThis, ExtraOptions extends UnknownRecord> {
+  interface IApp<ExtraThis, ExtraOptions extends UnknownRecord> {
     (opts: UserAppOptions<ExtraThis, ExtraOptions>): any;
   }
 
-  export type IAppInstance<ExtraThis, ExtraOptions extends UnknownRecord> = Omit<
+  type IAppInstance<ExtraThis, ExtraOptions extends UnknownRecord> = Omit<
     ExtraOptions,
     keyof Options<ExtraOptions>
   > &
     ExtraThis &
-    InstanceAdditionalProperties<ExtraOptions>;
+    IInstanceAdditionalProperties<ExtraOptions>;
 
   /**
    * 用户可配置的 App Options
    */
-  export type UserAppOptions<
+  type UserAppOptions<
     ExtraThis,
     ExtraOptions extends UnknownRecord
   > = Partial<Options<ExtraOptions>> &
@@ -123,22 +123,22 @@ declare namespace MiniProgram.App {
         : ExtraOptions[P];
     } & ThisType<IAppInstance<ExtraThis, ExtraOptions>>;
 
-    interface Constructor {
-      <
-        ExtraThis = {},
-        ExtraOptions extends Record<string, unknown> = {}
-      >(
-        opts: UserAppOptions<
-          ExtraThis & IGlobalMiniProgramExtraThis4App,
-          ExtraOptions
-        >
-      ): void;
-    }
+  interface Constructor {
+    <
+      ExtraThis = {},
+      ExtraOptions extends Record<string, unknown> = {}
+    >(
+      opts: UserAppOptions<
+        ExtraThis & IGlobalMiniProgramExtraThis4App,
+        ExtraOptions
+      >
+    ): void;
+  }
 
-    interface GetApp {
-      <
-        ExtraThis = {},
-        ExtraOptions extends Record<string, unknown> = {}
-      >(): IAppInstance<ExtraThis & IGlobalMiniProgramExtraThis4App, ExtraOptions>
+  interface GetApp {
+    <
+      ExtraThis = {},
+      ExtraOptions extends Record<string, unknown> = {}
+    >(): IAppInstance<ExtraThis & IGlobalMiniProgramExtraThis4App, ExtraOptions>
   }
 }
