@@ -1,66 +1,25 @@
 declare namespace MiniProgram.Component {
-  interface IGetTabBarMethod {
-    /**
-     * 获取自定义 tabBar 实例
-     * @version 2.7.20+ 可以通过判断 `this.getTabBar` 是否为一个函数做兼容性处理
-     */
-    getTabBar<
-      T extends any = IInstance<
-        UnknownRecord,
-        UnknownRecord,
-        UnknownRecord,
-        UnknownRecord,
-        UnknownRecord,
-        []
-      >
-    >(): T | undefined;
-  }
-
-  interface IElementQuery {
-    /**
-     * 创建 SelectorQuery 对象实例。
-     * @version 基础库 2.7.4 起支持。
-     */
-    createSelectorQuery(): any;
-    /**
-     * 创建 IntersectionObserver 对象实例。
-     * @version 基础库 2.7.4 起支持。
-     */
-    createIntersectionObserver(): any;
-  }
-
-  interface ISelectComponent {
-    /**
-     * 选取当前组件的创建者（即 AXML 中定义了此组件的组件），返回它的组件实例对象（会被 `ref` 影响）。
-     *
-     * @version 基础库 2.7.22 起支持。
-     * @returns undefined | null | 页面 | 自定义组件 | 用户 ref 的 Object
-     */
-    selectOwnerComponent(): any;
-    /**
-     * 选取当前组件在事件冒泡路径上的父组件，返回它的组件实例对象（会被 `ref` 影响）。
-     *
-     * @version 基础库 2.7.22 起支持。
-     * @returns undefined | null | 页面 | 自定义组件 | 用户 ref 的 Object
-     */
-    selectComposedParentComponent(): any;
-  }
-  interface IHasMixin {
-    /**
-     * 检查组件是否具有 mixin(须是通过Mixin()创建的mixin实例)。
-     * 若自定义组件注册时传入了ref以指定组件返回值，则可通过hasMixin('ref')检查到
-     * @version 基础库 2.8.2
-     * @return boolean
-     */
-    hasMixin(mixin: Mixin.IMixinIdentifier): boolean
-  }
-
   /**
    * Additional properties in Component instance, for module augmentation
    */
   interface IComponentInstanceAdditionalProperties<
     ExtraOptions extends UnknownRecord
   > {}
+
+  interface SetUpdatePerformanceListenerOption<WithDataPath extends boolean> {
+    /**
+     * 是否返回变更的 data 字段信息
+     */
+    withDataPaths?: WithDataPath
+  }
+
+  interface UpdatePerformanceListener<WithDataPath> {
+    (res: UpdatePerformance<WithDataPath>): void
+  }
+
+  interface UpdatePerformance<WithDataPath> {
+    // TODO
+  }
 
   interface ILifetimes {
     /**
@@ -93,36 +52,15 @@ declare namespace MiniProgram.Component {
     /**
      * 关系生命周期函数，目标组件建立时触发，触发时机在组件 attached 生命周期之后。
      */
-    linked?(target: IInstance<
-      UnknownRecord,
-      UnknownRecord,
-      UnknownRecord,
-      UnknownRecord,
-      UnknownRecord,
-      []
-    >): void
+    linked?(target: BaseInstance): void
     /**
      * 关系生命周期函数，目标组件移动时触发，触发时机在组件 moved 生命周期之后。
      */
-    linkChanged?(target: IInstance<
-      UnknownRecord,
-      UnknownRecord,
-      UnknownRecord,
-      UnknownRecord,
-      UnknownRecord,
-      []
-    >): void
+    linkChanged?(target: BaseInstance): void
     /**
      * 关系生命周期函数，目标组件销毁时触发，触发时机在组件 detached 生命周期之后
      */
-    unlinked?(target: IInstance<
-      UnknownRecord,
-      UnknownRecord,
-      UnknownRecord,
-      UnknownRecord,
-      UnknownRecord,
-      []
-    >): void
+    unlinked?(target: BaseInstance): void
     /**
      * 根据组件使用的 Mixin 来建立关系
      * 如果这一项被设置，则它表示关联的目标节点所应具有的Mixin实例，所有拥有这一Mixin实例的组件节点都会被关联
@@ -260,7 +198,121 @@ declare namespace MiniProgram.Component {
     ThisType<
       IInstance<Data, Props, Methods, ExtraThis, ExtraOptions, Mixin>
     >;
-
+  interface IInstanceProperties {
+    /**
+     * 组件路径
+     */
+    readonly is: string;
+    /**
+     * 组件 id，可直接在组件 axml 中渲染值
+     */
+    readonly $id: number;
+    /**
+     * 组件所属页面实例
+     */
+    readonly $page: Record<string, any>;
+    /**
+     * 自定义组件路由对象
+     * @description 可获得当前自定义组件的路由对象，路由方法与全局路由方法功能相同，唯一区别在于调用时，相对路径是相对于该自定义组件
+     * @version 2.7.22
+     */
+    readonly router: any; //TODO:
+    /**
+     * 自定义组件所在页面路由对象
+     * @description 可获得当前自定义组件所在页面的路由对象，路由方法与全局路由方法功能相同，唯一区别在于调用时，相对路径是相对于所在页面
+     * @version 2.7.22
+     */
+    readonly pageRouter: any; //TODO:
+  }
+  interface IInstanceMethods<Data> {
+    /**
+     * 将数据从逻辑层发送到视图层
+     * @param data
+     * @param callback
+     */
+    setData(
+      data: RecursivePartialAndDynamic<Data> & Record<string, unknown>,
+      callback?: () => void
+    ): void;
+    /**
+     * $spliceData 同样用于将数据从逻辑层发送到视图层，但是相比于 setData，在处理长列表的时候，其具有更高的性能。
+     * @param data
+     * @param callback
+     * @version 1.7.2+ 可以使用 my.canIUse('page.$spliceData') 做兼容性处理
+     */
+    $spliceData(
+      data: RecursivePartialAndDynamic<Data> & Record<string, unknown>,
+      callback?: () => void
+    ): void;
+    /**
+     * 创建 SelectorQuery 对象实例。
+     * @version 2.7.4
+     */
+    createSelectorQuery(): any;
+    /**
+     * 创建 IntersectionObserver 对象实例。
+     * @version 2.7.4
+     */
+    createIntersectionObserver(): any;
+    /**
+     * 创建 MediaQueryObserver 对象实例，用于监听页面 media query 状态的变化。
+     * @version 2.8.2
+     */
+    createMediaQueryObserver(): any;
+    /**
+     * 获取自定义 tabBar 实例，可以通过判断 `this.getTabBar` 是否为一个函数做兼容性处理
+     * @version 2.7.20
+     */
+    getTabBar<
+      T extends any = BaseInstance
+    >(): T | undefined;
+    /**
+     * 选取当前组件的创建者（即 AXML 中定义了此组件的组件），返回它的组件实例对象（会被 `ref` 影响）。
+     *
+     * @version 2.7.22
+     * @returns undefined | null | 页面 | 自定义组件 | 用户 ref 的 Object
+     */
+    selectOwnerComponent(): any;
+    /**
+     * 选取当前组件在事件冒泡路径上的父组件，返回它的组件实例对象（会被 `ref` 影响）。
+     *
+     * @version 2.7.22
+     * @returns undefined | null | 页面 | 自定义组件 | 用户 ref 的 Object
+     */
+    selectComposedParentComponent(): any;
+    /**
+     * 查询子组件
+     * @description 根据传入的 selector 匹配器查询，返回匹配到的第一个组件实例（会被 ref 影响）
+     * @version 2.8.0
+     */
+    $selectComponent(selector: string): BaseInstance | void;
+    /**
+     * 查询子组件
+     * @description  根据传入的 selector 匹配器查询，返回匹配到的所有组件实例（会被 ref 影响）
+     * @version 2.8.0
+     */
+    $selectAllComponents(selector: string): BaseInstance[];
+    /**
+     * 检查组件是否具有 mixin(须是通过Mixin()创建的mixin实例)。
+     * @description 若自定义组件注册时传入了ref以指定组件返回值，则可通过hasMixin('ref')检查到
+     * @version 基础库 2.8.2
+     * @return boolean
+     */
+    hasMixin(mixin: Mixin.IMixinIdentifier): boolean;
+    /**
+     * 获取这个关系所对应的所有关联节点，参见 组件间关系
+     * @version 2.8.5
+     */
+    getRelationNodes(relationKey: string): BaseInstance[];
+    /**
+     * 获取更新性能统计信息
+     * @version 2.8.5
+     */
+    setUpdatePerformanceListener<WithDataPath extends boolean = false>(
+      option: SetUpdatePerformanceListenerOption<WithDataPath>,
+      callback?: UpdatePerformanceListener<WithDataPath>
+    ): void;
+  }
   /**
    * Public instance
    */
@@ -283,42 +335,16 @@ declare namespace MiniProgram.Component {
       ExtraOptions,
       keyof IOptions<Data, Props, Methods, ExtraOptions, Mixin>
     > &
-    IComponentInstanceAdditionalProperties<ExtraOptions> & {
-      /**
-       * 组件路径
-       */
-      readonly is: string;
-      /**
-       * 组件 id，可直接在组件 axml 中渲染值
-       */
-      readonly $id: number;
-      /**
-       * 组件所属页面实例
-       */
-      readonly $page: Record<string, any>;
-      /**
-       * 将数据从逻辑层发送到视图层
-       * @param data
-       * @param callback
-       */
-      setData(
-        data: RecursivePartialAndDynamic<Data> & Record<string, unknown>,
-        callback?: () => void
-      ): void;
-      /**
-       * $spliceData 同样用于将数据从逻辑层发送到视图层，但是相比于 setData，在处理长列表的时候，其具有更高的性能。
-       * @param data
-       * @param callback
-       * @version 1.7.2+ 可以使用 my.canIUse('page.$spliceData') 做兼容性处理
-       */
-      $spliceData(
-        data: RecursivePartialAndDynamic<Data> & Record<string, unknown>,
-        callback?: () => void
-      ): void;
-    } & IGetTabBarMethod &
-    IElementQuery &
-    ISelectComponent &
-    IHasMixin;
+    IComponentInstanceAdditionalProperties<ExtraOptions> & IInstanceProperties & IInstanceMethods<Data>;
+
+  type BaseInstance = IInstance<
+    UnknownRecord,
+    UnknownRecord,
+    UnknownRecord,
+    UnknownRecord,
+    UnknownRecord,
+    []
+  >
   interface Constructor {
     <
       Data = {},
