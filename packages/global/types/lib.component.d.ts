@@ -61,6 +61,75 @@ declare namespace MiniProgram.Component {
   interface IComponentInstanceAdditionalProperties<
     ExtraOptions extends UnknownRecord
   > {}
+
+  interface ILifetimes {
+    /**
+     * 在组件实例刚刚被创建时执行
+     */
+    created(): void
+    /**
+     * 在组件实例进入页面节点树时执行
+     */
+    attached(): void
+    /**
+     * 在组件在视图层布局完成后执行
+     */
+    ready(): void
+    /**
+     * 在组件实例被移动到节点树另一个位置时执行
+     */
+    moved(): void
+    /**
+     * 在组件实例被从页面节点树移除时执行
+     */
+    detached(): void
+  }
+
+  interface IRelationOption {
+    /**
+     * 与目标组件的相对关系
+     */
+    type: 'parent' | 'child' | 'ancestor' | 'descendant';
+    /**
+     * 关系生命周期函数，目标组件建立时触发，触发时机在组件 attached 生命周期之后。
+     */
+    linked?(target: IInstance<
+      UnknownRecord,
+      UnknownRecord,
+      UnknownRecord,
+      UnknownRecord,
+      UnknownRecord,
+      []
+    >): void
+    /**
+     * 关系生命周期函数，目标组件移动时触发，触发时机在组件 moved 生命周期之后。
+     */
+    linkChanged?(target: IInstance<
+      UnknownRecord,
+      UnknownRecord,
+      UnknownRecord,
+      UnknownRecord,
+      UnknownRecord,
+      []
+    >): void
+    /**
+     * 关系生命周期函数，目标组件销毁时触发，触发时机在组件 detached 生命周期之后
+     */
+    unlinked?(target: IInstance<
+      UnknownRecord,
+      UnknownRecord,
+      UnknownRecord,
+      UnknownRecord,
+      UnknownRecord,
+      []
+    >): void
+    /**
+     * 根据组件使用的 Mixin 来建立关系
+     * 如果这一项被设置，则它表示关联的目标节点所应具有的Mixin实例，所有拥有这一Mixin实例的组件节点都会被关联
+     */
+    target?: string
+  }
+
   /**
    * component\/*\/index.js Component(options) 中 options 的内部类型
    * ref: https://opendocs.alipay.com/mini/framework/component_object
@@ -117,23 +186,55 @@ declare namespace MiniProgram.Component {
      */
     ref(): void;
     /**
-     * 监听所属页面的事件
+     * 监听所属页面除onShareAppMessage外的页面的生命周期函数以及页面事件处理函数。
+     * @version 2.8.5
      */
     pageEvents: Partial<Page.Events>;
     /**
      * 开启某些功能项
      */
-    options: {
+    options: Partial<{
       /**
        * 开启 observers 数据变化观测器
+       * @version 2.8.1
        */
       observers: boolean;
-    },
+      /**
+       * 开启 lifetimes 节点树维度生命周期
+       * @version 2.8.5
+       */
+      lifetimes: boolean;
+      /**
+       * 开启 relations 组件间关系
+       * @version 2.8.5
+       */
+      relations: boolean;
+      /**
+       * 开启 externalClasses 外部样式类
+       * @version 2.8.5
+       */
+      externalClasses: boolean;
+    }>,
     /**
-     * 数据变化观测器，观测和响应任何属性和数据字段的变化。
+     * 数据变化观测器，观测和响应任何属性和数据字段的变化
      * @version 2.8.1
      */
     observers: Record<string, (...args: any[]) => void>;
+    /**
+     * 节点树维度生命周期
+     * @version 2.8.5
+     */
+    lifetimes: Partial<ILifetimes>;
+    /**
+     * 组件间关系
+     * @version 2.8.5
+     */
+    relations: Record<string, IRelationOption>;
+    /**
+     * 组件接受的外部样式类
+     * @version 2.8.5
+     */
+    externalClasses: string[];
   }
   /**
    * 用户可配置的 Component Options
