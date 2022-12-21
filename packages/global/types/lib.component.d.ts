@@ -224,26 +224,8 @@ declare namespace MiniProgram.Component {
      */
     readonly pageRouter: any; //TODO:
   }
-  interface IInstanceMethods<Data> {
-    /**
-     * 将数据从逻辑层发送到视图层
-     * @param data
-     * @param callback
-     */
-    setData(
-      data: RecursivePartialAndDynamic<Data> & Record<string, unknown>,
-      callback?: () => void
-    ): void;
-    /**
-     * $spliceData 同样用于将数据从逻辑层发送到视图层，但是相比于 setData，在处理长列表的时候，其具有更高的性能。
-     * @param data
-     * @param callback
-     * @version 1.7.2+ 可以使用 my.canIUse('page.$spliceData') 做兼容性处理
-     */
-    $spliceData(
-      data: RecursivePartialAndDynamic<Data> & Record<string, unknown>,
-      callback?: () => void
-    ): void;
+
+  interface IInstanceSharedMethods<Data> {
     /**
      * 创建 SelectorQuery 对象实例。
      * @version 2.7.4
@@ -267,20 +249,6 @@ declare namespace MiniProgram.Component {
       T extends any = BaseInstance
     >(): T | undefined;
     /**
-     * 选取当前组件的创建者（即 AXML 中定义了此组件的组件），返回它的组件实例对象（会被 `ref` 影响）。
-     *
-     * @version 2.7.22
-     * @returns undefined | null | 页面 | 自定义组件 | 用户 ref 的 Object
-     */
-    selectOwnerComponent(): any;
-    /**
-     * 选取当前组件在事件冒泡路径上的父组件，返回它的组件实例对象（会被 `ref` 影响）。
-     *
-     * @version 2.7.22
-     * @returns undefined | null | 页面 | 自定义组件 | 用户 ref 的 Object
-     */
-    selectComposedParentComponent(): any;
-    /**
      * 查询子组件
      * @description 根据传入的 selector 匹配器查询，返回匹配到的第一个组件实例（会被 ref 影响）
      * @version 2.8.0
@@ -300,11 +268,6 @@ declare namespace MiniProgram.Component {
      */
     hasMixin(mixin: Mixin.IMixinIdentifier): boolean;
     /**
-     * 获取这个关系所对应的所有关联节点，参见 组件间关系
-     * @version 2.8.5
-     */
-    getRelationNodes(relationKey: string): BaseInstance[];
-    /**
      * 获取更新性能统计信息
      * @version 2.8.5
      */
@@ -312,6 +275,47 @@ declare namespace MiniProgram.Component {
       option: SetUpdatePerformanceListenerOption<WithDataPath>,
       callback?: UpdatePerformanceListener<WithDataPath>
     ): void;
+  }
+
+  interface IInstanceMethods<Data> {
+    /**
+     * 将数据从逻辑层发送到视图层
+     * @param data
+     * @param callback
+     */
+    setData(
+      data: RecursivePartialAndDynamic<Data> & Record<string, unknown>,
+      callback?: () => void
+    ): void;
+    /**
+     * $spliceData 同样用于将数据从逻辑层发送到视图层，但是相比于 setData，在处理长列表的时候，其具有更高的性能。
+     * @param data
+     * @param callback
+     * @version 1.7.2+ 可以使用 my.canIUse('page.$spliceData') 做兼容性处理
+     */
+    $spliceData(
+      data: RecursivePartialAndDynamic<Data> & Record<string, unknown>,
+      callback?: () => void
+    ): void;
+    /**
+     * 选取当前组件的创建者（即 AXML 中定义了此组件的组件），返回它的组件实例对象（会被 `ref` 影响）。
+     *
+     * @version 2.7.22
+     * @returns undefined | null | 页面 | 自定义组件 | 用户 ref 的 Object
+     */
+    selectOwnerComponent(): BaseInstance;
+    /**
+     * 选取当前组件在事件冒泡路径上的父组件，返回它的组件实例对象（会被 `ref` 影响）。
+     *
+     * @version 2.7.22
+     * @returns undefined | null | 页面 | 自定义组件 | 用户 ref 的 Object
+     */
+    selectComposedParentComponent(): BaseInstance;
+    /**
+     * 获取这个关系所对应的所有关联节点，参见 组件间关系
+     * @version 2.8.5
+     */
+    getRelationNodes(relationKey: string): BaseInstance[];
   }
   /**
    * Public instance
@@ -335,7 +339,7 @@ declare namespace MiniProgram.Component {
       ExtraOptions,
       keyof IOptions<Data, Props, Methods, ExtraOptions, Mixin>
     > &
-    IComponentInstanceAdditionalProperties<ExtraOptions> & IInstanceProperties & IInstanceMethods<Data>;
+    IComponentInstanceAdditionalProperties<ExtraOptions> & IInstanceProperties & IInstanceMethods<Data> & IInstanceSharedMethods<Data>;
 
   type BaseInstance = IInstance<
     UnknownRecord,

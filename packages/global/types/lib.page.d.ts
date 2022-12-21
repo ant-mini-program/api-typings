@@ -171,6 +171,8 @@ declare namespace MiniProgram.Page {
    */
   interface IInstanceAdditionalProperties<ExtraOptions> {}
 
+  type IInstanceSharedMethods<Data> = Component.IInstanceSharedMethods<Data>;
+
   /**
    * `this` type of life cycle hooks in App.
    */
@@ -179,7 +181,8 @@ declare namespace MiniProgram.Page {
     ExtraThis,
     ExtraOptions extends UnknownRecord
     > = { data: Data & UnknownRecord } & ExtraThis &
-    Omit<ExtraOptions, keyof IOptions<Data, ExtraOptions>> & {
+    Omit<ExtraOptions, keyof IOptions<Data, ExtraOptions>> &
+      IInstanceSharedMethods<Data> & {
       /**
        * 将数据从逻辑层发送到视图层
        * @param data
@@ -212,15 +215,13 @@ declare namespace MiniProgram.Page {
        */
       readonly route: string;
       getOpenerEventChannel(): any; //TODO: 
-    } & IInstanceAdditionalProperties<ExtraOptions> &
-    Component.IInstanceMethods<Data>['getTabBar'] &
-    Component.IInstanceMethods<Data>['createIntersectionObserver'] &
-    Component.IInstanceMethods<Data>['createSelectorQuery'] &
-    Component.IInstanceMethods<Data>['createMediaQueryObserver'] &
-    Component.IInstanceMethods<Data>['$selectComponent'] &
-    Component.IInstanceMethods<Data>['$selectAllComponents'] &
-    Component.IInstanceMethods<Data>['hasMixin'] & 
-    Component.IInstanceMethods<Data>['setUpdatePerformanceListener']
+      /**
+       * 检查组件是否具有 mixin(须是通过Mixin()创建的mixin实例)。
+       * @version 基础库 2.8.5
+       * @return boolean
+       */
+      hasMixin(mixin: Mixin.IMixinIdentifier): boolean;
+    } & IInstanceAdditionalProperties<ExtraOptions>
 
   /**
    * 用户可配置的 Page Options
