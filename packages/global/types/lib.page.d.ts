@@ -1,4 +1,3 @@
-import { IRouter } from './lib.component';
 declare namespace MiniProgram.Page {
   interface IShareAppMessage {
     title: string;
@@ -143,13 +142,13 @@ declare namespace MiniProgram.Page {
      * @description 可获得当前页面的路由对象，路由方法与全局路由方法功能相同，唯一区别在于调用时，相对路径是相对于该页面
      * @version 2.7.22
      */
-    readonly router: IRouter;
+    readonly router: Component.IRouter;
      /**
      * 页面路由对象
      * @description 同 router, 可获得当前页面的路由对象，路由方法与全局路由方法功能相同，唯一区别在于调用时，相对路径是相对于该页面
      * @version 2.7.22
      */
-    readonly pageRouter: IRouter;
+    readonly pageRouter: Component.IRouter;
   }
 
   /**
