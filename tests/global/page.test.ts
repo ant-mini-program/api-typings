@@ -130,4 +130,11 @@ Page({
       url: e.target.dataset.url,
     });
   },
+  onShow(){
+    expectAssignable<Function>(this.pageRouter.navigateTo);
+    expectAssignable<Function>(this.pageRouter.navigateBack);
+    expectAssignable<Function>(this.pageRouter.reLaunch);
+    expectAssignable<Function>(this.router.redirectTo);
+    expectAssignable<Function>(this.router.switchTab);
+  }
 });
