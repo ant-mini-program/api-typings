@@ -141,11 +141,6 @@ declare namespace MiniProgram.Page {
      */
     events: Partial<Events>;
     /**
-     * Page 路径
-     * @readonly
-     */
-    readonly route: string;
-    /**
      * 开启某些功能项
      */
     options: {
@@ -159,18 +154,6 @@ declare namespace MiniProgram.Page {
      * @version 2.8.1
      */
     observers: Record<string, (...args: any[]) => void>;
-    /**
-     * 页面路由对象
-     * @description 可获得当前页面的路由对象，路由方法与全局路由方法功能相同，唯一区别在于调用时，相对路径是相对于该页面
-     * @version 2.7.22
-     */
-    readonly router: Component.IRouter;
-     /**
-     * 页面路由对象
-     * @description 同 router, 可获得当前页面的路由对象，路由方法与全局路由方法功能相同，唯一区别在于调用时，相对路径是相对于该页面
-     * @version 2.7.22
-     */
-    readonly pageRouter: Component.IRouter;
     /**
      * 组件间代码复用机制，只支持传入 Mixin() 实例。
      * @version 2.8.5
@@ -226,6 +209,18 @@ declare namespace MiniProgram.Page {
        * @readonly
        */
       readonly route: string;
+      /**
+       * 页面路由对象
+       * @description 可获得当前页面的路由对象，路由方法与全局路由方法功能相同，唯一区别在于调用时，相对路径是相对于该页面
+       * @version 2.7.22
+       */
+      readonly router: Component.IRouter;
+      /**
+       * 页面路由对象
+       * @description 同 router, 可获得当前页面的路由对象，路由方法与全局路由方法功能相同，唯一区别在于调用时，相对路径是相对于该页面
+       * @version 2.7.22
+       */
+      readonly pageRouter: Component.IRouter;
       getOpenerEventChannel(): any; //TODO: 
       /**
        * 检查组件是否具有 mixin(须是通过Mixin()创建的mixin实例)。

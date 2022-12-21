@@ -36,8 +36,8 @@ Component({
     expectAssignable<Function>(this.router.navigateTo);
     expectAssignable<Function>(this.router.navigateBack);
     expectAssignable<Function>(this.router.reLaunch);
-    expectAssignable<Function>(this.router.redirectTo);
-    expectAssignable<Function>(this.router.switchTab);
+    expectAssignable<Function>(this.pageRouter.redirectTo);
+    expectAssignable<Function>(this.pageRouter.switchTab);
   },
   didUpdate() {},
   didUnmount() {},
