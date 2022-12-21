@@ -9,6 +9,27 @@ declare namespace MiniProgram.Page {
    */
   interface Events {
     /**
+     * 页面加载时触发
+     */
+    onLoad<Query = {}>(query: Query): void;
+    /**
+     * 页面显示时触发
+     */
+    onShow(): void;
+    /**
+     * 页面初次渲染完成时触发
+     */
+    onReady(): void;
+    /**
+     * 页面隐藏时触发
+     */
+    onHide(): void;
+    /**
+     * 页面卸载时触发
+     * @version 2.8.5
+     */
+    onUnload(): void;
+    /**
      * 页面返回时触发
      * @since 1.13.7
      */
@@ -79,15 +100,15 @@ declare namespace MiniProgram.Page {
      */
     data: Data | (() => Data);
     /**
-     * 页面加载
+     * 页面加载时触发
      */
     onLoad<Query = {}>(query: Query): void;
     /**
-     * 页面显示
+     * 页面显示时触发
      */
     onShow(): void;
     /**
-     * 页面加载完成
+     * 页面初次渲染完成时触发
      */
     onReady(): void;
     /**
@@ -116,6 +137,7 @@ declare namespace MiniProgram.Page {
     onShareAppMessage(): IShareAppMessage;
     /**
      * 事件处理函数对象
+     * @version 1.13.7
      */
     events: Partial<Events>;
     /**
@@ -149,12 +171,19 @@ declare namespace MiniProgram.Page {
      * @version 2.7.22
      */
     readonly pageRouter: Component.IRouter;
+    /**
+     * 组件间代码复用机制，只支持传入 Mixin() 实例。
+     * @version 2.8.5
+     */
+    mixins: Mixin.IMixinIdentifier[];
   }
 
   /**
    * Additional properties in Page instance, for module augmentation
    */
   interface IInstanceAdditionalProperties<ExtraOptions> {}
+
+  type IInstanceSharedMethods<Data> = Component.IInstanceSharedMethods<Data>;
 
   /**
    * `this` type of life cycle hooks in App.
@@ -164,7 +193,8 @@ declare namespace MiniProgram.Page {
     ExtraThis,
     ExtraOptions extends UnknownRecord
     > = { data: Data & UnknownRecord } & ExtraThis &
-    Omit<ExtraOptions, keyof IOptions<Data, ExtraOptions>> & {
+    Omit<ExtraOptions, keyof IOptions<Data, ExtraOptions>> &
+      IInstanceSharedMethods<Data> & {
       /**
        * 将数据从逻辑层发送到视图层
        * @param data
@@ -196,10 +226,14 @@ declare namespace MiniProgram.Page {
        * @readonly
        */
       readonly route: string;
-    } & IInstanceAdditionalProperties<ExtraOptions> &
-    Component.IGetTabBarMethod &
-    Component.IElementQuery &
-    Component.ISelectComponent;
+      getOpenerEventChannel(): any; //TODO: 
+      /**
+       * 检查组件是否具有 mixin(须是通过Mixin()创建的mixin实例)。
+       * @version 基础库 2.8.5
+       * @return boolean
+       */
+      hasMixin(mixin: Mixin.IMixinIdentifier): boolean;
+    } & IInstanceAdditionalProperties<ExtraOptions>
 
   /**
    * 用户可配置的 Page Options
