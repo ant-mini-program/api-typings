@@ -9,6 +9,27 @@ declare namespace MiniProgram.Page {
    */
   interface Events {
     /**
+     * 页面加载时触发
+     */
+    onLoad<Query = {}>(query: Query): void;
+    /**
+     * 页面显示时触发
+     */
+    onShow(): void;
+    /**
+     * 页面初次渲染完成时触发
+     */
+    onReady(): void;
+    /**
+     * 页面隐藏时触发
+     */
+    onHide(): void;
+    /**
+     * 页面卸载时触发
+     * @version 2.8.5
+     */
+    onUnload(): void;
+    /**
      * 页面返回时触发
      * @since 1.13.7
      */
@@ -79,15 +100,15 @@ declare namespace MiniProgram.Page {
      */
     data: Data | (() => Data);
     /**
-     * 页面加载
+     * 页面加载时触发
      */
     onLoad<Query = {}>(query: Query): void;
     /**
-     * 页面显示
+     * 页面显示时触发
      */
     onShow(): void;
     /**
-     * 页面加载完成
+     * 页面初次渲染完成时触发
      */
     onReady(): void;
     /**
@@ -116,6 +137,7 @@ declare namespace MiniProgram.Page {
     onShareAppMessage(): IShareAppMessage;
     /**
      * 事件处理函数对象
+     * @version 1.13.7
      */
     events: Partial<Events>;
     /**
@@ -137,6 +159,11 @@ declare namespace MiniProgram.Page {
      * @version 2.8.1
      */
     observers: Record<string, (...args: any[]) => void>;
+    /**
+     * 组件间代码复用机制，只支持传入 Mixin() 实例。
+     * @version 2.8.5
+     */
+    mixins: Mixin.IMixinIdentifier[];
   }
 
   /**
@@ -184,10 +211,16 @@ declare namespace MiniProgram.Page {
        * @readonly
        */
       readonly route: string;
+      getOpenerEventChannel(): any; //TODO: 
     } & IInstanceAdditionalProperties<ExtraOptions> &
-    Component.IGetTabBarMethod &
-    Component.IElementQuery &
-    Component.ISelectComponent;
+    Component.IInstanceMethods<Data>['getTabBar'] &
+    Component.IInstanceMethods<Data>['createIntersectionObserver'] &
+    Component.IInstanceMethods<Data>['createSelectorQuery'] &
+    Component.IInstanceMethods<Data>['createMediaQueryObserver'] &
+    Component.IInstanceMethods<Data>['$selectComponent'] &
+    Component.IInstanceMethods<Data>['$selectAllComponents'] &
+    Component.IInstanceMethods<Data>['hasMixin'] & 
+    Component.IInstanceMethods<Data>['setUpdatePerformanceListener']
 
   /**
    * 用户可配置的 Page Options
