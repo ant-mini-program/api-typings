@@ -20,16 +20,25 @@ Component({
   props: { y: 1, b: { c: 1 } },
   didMount() {
     expectType<number>(this.data.x);
-    expectAssignable<Function>(this.setData);
+    
     expectAssignable<Function>(this.handleTap);
+
+    expectAssignable<Function>(this.setData);
     expectAssignable<Function>(this.$spliceData);
-    expectAssignable<Function>(this.getTabBar);
-    expectAssignable<Function>(this.createIntersectionObserver);
-    expectAssignable<Function>(this.createSelectorQuery);
     expectAssignable<Function>(this.selectComposedParentComponent);
     expectAssignable<Function>(this.selectComposedParentComponent().selectOwnerComponent);
     expectAssignable<Function>(this.selectOwnerComponent);
     expectAssignable<Function>(this.selectOwnerComponent().selectComposedParentComponent);
+    expectAssignable<Function>(this.getRelationNodes);
+
+    expectAssignable<Function>(this.createSelectorQuery);
+    expectAssignable<Function>(this.createIntersectionObserver);
+    expectAssignable<Function>(this.createMediaQueryObserver);
+    expectAssignable<Function>(this.getTabBar);
+    expectAssignable<Function>(this.$selectComponent);
+    expectAssignable<Function>(this.$selectAllComponents);
+    expectAssignable<Function>(this.hasMixin);
+    expectAssignable<Function>(this.setUpdatePerformanceListener);
 
     expectType<{ x: number; b: { c: number } }>(this.data);
     expectType<Readonly<{ y: number; b: { c: number } }>>(this.props);

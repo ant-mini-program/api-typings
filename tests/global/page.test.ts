@@ -61,6 +61,7 @@ Page({
     expectAssignable<Function>(this.$selectAllComponents);
     expectAssignable<Function>(this.hasMixin);
     expectAssignable<Function>(this.setUpdatePerformanceListener);
+    expectAssignable<Function>(this.getOpenerEventChannel);
     const { scrollTop } = e;
     let titleOpacity = 1 - scrollTop * 0.02;
     let shadow = false;
