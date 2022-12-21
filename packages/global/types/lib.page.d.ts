@@ -221,7 +221,17 @@ declare namespace MiniProgram.Page {
        * @version 2.7.22
        */
       readonly pageRouter: Component.IRouter;
-      getOpenerEventChannel(): any; //TODO: 
+      /**
+       * @summary 获取 通信通道 EventChannel
+       * @description
+       * - 如果一个页面由另一个页面通过 my.navigateTo 打开，这两个页面间将建立一条通信通道：
+       * - 被打开的页面可以通过 this.getOpenerEventChannel() 方法来获得一个 EventChannel 对象。
+       * - my.navigateTo 的 success 回调中也包含一个 EventChannel 对象。
+       * - 这两个 EventChannel 对象间可以使用 emit 和 on 方法相互发送、监听事件。
+       * @version 2.7.7
+       * @see https://opendocs.alipay.com/mini/api/eventchannel
+       */
+      getOpenerEventChannel(): Component.EventChannel;
       /**
        * 检查组件是否具有 mixin(须是通过Mixin()创建的mixin实例)。
        * @version 基础库 2.8.5

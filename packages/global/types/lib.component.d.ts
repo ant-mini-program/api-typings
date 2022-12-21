@@ -21,7 +21,7 @@ declare namespace MiniProgram.Component {
     disconnect: () => void;
   }
 
-  export type IMediaQueryObserveCallback = (payload: IMediaQueryObserveCallbackResponse) => void;
+  type IMediaQueryObserveCallback = (payload: IMediaQueryObserveCallbackResponse) => void;
 
   interface IMediaQueryObserveCallbackResponse {
     /**
@@ -281,7 +281,7 @@ declare namespace MiniProgram.Component {
     readonly pageRouter: IRouter;
   }
 
-  export interface IRouter {
+  interface IRouter {
     navigateTo: (r: {
       /**
        * 需要跳转的目标页面路径
@@ -413,7 +413,7 @@ declare namespace MiniProgram.Component {
      */
     [eventName: string]: (...args: unknown[]) => void;
   }
-  export interface EventChannel {
+  interface EventChannel {
     /**
      * 在页面间通信中触发一个事件
      * @see https://opendocs.alipay.com/mini/api/eventchannel.emit
