@@ -6,6 +6,62 @@ declare namespace MiniProgram.Component {
     ExtraOptions extends UnknownRecord
   > {}
 
+  interface IMediaQueryObserver {
+    /**
+     * @summary 开始监听页面 media query 变化情况
+     * @param descriptor media query 描述符
+     * @param callback 监听 media query 状态变化的回调函数
+     * @see "https://opendocs.alipay.com/mini/05awpq"
+     */
+    observe: (descriptor: IMediaQueryObserveDescriptor, callback: IMediaQueryObserveCallback) => void;
+    /**
+     * @summary 停止监听。回调函数将不再触发
+     * @see "https://opendocs.alipay.com/mini/05bb9o"
+     */
+    disconnect: () => void;
+  }
+
+  export type IMediaQueryObserveCallback = (payload: IMediaQueryObserveCallbackResponse) => void;
+
+  interface IMediaQueryObserveCallbackResponse {
+    /**
+     * @summary 页面的当前状态是否满足所指定的 media query
+     */
+    matches: boolean;
+  }
+  interface IMediaQueryObserveDescriptor {
+    /**
+     * @summary 页面最小宽度（ px 为单位）
+     */
+    minWidth?: number;
+    /**
+     * @summary 页面最大宽度（ px 为单位）
+     */
+    maxWidth?: number;
+    /**
+     * @summary 页面宽度（ px 为单位）
+     */
+    width?: number;
+    /**
+     * @summary 页面最小高度（ px 为单位）
+     */
+    minHeight?: number;
+    /**
+     * @summary 页面最大高度（ px 为单位）
+     */
+    maxHeight?: number;
+    /**
+     * @summary 页面高度（ px 为单位）
+     */
+    height?: number;
+    /**
+     * @summary 屏幕方向（ landscape 或 portrait ）
+     * - landscape viewport 处于横向，即宽度大于高度。
+     * - portrait viewport 处于纵向，即高度大于等于宽度。
+     */
+    orientation?: 'landscape' | 'portrait';
+  }
+
   interface SetUpdatePerformanceListenerOption<WithDataPath extends boolean> {
     /**
      * 是否返回变更的 data 字段信息
@@ -240,7 +296,7 @@ declare namespace MiniProgram.Component {
      * 创建 MediaQueryObserver 对象实例，用于监听页面 media query 状态的变化。
      * @version 2.8.2
      */
-    createMediaQueryObserver(): any;
+    createMediaQueryObserver(): IMediaQueryObserver;
     /**
      * 获取自定义 tabBar 实例，可以通过判断 `this.getTabBar` 是否为一个函数做兼容性处理
      * @version 2.7.20
