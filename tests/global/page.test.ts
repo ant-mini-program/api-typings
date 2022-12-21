@@ -128,4 +128,11 @@ Page({
       url: e.target.dataset.url,
     });
   },
+  onShow(){
+    expectAssignable<Function>(this.router.navigateTo);
+    expectAssignable<Function>(this.router.navigateBack);
+    expectAssignable<Function>(this.router.reLaunch);
+    expectAssignable<Function>(this.router.redirectTo);
+    expectAssignable<Function>(this.router.switchTab);
+  }
 });

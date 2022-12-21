@@ -33,6 +33,11 @@ Component({
 
     expectType<{ x: number; b: { c: number } }>(this.data);
     expectType<Readonly<{ y: number; b: { c: number } }>>(this.props);
+    expectAssignable<Function>(this.router.navigateTo);
+    expectAssignable<Function>(this.router.navigateBack);
+    expectAssignable<Function>(this.router.reLaunch);
+    expectAssignable<Function>(this.router.redirectTo);
+    expectAssignable<Function>(this.router.switchTab);
   },
   didUpdate() {},
   didUnmount() {},
