@@ -216,13 +216,169 @@ declare namespace MiniProgram.Component {
      * @description 可获得当前自定义组件的路由对象，路由方法与全局路由方法功能相同，唯一区别在于调用时，相对路径是相对于该自定义组件
      * @version 2.7.22
      */
-    readonly router: any; //TODO:
+    readonly router: IRouter;
     /**
      * 自定义组件所在页面路由对象
      * @description 可获得当前自定义组件所在页面的路由对象，路由方法与全局路由方法功能相同，唯一区别在于调用时，相对路径是相对于所在页面
      * @version 2.7.22
      */
-    readonly pageRouter: any; //TODO:
+    readonly pageRouter: IRouter;
+  }
+
+  export interface IRouter {
+    navigateTo: (r: {
+      /**
+       * 需要跳转的目标页面路径
+       * @description 路径后可以带参数, 目标路径必须为应用内非 tabbar 的，路径与参数之间使用 ?分隔，参数键与参数值用=相连，不同参数必须用&分隔
+       */
+      url: string;
+      /**
+       * 页面间通信接口，用于监听被打开页面发送到当前页面的数据
+       */
+      events?: IMyNavigateToEvents;
+      /**
+       * 接口调用成功的回调函数
+       */
+      success?(data: {
+        /**
+         * 和被打开页面进行通信
+         */
+        eventChannel: EventChannel;
+      }): void;
+      /**
+       * 接口调用失败的回调函数
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              /**
+               * 和被打开页面进行通信
+               */
+              eventChannel: EventChannel;
+            }
+          | {
+              error?: number;
+              errorMessage?: string;
+            },
+      ): void;
+    }) => Promise<{
+      /**
+       * 和被打开页面进行通信
+       */
+      eventChannel: EventChannel;
+    }>;
+    redirectTo:(r: {
+      /**
+       * 需要跳转的目标页面路径
+       * 路径后可以带参数, 目标路径必须为应用内非 tabbar 的，路径与参数之间使用 ?分隔，参数键与参数值用=相连，不同参数必须用&分隔
+       */
+      url: string;
+      /**
+       * 接口调用成功的回调函数
+       */
+      success?(data: {}): void;
+      /**
+       * 接口调用失败的回调函数
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(arg: { error?: number; errorMessage?: string }): void;
+    }) => Promise<void>;
+    navigateBack: (r?: {
+      /**
+       * 返回的页面数
+       * @description 如果 delta 大于现有打开的页面数，则返回到首页
+       * @default 1
+       */
+      delta?: number | string;
+      /**
+       * 接口调用成功的回调函数
+       */
+      success?(data: {}): void;
+      /**
+       * 接口调用失败的回调函数
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(arg: { error?: number; errorMessage?: string }): void;
+    }) => Promise<void>;
+    switchTab: (r: {
+      /**
+       * 跳转的特定 tab 的路径
+       * @description 目标路径必须为应用内 tabbar 的，且路径后不能带参数
+       */
+      url: string;
+      /**
+       * 接口调用成功的回调函数
+       */
+      success?(data: {}): void;
+      /**
+       * 接口调用失败的回调函数
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(arg: { error?: number; errorMessage?: string }): void;
+    }) => Promise<void>;
+    reLaunch: (r: {
+      /**
+       * 需要跳转的目标页面路径
+       * @description
+       * 目标路径如果是 Tab 路径后不可以带参数
+       * 目标路径如果是非 Tab 页，可以携带参数，路径与参数之间使用 `?` 分隔，参数键与参数值用 `=` 相连，不同参数必须用 `&` 分隔
+       */
+      url: string;
+      /**
+       * 接口调用成功的回调函数
+       */
+      success?(data: {}): void;
+      /**
+       * 接口调用失败的回调函数
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(arg: { error?: number; errorMessage?: string }): void;
+    }) => Promise<void>;
+  }
+  interface IMyNavigateToEvents {
+    /**
+     * 特定事件名监听回调
+     */
+    [eventName: string]: (...args: unknown[]) => void;
+  }
+  export interface EventChannel {
+    /**
+     * 在页面间通信中触发一个事件
+     * @see https://opendocs.alipay.com/mini/api/eventchannel.emit
+     */
+    emit(eventName: string, args?: unknown): void;
+    /**
+     * 在页面间通信中停止监听一个事件
+     * @see https://opendocs.alipay.com/mini/api/eventchannel.off
+     */
+    off(eventName: string, callback: (...args: unknown[]) => void): void;
+    /**
+     * 在页面间通信中持续监听一个事件
+     * @see https://opendocs.alipay.com/mini/api/eventchannel.on
+     */
+    on(eventName: string, callback: (...args: unknown[]) => void): void;
+    /**
+     * 在页面间通信中监听一个事件仅一次
+     * @description 事件触发后失效
+     * @see https://opendocs.alipay.com/mini/api/eventchannel.once
+     */
+    once(eventName: string, callback: (...args: unknown[]) => void): void;
   }
   interface IInstanceMethods<Data> {
     /**
