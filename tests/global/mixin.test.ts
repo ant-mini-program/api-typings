@@ -28,9 +28,77 @@ Component({
 });
 
 Mixin({
+  
+  props: {
+
+  },
+  data: {
+
+  },
+  observers: {
+
+  },
+  onInit() {
+      
+  },
+  deriveDataFromProps(nextProps) {
+      
+  },
+  didMount() {
+      
+  },
+  didUpdate(prevProps, prevData) {
+      
+  },
+  didUnmount() {
+      
+  },
+  onError() {
+
+  },
+  
+  // Mixin的mixins参数只支持传入 Mixin()实例
+  mixins: [mixin],
+  methods: {
+    methodFromMixin() {
+
+    }
+  },
   definitionFilter(defFields, definitionFilterArr) {
 
   },
-  // Mixin的mixins参数只支持传入 Mixin()实例
-  mixins: [mixin],
+  lifetimes: {
+    created() {
+        
+    },
+    attached() {
+        
+    },
+    ready() {
+        
+    },
+    moved() {
+        
+    },
+    detached() {
+        
+    },
+  },
+  pageEvents: {
+    onLoad(query) {
+        
+    },
+    onKeyboardHeight(event) {
+        
+    },
+    onSelectedTabItemTap(event) {
+        
+    },
+  },
+  relations: {
+    '.dsd': {
+      type: 'descendant',
+      target: mixin
+    }   
+  }
 })

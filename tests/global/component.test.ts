@@ -1,5 +1,7 @@
 import { expectType, expectAssignable } from 'tsd-lite';
 
+const mixin = Mixin({});
+
 Component({
   mixins: [],
   data: {
@@ -18,6 +20,11 @@ Component({
     }
   },
   props: { y: 1, b: { c: 1 } },
+  onInit() {
+    expectAssignable<String>(this.is);
+    expectAssignable<Object>(this.$page);
+    expectAssignable<Number>(this.$id);
+  },
   didMount() {
     expectType<number>(this.data.x);
     
@@ -55,4 +62,94 @@ Component({
       this.setData({ x: this.data.x + 1 });
     },
   },
+  externalClasses: ['am-button'],
+  lifetimes: {
+    created() {
+        
+    },
+    attached() {
+        
+    },
+    ready() {
+        
+    },
+    moved() {
+        
+    },
+    detached() {
+        
+    },
+  },
+  relations: {
+    './ccc': {
+      type: 'parent',
+      linked(target) {
+
+      },
+      unlinked(target) {
+          
+      },
+      linkChanged(target) {
+          
+      },
+      target: mixin,
+    },
+    './ddd': {
+      type: 'parent',
+      linked(target) {
+
+      },
+      unlinked(target) {
+          
+      },
+      linkChanged(target) {
+          
+      },
+    }
+  },
+  pageEvents: {
+    onLoad(query) {
+        
+    },
+    onShow() {
+        
+    },
+    onReady() {
+        
+    },
+    onHide() {
+        
+    },
+    onUnload() {
+        
+    },
+    onBack() {
+        
+    },
+    onKeyboardHeight(event) {
+      expectAssignable<Number>(event.height);
+    },
+    onOptionMenuClick() {
+      
+    },
+    onPullDownRefresh(event) {
+      expectAssignable<String>(event.from);
+    },
+    onPageScroll(event) {
+      expectAssignable<Number>(event.scrollHeight);
+    },
+    onTabItemTap(event) {
+      expectAssignable<Number>(event.index);
+    },
+    beforeTabItemTap() {
+        
+    },
+    onResize(event) {
+      expectAssignable<Number>(event.size.windowHeight);
+      expectAssignable<Number>(event.size.windowWidth);
+    },
+    onSelectedTabItemTap(event) {
+      expectAssignable<Number>(event.index);
+    },
+  }
 });
