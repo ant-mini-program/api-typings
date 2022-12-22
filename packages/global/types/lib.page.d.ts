@@ -166,7 +166,72 @@ declare namespace MiniProgram.Page {
    */
   interface IInstanceAdditionalProperties<ExtraOptions> {}
 
+  interface IInstanceProperties {
+    /**
+     * Page 路径，对应 app.json 中配置的路径值，类型为 String。这是一个只读属性。
+     * @readonly
+     */
+    readonly route: string;
+    /**
+    * 页面路由对象
+    * @description 可获得当前页面的路由对象，路由方法与全局路由方法功能相同，唯一区别在于调用时，相对路径是相对于该页面
+    * @version 2.7.22
+    */
+    readonly router: Component.IRouter;
+    /**
+    * 页面路由对象
+    * @description 同 router, 可获得当前页面的路由对象，路由方法与全局路由方法功能相同，唯一区别在于调用时，相对路径是相对于该页面
+    * @version 2.7.22
+    */
+    readonly pageRouter: Component.IRouter;
+  }
+
   type IInstanceSharedMethods<Data> = Component.IInstanceSharedMethods<Data>;
+
+  interface IInstanceMethods<Data> {
+    /**
+     * 将数据从逻辑层发送到视图层
+     * @param data
+     * @param callback
+     */
+     setData(
+      data: RecursivePartialAndDynamic<Data>,
+      callback?: () => void
+    ): void;
+    /**
+     * $spliceData 同样用于将数据从逻辑层发送到视图层，但是相比于 setData，在处理长列表的时候，其具有更高的性能。
+     * @param data
+     * @param callback
+     * @version 1.7.2+ 可以使用 my.canIUse('page.$spliceData') 做兼容性处理
+     */
+    $spliceData(
+      data: RecursivePartialAndDynamic<Data>,
+      callback?: () => void
+    ): void;
+    /**
+     * 批量更新数据。
+     * @param callback
+     * @version 1.14.0+ 可以使用  my.canIUse('page.$batchedUpdates') 做兼容性处理
+     */
+    $batchedUpdates(callback: () => void): void;
+    /**
+     * @summary 获取 通信通道 EventChannel
+     * @description
+     * - 如果一个页面由另一个页面通过 my.navigateTo 打开，这两个页面间将建立一条通信通道：
+     * - 被打开的页面可以通过 this.getOpenerEventChannel() 方法来获得一个 EventChannel 对象。
+     * - my.navigateTo 的 success 回调中也包含一个 EventChannel 对象。
+     * - 这两个 EventChannel 对象间可以使用 emit 和 on 方法相互发送、监听事件。
+     * @version 2.7.7
+     * @see https://opendocs.alipay.com/mini/api/eventchannel
+     */
+    getOpenerEventChannel(): Component.EventChannel;
+    /**
+     * 检查组件是否具有 mixin(须是通过Mixin()创建的mixin实例)。
+     * @version 基础库 2.8.5
+     * @return boolean
+     */
+    hasMixin(mixin: Mixin.IMixinIdentifier): boolean;
+  }
 
   /**
    * `this` type of life cycle hooks in App.
@@ -176,68 +241,8 @@ declare namespace MiniProgram.Page {
     ExtraThis,
     ExtraOptions extends UnknownRecord
     > = { data: Data & UnknownRecord } & ExtraThis &
-    Omit<ExtraOptions, keyof IOptions<Data, ExtraOptions>> &
-      IInstanceSharedMethods<Data> & {
-      /**
-       * 将数据从逻辑层发送到视图层
-       * @param data
-       * @param callback
-       */
-      setData(
-        data: RecursivePartialAndDynamic<Data>,
-        callback?: () => void
-      ): void;
-
-      /**
-       * $spliceData 同样用于将数据从逻辑层发送到视图层，但是相比于 setData，在处理长列表的时候，其具有更高的性能。
-       * @param data
-       * @param callback
-       * @version 1.7.2+ 可以使用 my.canIUse('page.$spliceData') 做兼容性处理
-       */
-      $spliceData(
-        data: RecursivePartialAndDynamic<Data>,
-        callback?: () => void
-      ): void;
-      /**
-       * 批量更新数据。
-       * @param callback
-       * @version 1.14.0+ 可以使用  my.canIUse('page.$batchedUpdates') 做兼容性处理
-       */
-      $batchedUpdates(callback: () => void): void;
-      /**
-       * Page 路径，对应 app.json 中配置的路径值，类型为 String。这是一个只读属性。
-       * @readonly
-       */
-      readonly route: string;
-      /**
-       * 页面路由对象
-       * @description 可获得当前页面的路由对象，路由方法与全局路由方法功能相同，唯一区别在于调用时，相对路径是相对于该页面
-       * @version 2.7.22
-       */
-      readonly router: Component.IRouter;
-      /**
-       * 页面路由对象
-       * @description 同 router, 可获得当前页面的路由对象，路由方法与全局路由方法功能相同，唯一区别在于调用时，相对路径是相对于该页面
-       * @version 2.7.22
-       */
-      readonly pageRouter: Component.IRouter;
-      /**
-       * @summary 获取 通信通道 EventChannel
-       * @description
-       * - 如果一个页面由另一个页面通过 my.navigateTo 打开，这两个页面间将建立一条通信通道：
-       * - 被打开的页面可以通过 this.getOpenerEventChannel() 方法来获得一个 EventChannel 对象。
-       * - my.navigateTo 的 success 回调中也包含一个 EventChannel 对象。
-       * - 这两个 EventChannel 对象间可以使用 emit 和 on 方法相互发送、监听事件。
-       * @version 2.7.7
-       * @see https://opendocs.alipay.com/mini/api/eventchannel
-       */
-      getOpenerEventChannel(): Component.EventChannel;
-      /**
-       * 检查组件是否具有 mixin(须是通过Mixin()创建的mixin实例)。
-       * @version 基础库 2.8.5
-       * @return boolean
-       */
-      hasMixin(mixin: Mixin.IMixinIdentifier): boolean;
+    Omit<ExtraOptions, keyof IOptions<Data, ExtraOptions>> & IInstanceProperties &
+      IInstanceSharedMethods<Data> & IInstanceMethods<Data> &  {
     } & IInstanceAdditionalProperties<ExtraOptions>
 
   /**
