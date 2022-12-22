@@ -35,7 +35,7 @@ declare namespace MiniProgram.Mixin {
     > | 'definitionFilter' | 'mixins'
       ? unknown
       : ExtraOptions[P];
-    } & Omit<Partial<Component.IOptions<Data, Props, Methods, ExtraOptions, IMixinIdentifier[]>>, 'ref' | 'options'> & Partial<{
+    } & Omit<Partial<Component.IOptions<Data, Props, Methods, ExtraOptions, IMixinIdentifier[]>>, 'ref' | 'options' | 'externalClasses'> & Partial<{
     /**
     * 定义段过滤器，用于自定义组件扩展
     */
