@@ -25,6 +25,19 @@ const extComponentList = [
   },
 ];
 
+const mixin = Mixin({
+  pageEvents: {
+    onLoad() {
+
+    }
+  },
+  methods: {
+    methodFromMixin() {
+
+    }
+  }
+});
+
 Page({
   data: {
     top: 0,
@@ -49,6 +62,7 @@ Page({
       console.log(state);
     }
   },
+  mixins: [mixin],
   onPageScroll(e) {
     expectAssignable<Function>(this.setData);
     expectAssignable<Function>(this.$spliceData);
@@ -60,6 +74,7 @@ Page({
     expectAssignable<Function>(this.$selectComponent);
     expectAssignable<Function>(this.$selectAllComponents);
     expectAssignable<Function>(this.hasMixin);
+    expectAssignable<Boolean>(this.hasMixin(mixin));
     expectAssignable<Function>(this.setUpdatePerformanceListener);
     expectAssignable<Function>(this.getOpenerEventChannel);
     const { scrollTop } = e;
@@ -137,5 +152,50 @@ Page({
     expectAssignable<Function>(this.pageRouter.reLaunch);
     expectAssignable<Function>(this.router.redirectTo);
     expectAssignable<Function>(this.router.switchTab);
+  },
+  events: {
+    onLoad(query) {
+        
+    },
+    onShow() {
+        
+    },
+    onReady() {
+        
+    },
+    onHide() {
+        
+    },
+    onUnload() {
+        
+    },
+    onBack() {
+        
+    },
+    onKeyboardHeight(event) {
+      expectAssignable<Number>(event.height);
+    },
+    onOptionMenuClick() {
+      
+    },
+    onPullDownRefresh(event) {
+      expectAssignable<String>(event.from);
+    },
+    onPageScroll(event) {
+      expectAssignable<Number>(event.scrollHeight);
+    },
+    onTabItemTap(event) {
+      expectAssignable<Number>(event.index);
+    },
+    beforeTabItemTap() {
+        
+    },
+    onResize(event) {
+      expectAssignable<Number>(event.size.windowHeight);
+      expectAssignable<Number>(event.size.windowWidth);
+    },
+    onSelectedTabItemTap(event) {
+      expectAssignable<Number>(event.index);
+    },
   }
 });
