@@ -1,72 +1,72 @@
 declare namespace MiniProgram.Page {
   interface IOnResizeEvent {
     /**
-     * @summary 窗口尺寸
+     * 窗口尺寸
      */
     size: {
       /**
-       * @summary 窗口宽度
+       * 窗口宽度
        */
       windowWidth: number;
       /**
-       * @summary 窗口高度
+       * 窗口高度
        */
       windowHeight: number;
     }
   }
   interface IKeyboardHeightEvent {
     /**
-     * @summary 键盘高度
+     * 键盘高度
      */
     height: number
   }
   interface ITabItemTapEvent {
     /**
-     * @summary 点击来源。
+     * 点击来源。
      */
     from: string,
     /**
-     * @summary 被点击 tabItem 的页面路径。
+     * 被点击 tabItem 的页面路径。
      */
     pagePath: string,
     /**
-     * @summary 被点击 tabItem 的按钮文字。
+     * 被点击 tabItem 的按钮文字。
      */
     text: string,
     /**
-     * @summary 被点击 tabItem 的序号，从 0 开始。
+     * 被点击 tabItem 的序号，从 0 开始。
      */
     index: number,
   }
   interface ISelectedTabItemTapEvent {
     /**
-     * @summary 被点击 tabItem 的页面路径。
+     * 被点击 tabItem 的页面路径。
      */
     pagePath: string,
     /**
-     * @summary 被点击 tabItem 的按钮文字。
+     * 被点击 tabItem 的按钮文字。
      */
     text: string,
     /**
-     * @summary 被点击 tabItem 的序号，从 0 开始。
+     * 被点击 tabItem 的序号，从 0 开始。
      */
     index: number,
   }
 
   interface IPageScrollEvent {
     /**
-     * @summary 页面滚动距离。
+     * 页面滚动距离。
      */
     scrollTop: number;
     /**
-     * @summary 页面内容高度。
+     * 页面内容高度。
      */
     scrollHeight: number;
   }
 
   interface IPullDownRefreshEvent {
     /**
-     * @summary 触发原
+     * 触发原
      * @description
      * - manual: 下拉事件通过 my.startPullDownRefresh 触发
      * - code: 下拉事件用通过户下拉触发
@@ -75,7 +75,7 @@ declare namespace MiniProgram.Page {
   }
   interface IShareAppMessageEvent {
     /**
-     * @summary 触发来源
+     * 触发来源
      * @description
      * - button 页面分享按钮触发
      * - menu 右上角分享按钮触
@@ -84,12 +84,12 @@ declare namespace MiniProgram.Page {
      */
     from: 'button' | 'menu' | 'code',
     /**
-     * @summary 如果 from 值为 button，则 target 为触发这次分享的 button，否则为 undefined。
+     * 如果 from 值为 button，则 target 为触发这次分享的 button，否则为 undefined。
      * @version 1.10.0
      */
     target: object,
     /**
-     * @summary 页面中包含 web-view 组件时，返回当前 web-view 的 URL。
+     * 页面中包含 web-view 组件时，返回当前 web-view 的 URL。
      * @version 1.6.0
      */
     webViewUrl: string,
@@ -137,19 +137,19 @@ declare namespace MiniProgram.Page {
      */
     onOptionMenuClick(): void;
     /**
-     * @summary 页面下拉时触发
+     * 页面下拉时触发
      * @description 需要先在 app.json 的 window 选项中开启 pullRefresh 。当处理完数据刷新后，my.stopPullDownRefresh 可以停止当前页面的下拉刷新。
      * @param event 页面下拉事件
      * @see https://opendocs.alipay.com/mini/framework/page-detail#onPullDownRefresh(%7Bfrom%3A%20manual%7Ccode%7D)
      */
     onPullDownRefresh(event: IPullDownRefreshEvent): void;
     /**
-     * @summary 点击 tabItem（非当前） 时触发
+     * 点击 tabItem（非当前） 时触发
      * @param event 点击 tabItem（非当前）事件
      */
     onTabItemTap: (event: ITabItemTapEvent) => void;
     /**
-     * @summary 页面滚动时触发。
+     * 页面滚动时触发。
      * @param event 页面滚动事件
      */
     onPageScroll: (event: IPageScrollEvent) => void;
@@ -171,7 +171,7 @@ declare namespace MiniProgram.Page {
      */
     onKeyboardHeight(event: IKeyboardHeightEvent): void;
     /**
-     * @summary 导航栏左侧返回按钮(以及 Android 系统返回键）被点击时触发
+     * 导航栏左侧返回按钮(以及 Android 系统返回键）被点击时触发
      */
     onBack: () => void,
     /**
@@ -180,7 +180,7 @@ declare namespace MiniProgram.Page {
      */
     onResize(event: IOnResizeEvent): void;
     /**
-     * @summary 点击当前 tabItem 后触发。
+     * 点击当前 tabItem 后触发。
      * @param event 点击当前 tabItem 事件
      * @version 2.7.2
      */
@@ -219,7 +219,7 @@ declare namespace MiniProgram.Page {
      */
     onUnload(): void;
     /**
-     * @summary 在 Page 中定义 onShareAppMessage 函数，设置该页面的分享信息。
+     * 在 Page 中定义 onShareAppMessage 函数，设置该页面的分享信息。
      * @description
      * 开发者可通过传入参数自定义小程序分享内容（例如：标题、描述、图片），用户通过点击或者复制分享的内容可以快速打开小程序，进入指定页面。目前支持的分享渠道有：支付宝朋友动态、支付宝好友、钉钉、新浪微博、微信、QQ。
      * - 每个 Page 页面的右上角菜单中默认有 分享 按钮。
@@ -243,20 +243,20 @@ declare namespace MiniProgram.Page {
      */
     onOptionMenuClick: () => void,
     /**
-     * @summary 页面下拉时触发
+     * 页面下拉时触发
      * @description 需要先在 app.json 的 window 选项中开启 pullRefresh 。当处理完数据刷新后，my.stopPullDownRefresh 可以停止当前页面的下拉刷新。
      * @param event 页面下拉事件
      * @see https://opendocs.alipay.com/mini/framework/page-detail#onPullDownRefresh(%7Bfrom%3A%20manual%7Ccode%7D)
      */
     onPullDownRefresh(event: IPullDownRefreshEvent): void;
     /**
-     * @summary 点击 tabItem（非当前） 时触发
+     * 点击 tabItem（非当前） 时触发
      * @param event 点击 tabItem（非当前）事件
      * @version 1.11.0
      */
     onTabItemTap: (event: ITabItemTapEvent) => void;
     /**
-     * @summary 页面滚动时触发。
+     * 页面滚动时触发。
      * @param event 页面滚动事件
      */
     onPageScroll: (event: IPageScrollEvent) => void;
@@ -348,7 +348,7 @@ declare namespace MiniProgram.Page {
      */
     $batchedUpdates(callback: () => void): void;
     /**
-     * @summary 获取 通信通道 EventChannel
+     * 获取 通信通道 EventChannel
      * @description
      * - 如果一个页面由另一个页面通过 my.navigateTo 打开，这两个页面间将建立一条通信通道：
      * - 被打开的页面可以通过 this.getOpenerEventChannel() 方法来获得一个 EventChannel 对象。
