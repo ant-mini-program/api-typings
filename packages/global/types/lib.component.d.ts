@@ -138,7 +138,7 @@ declare namespace MiniProgram.Component {
     /**
      * 组件内部状态
      */
-    data: Data | (() => Data);
+    data: Data | ((this: void) => Data);
     /**
      * 为外部传入的数据设置默认值
      */

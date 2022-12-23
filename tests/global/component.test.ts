@@ -4,9 +4,12 @@ const mixin = Mixin({});
 
 Component({
   mixins: [],
-  data: {
-    x: 1,
-    b: { c: 1 },
+  data() {
+    expectAssignable<void>(this);
+    return {
+      x: 1,
+      b: { c: 1 },
+    };
   },
   options: {
     observers: true,

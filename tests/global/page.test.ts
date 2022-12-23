@@ -39,17 +39,20 @@ const mixin = Mixin({
 });
 
 Page({
-  data: {
-    top: 0,
-    hot: [
-      { name: 'ScrollView', url: '/page/component/scroll-view/scroll-view' },
-    ],
-    tabs: ['基础组件', '扩展组件'],
-    activeTab: 0,
-    basicComponentList,
-    extComponentList,
-    titleOpacity: 1,
-    shadow: false,
+  data() {
+    expectAssignable<void>(this);
+    return {
+      top: 0,
+      hot: [
+        { name: 'ScrollView', url: '/page/component/scroll-view/scroll-view' },
+      ],
+      tabs: ['基础组件', '扩展组件'],
+      activeTab: 0,
+      basicComponentList,
+      extComponentList,
+      titleOpacity: 1,
+      shadow: false,
+    }
   },
   options: {
     observers: true,

@@ -195,7 +195,7 @@ declare namespace MiniProgram.Page {
     /**
      * 初始数据或返回初始化数据的函数
      */
-    data: Data | (() => Data);
+    data: Data | ((this: void) => Data);
     /**
      * 页面加载时触发
      * @param query 打开当前页面路径中的参数
