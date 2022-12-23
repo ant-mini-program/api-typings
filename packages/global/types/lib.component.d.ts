@@ -579,5 +579,5 @@ declare namespace MiniProgram.Component {
         Mixins
       >
     ): void;
-  } 
+  }
 }

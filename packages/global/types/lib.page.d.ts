@@ -139,8 +139,8 @@ declare namespace MiniProgram.Page {
     /**
      * @summary 页面下拉时触发
      * @description 需要先在 app.json 的 window 选项中开启 pullRefresh 。当处理完数据刷新后，my.stopPullDownRefresh 可以停止当前页面的下拉刷新。
-     * @param event 页面下拉事件      
-     * @see https://opendocs.alipay.com/mini/framework/page-detail#onPullDownRefresh(%7Bfrom%3A%20manual%7Ccode%7D)     
+     * @param event 页面下拉事件
+     * @see https://opendocs.alipay.com/mini/framework/page-detail#onPullDownRefresh(%7Bfrom%3A%20manual%7Ccode%7D)
      */
     onPullDownRefresh(event: IPullDownRefreshEvent): void;
     /**
@@ -245,8 +245,8 @@ declare namespace MiniProgram.Page {
     /**
      * @summary 页面下拉时触发
      * @description 需要先在 app.json 的 window 选项中开启 pullRefresh 。当处理完数据刷新后，my.stopPullDownRefresh 可以停止当前页面的下拉刷新。
-     * @param event 页面下拉事件      
-     * @see https://opendocs.alipay.com/mini/framework/page-detail#onPullDownRefresh(%7Bfrom%3A%20manual%7Ccode%7D)     
+     * @param event 页面下拉事件
+     * @see https://opendocs.alipay.com/mini/framework/page-detail#onPullDownRefresh(%7Bfrom%3A%20manual%7Ccode%7D)
      */
     onPullDownRefresh(event: IPullDownRefreshEvent): void;
     /**
@@ -411,6 +411,6 @@ declare namespace MiniProgram.Page {
     ): void;
   }
   interface GetCurrentPages {
-    (): IInstance<object, {}, {}>[];
+    (): Array<IInstance<object, {}, {}>>;
   }
 }
