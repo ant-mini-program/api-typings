@@ -133,7 +133,7 @@ declare namespace MiniProgram.Component {
     Props,
     Methods,
     ExtraOptions extends UnknownRecord,
-    Mixin extends any[]
+    Mixins extends Array<Mixin.IMixin4Legacy | ReturnType<Mixin.Constructor>>
   > {
     /**
      * 组件内部状态
@@ -168,7 +168,7 @@ declare namespace MiniProgram.Component {
     /**
      * 组件间代码复用机制
      */
-    mixins: Mixin;
+    mixins: Mixins;
     /**
      * 组件的方法，可以是事件响应函数或任意的自定义方法
      * Object of Functions
@@ -239,20 +239,20 @@ declare namespace MiniProgram.Component {
     Methods,
     ExtraThis,
     ExtraOptions extends UnknownRecord,
-    Mixin extends any[]
+    Mixins extends Array<Mixin.IMixin4Legacy | ReturnType<Mixin.Constructor>>
   > = {
     [P in keyof ExtraOptions]: P extends keyof IOptions<
       Data,
       Props,
       Methods,
       ExtraOptions,
-      Mixin
+      Mixins
     >
       ? unknown
       : ExtraOptions[P];
-  } & Partial<IOptions<Data, Props, Methods, ExtraOptions, Mixin>> &
+  } & Partial<IOptions<Data, Props, Methods, ExtraOptions, Mixins>> &
     ThisType<
-      IInstance<Data, Props, Methods, ExtraThis, ExtraOptions, Mixin>
+      IInstance<Data, Props, Methods, ExtraThis, ExtraOptions, Mixins>
     >;
   interface IInstanceProperties {
     /**
@@ -568,7 +568,7 @@ declare namespace MiniProgram.Component {
       Methods = {},
       ExtraThis = {},
       ExtraOptions extends Record<string, unknown> = {},
-      Mixin extends any[] = any[]
+      Mixins extends any[] = any[]
     >(
       opts: IUserComponentOptions<
         Data,
@@ -576,7 +576,7 @@ declare namespace MiniProgram.Component {
         Methods,
         ExtraThis & IGlobalMiniProgramExtraThis4Component,
         ExtraOptions,
-        Mixin
+        Mixins
       >
     ): void;
   } 
