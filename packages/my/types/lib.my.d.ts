@@ -1385,6 +1385,22 @@ declare namespace my {
      */
     compressLevel?: ECompressImageCompressLevel;
     /**
+     * 压缩后图片的宽度
+     */
+    compressedWidth?: number;
+    /**
+     * 压缩后图片的高度
+     */
+    compressedHeight?: number;
+    /**
+     * 压缩后图片的宽度
+     */
+    maxWidth?: number;
+    /**
+     * 压缩后图片的高度
+     */
+    maxHeight?: number;
+    /**
      * 接口调用成功的回调函数
      */
     success?(data: {
@@ -2150,7 +2166,7 @@ declare namespace my {
     plugin?: IMyGetAccountInfoSyncPlugin;
   };
   /**
-   * 选择收获地址
+   * 选择收货地址
    * @description 商户在寄送外卖、快递或其他场景需要用户填写地址信息时，可通过调用此 API 直接获取地址数据，无需用户手动填写
    * @see https://opendocs.alipay.com/mini/api/lymgfk
    */
@@ -3254,6 +3270,7 @@ declare namespace my {
        * @description 详见  [模板小程序参数配置](https://opendocs.alipay.com/mini/isv/creatminiapp#%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E)
        */
       data: Record<string, unknown>;
+      extConfig?: Record<string, unknown>;
     }): void;
     /**
      * 接口调用失败的回调函数
@@ -3270,6 +3287,7 @@ declare namespace my {
              * @description 详见  [模板小程序参数配置](https://opendocs.alipay.com/mini/isv/creatminiapp#%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E)
              */
             data: Record<string, unknown>;
+            extConfig?: Record<string, unknown>;
           }
         | {
             error?: number;
@@ -3282,6 +3300,7 @@ declare namespace my {
      * @description 详见  [模板小程序参数配置](https://opendocs.alipay.com/mini/isv/creatminiapp#%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E)
      */
     data: Record<string, unknown>;
+    extConfig?: Record<string, unknown>;
   }>;
   /**
    * 同步获取模板小程序自定义数据字段
@@ -17369,7 +17388,33 @@ declare namespace my {
      * 取消本次任务
      * @sdk2 2.3.1
      */
-    abort(): void;
+    abort(r: {
+      uploadTaskId: number;
+      operationType: 'abort';
+      /**
+       * 接口调用成功的回调函数
+       */
+      success?(data: { success: true }): void;
+      /**
+       * 接口调用失败的回调函数
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              success: true;
+            }
+          | {
+              error?: number;
+              errorMessage?: string;
+            },
+      ): void;
+    }): Promise<{
+      success: true;
+    }>;
     /**
      * 移除 HTTP Response Header 事件的监听函数
      * @sdk2 2.8.2
@@ -17409,7 +17454,33 @@ declare namespace my {
      * 取消本次任务
      * @sdk2 2.3.1
      */
-    abort(): void;
+    abort(r: {
+      downloadTaskId: number;
+      operationType: 'abort';
+      /**
+       * 接口调用成功的回调函数
+       */
+      success?(data: { success: true }): void;
+      /**
+       * 接口调用失败的回调函数
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              success: true;
+            }
+          | {
+              error?: number;
+              errorMessage?: string;
+            },
+      ): void;
+    }): Promise<{
+      success: true;
+    }>;
     /**
      * 监听下载进度变化事件
      * @sdk2 2.4.4
@@ -17426,7 +17497,33 @@ declare namespace my {
     /**
      * 取消本次任务
      */
-    abort(): void;
+    abort(r: {
+      requestTaskId: number;
+      operationType: 'abort';
+      /**
+       * 接口调用成功的回调函数
+       */
+      success?(data: { success: true }): void;
+      /**
+       * 接口调用失败的回调函数
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              success: true;
+            }
+          | {
+              error?: number;
+              errorMessage?: string;
+            },
+      ): void;
+    }): Promise<{
+      success: true;
+    }>;
   }
   export interface HTTPRequestTask {
     /**
@@ -17438,7 +17535,33 @@ declare namespace my {
     /**
      * 取消本次任务
      */
-    abort(): void;
+    abort(r: {
+      uploadTaskId: number;
+      operationType: 'abort';
+      /**
+       * 接口调用成功的回调函数
+       */
+      success?(data: { success: true }): void;
+      /**
+       * 接口调用失败的回调函数
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              success: true;
+            }
+          | {
+              error?: number;
+              errorMessage?: string;
+            },
+      ): void;
+    }): Promise<{
+      success: true;
+    }>;
     /**
      * 监听上传进度变化事件
      */
