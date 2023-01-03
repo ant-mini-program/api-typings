@@ -2,7 +2,7 @@ declare namespace MiniProgram.Mixin {
   /**
    * 传统的组件间代码复用，仅Component的mixins参数支持传入，Mixin参数mixins 则只支持传入Mixin()的返回值
    */
-  type IMixin4Legacy = Partial<Omit<Component.IOptions<UnknownRecord, UnknownRecord, UnknownRecord, UnknownRecord, []>, 'ref' | 'options' | 'mixins'>>;
+  type IMixin4Legacy = Partial<Omit<Component.IOptions<UnknownRecord, UnknownRecord, UnknownRecord, UnknownRecord, []>, 'ref' | 'options' | 'mixins' | 'externalClasses'>>;
   /**
    * Mixin() 返回值
    */
@@ -24,18 +24,18 @@ declare namespace MiniProgram.Mixin {
     Methods,
     ExtraThis,
     ExtraOptions extends UnknownRecord,
-    IGlobalMiniProgramExtraThis4Component extends Array<IMixinIdentifier>
+    Mixins extends Array<ReturnType<Constructor>>
     > = {
     [P in keyof ExtraOptions]: P extends keyof Component.IOptions<
       Data,
       Props,
       Methods,
       ExtraOptions,
-      IMixinIdentifier[]
+      Mixins
     > | 'definitionFilter' | 'mixins'
       ? unknown
       : ExtraOptions[P];
-    } & Omit<Partial<Component.IOptions<Data, Props, Methods, ExtraOptions, IMixinIdentifier[]>>, 'ref' | 'options'> & Partial<{
+    } & Omit<Partial<Component.IOptions<Data, Props, Methods, ExtraOptions, IMixinIdentifier[]>>, 'ref' | 'options' | 'externalClasses'> & Partial<{
     /**
     * 定义段过滤器，用于自定义组件扩展
     */
@@ -43,7 +43,7 @@ declare namespace MiniProgram.Mixin {
       /**
       * 组件间代码复用，用于Mixin()的mixins 只支持传入Mixin()注册生成的返回值。不支持传入 js Object
       */
-      mixins: Array<IMixinIdentifier>
+      mixins: Mixins
     }> &
     ThisType<
       Component.IInstance<Data, Props, Methods, ExtraThis, ExtraOptions, IMixinIdentifier[]>
@@ -56,14 +56,14 @@ declare namespace MiniProgram.Mixin {
       Methods = {},
       ExtraThis = {},
       ExtraOptions extends Record<string, unknown> = {},
-      Mixin extends IMixinIdentifier[] = IMixinIdentifier[]
+      Mixins extends IMixinIdentifier[] = IMixinIdentifier[]
     >(options: IMixinOptions<
       Data,
       Props,
       Methods,
       ExtraThis & IGlobalMiniProgramExtraThis4Component,
       ExtraOptions,
-      Mixin
+      Mixins
     >): IMixinIdentifier;
   }
 }
