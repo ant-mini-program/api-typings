@@ -235,28 +235,6 @@ declare namespace MiniProgram.Component {
      */
     externalClasses: string[];
   }
-  /**
-   * 用户可配置的 Component Options
-   */
-  type IUserComponentOptions<
-    Data,
-    Props,
-    Methods,
-    ExtraThis,
-    ExtraOptions extends UnknownRecord,
-    Mixins extends Array<Mixin.IMixin4Legacy | ReturnType<Mixin.Constructor>>
-  > = {
-    [P in keyof ExtraOptions]: P extends keyof IOptions<
-      Data,
-      Props,
-      Methods,
-      ExtraOptions,
-      Mixins
-    >
-      ? unknown
-      : ExtraOptions[P];
-  } & Partial<IOptions<Data, Props, Methods, ExtraOptions, Mixins>> &
-    ThisType<IInstance<Data, Props, Methods, ExtraThis, ExtraOptions, Mixins>>;
   interface IInstanceProperties {
     /**
      * 组件路径
@@ -539,19 +517,19 @@ declare namespace MiniProgram.Component {
     Methods,
     ExtraThis,
     ExtraOptions extends UnknownRecord,
-    Mixin extends any[]
+    Mixins extends Array<Mixin.IMixin4Legacy | ReturnType<Mixin.Constructor>>
   > = {
     data: Data &
-      UnionToIntersection<TGetMixinData<TExtractValuesOfTuple<Mixin>>>;
+      UnionToIntersection<TGetMixinData<TExtractValuesOfTuple<Mixins>>>;
     props: Readonly<
-      Props & UnionToIntersection<TGetMixinProps<TExtractValuesOfTuple<Mixin>>>
+      Props & UnionToIntersection<TGetMixinProps<TExtractValuesOfTuple<Mixins>>>
     >;
   } & Methods &
-    UnionToIntersection<TGetMixinMethods<TExtractValuesOfTuple<Mixin>>> &
+    UnionToIntersection<TGetMixinMethods<TExtractValuesOfTuple<Mixins>>> &
     ExtraThis &
     Omit<
       ExtraOptions,
-      keyof IOptions<Data, Props, Methods, ExtraOptions, Mixin>
+      keyof IOptions<Data, Props, Methods, ExtraOptions, Mixins>
     > &
     IComponentInstanceAdditionalProperties<ExtraOptions> &
     IInstanceProperties &
@@ -573,16 +551,12 @@ declare namespace MiniProgram.Component {
       Methods = {},
       ExtraThis = {},
       ExtraOptions extends Record<string, unknown> = {},
-      Mixins extends any[] = any[]
+      Mixins extends Array<Mixin.IMixin4Legacy | ReturnType<Mixin.Constructor>> = any[]
     >(
-      opts: IUserComponentOptions<
-        Data,
-        Props,
-        Methods,
-        ExtraThis & IGlobalMiniProgramExtraThis4Component,
-        ExtraOptions,
-        Mixins
-      >
+      opts: Partial<IOptions<Data, Props, Methods, ExtraOptions, Mixins>> &
+        ThisType<
+          IInstance<Data, Props, Methods, ExtraThis & IGlobalMiniProgramExtraThis4Component, ExtraOptions, Mixins>
+        >
     ): void;
   }
 }
