@@ -11,17 +11,22 @@ declare namespace MiniProgram.Component {
      * 开始监听页面 media query 变化情况
      * @param descriptor media query 描述符
      * @param callback 监听 media query 状态变化的回调函数
-     * @see "https://opendocs.alipay.com/mini/05awpq"
+     * @see https://opendocs.alipay.com/mini/05awpq
      */
-    observe: (descriptor: IMediaQueryObserveDescriptor, callback: IMediaQueryObserveCallback) => void;
+    observe: (
+      descriptor: IMediaQueryObserveDescriptor,
+      callback: IMediaQueryObserveCallback
+    ) => void;
     /**
      * 停止监听。回调函数将不再触发
-     * @see "https://opendocs.alipay.com/mini/05bb9o"
+     * @see https://opendocs.alipay.com/mini/05bb9o
      */
     disconnect: () => void;
   }
 
-  type IMediaQueryObserveCallback = (payload: IMediaQueryObserveCallbackResponse) => void;
+  type IMediaQueryObserveCallback = (
+    payload: IMediaQueryObserveCallbackResponse
+  ) => void;
 
   interface IMediaQueryObserveCallbackResponse {
     /**
@@ -66,11 +71,11 @@ declare namespace MiniProgram.Component {
     /**
      * 是否返回变更的 data 字段信息
      */
-    withDataPaths?: WithDataPath
+    withDataPaths?: WithDataPath;
   }
 
   interface UpdatePerformanceListener<WithDataPath> {
-    (res: UpdatePerformance<WithDataPath>): void
+    (res: UpdatePerformance<WithDataPath>): void;
   }
 
   interface UpdatePerformance<WithDataPath> {
@@ -81,23 +86,23 @@ declare namespace MiniProgram.Component {
     /**
      * 在组件实例刚刚被创建时执行
      */
-    created(): void
+    created(): void;
     /**
      * 在组件实例进入页面节点树时执行
      */
-    attached(): void
+    attached(): void;
     /**
      * 在组件在视图层布局完成后执行
      */
-    ready(): void
+    ready(): void;
     /**
      * 在组件实例被移动到节点树另一个位置时执行
      */
-    moved(): void
+    moved(): void;
     /**
      * 在组件实例被从页面节点树移除时执行
      */
-    detached(): void
+    detached(): void;
   }
 
   interface IRelationOption {
@@ -108,20 +113,20 @@ declare namespace MiniProgram.Component {
     /**
      * 关系生命周期函数，目标组件建立时触发，触发时机在组件 attached 生命周期之后。
      */
-    linked?(target: BaseInstance): void
+    linked?(target: BaseInstance): void;
     /**
      * 关系生命周期函数，目标组件移动时触发，触发时机在组件 moved 生命周期之后。
      */
-    linkChanged?(target: BaseInstance): void
+    linkChanged?(target: BaseInstance): void;
     /**
      * 关系生命周期函数，目标组件销毁时触发，触发时机在组件 detached 生命周期之后
      */
-    unlinked?(target: BaseInstance): void
+    unlinked?(target: BaseInstance): void;
     /**
      * 根据组件使用的 Mixin 来建立关系
      * 如果这一项被设置，则它表示关联的目标节点所应具有的Mixin实例，所有拥有这一Mixin实例的组件节点都会被关联
      */
-    target?: string
+    target?: string;
   }
 
   /**
@@ -208,7 +213,7 @@ declare namespace MiniProgram.Component {
        * @version 2.8.5
        */
       externalClasses: boolean;
-    }>,
+    }>;
     /**
      * 数据变化观测器，观测和响应任何属性和数据字段的变化
      * @version 2.8.1
@@ -251,9 +256,7 @@ declare namespace MiniProgram.Component {
       ? unknown
       : ExtraOptions[P];
   } & Partial<IOptions<Data, Props, Methods, ExtraOptions, Mixins>> &
-    ThisType<
-      IInstance<Data, Props, Methods, ExtraThis, ExtraOptions, Mixins>
-    >;
+    ThisType<IInstance<Data, Props, Methods, ExtraThis, ExtraOptions, Mixins>>;
   interface IInstanceProperties {
     /**
      * 组件路径
@@ -319,7 +322,7 @@ declare namespace MiniProgram.Component {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }) => Promise<{
       /**
@@ -327,7 +330,7 @@ declare namespace MiniProgram.Component {
        */
       eventChannel: EventChannel;
     }>;
-    redirectTo:(r: {
+    redirectTo: (r: {
       /**
        * 需要跳转的目标页面路径
        * 路径后可以带参数, 目标路径必须为应用内非 tabbar 的，路径与参数之间使用 ?分隔，参数键与参数值用=相连，不同参数必须用&分隔
@@ -457,9 +460,7 @@ declare namespace MiniProgram.Component {
      * 获取自定义 tabBar 实例，可以通过判断 `this.getTabBar` 是否为一个函数做兼容性处理
      * @version 2.7.20
      */
-    getTabBar<
-      T extends any = BaseInstance
-    >(): T | undefined;
+    getTabBar<T extends any = BaseInstance>(): T | undefined;
     /**
      * 查询子组件
      * @description 根据传入的 selector 匹配器查询，返回匹配到的第一个组件实例（会被 ref 影响）
@@ -540,18 +541,22 @@ declare namespace MiniProgram.Component {
     ExtraOptions extends UnknownRecord,
     Mixin extends any[]
   > = {
-    data: Data & UnionToIntersection<TGetMixinData<TExtractValuesOfTuple<Mixin>>>;
+    data: Data &
+      UnionToIntersection<TGetMixinData<TExtractValuesOfTuple<Mixin>>>;
     props: Readonly<
       Props & UnionToIntersection<TGetMixinProps<TExtractValuesOfTuple<Mixin>>>
     >;
-    } & Methods &
+  } & Methods &
     UnionToIntersection<TGetMixinMethods<TExtractValuesOfTuple<Mixin>>> &
     ExtraThis &
     Omit<
       ExtraOptions,
       keyof IOptions<Data, Props, Methods, ExtraOptions, Mixin>
     > &
-    IComponentInstanceAdditionalProperties<ExtraOptions> & IInstanceProperties & IInstanceMethods<Data> & IInstanceSharedMethods<Data>;
+    IComponentInstanceAdditionalProperties<ExtraOptions> &
+    IInstanceProperties &
+    IInstanceMethods<Data> &
+    IInstanceSharedMethods<Data>;
 
   type BaseInstance = IInstance<
     UnknownRecord,
@@ -560,7 +565,7 @@ declare namespace MiniProgram.Component {
     UnknownRecord,
     UnknownRecord,
     []
-  >
+  >;
   interface Constructor {
     <
       Data = {},
