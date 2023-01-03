@@ -138,7 +138,8 @@ declare namespace MiniProgram.Component {
     Props,
     Methods,
     ExtraOptions extends UnknownRecord,
-    Mixins extends Array<Mixin.IMixin4Legacy | ReturnType<Mixin.Constructor>>
+    Mixins extends Array<Mixin.IMixin4Legacy | ReturnType<Mixin.Constructor>>,
+    Observers extends XObserverOption<Observers>
   > {
     /**
      * 组件内部状态
@@ -218,7 +219,7 @@ declare namespace MiniProgram.Component {
      * 数据变化观测器，观测和响应任何属性和数据字段的变化
      * @version 2.8.1
      */
-    observers: Record<string, (...args: any[]) => void>;
+    observers: Observers;
     /**
      * 节点树维度生命周期
      * @version 2.8.5
@@ -517,7 +518,8 @@ declare namespace MiniProgram.Component {
     Methods,
     ExtraThis,
     ExtraOptions extends UnknownRecord,
-    Mixins extends Array<Mixin.IMixin4Legacy | ReturnType<Mixin.Constructor>>
+    Mixins extends Array<Mixin.IMixin4Legacy | ReturnType<Mixin.Constructor>>,
+    Observers extends XObserverOption<Observers>
   > = {
     data: Data &
       UnionToIntersection<TGetMixinData<TExtractValuesOfTuple<Mixins>>>;
@@ -529,7 +531,7 @@ declare namespace MiniProgram.Component {
     ExtraThis &
     Omit<
       ExtraOptions,
-      keyof IOptions<Data, Props, Methods, ExtraOptions, Mixins>
+      keyof IOptions<Data, Props, Methods, ExtraOptions, Mixins, Observers>
     > &
     IComponentInstanceAdditionalProperties<ExtraOptions> &
     IInstanceProperties &
@@ -542,7 +544,8 @@ declare namespace MiniProgram.Component {
     UnknownRecord,
     UnknownRecord,
     UnknownRecord,
-    []
+    [],
+    {}
   >;
   interface Constructor {
     <
@@ -551,12 +554,29 @@ declare namespace MiniProgram.Component {
       Methods = {},
       ExtraThis = {},
       ExtraOptions extends Record<string, unknown> = {},
-      Mixins extends Array<Mixin.IMixin4Legacy | ReturnType<Mixin.Constructor>> = any[]
+      Mixins extends Array<Mixin.IMixin4Legacy | ReturnType<Mixin.Constructor>> = any[],
+      Observers extends XObserverOption<Observers> = {},
     >(
-      opts: Partial<IOptions<Data, Props, Methods, ExtraOptions, Mixins>> &
+      opts: Partial<IOptions<Data, Props, Methods, ExtraOptions, Mixins, Observers>> &
         ThisType<
-          IInstance<Data, Props, Methods, ExtraThis & IGlobalMiniProgramExtraThis4Component, ExtraOptions, Mixins>
+          IInstance<Data, Props, Methods, ExtraThis & IGlobalMiniProgramExtraThis4Component, ExtraOptions, Mixins, Observers>
         >
     ): void;
   }
 }
+
+type XObserverOption<T extends {
+  [Z: string]: (...args: any[]) => any
+}> = {
+  [X in keyof T]: (...args: TCountSemicolon<X>) => void
+}
+type TCountSemicolon<T extends any> = T extends `${string},${string}` ? [number] : unknown[];
+
+type Split<S extends string> =
+  string extends '**' ? any[] :
+  S extends '' ? [] :
+  S extends `${infer T},${infer U}` ? [any, ...Split<U>] : [any];
+
+type S1 = Split<'aa'>
+type S2 = Split<'aaa,bbb'>
+type S3 = Split<'**'>
