@@ -1,8 +1,3 @@
-import {
-  ISetUpdatePerformanceListenerOptions,
-  ISetUpdatePerformanceListenerResult,
-} from './lib.shared';
-
 declare namespace MiniProgram.Page {
   interface IOnResizeEvent {
     /**
@@ -376,8 +371,8 @@ declare namespace MiniProgram.Page {
      * @version 2.8.5
      */
     setUpdatePerformanceListener(
-      options: ISetUpdatePerformanceListenerOptions,
-      callback?: (result: ISetUpdatePerformanceListenerResult) => void
+      options: Shared.ISetUpdatePerformanceListenerOptions,
+      callback?: (result: Shared.ISetUpdatePerformanceListenerResult) => void
     ): void;
   }
 
