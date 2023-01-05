@@ -312,16 +312,16 @@ declare namespace MiniProgram.Page {
      * @description 可获得当前页面的路由对象，路由方法与全局路由方法功能相同，唯一区别在于调用时，相对路径是相对于该页面
      * @version 2.7.22
      */
-    readonly router: Component.IRouter;
+    readonly router: Shared.IRouter;
     /**
      * 页面路由对象
      * @description 同 router, 可获得当前页面的路由对象，路由方法与全局路由方法功能相同，唯一区别在于调用时，相对路径是相对于该页面
      * @version 2.7.22
      */
-    readonly pageRouter: Component.IRouter;
+    readonly pageRouter: Shared.IRouter;
   }
 
-  type IInstanceSharedMethods<Data> = Component.IInstanceSharedMethods<Data>;
+  type IInstanceSharedMethods<Data> = Shared.IInstanceSharedMethods<Data>;
 
   interface IInstanceMethods<Data> {
     /**
@@ -359,7 +359,7 @@ declare namespace MiniProgram.Page {
      * @version 2.7.7
      * @see https://opendocs.alipay.com/mini/api/eventchannel
      */
-    getOpenerEventChannel(): Component.EventChannel;
+    getOpenerEventChannel(): Shared.EventChannel;
     /**
      * 检查组件是否具有 mixin(须是通过Mixin()创建的mixin实例)。
      * @version 2.8.5
