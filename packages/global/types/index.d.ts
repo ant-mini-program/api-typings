@@ -2,6 +2,7 @@
 /// <reference path="./lib.page.d.ts" />
 /// <reference path="./lib.component.d.ts" />
 /// <reference path="./lib.mixin.d.ts" />
+/// <reference path="./lib.shared.d.ts" />
 /// <reference path="./lib.global.d.ts" />
 
 declare namespace MiniProgram {
