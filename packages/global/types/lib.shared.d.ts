@@ -104,7 +104,7 @@ declare namespace MiniProgram.Shared {
   }
 
   interface IRouter {
-    navigateTo: (r: {
+    navigateTo: (object: {
       /**
        * 需要跳转的目标页面路径
        * @description 路径后可以带参数, 目标路径必须为应用内非 tabbar 的，路径与参数之间使用 ?分隔，参数键与参数值用=相连，不同参数必须用&分隔
@@ -149,7 +149,7 @@ declare namespace MiniProgram.Shared {
        */
       eventChannel: EventChannel;
     }>;
-    redirectTo: (r: {
+    redirectTo: (object: {
       /**
        * 需要跳转的目标页面路径
        * 路径后可以带参数, 目标路径必须为应用内非 tabbar 的，路径与参数之间使用 ?分隔，参数键与参数值用=相连，不同参数必须用&分隔
@@ -168,7 +168,7 @@ declare namespace MiniProgram.Shared {
        */
       complete?(arg: { error?: number; errorMessage?: string }): void;
     }) => Promise<void>;
-    navigateBack: (r?: {
+    navigateBack: (object?: {
       /**
        * 返回的页面数
        * @description 如果 delta 大于现有打开的页面数，则返回到首页
@@ -188,7 +188,7 @@ declare namespace MiniProgram.Shared {
        */
       complete?(arg: { error?: number; errorMessage?: string }): void;
     }) => Promise<void>;
-    switchTab: (r: {
+    switchTab: (object: {
       /**
        * 跳转的特定 tab 的路径
        * @description 目标路径必须为应用内 tabbar 的，且路径后不能带参数
@@ -207,7 +207,7 @@ declare namespace MiniProgram.Shared {
        */
       complete?(arg: { error?: number; errorMessage?: string }): void;
     }) => Promise<void>;
-    reLaunch: (r: {
+    reLaunch: (object: {
       /**
        * 需要跳转的目标页面路径
        * @description
@@ -273,35 +273,41 @@ declare namespace MiniProgram.Shared {
     /**
      * 创建 MediaQueryObserver 对象实例，用于监听页面 media query 状态的变化。
      * @version 2.8.2
+     * @see https://opendocs.alipay.com/mini/framework/component_object#createMediaQueryObserver
      */
     createMediaQueryObserver(): IMediaQueryObserver;
     /**
      * 获取自定义 tabBar 实例，可以通过判断 `this.getTabBar` 是否为一个函数做兼容性处理
      * @version 2.7.20
+     * @see https://opendocs.alipay.com/mini/framework/page-detail#Page.getTabBar
      */
     getTabBar<T extends any = Component.BaseInstance>(): T | undefined;
     /**
      * 查询子组件
      * @description 根据传入的 selector 匹配器查询，返回匹配到的第一个组件实例（会被 ref 影响）
      * @version 2.8.0
+     * @see https://opendocs.alipay.com/mini/framework/component_object#%24selectComponent%2F%24selectAllComponents
      */
     $selectComponent(selector: string): Component.BaseInstance | void;
     /**
      * 查询子组件
      * @description  根据传入的 selector 匹配器查询，返回匹配到的所有组件实例（会被 ref 影响）
      * @version 2.8.0
+     * @see https://opendocs.alipay.com/mini/framework/component_object#%24selectComponent%2F%24selectAllComponents
      */
     $selectAllComponents(selector: string): Component.BaseInstance[];
     /**
      * 检查组件是否具有 mixin(须是通过Mixin()创建的mixin实例)。
      * @description 若自定义组件注册时传入了ref以指定组件返回值，则可通过hasMixin('ref')检查到
-     * @version 基础库 2.8.2
+     * @version 2.8.2
      * @return boolean
+     * @see https://opendocs.alipay.com/mini/framework/component_object#%E7%BB%84%E4%BB%B6%E5%AE%9E%E4%BE%8B%E6%96%B9%E6%B3%95
      */
     hasMixin(mixin: Mixin.IMixinIdentifier): boolean;
     /**
      * 监听 setData 引发界面更新的开销，参见 获取更新性能统计信息
      * @version 2.8.5
+     * @see https://opendocs.alipay.com/mini/069xfk
      */
     setUpdatePerformanceListener<WithDataPath extends boolean = false>(
       option: SetUpdatePerformanceListenerOption<WithDataPath>,
