@@ -90,9 +90,7 @@ declare namespace MiniProgram.App {
   /**
    * Additional properties in App instance, for module augmentation
    */
-  interface IInstanceAdditionalProperties<
-    ExtraOptions extends UnknownRecord
-  > {}
+  interface IInstanceAdditionalProperties<ExtraOptions extends UnknownRecord> {}
 
   /**
    * App 的类型
@@ -111,10 +109,9 @@ declare namespace MiniProgram.App {
   /**
    * 用户可配置的 App Options
    */
-  type UserAppOptions<
-    ExtraThis,
-    ExtraOptions extends UnknownRecord
-  > = Partial<Options<ExtraOptions>> &
+  type UserAppOptions<ExtraThis, ExtraOptions extends UnknownRecord> = Partial<
+    Options<ExtraOptions>
+  > &
     Partial<
       UniqueLeft<UniqueLeft<ExtraThis, ExtraOptions>, Options<ExtraOptions>>
     > & {
@@ -124,10 +121,7 @@ declare namespace MiniProgram.App {
     } & ThisType<IAppInstance<ExtraThis, ExtraOptions>>;
 
   interface Constructor {
-    <
-      ExtraThis = {},
-      ExtraOptions extends Record<string, unknown> = {}
-    >(
+    <ExtraThis = {}, ExtraOptions extends Record<string, unknown> = {}>(
       opts: UserAppOptions<
         ExtraThis & IGlobalMiniProgramExtraThis4App,
         ExtraOptions
@@ -139,6 +133,9 @@ declare namespace MiniProgram.App {
     <
       ExtraThis = {},
       ExtraOptions extends Record<string, unknown> = {}
-    >(): IAppInstance<ExtraThis & IGlobalMiniProgramExtraThis4App, ExtraOptions>
+    >(): IAppInstance<
+      ExtraThis & IGlobalMiniProgramExtraThis4App,
+      ExtraOptions
+    >;
   }
 }

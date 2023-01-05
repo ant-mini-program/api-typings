@@ -12,45 +12,45 @@ declare namespace MiniProgram.Page {
        * 窗口高度
        */
       windowHeight: number;
-    }
+    };
   }
   interface IKeyboardHeightEvent {
     /**
      * 键盘高度
      */
-    height: number
+    height: number;
   }
   interface ITabItemTapEvent {
     /**
      * 点击来源。
      */
-    from: string,
+    from: string;
     /**
      * 被点击 tabItem 的页面路径。
      */
-    pagePath: string,
+    pagePath: string;
     /**
      * 被点击 tabItem 的按钮文字。
      */
-    text: string,
+    text: string;
     /**
      * 被点击 tabItem 的序号，从 0 开始。
      */
-    index: number,
+    index: number;
   }
   interface ISelectedTabItemTapEvent {
     /**
      * 被点击 tabItem 的页面路径。
      */
-    pagePath: string,
+    pagePath: string;
     /**
      * 被点击 tabItem 的按钮文字。
      */
-    text: string,
+    text: string;
     /**
      * 被点击 tabItem 的序号，从 0 开始。
      */
-    index: number,
+    index: number;
   }
 
   interface IPageScrollEvent {
@@ -71,7 +71,7 @@ declare namespace MiniProgram.Page {
      * - manual: 下拉事件通过 my.startPullDownRefresh 触发
      * - code: 下拉事件用通过户下拉触发
      */
-    from: 'manual' | 'code',
+    from: 'manual' | 'code';
   }
   interface IShareAppMessageEvent {
     /**
@@ -82,17 +82,17 @@ declare namespace MiniProgram.Page {
      * - code 执行 my.showSharePanel 触发
      * @version 1.10.0
      */
-    from: 'button' | 'menu' | 'code',
+    from: 'button' | 'menu' | 'code';
     /**
      * 如果 from 值为 button，则 target 为触发这次分享的 button，否则为 undefined。
      * @version 1.10.0
      */
-    target: object,
+    target: object;
     /**
      * 页面中包含 web-view 组件时，返回当前 web-view 的 URL。
      * @version 1.6.0
      */
-    webViewUrl: string,
+    webViewUrl: string;
   }
 
   interface IShareAppMessage {
@@ -173,7 +173,7 @@ declare namespace MiniProgram.Page {
     /**
      * 导航栏左侧返回按钮(以及 Android 系统返回键）被点击时触发
      */
-    onBack: () => void,
+    onBack: () => void;
     /**
      * window尺寸改变时触发
      * @version 1.16.0
@@ -184,7 +184,7 @@ declare namespace MiniProgram.Page {
      * @param event 点击当前 tabItem 事件
      * @version 2.7.2
      */
-    onSelectedTabItemTap: (event: ISelectedTabItemTapEvent) => void,
+    onSelectedTabItemTap: (event: ISelectedTabItemTapEvent) => void;
   }
 
   /**
@@ -231,7 +231,9 @@ declare namespace MiniProgram.Page {
      * - 从基础库 1.24.13、2.6.7 版本开始支持 async 写法，可通过 my.canIUse('page.onShareAppMessage.async') 检测是否支持。
      * @see https://opendocs.alipay.com/mini/framework/page-detail#onShareAppMessage(options%3A%20Object)
      */
-    onShareAppMessage(event: IShareAppMessageEvent): IShareAppMessage | Promise<IShareAppMessage>;
+    onShareAppMessage(
+      event: IShareAppMessageEvent
+    ): IShareAppMessage | Promise<IShareAppMessage>;
     /**
      * 点击标题触发
      */
@@ -241,7 +243,7 @@ declare namespace MiniProgram.Page {
      * @see 设置额外图标: https://opendocs.alipay.com/mini/api/optionmenu
      * @version 1.3.0
      */
-    onOptionMenuClick: () => void,
+    onOptionMenuClick: () => void;
     /**
      * 页面下拉时触发
      * @description 需要先在 app.json 的 window 选项中开启 pullRefresh 。当处理完数据刷新后，my.stopPullDownRefresh 可以停止当前页面的下拉刷新。
@@ -281,7 +283,7 @@ declare namespace MiniProgram.Page {
        * 开启 observers 数据变化观测器
        */
       observers: boolean;
-    },
+    };
     /**
      * 数据变化观测器，观测和响应任何数据字段的变化。
      * @version 2.8.1
@@ -306,16 +308,16 @@ declare namespace MiniProgram.Page {
      */
     readonly route: string;
     /**
-    * 页面路由对象
-    * @description 可获得当前页面的路由对象，路由方法与全局路由方法功能相同，唯一区别在于调用时，相对路径是相对于该页面
-    * @version 2.7.22
-    */
+     * 页面路由对象
+     * @description 可获得当前页面的路由对象，路由方法与全局路由方法功能相同，唯一区别在于调用时，相对路径是相对于该页面
+     * @version 2.7.22
+     */
     readonly router: Component.IRouter;
     /**
-    * 页面路由对象
-    * @description 同 router, 可获得当前页面的路由对象，路由方法与全局路由方法功能相同，唯一区别在于调用时，相对路径是相对于该页面
-    * @version 2.7.22
-    */
+     * 页面路由对象
+     * @description 同 router, 可获得当前页面的路由对象，路由方法与全局路由方法功能相同，唯一区别在于调用时，相对路径是相对于该页面
+     * @version 2.7.22
+     */
     readonly pageRouter: Component.IRouter;
   }
 
@@ -327,7 +329,7 @@ declare namespace MiniProgram.Page {
      * @param data
      * @param callback
      */
-     setData(
+    setData(
       data: RecursivePartialAndDynamic<Data>,
       callback?: () => void
     ): void;
@@ -360,7 +362,7 @@ declare namespace MiniProgram.Page {
     getOpenerEventChannel(): Component.EventChannel;
     /**
      * 检查组件是否具有 mixin(须是通过Mixin()创建的mixin实例)。
-     * @version 基础库 2.8.5
+     * @version 2.8.5
      * @return boolean
      */
     hasMixin(mixin: Mixin.IMixinIdentifier): boolean;
@@ -369,14 +371,13 @@ declare namespace MiniProgram.Page {
   /**
    * `this` type of life cycle hooks in App.
    */
-  type IInstance<
-    Data,
-    ExtraThis,
-    ExtraOptions extends UnknownRecord
-    > = { data: Data & UnknownRecord } & ExtraThis &
-    Omit<ExtraOptions, keyof IOptions<Data, ExtraOptions>> & IInstanceProperties &
-      IInstanceSharedMethods<Data> & IInstanceMethods<Data> &  {
-    } & IInstanceAdditionalProperties<ExtraOptions>
+  type IInstance<Data, ExtraThis, ExtraOptions extends UnknownRecord> = {
+    data: Data & UnknownRecord;
+  } & ExtraThis &
+    Omit<ExtraOptions, keyof IOptions<Data, ExtraOptions>> &
+    IInstanceProperties &
+    IInstanceSharedMethods<Data> &
+    IInstanceMethods<Data> & {} & IInstanceAdditionalProperties<ExtraOptions>;
 
   /**
    * 用户可配置的 Page Options

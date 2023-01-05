@@ -67,21 +67,6 @@ declare namespace MiniProgram.Component {
     orientation?: 'landscape' | 'portrait';
   }
 
-  interface SetUpdatePerformanceListenerOption<WithDataPath extends boolean> {
-    /**
-     * 是否返回变更的 data 字段信息
-     */
-    withDataPaths?: WithDataPath;
-  }
-
-  interface UpdatePerformanceListener<WithDataPath> {
-    (res: UpdatePerformance<WithDataPath>): void;
-  }
-
-  interface UpdatePerformance<WithDataPath> {
-    // TODO
-  }
-
   interface ILifetimes {
     /**
      * 在组件实例刚刚被创建时执行
@@ -459,12 +444,12 @@ declare namespace MiniProgram.Component {
      */
     hasMixin(mixin: Mixin.IMixinIdentifier): boolean;
     /**
-     * 获取更新性能统计信息
+     * 监听 setData 引发界面更新的开销，参见 获取更新性能统计信息
      * @version 2.8.5
      */
     setUpdatePerformanceListener<WithDataPath extends boolean = false>(
-      option: SetUpdatePerformanceListenerOption<WithDataPath>,
-      callback?: UpdatePerformanceListener<WithDataPath>
+      option: Shared.SetUpdatePerformanceListenerOption<WithDataPath>,
+      callback?: Shared.UpdatePerformanceListener<WithDataPath>
     ): void;
   }
 
@@ -551,11 +536,20 @@ declare namespace MiniProgram.Component {
       Methods = {},
       ExtraThis = {},
       ExtraOptions extends Record<string, unknown> = {},
-      Mixins extends Array<Mixin.IMixin4Legacy | ReturnType<Mixin.Constructor>> = any[]
+      Mixins extends Array<
+        Mixin.IMixin4Legacy | ReturnType<Mixin.Constructor>
+      > = any[]
     >(
       opts: Partial<IOptions<Data, Props, Methods, ExtraOptions, Mixins>> &
         ThisType<
-          IInstance<Data, Props, Methods, ExtraThis & IGlobalMiniProgramExtraThis4Component, ExtraOptions, Mixins>
+          IInstance<
+            Data,
+            Props,
+            Methods,
+            ExtraThis & IGlobalMiniProgramExtraThis4Component,
+            ExtraOptions,
+            Mixins
+          >
         >
     ): void;
   }

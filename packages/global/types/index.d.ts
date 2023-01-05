@@ -33,9 +33,9 @@ declare namespace MiniProgram {
   type TGetMixinProps<T> = T extends { props: infer P } ? P : never;
 
   // 整合一下类型
-  type UnionToIntersection<T> = (T extends any ? (x: T) => any : never) extends (
-    x: infer R
-  ) => any
+  type UnionToIntersection<T> = (
+    T extends any ? (x: T) => any : never
+  ) extends (x: infer R) => any
     ? R
     : never;
 
@@ -54,14 +54,14 @@ declare namespace MiniProgram {
    * Recursively map a type and make all properties optional & dynamic.
    */
   type RecursivePartialAndDynamic<T> = T extends object
-  ? {
-      [P in keyof T]?: T[P] extends Array<infer U>
-        ? Array<RecursivePartialAndDynamic<U>>
-        : T[P] extends Function
-        ? T[P]
-        : T[P] extends object
-        ? RecursivePartialAndDynamic<T[P]>
-        : T[P];
-    }
-  : T;
+    ? {
+        [P in keyof T]?: T[P] extends Array<infer U>
+          ? Array<RecursivePartialAndDynamic<U>>
+          : T[P] extends Function
+          ? T[P]
+          : T[P] extends object
+          ? RecursivePartialAndDynamic<T[P]>
+          : T[P];
+      }
+    : T;
 }
