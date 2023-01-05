@@ -364,6 +364,7 @@ declare namespace MiniProgram.Page {
      * 检查组件是否具有 mixin(须是通过Mixin()创建的mixin实例)。
      * @version 2.8.5
      * @return boolean
+     * @see https://opendocs.alipay.com/mini/framework/page-detail#hasMixin
      */
     hasMixin(mixin: Mixin.IMixinIdentifier): boolean;
   }

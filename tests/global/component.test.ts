@@ -13,6 +13,9 @@ Component({
   },
   options: {
     observers: true,
+    externalClasses: true,
+    lifetimes: true,
+    relations: true,
   },
   observers: {
     'field1,field2': function(val1, val2) {
