@@ -23,7 +23,7 @@
   },
   "lint-staged": {
     "*.d.ts": [
-      "prettier --config ./.prettierrc.json --write"
+      "prettier --config ./.prettierrc --write"
     ]
   },
   "devDependencies": {

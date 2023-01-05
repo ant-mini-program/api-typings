@@ -1,6 +1,6 @@
 import {
   ISetUpdatePerformanceListenerOptions,
-  ISetUpdatePerformanceListenerResult
+  ISetUpdatePerformanceListenerResult,
 } from './lib.shared';
 
 declare namespace MiniProgram.Page {
@@ -404,13 +404,11 @@ declare namespace MiniProgram.Page {
       UniqueLeft<ExtraThis, ExtraOptions>,
       IOptions<Data, ExtraOptions>
     >
-  > &
-    {
-      [P in keyof ExtraOptions]: P extends keyof IOptions<Data, ExtraOptions>
-        ? unknown
-        : ExtraOptions[P];
-    } &
-    Partial<IOptions<Data, ExtraOptions>> &
+  > & {
+    [P in keyof ExtraOptions]: P extends keyof IOptions<Data, ExtraOptions>
+      ? unknown
+      : ExtraOptions[P];
+  } & Partial<IOptions<Data, ExtraOptions>> &
     ThisType<IInstance<Data, ExtraThis, ExtraOptions>>;
 
   interface Constructor {

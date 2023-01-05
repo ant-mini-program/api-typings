@@ -1,6 +1,6 @@
 import {
   ISetUpdatePerformanceListenerOptions,
-  ISetUpdatePerformanceListenerResult
+  ISetUpdatePerformanceListenerResult,
 } from './lib.shared';
 
 declare namespace MiniProgram.Component {

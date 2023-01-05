@@ -1,4 +1,5 @@
-export type IAppOnLaunchOptions<Query extends Record<string, string>> = MiniProgram.App.LaunchOptions<Query>;
+export type IAppOnLaunchOptions<Query extends Record<string, string>> =
+  MiniProgram.App.LaunchOptions<Query>;
 export interface IRequirePlugin<
   Target extends Record<string, any> = Record<string, any>
 > {
@@ -49,7 +50,7 @@ declare global {
    * Page's constructor
    * @link https://opendocs.alipay.com/mini/framework/page-detail
    */
-  const Page: MiniProgram.Page.Constructor
+  const Page: MiniProgram.Page.Constructor;
 
   /**
    * Component's constructor
@@ -62,6 +63,5 @@ declare global {
    * @version 2.8.2
    * @link https://opendocs.alipay.com/mini/05bchn
    */
-  const Mixin: MiniProgram.Mixin.Constructor
+  const Mixin: MiniProgram.Mixin.Constructor;
 }
-
