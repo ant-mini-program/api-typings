@@ -221,6 +221,14 @@ declare namespace MiniProgram.Component {
      */
     selectComposedParentComponent(): BaseInstance;
     /**
+     * 检查组件是否具有 mixin(须是通过Mixin()创建的mixin实例)。
+     * @description 若自定义组件注册时传入了ref以指定组件返回值，则可通过hasMixin('ref')检查到
+     * @version 2.8.2
+     * @return boolean
+     * @see https://opendocs.alipay.com/mini/framework/component_object#%E7%BB%84%E4%BB%B6%E5%AE%9E%E4%BE%8B%E6%96%B9%E6%B3%95
+     */
+    hasMixin(mixin: Mixin.IMixinIdentifier): boolean;
+    /**
      * 获取这个关系所对应的所有关联节点，参见 组件间关系
      * @version 2.8.5
      */
