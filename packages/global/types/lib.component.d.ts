@@ -1,10 +1,12 @@
+import { ISetUpdatePerformanceListenerOptions, ISetUpdatePerformanceListenerResult } from "./lib.shared";
+
 declare namespace MiniProgram.Component {
   /**
    * Additional properties in Component instance, for module augmentation
    */
   interface IComponentInstanceAdditionalProperties<
     ExtraOptions extends UnknownRecord
-  > {}
+  > { }
 
   interface IMediaQueryObserver {
     /**
@@ -292,15 +294,15 @@ declare namespace MiniProgram.Component {
       complete?(
         arg:
           | {
-              /**
-               * 和被打开页面进行通信
-               */
-              eventChannel: EventChannel;
-            }
+            /**
+             * 和被打开页面进行通信
+             */
+            eventChannel: EventChannel;
+          }
           | {
-              error?: number;
-              errorMessage?: string;
-            }
+            error?: number;
+            errorMessage?: string;
+          }
       ): void;
     }) => Promise<{
       /**
@@ -507,6 +509,11 @@ declare namespace MiniProgram.Component {
      * @version 2.8.5
      */
     getRelationNodes(relationKey: string): BaseInstance[];
+    /**
+     * 监听 setData 引发界面更新的开销，参见 获取更新性能统计信息
+     * @version 2.8.5
+     */
+    setUpdatePerformanceListener(options: ISetUpdatePerformanceListenerOptions, callback?: (result: ISetUpdatePerformanceListenerResult) => void): void;
   }
   /**
    * Public instance
@@ -520,7 +527,7 @@ declare namespace MiniProgram.Component {
     Mixins extends Array<Mixin.IMixin4Legacy | ReturnType<Mixin.Constructor>>
   > = {
     data: Data &
-      UnionToIntersection<TGetMixinData<TExtractValuesOfTuple<Mixins>>>;
+    UnionToIntersection<TGetMixinData<TExtractValuesOfTuple<Mixins>>>;
     props: Readonly<
       Props & UnionToIntersection<TGetMixinProps<TExtractValuesOfTuple<Mixins>>>
     >;

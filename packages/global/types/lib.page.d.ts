@@ -1,3 +1,5 @@
+import { ISetUpdatePerformanceListenerOptions, ISetUpdatePerformanceListenerResult } from "./lib.shared";
+
 declare namespace MiniProgram.Page {
   interface IOnResizeEvent {
     /**
@@ -297,7 +299,7 @@ declare namespace MiniProgram.Page {
   /**
    * Additional properties in Page instance, for module augmentation
    */
-  interface IInstanceAdditionalProperties<ExtraOptions> {}
+  interface IInstanceAdditionalProperties<ExtraOptions> { }
 
   interface IInstanceProperties {
     /**
@@ -327,7 +329,7 @@ declare namespace MiniProgram.Page {
      * @param data
      * @param callback
      */
-     setData(
+    setData(
       data: RecursivePartialAndDynamic<Data>,
       callback?: () => void
     ): void;
@@ -364,6 +366,11 @@ declare namespace MiniProgram.Page {
      * @return boolean
      */
     hasMixin(mixin: Mixin.IMixinIdentifier): boolean;
+    /**
+     * 监听 setData 引发界面更新的开销，参见 获取更新性能统计信息
+     * @version 2.8.5
+     */
+    setUpdatePerformanceListener(options: ISetUpdatePerformanceListenerOptions, callback?: (result: ISetUpdatePerformanceListenerResult) => void): void;
   }
 
   /**
@@ -373,9 +380,9 @@ declare namespace MiniProgram.Page {
     Data,
     ExtraThis,
     ExtraOptions extends UnknownRecord
-    > = { data: Data & UnknownRecord } & ExtraThis &
+  > = { data: Data & UnknownRecord } & ExtraThis &
     Omit<ExtraOptions, keyof IOptions<Data, ExtraOptions>> & IInstanceProperties &
-      IInstanceSharedMethods<Data> & IInstanceMethods<Data> &  {
+    IInstanceSharedMethods<Data> & IInstanceMethods<Data> & {
     } & IInstanceAdditionalProperties<ExtraOptions>
 
   /**
@@ -391,10 +398,10 @@ declare namespace MiniProgram.Page {
       IOptions<Data, ExtraOptions>
     >
   > & {
-    [P in keyof ExtraOptions]: P extends keyof IOptions<Data, ExtraOptions>
+      [P in keyof ExtraOptions]: P extends keyof IOptions<Data, ExtraOptions>
       ? unknown
       : ExtraOptions[P];
-  } & Partial<IOptions<Data, ExtraOptions>> &
+    } & Partial<IOptions<Data, ExtraOptions>> &
     ThisType<IInstance<Data, ExtraThis, ExtraOptions>>;
 
   interface Constructor {
