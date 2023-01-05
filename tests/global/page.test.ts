@@ -134,6 +134,11 @@ Page({
         }
       },
     });
+    this.setUpdatePerformanceListener<true>({
+      withDataPaths: true
+    }, res => {
+      expectAssignable<string[]>(res.dataPaths)
+    })
   },
   goDevCenter() {
     my.navigateToMiniProgram({
