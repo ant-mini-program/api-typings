@@ -61,8 +61,7 @@ declare namespace my.aliauto {
     /**
      * @summary 打开车辆信息设置
      */
-    success?();
-    void;
+    success?(): void;
   }): void;
 
   export function getDrivingBlock(r?: {
@@ -369,7 +368,7 @@ declare namespace my.aliauto {
        */
     }): void;
     fail?(): void;
-  });
+  }): void;
 
   export function reportAnalytics(s: {
     /**
@@ -377,7 +376,7 @@ declare namespace my.aliauto {
      */
     eventName: String;
     data: Object;
-  });
+  }): void;
 
   export function createGeoFencing(s: {
     /**
