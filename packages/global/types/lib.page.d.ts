@@ -377,26 +377,8 @@ declare namespace MiniProgram.Page {
     Omit<ExtraOptions, keyof IOptions<Data, ExtraOptions>> &
     IInstanceProperties &
     IInstanceSharedMethods<Data> &
-    IInstanceMethods<Data> & {} & IInstanceAdditionalProperties<ExtraOptions>;
-
-  /**
-   * 用户可配置的 Page Options
-   */
-  type IUserPageOptions<
-    Data,
-    ExtraThis,
-    ExtraOptions extends UnknownRecord
-  > = Partial<
-    UniqueLeft<
-      UniqueLeft<ExtraThis, ExtraOptions>,
-      IOptions<Data, ExtraOptions>
-    >
-  > & {
-    [P in keyof ExtraOptions]: P extends keyof IOptions<Data, ExtraOptions>
-      ? unknown
-      : ExtraOptions[P];
-  } & Partial<IOptions<Data, ExtraOptions>> &
-    ThisType<IInstance<Data, ExtraThis, ExtraOptions>>;
+    IInstanceMethods<Data> &
+    IInstanceAdditionalProperties<ExtraOptions>;
 
   interface Constructor {
     <
@@ -404,11 +386,17 @@ declare namespace MiniProgram.Page {
       ExtraThis = {},
       ExtraOptions extends Record<string, unknown> = {}
     >(
-      opts: IUserPageOptions<
-        Data,
-        ExtraThis & IGlobalMiniProgramExtraThis4Page,
-        ExtraOptions
-      >
+      options: Partial<
+        UniqueLeft<
+          UniqueLeft<ExtraThis, ExtraOptions>,
+          IOptions<Data, ExtraOptions>
+        >
+      > & {
+        [P in keyof ExtraOptions]: P extends keyof IOptions<Data, ExtraOptions>
+          ? unknown
+          : ExtraOptions[P];
+      } & Partial<IOptions<Data, ExtraOptions>> &
+        ThisType<IInstance<Data, ExtraThis, ExtraOptions>>
     ): void;
   }
   interface GetCurrentPages {
