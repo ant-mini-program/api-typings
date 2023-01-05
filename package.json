@@ -14,12 +14,8 @@
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
     "test": "jest",
     "ci": "yarn test",
-    "lint": "prettier -w ."
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
+    "lint": "prettier -w .",
+    "prepare": "husky install"
   },
   "lint-staged": {
     "*.d.ts": [
