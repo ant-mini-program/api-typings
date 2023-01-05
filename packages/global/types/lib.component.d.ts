@@ -67,21 +67,6 @@ declare namespace MiniProgram.Component {
     orientation?: 'landscape' | 'portrait';
   }
 
-  interface SetUpdatePerformanceListenerOption<WithDataPath extends boolean> {
-    /**
-     * 是否返回变更的 data 字段信息
-     */
-    withDataPaths?: WithDataPath;
-  }
-
-  interface UpdatePerformanceListener<WithDataPath> {
-    (res: UpdatePerformance<WithDataPath>): void;
-  }
-
-  interface UpdatePerformance<WithDataPath> {
-    // TODO
-  }
-
   interface ILifetimes {
     /**
      * 在组件实例刚刚被创建时执行
@@ -459,12 +444,12 @@ declare namespace MiniProgram.Component {
      */
     hasMixin(mixin: Mixin.IMixinIdentifier): boolean;
     /**
-     * 获取更新性能统计信息
+     * 监听 setData 引发界面更新的开销，参见 获取更新性能统计信息
      * @version 2.8.5
      */
     setUpdatePerformanceListener<WithDataPath extends boolean = false>(
-      option: SetUpdatePerformanceListenerOption<WithDataPath>,
-      callback?: UpdatePerformanceListener<WithDataPath>
+      option: Shared.SetUpdatePerformanceListenerOption<WithDataPath>,
+      callback?: Shared.UpdatePerformanceListener<WithDataPath>
     ): void;
   }
 
@@ -507,14 +492,6 @@ declare namespace MiniProgram.Component {
      * @version 2.8.5
      */
     getRelationNodes(relationKey: string): BaseInstance[];
-    /**
-     * 监听 setData 引发界面更新的开销，参见 获取更新性能统计信息
-     * @version 2.8.5
-     */
-    setUpdatePerformanceListener(
-      options: Shared.ISetUpdatePerformanceListenerOptions,
-      callback?: (result: Shared.ISetUpdatePerformanceListenerResult) => void
-    ): void;
   }
   /**
    * Public instance

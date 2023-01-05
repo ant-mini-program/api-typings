@@ -362,18 +362,10 @@ declare namespace MiniProgram.Page {
     getOpenerEventChannel(): Component.EventChannel;
     /**
      * 检查组件是否具有 mixin(须是通过Mixin()创建的mixin实例)。
-     * @version 基础库 2.8.5
+     * @version 2.8.5
      * @return boolean
      */
     hasMixin(mixin: Mixin.IMixinIdentifier): boolean;
-    /**
-     * 监听 setData 引发界面更新的开销，参见 获取更新性能统计信息
-     * @version 2.8.5
-     */
-    setUpdatePerformanceListener(
-      options: Shared.ISetUpdatePerformanceListenerOptions,
-      callback?: (result: Shared.ISetUpdatePerformanceListenerResult) => void
-    ): void;
   }
 
   /**
