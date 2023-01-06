@@ -1,4 +1,91 @@
-# [](https://github.com/ant-mini-program/api-typings/compare/v2.0.11...v) (2022-10-21)
+# [](https://github.com/ant-mini-program/api-typings/compare/v3.0.0...v) (2023-01-06)
+
+
+
+# [3.0.0](https://github.com/ant-mini-program/api-typings/compare/v2.0.19...v3.0.0) (2023-01-06)
+
+
+### Bug Fixes
+
+* return type ([#24](https://github.com/ant-mini-program/api-typings/issues/24)) ([8742a3f](https://github.com/ant-mini-program/api-typings/commit/8742a3faccf4324c9a05e1850e07a0ff5a68d3d2))
+
+
+### Features
+
+* remove unused declarations ([578145f](https://github.com/ant-mini-program/api-typings/commit/578145f0046fbeb6c6a2601c62e504765c67a84b))
+* update typings ([eeecac0](https://github.com/ant-mini-program/api-typings/commit/eeecac033e3b92c48fe48d86e51438ef2322ed7d))
+* update typings ([59616dc](https://github.com/ant-mini-program/api-typings/commit/59616dc7a6933b3b480eaf9355f4cbd129ee9ebc))
+* 基础库 2.8.5 Component新增功能 ([#18](https://github.com/ant-mini-program/api-typings/issues/18)) ([6eb99b5](https://github.com/ant-mini-program/api-typings/commit/6eb99b5e8eb506bb3de31a1cfb061b2cc96814b8))
+* 新增 setUpdatePerformanceListener 类型 & lint hook ([#25](https://github.com/ant-mini-program/api-typings/issues/25)) ([584d77b](https://github.com/ant-mini-program/api-typings/commit/584d77bfae55468e0ef4d73462230ddaee0189f4))
+
+
+
+## [2.0.19](https://github.com/ant-mini-program/api-typings/compare/v2.0.18...v2.0.19) (2022-12-10)
+
+
+### Features
+
+* add sjs typings ([#16](https://github.com/ant-mini-program/api-typings/issues/16)) ([4064c38](https://github.com/ant-mini-program/api-typings/commit/4064c384f3107f0064831ba62edd6fea5330d46a))
+
+
+
+## [2.0.18](https://github.com/ant-mini-program/api-typings/compare/v2.0.17...v2.0.18) (2022-12-06)
+
+
+
+## [2.0.17](https://github.com/ant-mini-program/api-typings/compare/v2.0.16...v2.0.17) (2022-12-06)
+
+
+### Bug Fixes
+
+* remove duplicates enums ([2a6c87c](https://github.com/ant-mini-program/api-typings/commit/2a6c87c1be9c36c102829e39d37d4fe6572c0afc))
+
+
+### Features
+
+* update typings ([e4ae34e](https://github.com/ant-mini-program/api-typings/commit/e4ae34e0b792cc8411a046da2f42814e5c9ad4a5))
+* update typings ([8a4293a](https://github.com/ant-mini-program/api-typings/commit/8a4293ab70c793d432252bff14703d8bac976ada))
+
+
+
+## [2.0.16](https://github.com/ant-mini-program/api-typings/compare/v2.0.15...v2.0.16) (2022-11-28)
+
+
+### Features
+
+* update typings ([7048386](https://github.com/ant-mini-program/api-typings/commit/7048386434c5b7831eb535c31a2715ebf2483564))
+
+
+
+## [2.0.15](https://github.com/ant-mini-program/api-typings/compare/v2.0.14...v2.0.15) (2022-11-14)
+
+
+### Features
+
+* **page:** 新增 Mixin 属性 ([#14](https://github.com/ant-mini-program/api-typings/issues/14)) ([d210726](https://github.com/ant-mini-program/api-typings/commit/d2107267e57faadcb0c53af5fd21e3677b396f55))
+
+
+
+## [2.0.14](https://github.com/ant-mini-program/api-typings/compare/v2.0.13...v2.0.14) (2022-11-04)
+
+
+
+## [2.0.13](https://github.com/ant-mini-program/api-typings/compare/v2.0.12...v2.0.13) (2022-11-04)
+
+
+### Features
+
+* update typings ([602aa74](https://github.com/ant-mini-program/api-typings/commit/602aa7440e083af9f6508990590ebd734e4dbff6))
+
+
+
+## [2.0.12](https://github.com/ant-mini-program/api-typings/compare/v2.0.11...v2.0.12) (2022-11-02)
+
+
+### Features
+
+* add more api ([56cc744](https://github.com/ant-mini-program/api-typings/commit/56cc744382ea80615dd5936d2eac2d200c5bed36))
+* update comments ([7391f3c](https://github.com/ant-mini-program/api-typings/commit/7391f3c28502f1007f4ff5d81e421becc006a554))
 
 
 
