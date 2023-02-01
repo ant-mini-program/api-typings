@@ -80,7 +80,10 @@ declare namespace my {
   /**
    * 创建离屏 canvas 对象
    */
-  export function _createOffscreenCanvas(width?: number, height?: number): OffScreenCanvas;
+  export function _createOffscreenCanvas(
+    width?: number,
+    height?: number
+  ): OffScreenCanvas;
   /**
    * 写入联系人资料到设备通讯录
    * @description 用户可以选择将表单以“创建新联系人”或“添加到现有联系人”的方式，写入联系人资料到手机系统的通讯录
@@ -177,7 +180,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     success: true;
@@ -321,7 +324,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     /**
@@ -404,7 +407,7 @@ declare namespace my {
         | {
             error: 1;
             errorMessage: 'canvas content or format wrong!';
-          },
+          }
     ): void;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
@@ -427,7 +430,7 @@ declare namespace my {
                 error: 1;
                 errorMessage: 'canvas content or format wrong!';
               }
-          ),
+          )
     ): void;
   }): Promise<{
     /**
@@ -471,7 +474,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     /**
@@ -499,7 +502,7 @@ declare namespace my {
             error: number;
             errorMessage: string;
             message?: string;
-          },
+          }
     ): void;
     /**
      * 接口调用失败的回调函数
@@ -527,7 +530,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<
     | {
@@ -581,7 +584,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     /**
@@ -654,7 +657,7 @@ declare namespace my {
         | {
             error: 11;
             errorMessage: '用户取消操作';
-          },
+          }
     ): void;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
@@ -688,7 +691,7 @@ declare namespace my {
                 error: 11;
                 errorMessage: '用户取消操作';
               }
-          ),
+          )
     ): void;
   }): Promise<{
     /**
@@ -765,7 +768,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     /**
@@ -806,7 +809,11 @@ declare namespace my {
     /**
      * 接口调用成功的回调函数
      */
-    success?(data: { name: string; adCode: string; ext?: Record<string, string> }): void;
+    success?(data: {
+      name: string;
+      adCode: string;
+      ext?: Record<string, string>;
+    }): void;
     /**
      * 接口调用失败的回调函数
      */
@@ -824,7 +831,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     name: string;
@@ -852,7 +859,9 @@ declare namespace my {
      * 图片类型。
      * @default ["camera","album"]
      */
-    sourceType?: Array<`${EChooseImageSourceType}`> | `${EChooseImageSourceType}`;
+    sourceType?:
+      | Array<`${EChooseImageSourceType}`>
+      | `${EChooseImageSourceType}`;
     /**
      * 选图过程中拍摄的照片是否落相册（默认不落相册）
      * @native 10.2.10
@@ -889,7 +898,7 @@ declare namespace my {
         | {
             error: 2001;
             errorMessage: '在申请授权时用户拒绝授权';
-          },
+          }
     ): void;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
@@ -921,7 +930,7 @@ declare namespace my {
                 error: 2001;
                 errorMessage: '在申请授权时用户拒绝授权';
               }
-          ),
+          )
     ): void;
   }): Promise<{
     apFilePaths: string[];
@@ -966,7 +975,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     /**
@@ -1065,7 +1074,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     /**
@@ -1133,7 +1142,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     /**
@@ -1155,7 +1164,9 @@ declare namespace my {
      * 视频选择的来源。
      * @default ['album','camera']
      */
-    sourceType?: Array<`${EChooseVideoSourceType}`> | `${EChooseVideoSourceType}`;
+    sourceType?:
+      | Array<`${EChooseVideoSourceType}`>
+      | `${EChooseVideoSourceType}`;
     /**
      * 是否压缩所选择的视频文件。对iOS总是有压缩的，只是压缩级别不同。
      * @default true
@@ -1242,7 +1253,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     /**
@@ -1299,7 +1310,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     success: boolean;
@@ -1365,7 +1376,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     message: string;
@@ -1427,7 +1438,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     /**
@@ -1496,7 +1507,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     /**
@@ -1552,7 +1563,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     /**
@@ -1624,7 +1635,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     success: true;
@@ -1668,7 +1679,9 @@ declare namespace my {
    * 创建并返回 [IntersectionObserver](miniapi) 对象
    * @see https://opendocs.alipay.com/mini/api/intersectionobserver
    */
-  export function createIntersectionObserver(option?: IMyCreateIntersectionObserverOption): IntersectionObserver;
+  export function createIntersectionObserver(
+    option?: IMyCreateIntersectionObserverOption
+  ): IntersectionObserver;
   /**
    * 创建并返回 <lottie> 组件上下文
    * @see https://opendocs.alipay.com/mini/api/createlottiecontext
@@ -1682,13 +1695,18 @@ declare namespace my {
   /**
    * 创建离屏 canvas 对象
    */
-  export function createOffscreenCanvas(width?: number, height?: number): OffScreenCanvas;
+  export function createOffscreenCanvas(
+    width?: number,
+    height?: number
+  ): OffScreenCanvas;
   /**
    * 创建视图信息查询实例
    * @description 在 `自定义组件` 或包含 `自定义组件` 页面中，希望仅查询自身模板（不跨组件）的视图信息，应使用 `this.createSelectorQuery()` 来代替
    * @see https://opendocs.alipay.com/mini/api/selector-query
    */
-  export function createSelectorQuery(option?: IMyCreateSelectorQueryOption): SelectorQuery;
+  export function createSelectorQuery(
+    option?: IMyCreateSelectorQueryOption
+  ): SelectorQuery;
   /**
    * 创建并返回 <video> 组件上下文
    * @see https://opendocs.alipay.com/mini/api/media/video/my.createvideocontext
@@ -1716,7 +1734,14 @@ declare namespace my {
      * 返回的日期格式。
      * @default "yyyy-MM-dd"
      */
-    format?: 'yyyy-MM-dd' | 'HH:mm' | 'yyyy-MM' | 'yyyy' | 'HH:mm:ss' | 'yyyy-MM-dd HH:mm:ss' | 'yyyy-MM-dd HH:mm';
+    format?:
+      | 'yyyy-MM-dd'
+      | 'HH:mm'
+      | 'yyyy-MM'
+      | 'yyyy'
+      | 'HH:mm:ss'
+      | 'yyyy-MM-dd HH:mm:ss'
+      | 'yyyy-MM-dd HH:mm';
     /**
      * 初始选择的日期时间
      * @description 默认当前本地时间
@@ -1752,7 +1777,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     date: string;
@@ -1786,7 +1811,7 @@ declare namespace my {
         | {
             error: 9;
             errorMessage: 'client not support disableAlertBeforeUnload';
-          },
+          }
     ): void;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
@@ -1813,7 +1838,7 @@ declare namespace my {
                 error: 9;
                 errorMessage: 'client not support disableAlertBeforeUnload';
               }
-          ),
+          )
     ): void;
   }): Promise<{
     success: boolean;
@@ -1862,7 +1887,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     /**
@@ -1922,7 +1947,7 @@ declare namespace my {
         | {
             error: 20;
             errorMessage: '请求的 URL 不支持 HTTP';
-          },
+          }
     ): void;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
@@ -1957,7 +1982,7 @@ declare namespace my {
                 error: 20;
                 errorMessage: '请求的 URL 不支持 HTTP';
               }
-          ),
+          )
     ): void;
   }): Promise<{
     /**
@@ -2008,7 +2033,7 @@ declare namespace my {
         | {
             error: 9;
             errorMessage: 'client not support enableAlertBeforeUnload';
-          },
+          }
     ): void;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
@@ -2035,7 +2060,7 @@ declare namespace my {
                 error: 9;
                 errorMessage: 'client not support enableAlertBeforeUnload';
               }
-          ),
+          )
     ): void;
   }): Promise<{
     success: boolean;
@@ -2062,7 +2087,7 @@ declare namespace my {
         | {
             error: 5;
             errorMessage: 'exitMiniProgram can only be invoked by user tap gesture';
-          },
+          }
     ): void;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
@@ -2076,7 +2101,7 @@ declare namespace my {
         | {
             error: 5;
             errorMessage: 'exitMiniProgram can only be invoked by user tap gesture';
-          },
+          }
     ): void;
   }): Promise<void>;
   /**
@@ -2110,7 +2135,15 @@ declare namespace my {
      * 返回图片的方向
      * @default 'up'
      */
-    orientation: 'right' | 'left' | 'up' | 'down' | 'up-mirrored' | 'down-mirrored' | 'left-mirrored' | 'right-mirrored';
+    orientation:
+      | 'right'
+      | 'left'
+      | 'up'
+      | 'down'
+      | 'up-mirrored'
+      | 'down-mirrored'
+      | 'left-mirrored'
+      | 'right-mirrored';
     /**
      * 接口调用成功的回调函数
      */
@@ -2138,7 +2171,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     /**
@@ -2222,7 +2255,7 @@ declare namespace my {
                */
               mobilePhone: string;
             };
-          },
+          }
     ): void;
     /**
      * 接口调用失败的回调函数
@@ -2236,7 +2269,7 @@ declare namespace my {
         | {
             error: 4;
             errorMessage: '无权调用该接口';
-          },
+          }
     ): void;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
@@ -2301,7 +2334,7 @@ declare namespace my {
                 error: 4;
                 errorMessage: '无权调用该接口';
               }
-          ),
+          )
     ): void;
   }): Promise<
     | {
@@ -2509,7 +2542,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     /**
@@ -2533,7 +2566,15 @@ declare namespace my {
     /**
      * 接口调用成功的回调函数
      */
-    success?(data: { audioSources: ('auto' | 'buildInMic' | 'headsetMic' | 'mic' | 'camcorder')[] }): void;
+    success?(data: {
+      audioSources: (
+        | 'auto'
+        | 'buildInMic'
+        | 'headsetMic'
+        | 'mic'
+        | 'camcorder'
+      )[];
+    }): void;
     /**
      * 接口调用失败的回调函数
      */
@@ -2544,15 +2585,27 @@ declare namespace my {
     complete?(
       arg:
         | {
-            audioSources: ('auto' | 'buildInMic' | 'headsetMic' | 'mic' | 'camcorder')[];
+            audioSources: (
+              | 'auto'
+              | 'buildInMic'
+              | 'headsetMic'
+              | 'mic'
+              | 'camcorder'
+            )[];
           }
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
-    audioSources: ('auto' | 'buildInMic' | 'headsetMic' | 'mic' | 'camcorder')[];
+    audioSources: (
+      | 'auto'
+      | 'buildInMic'
+      | 'headsetMic'
+      | 'mic'
+      | 'camcorder'
+    )[];
   }>;
   /**
    * 获取全局唯一的背景音频管理器
@@ -2614,7 +2667,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     /**
@@ -2671,7 +2724,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     /**
@@ -2739,7 +2792,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     beacons: IGetBeaconsBeacons[];
@@ -2792,7 +2845,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     /**
@@ -2836,7 +2889,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     /**
@@ -2880,7 +2933,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     /**
@@ -2941,7 +2994,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     /**
@@ -2985,7 +3038,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     mtu: number;
@@ -3030,7 +3083,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     /**
@@ -3075,7 +3128,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     /**
@@ -3107,7 +3160,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     devices: TypeBluetoothDevice[];
@@ -3145,7 +3198,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     /**
@@ -3188,7 +3241,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     /**
@@ -3221,7 +3274,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     success: true;
@@ -3292,7 +3345,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     /**
@@ -3339,7 +3392,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     size: number;
@@ -3401,7 +3454,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     /**
@@ -3456,7 +3509,15 @@ declare namespace my {
        * 返回图片的方向
        * @sdk2 2.3.1
        */
-      orientation: 'right' | 'left' | 'up' | 'down' | 'up-mirrored' | 'down-mirrored' | 'left-mirrored' | 'right-mirrored';
+      orientation:
+        | 'right'
+        | 'left'
+        | 'up'
+        | 'down'
+        | 'up-mirrored'
+        | 'down-mirrored'
+        | 'left-mirrored'
+        | 'right-mirrored';
     }): void;
     /**
      * 接口调用失败的回调函数
@@ -3478,7 +3539,7 @@ declare namespace my {
         | {
             error: 22;
             errorMessage: '不支持的地址后缀名';
-          },
+          }
     ): void;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
@@ -3511,7 +3572,15 @@ declare namespace my {
              * 返回图片的方向
              * @sdk2 2.3.1
              */
-            orientation: 'right' | 'left' | 'up' | 'down' | 'up-mirrored' | 'down-mirrored' | 'left-mirrored' | 'right-mirrored';
+            orientation:
+              | 'right'
+              | 'left'
+              | 'up'
+              | 'down'
+              | 'up-mirrored'
+              | 'down-mirrored'
+              | 'left-mirrored'
+              | 'right-mirrored';
           }
         | (
             | {
@@ -3530,7 +3599,7 @@ declare namespace my {
                 error: 22;
                 errorMessage: '不支持的地址后缀名';
               }
-          ),
+          )
     ): void;
   }): Promise<{
     /**
@@ -3558,7 +3627,15 @@ declare namespace my {
      * 返回图片的方向
      * @sdk2 2.3.1
      */
-    orientation: 'right' | 'left' | 'up' | 'down' | 'up-mirrored' | 'down-mirrored' | 'left-mirrored' | 'right-mirrored';
+    orientation:
+      | 'right'
+      | 'left'
+      | 'up'
+      | 'down'
+      | 'up-mirrored'
+      | 'down-mirrored'
+      | 'left-mirrored'
+      | 'right-mirrored';
   }>;
   /**
    * 获取小程序启动时的参数
@@ -3728,7 +3805,7 @@ declare namespace my {
         | {
             error: 2003;
             errorMessage: '勾选保持后再点选了拒绝';
-          },
+          }
     ): void;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
@@ -3842,7 +3919,7 @@ declare namespace my {
                 error: 2003;
                 errorMessage: '勾选保持后再点选了拒绝';
               }
-          ),
+          )
     ): void;
   }): Promise<{
     /**
@@ -3986,7 +4063,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     /**
@@ -4084,7 +4161,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     /**
@@ -4152,7 +4229,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     /**
@@ -4230,7 +4307,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     /**
@@ -4309,7 +4386,7 @@ declare namespace my {
         | {
             error: 1005;
             errorMessage: '用户未开通支付宝运动功能';
-          },
+          }
     ): void;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
@@ -4346,7 +4423,7 @@ declare namespace my {
                 error: 1005;
                 errorMessage: '用户未开通支付宝运动功能';
               }
-          ),
+          )
     ): void;
   }): Promise<{
     /**
@@ -4389,7 +4466,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     /**
@@ -4425,7 +4502,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     success: true;
@@ -4440,7 +4517,10 @@ declare namespace my {
     /**
      * 接口调用成功的回调函数
      */
-    success?(data: { success: true; fileList: IGetSavedFileListFileList[] }): void;
+    success?(data: {
+      success: true;
+      fileList: IGetSavedFileListFileList[];
+    }): void;
     /**
      * 接口调用失败的回调函数
      */
@@ -4457,7 +4537,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     success: true;
@@ -4497,7 +4577,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     success: true;
@@ -4518,7 +4598,7 @@ declare namespace my {
         | {
             start: number;
             end: number;
-          },
+          }
     ): void;
     /**
      * 接口调用失败的回调函数
@@ -4541,7 +4621,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<
     | {
@@ -4586,7 +4666,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     /**
@@ -4619,7 +4699,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     authSetting: IGetSettingAuthSetting;
@@ -4649,7 +4729,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     data: any;
@@ -4702,7 +4782,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     /**
@@ -4777,7 +4857,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<TypeSystemInfo>;
   /**
@@ -4849,7 +4929,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     /**
@@ -4972,7 +5052,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     /**
@@ -5300,7 +5380,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     /**
@@ -5356,7 +5436,7 @@ declare namespace my {
         | {
             error: 10;
             errorMessage?: string;
-          },
+          }
     ): void;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
@@ -5375,7 +5455,7 @@ declare namespace my {
                 error: 10;
                 errorMessage?: string;
               }
-          ),
+          )
     ): void;
   }): Promise<{
     status: 'loaded';
@@ -5440,7 +5520,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     success: true;
@@ -5473,7 +5553,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     success: true;
@@ -5505,7 +5585,10 @@ declare namespace my {
     /**
      * 接口调用成功的回调函数
      */
-    success?(data: { success: true; result: IBeehiveMultilevelSelectResult[] }): void;
+    success?(data: {
+      success: true;
+      result: IBeehiveMultilevelSelectResult[];
+    }): void;
     /**
      * 接口调用失败的回调函数
      */
@@ -5522,7 +5605,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     success: true;
@@ -5624,7 +5707,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     /**
@@ -5734,8 +5817,12 @@ declare namespace my {
        * z 轴。
        */
       z: number;
+      /**
+       * 时间戳
+       * @native 10.2.30
+       */
       timestamp: number;
-    }) => void,
+    }) => void
   ): void;
   /**
    * 取消监听小程序切后台事件
@@ -5765,14 +5852,14 @@ declare namespace my {
   export function offBeaconServiceChange(
     cb?: (arg: {
       /**
-       * 服务目前是否可用。
+       * 服务目前是否可用
        */
       available: boolean;
       /**
-       * 目前是否处于搜索状态。
+       * 目前是否处于搜索状态
        */
       discovering: boolean;
-    }) => void,
+    }) => void
   ): void;
   /**
    * 取消监听 iBeacon 设备更新的事件
@@ -5781,10 +5868,10 @@ declare namespace my {
   export function offBeaconUpdate(
     cb?: (arg: {
       /**
-       * 当前搜寻到的所有 iBeacon 设备列表。
+       * 当前搜寻到的所有 iBeacon 设备列表
        */
       beacons: IBeaconUpdateBeacons[];
-    }) => void,
+    }) => void
   ): void;
   /**
    * 取消监听蓝牙低功耗设备的特征值变化的事件
@@ -5799,7 +5886,7 @@ declare namespace my {
       serviceId: string;
       characteristicId: string;
       value: string;
-    }) => void,
+    }) => void
   ): void;
   /**
    * 取消监听蓝牙低功耗设备的连接状态变化的事件
@@ -5815,7 +5902,7 @@ declare namespace my {
        * 连接目前的状态。
        */
       connected: boolean;
-    }) => void,
+    }) => void
   ): void;
   /**
    * 取消监听本机蓝牙状态变化的事件
@@ -5824,14 +5911,14 @@ declare namespace my {
   export function offBluetoothAdapterStateChange(
     cb?: (arg: {
       /**
-       * 蓝牙模块是否可用。
+       * 蓝牙模块是否可用
        */
       available: boolean | 'true' | 'false';
       /**
-       * 蓝牙模块是否处于搜索状态。
+       * 蓝牙模块是否处于搜索状态
        */
       discovering: boolean;
-    }) => void,
+    }) => void
   ): void;
   /**
    * 取消监听搜索到新蓝牙设备的事件
@@ -5840,10 +5927,10 @@ declare namespace my {
   export function offBluetoothDeviceFound(
     cb?: (arg: {
       /**
-       * 新搜索到的设备列表。
+       * 新搜索到的设备列表
        */
       devices: TypeBluetoothDevice[];
-    }) => void,
+    }) => void
   ): void;
   /**
    * 停止监听罗盘数据
@@ -5852,10 +5939,15 @@ declare namespace my {
   export function offCompassChange(
     cb?: (arg: {
       /**
-       * 面对的方向与正北方向的度数，值的范围为 `[0, 360)`。
+       * 面对的方向与正北方向的度数，值的范围为 `[0, 360)`
        */
       direction: number;
-    }) => void,
+      /**
+       * 时间戳
+       * @native 10.2.30
+       */
+      timestamp: number;
+    }) => void
   ): void;
   /**
    * 取消监听小程序自定义组件错误事件
@@ -5867,7 +5959,7 @@ declare namespace my {
      * @param method 异常发生所在的自定义组件方法
      * @param componentInstance 异常发生所在的自定义组件实例
      */
-    (error: Error, method: string, componentInstance: any) => void,
+    (error: Error, method: string, componentInstance: any) => void
   ): void;
   /**
    * 停止监听设备方向变化事件
@@ -5893,7 +5985,7 @@ declare namespace my {
        * - 右边朝着地球表面转动为正。
        */
       gamma: number;
-    }) => void,
+    }) => void
   ): void;
   /**
    * 取消监听小程序错误事件
@@ -5904,7 +5996,7 @@ declare namespace my {
      * @param message 异常信息
      * @param stack 异常堆栈
      */
-    (message: string, stack: string) => void,
+    (message: string, stack: string) => void
   ): void;
   /**
    * 取消监听在获取到 Wi-Fi 列表数据时的事件
@@ -5913,10 +6005,10 @@ declare namespace my {
   export function offGetWifiList(
     cb?: (arg: {
       /**
-       * Wifi 列表数据。
+       * Wifi 列表数据
        */
       wifiList: IGetWifiListWifiList[];
-    }) => void,
+    }) => void
   ): void;
   /**
    * 停止监听陀螺仪数据
@@ -5936,8 +6028,11 @@ declare namespace my {
        * z 轴方向角速度。
        */
       z: number;
+      /**
+       * 时间戳
+       */
       timestamp: number;
-    }) => void,
+    }) => void
   ): void;
   /**
    * 取消监听地理位置定位完成事件
@@ -5947,18 +6042,18 @@ declare namespace my {
   export function offLocatedComplete(
     cb?: (arg: {
       /**
-       * 当前定位城市经度。
+       * 当前定位城市经度
        */
       longitude: number;
       /**
-       * 当前定位城市纬度。
+       * 当前定位城市纬度
        */
       latitude: number;
       /**
-       * 当前定位城市 id，setLocatedCity 的时候带上。
+       * 当前定位城市 id
        */
       locatedCityId: string;
-    }) => void,
+    }) => void
   ): void;
   /**
    * 停止监听内存不足的告警事件
@@ -5973,7 +6068,7 @@ declare namespace my {
        * @ios false
        */
       level?: EMemoryWarningLevel;
-    }) => void,
+    }) => void
   ): void;
   /**
    * 取消监听网络状态变化事件
@@ -5982,14 +6077,21 @@ declare namespace my {
   export function offNetworkStatusChange(
     cb?: (arg: {
       /**
-       * 网络是否可用。
+       * 网络是否可用
        */
       isConnected: boolean;
       /**
        * 网络类型值
        */
-      networkType: 'UNKNOWN' | 'NOTREACHABLE' | 'WIFI' | '3G' | '2G' | '4G' | 'WWAN';
-    }) => void,
+      networkType:
+        | 'UNKNOWN'
+        | 'NOTREACHABLE'
+        | 'WIFI'
+        | '3G'
+        | '2G'
+        | '4G'
+        | 'WWAN';
+    }) => void
   ): void;
   /**
    * 取消监听小程序要打开的页面不存在的事件
@@ -6009,18 +6111,36 @@ declare namespace my {
        * 是否本次启动的首个页面（例如从分享等入口进来，首个页面是开发者配置的分享页面）。
        */
       isEntryPage: boolean;
-    }) => void,
+    }) => void
   ): void;
   /**
    * 取消监听 WebSocket 关闭事件
    * @see https://opendocs.alipay.com/mini/api/qc4q3t
    */
-  export function offSocketClose(cb?: (arg: { reason: string }) => void): void;
+  export function offSocketClose(
+    cb?: (arg: {
+      /**
+       * 关闭的原因
+       */
+      reason: string;
+    }) => void
+  ): void;
   /**
    * 取消监听 WebSocket 错误事件
    * @see https://opendocs.alipay.com/mini/api/kk7vv7
    */
-  export function offSocketError(cb?: (arg: { errorMessage: string; error: number }) => void): void;
+  export function offSocketError(
+    cb?: (arg: {
+      /**
+       * 错误描述
+       */
+      errorMessage: string;
+      /**
+       * 错误码
+       */
+      error: number;
+    }) => void
+  ): void;
   /**
    * 取消监听 WebSocket 接受到服务器的消息事件
    * @see https://opendocs.alipay.com/mini/api/roziyq
@@ -6028,14 +6148,14 @@ declare namespace my {
   export function offSocketMessage(
     cb?: (arg: {
       /**
-       * 服务器返回的消息：普通的文本 string 或者经 base64 编码后的 string。
+       * 服务器返回的消息：普通的文本 string 或者经 base64 编码后的 string
        */
       data: string | ArrayBuffer;
       /**
-       * 如果此字段值为 true，data 字段表示接收到的经过了 base64 编码后的 string，否则 data 字段表示接收到的普通 string 文本。
+       * 如果此字段值为 true，data 字段表示接收到的经过了 base64 编码后的 string，否则 data 字段表示接收到的普通 string 文本
        */
       isBuffer: boolean;
-    }) => void,
+    }) => void
   ): void;
   /**
    * 取消监听 WebSocket 连接打开事件
@@ -6056,7 +6176,7 @@ declare namespace my {
        * 被 reject 的 Promise 对象
        */
       promise: Promise<unknown>;
-    }) => void,
+    }) => void
   ): void;
   /**
    * 取消监听用户发起的主动截屏事件
@@ -6070,10 +6190,10 @@ declare namespace my {
   export function offWifiConnected(
     cb?: (arg: {
       /**
-       * Wifi 信息。
+       * Wifi 信息
        */
-      wifi: IWifiInfo;
-    }) => void,
+      wifi: IWifiConnectedWifi;
+    }) => void
   ): void;
   /**
    * 监听加速度数据变化的事件
@@ -6099,7 +6219,7 @@ declare namespace my {
        * @native 10.2.30
        */
       timestamp: number;
-    }) => void,
+    }) => void
   ): void;
   /**
    * 监听小程序切后台事件
@@ -6140,7 +6260,7 @@ declare namespace my {
        * @sdk 2.7.22
        */
       apiCategory?: 'default' | 'embedded';
-    }) => void,
+    }) => void
   ): void;
   /**
    * 监听音频因为系统占用而被中断的开始事件
@@ -6160,14 +6280,14 @@ declare namespace my {
   export function onBeaconServiceChange(
     cb: (arg: {
       /**
-       * 服务目前是否可用。
+       * 服务目前是否可用
        */
       available: boolean;
       /**
-       * 目前是否处于搜索状态。
+       * 目前是否处于搜索状态
        */
       discovering: boolean;
-    }) => void,
+    }) => void
   ): void;
   /**
    * 监听 iBeacon 设备的更新事件
@@ -6176,10 +6296,10 @@ declare namespace my {
   export function onBeaconUpdate(
     cb: (arg: {
       /**
-       * 当前搜寻到的所有 iBeacon 设备列表。
+       * 当前搜寻到的所有 iBeacon 设备列表
        */
       beacons: IBeaconUpdateBeacons[];
-    }) => void,
+    }) => void
   ): void;
   /**
    * 监听蓝牙低功耗设备的特征值变化的事件
@@ -6194,7 +6314,7 @@ declare namespace my {
       serviceId: string;
       characteristicId: string;
       value: string;
-    }) => void,
+    }) => void
   ): void;
   /**
    * 监听蓝牙低功耗设备的连接状态变化的事件
@@ -6210,7 +6330,7 @@ declare namespace my {
        * 连接目前的状态。
        */
       connected: boolean;
-    }) => void,
+    }) => void
   ): void;
   /**
    * 监听本机蓝牙状态变化的事件
@@ -6219,14 +6339,14 @@ declare namespace my {
   export function onBluetoothAdapterStateChange(
     cb: (arg: {
       /**
-       * 蓝牙模块是否可用。
+       * 蓝牙模块是否可用
        */
       available: boolean | 'true' | 'false';
       /**
-       * 蓝牙模块是否处于搜索状态。
+       * 蓝牙模块是否处于搜索状态
        */
       discovering: boolean;
-    }) => void,
+    }) => void
   ): void;
   /**
    * 搜索到新的蓝牙设备时触发此事件
@@ -6235,10 +6355,10 @@ declare namespace my {
   export function onBluetoothDeviceFound(
     cb: (arg: {
       /**
-       * 新搜索到的设备列表。
+       * 新搜索到的设备列表
        */
       devices: TypeBluetoothDevice[];
-    }) => void,
+    }) => void
   ): void;
   /**
    * 监听罗盘数据变化事件
@@ -6259,7 +6379,7 @@ declare namespace my {
        * @native 10.2.30
        */
       timestamp: number;
-    }) => void,
+    }) => void
   ): void;
   /**
    * 监听小程序自定义组件错误事件
@@ -6272,7 +6392,7 @@ declare namespace my {
      * @param method 异常发生所在的自定义组件方法
      * @param componentInstance 异常发生所在的自定义组件实例
      */
-    (error: Error, method: string, componentInstance: any) => void,
+    (error: Error, method: string, componentInstance: any) => void
   ): void;
   /**
    * 监听设备方向变化
@@ -6299,7 +6419,7 @@ declare namespace my {
        * - 右边朝着地球表面转动为正。
        */
       gamma: number;
-    }) => void,
+    }) => void
   ): void;
   /**
    * 监听小程序错误事件
@@ -6314,7 +6434,7 @@ declare namespace my {
      * @param message 异常信息
      * @param stack 异常堆栈
      */
-    (message: string, stack: string) => void,
+    (message: string, stack: string) => void
   ): void;
   /**
    * 监听在获取到 Wi-Fi 列表数据时的事件
@@ -6323,10 +6443,10 @@ declare namespace my {
   export function onGetWifiList(
     cb: (arg: {
       /**
-       * Wifi 列表数据。
+       * Wifi 列表数据
        */
       wifiList: IGetWifiListWifiList[];
-    }) => void,
+    }) => void
   ): void;
   /**
    * 监听陀螺仪数据变化事件
@@ -6349,8 +6469,11 @@ declare namespace my {
        * z 轴方向角速度。
        */
       z: number;
+      /**
+       * 时间戳
+       */
       timestamp: number;
-    }) => void,
+    }) => void
   ): void;
   /**
    * 监听该页面地理位置定位完成的事件
@@ -6360,18 +6483,18 @@ declare namespace my {
   export function onLocatedComplete(
     cb: (arg: {
       /**
-       * 当前定位城市经度。
+       * 当前定位城市经度
        */
       longitude: number;
       /**
-       * 当前定位城市纬度。
+       * 当前定位城市纬度
        */
       latitude: number;
       /**
-       * 当前定位城市 id，setLocatedCity 的时候带上。
+       * 当前定位城市 id
        */
       locatedCityId: string;
-    }) => void,
+    }) => void
   ): void;
   /**
    * 开始监听内存不足的告警事件
@@ -6386,7 +6509,7 @@ declare namespace my {
        * @ios false
        */
       level?: EMemoryWarningLevel;
-    }) => void,
+    }) => void
   ): void;
   /**
    * 开始监听网络状态变化事件
@@ -6395,14 +6518,21 @@ declare namespace my {
   export function onNetworkStatusChange(
     cb: (arg: {
       /**
-       * 网络是否可用。
+       * 网络是否可用
        */
       isConnected: boolean;
       /**
        * 网络类型值
        */
-      networkType: 'UNKNOWN' | 'NOTREACHABLE' | 'WIFI' | '3G' | '2G' | '4G' | 'WWAN';
-    }) => void,
+      networkType:
+        | 'UNKNOWN'
+        | 'NOTREACHABLE'
+        | 'WIFI'
+        | '3G'
+        | '2G'
+        | '4G'
+        | 'WWAN';
+    }) => void
   ): void;
   /**
    * 监听小程序要打开的页面不存在事件
@@ -6429,18 +6559,36 @@ declare namespace my {
        * @description 例如从分享等入口进来，首个页面是开发者配置的分享页面
        */
       isEntryPage: boolean;
-    }) => void,
+    }) => void
   ): void;
   /**
    * 监听 WebSocket 关闭事件
    * @see https://opendocs.alipay.com/mini/api/foqk6g
    */
-  export function onSocketClose(cb: (arg: { reason: string }) => void): void;
+  export function onSocketClose(
+    cb: (arg: {
+      /**
+       * 关闭的原因
+       */
+      reason: string;
+    }) => void
+  ): void;
   /**
    * 监听 WebSocket 错误事件
    * @see https://opendocs.alipay.com/mini/api/giu3c2
    */
-  export function onSocketError(cb: (arg: { errorMessage: string; error: number }) => void): void;
+  export function onSocketError(
+    cb: (arg: {
+      /**
+       * 错误描述
+       */
+      errorMessage: string;
+      /**
+       * 错误码
+       */
+      error: number;
+    }) => void
+  ): void;
   /**
    * 监听 WebSocket 接受到服务器的消息事件
    * @see https://opendocs.alipay.com/mini/api/gecnap
@@ -6448,14 +6596,14 @@ declare namespace my {
   export function onSocketMessage(
     cb: (arg: {
       /**
-       * 服务器返回的消息：普通的文本 string 或者经 base64 编码后的 string。
+       * 服务器返回的消息：普通的文本 string 或者经 base64 编码后的 string
        */
       data: string | ArrayBuffer;
       /**
-       * 如果此字段值为 true，data 字段表示接收到的经过了 base64 编码后的 string，否则 data 字段表示接收到的普通 string 文本。
+       * 如果此字段值为 true，data 字段表示接收到的经过了 base64 编码后的 string，否则 data 字段表示接收到的普通 string 文本
        */
       isBuffer: boolean;
-    }) => void,
+    }) => void
   ): void;
   /**
    * 监听 WebSocket 连接打开事件
@@ -6477,7 +6625,7 @@ declare namespace my {
        * 被 reject 的 Promise 对象
        */
       promise: Promise<unknown>;
-    }) => void,
+    }) => void
   ): void;
   /**
    * 监听用户发起的主动截屏事件
@@ -6494,10 +6642,10 @@ declare namespace my {
   export function onWifiConnected(
     cb: (arg: {
       /**
-       * Wifi 信息。
+       * Wifi 信息
        */
-      wifi: IWifiInfo;
-    }) => void,
+      wifi: IWifiConnectedWifi;
+    }) => void
   ): void;
   /**
    * 初始化小程序蓝牙模块
@@ -6538,7 +6686,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     /**
@@ -6770,7 +6918,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     authSetting: IOpenSettingAuthSetting;
@@ -6935,7 +7083,12 @@ declare namespace my {
     /**
      * 接口调用成功的回调函数
      */
-    success?(data: { selectedOneIndex: number; selectedTwoIndex?: number; selectedOneOption: string; selectedTwoOption?: string }): void;
+    success?(data: {
+      selectedOneIndex: number;
+      selectedTwoIndex?: number;
+      selectedOneOption: string;
+      selectedTwoOption?: string;
+    }): void;
     /**
      * 接口调用失败的回调函数
      */
@@ -6954,7 +7107,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     selectedOneIndex: number;
@@ -7004,7 +7157,7 @@ declare namespace my {
         | {
             error: 1;
             errorMessage: 'need scrollTop or selector';
-          },
+          }
     ): void;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
@@ -7018,7 +7171,7 @@ declare namespace my {
         | {
             error: 1;
             errorMessage: 'need scrollTop or selector';
-          },
+          }
     ): void;
   }): Promise<void>;
   /**
@@ -7073,7 +7226,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     /**
@@ -7191,7 +7344,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     ok: boolean;
@@ -7242,7 +7395,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     /**
@@ -7327,7 +7480,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     /**
@@ -7439,7 +7592,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     success: true;
@@ -7500,7 +7653,15 @@ declare namespace my {
      * HTTP 请求方法
      * @default 'GET'
      */
-    method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'OPTIONS' | 'HEAD' | 'TRACE' | 'CONNECT';
+    method?:
+      | 'GET'
+      | 'POST'
+      | 'PUT'
+      | 'DELETE'
+      | 'OPTIONS'
+      | 'HEAD'
+      | 'TRACE'
+      | 'CONNECT';
     /**
      * 传给服务器的数据
      * @description
@@ -7559,7 +7720,7 @@ declare namespace my {
         | {
             error: 14;
             errorMessage: 'JSON parse data error';
-          },
+          }
     ): void;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
@@ -7597,7 +7758,7 @@ declare namespace my {
                 error: 14;
                 errorMessage: 'JSON parse data error';
               }
-          ),
+          )
     ): void;
   }): Promise<{
     /**
@@ -7686,7 +7847,7 @@ declare namespace my {
              * 错误信息。
              */
             errorMessage: string;
-          },
+          }
     ): void;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
@@ -7740,7 +7901,7 @@ declare namespace my {
                  */
                 errorMessage: string;
               }
-          ),
+          )
     ): void;
   }): Promise<{
     [entityId: string]: unknown;
@@ -7827,7 +7988,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     /**
@@ -7873,7 +8034,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     success: true;
@@ -7912,7 +8073,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     success: true;
@@ -7967,7 +8128,7 @@ declare namespace my {
         | {
             error: 17;
             errorMessage: '保存图片过程中的其他错误';
-          },
+          }
     ): void;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
@@ -7993,7 +8154,7 @@ declare namespace my {
         | {
             error: 17;
             errorMessage: '保存图片过程中的其他错误';
-          },
+          }
     ): void;
   }): Promise<void>;
   /**
@@ -8025,7 +8186,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     success: true;
@@ -8056,7 +8217,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     success: true;
@@ -8181,7 +8342,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     /**
@@ -8255,7 +8416,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     success: boolean;
@@ -8287,7 +8448,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     success: true;
@@ -8320,7 +8481,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     success: true;
@@ -8367,7 +8528,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     success: true;
@@ -8427,7 +8588,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     success: true;
@@ -8458,7 +8619,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     success: true;
@@ -8512,7 +8673,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     /**
@@ -8759,7 +8920,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     /**
@@ -8795,7 +8956,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     success: true;
@@ -8856,7 +9017,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     /**
@@ -8896,7 +9057,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     shown: boolean;
@@ -8981,7 +9142,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     /**
@@ -9171,7 +9332,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     success: true;
@@ -9235,7 +9396,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     /**
@@ -9337,7 +9498,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     success: true;
@@ -9370,7 +9531,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     success: true;
@@ -9412,7 +9573,7 @@ declare namespace my {
             error: number;
             errorMessage: string;
             verifyId?: string;
-          },
+          }
     ): void;
     /**
      * 接口调用失败的回调函数
@@ -9448,7 +9609,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<
     | {
@@ -9499,7 +9660,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     success: true;
@@ -9528,7 +9689,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     success: true;
@@ -9557,7 +9718,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     success: true;
@@ -9622,7 +9783,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     success: true;
@@ -9651,7 +9812,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     success: true;
@@ -9701,7 +9862,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     success: true;
@@ -9778,7 +9939,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     /**
@@ -9877,7 +10038,7 @@ declare namespace my {
         | {
             error: 11;
             errorMessage?: string;
-          },
+          }
     ): void;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
@@ -9907,7 +10068,7 @@ declare namespace my {
                 error: 11;
                 errorMessage?: string;
               }
-          ),
+          )
     ): void;
   }): Promise<{
     /**
@@ -9948,7 +10109,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     success: 1;
@@ -9978,7 +10139,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     success: 1;
@@ -10007,7 +10168,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     success: 1;
@@ -10041,7 +10202,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     success: true;
@@ -10102,7 +10263,7 @@ declare namespace my {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     /**
@@ -10145,7 +10306,7 @@ declare namespace my {
             | {
                 error: 10022;
                 errorMessage: '文件/目录不存在';
-              },
+              }
         ): void;
         /**
          * 接口调用结束的回调函数（调用成功、失败都会执行）
@@ -10172,9 +10333,9 @@ declare namespace my {
                     error: 10022;
                     errorMessage: '文件/目录不存在';
                   }
-              ),
+              )
         ): void;
-      },
+      }
     ): Promise<{
       success: true;
     }>;
@@ -10228,7 +10389,7 @@ declare namespace my {
             | {
                 error: 3;
                 errorMessage: '文件写入失败';
-              },
+              }
         ): void;
         /**
          * 接口调用结束的回调函数（调用成功、失败都会执行）
@@ -10263,9 +10424,9 @@ declare namespace my {
                     error: 3;
                     errorMessage: '文件写入失败';
                   }
-              ),
+              )
         ): void;
-      },
+      }
     ): Promise<{
       success: true;
     }>;
@@ -10280,7 +10441,11 @@ declare namespace my {
      * @see https://opendocs.alipay.com/mini/api/025028
      * @sdk2 2.7.4
      */
-    appendFileSync(filePath: string, data: string | ArrayBuffer, encoding?: `${EFileSystemEncoding}`): void;
+    appendFileSync(
+      filePath: string,
+      data: string | ArrayBuffer,
+      encoding?: `${EFileSystemEncoding}`
+    ): void;
     /**
      * 复制文件
      * @description 支持复制临时文件、缓存文件、用户文件到本地用户文件位置
@@ -10320,7 +10485,7 @@ declare namespace my {
             | {
                 error: 10023;
                 errorMessage: '指定路径是一个已经存在的目录';
-              },
+              }
         ): void;
         /**
          * 接口调用结束的回调函数（调用成功、失败都会执行）
@@ -10355,9 +10520,9 @@ declare namespace my {
                     error: 10023;
                     errorMessage: '指定路径是一个已经存在的目录';
                   }
-              ),
+              )
         ): void;
-      },
+      }
     ): Promise<{
       success: true;
     }>;
@@ -10411,7 +10576,7 @@ declare namespace my {
             | {
                 error: 10024;
                 errorMessage: '指定的路径没有读权限';
-              },
+              }
         ): void;
         /**
          * 接口调用结束的回调函数（调用成功、失败都会执行）
@@ -10444,9 +10609,9 @@ declare namespace my {
                     error: 10024;
                     errorMessage: '指定的路径没有读权限';
                   }
-              ),
+              )
         ): void;
-      },
+      }
     ): Promise<IGetFileInfoResponse>;
     /**
      * 同步获取该小程序下的本地临时文件或本地缓存文件信息
@@ -10459,7 +10624,10 @@ declare namespace my {
      * @see https://opendocs.alipay.com/mini/api/0226og
      * @sdk2 2.7.4
      */
-    getFileInfoSync(filePath: string, digestAlgorithm?: 'md5' | 'sha1'): IGetFileInfoResponse;
+    getFileInfoSync(
+      filePath: string,
+      digestAlgorithm?: 'md5' | 'sha1'
+    ): IGetFileInfoResponse;
     /**
      * 获取该小程序下已保存的本地缓存文件列表
      * @see https://opendocs.alipay.com/mini/api/0228qj
@@ -10482,7 +10650,7 @@ declare namespace my {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<IGetSavedFileListResponse>;
     /**
@@ -10525,7 +10693,7 @@ declare namespace my {
             | {
                 error: 10022;
                 errorMessage: '上级目录不存在';
-              },
+              }
         ): void;
         /**
          * 接口调用结束的回调函数（调用成功、失败都会执行）
@@ -10551,9 +10719,9 @@ declare namespace my {
             | {
                 error: 10022;
                 errorMessage: '上级目录不存在';
-              },
+              }
         ): void;
-      },
+      }
     ): Promise<void>;
     /**
      * 同步创建文件系统目录
@@ -10601,7 +10769,7 @@ declare namespace my {
             | {
                 error: 10022;
                 errorMessage: '目录不存在';
-              },
+              }
         ): void;
         /**
          * 接口调用结束的回调函数（调用成功、失败都会执行）
@@ -10630,9 +10798,9 @@ declare namespace my {
                     error: 10022;
                     errorMessage: '目录不存在';
                   }
-              ),
+              )
         ): void;
-      },
+      }
     ): Promise<IReaddirResponse>;
     /**
      * 同步读取目录内文件列表
@@ -10680,7 +10848,7 @@ declare namespace my {
             | {
                 error: 3;
                 errorMessage: '未知错误';
-              },
+              }
         ): void;
         /**
          * 接口调用结束的回调函数（调用成功、失败都会执行）
@@ -10709,9 +10877,9 @@ declare namespace my {
                     error: 3;
                     errorMessage: '未知错误';
                   }
-              ),
+              )
         ): void;
-      },
+      }
     ): Promise<IReadFileResponse>;
     /**
      * 同步读取本地文件内容
@@ -10724,7 +10892,10 @@ declare namespace my {
      * @see https://opendocs.alipay.com/mini/api/025029
      * @sdk2 2.7.4
      */
-    readFileSync(filePath: string, encoding?: `${EFileSystemEncoding}`): IReadFileResponse;
+    readFileSync(
+      filePath: string,
+      encoding?: `${EFileSystemEncoding}`
+    ): IReadFileResponse;
     /**
      * 删除该小程序下已保存的本地缓存文件
      * @see https://opendocs.alipay.com/mini/api/0229pv
@@ -10759,7 +10930,7 @@ declare namespace my {
             | {
                 error: 15;
                 errorMessage: '删除文件失败';
-              },
+              }
         ): void;
         /**
          * 接口调用结束的回调函数（调用成功、失败都会执行）
@@ -10790,9 +10961,9 @@ declare namespace my {
                     error: 15;
                     errorMessage: '删除文件失败';
                   }
-              ),
+              )
         ): void;
-      },
+      }
     ): Promise<{
       success: true;
     }>;
@@ -10843,7 +11014,7 @@ declare namespace my {
             | {
                 error: 10025;
                 errorMessage: '文件或目录已存在';
-              },
+              }
         ): void;
         /**
          * 接口调用结束的回调函数（调用成功、失败都会执行）
@@ -10874,9 +11045,9 @@ declare namespace my {
                     error: 10025;
                     errorMessage: '文件或目录已存在';
                   }
-              ),
+              )
         ): void;
-      },
+      }
     ): Promise<{
       success: true;
     }>;
@@ -10932,7 +11103,7 @@ declare namespace my {
             | {
                 error: 10027;
                 errorMessage: '目录不为空';
-              },
+              }
         ): void;
         /**
          * 接口调用结束的回调函数（调用成功、失败都会执行）
@@ -10967,9 +11138,9 @@ declare namespace my {
                     error: 10027;
                     errorMessage: '目录不为空';
                   }
-              ),
+              )
         ): void;
-      },
+      }
     ): Promise<{
       success: true;
     }>;
@@ -11020,7 +11191,7 @@ declare namespace my {
             | {
                 error: 3;
                 errorMessage: '保存文件失败';
-              },
+              }
         ): void;
         /**
          * 接口调用结束的回调函数（调用成功、失败都会执行）
@@ -11049,9 +11220,9 @@ declare namespace my {
                     error: 3;
                     errorMessage: '保存文件失败';
                   }
-              ),
+              )
         ): void;
-      },
+      }
     ): Promise<ISaveFileResponse>;
     /**
      * 同步保存临时文件到本地
@@ -11066,7 +11237,7 @@ declare namespace my {
      * @see https://opendocs.alipay.com/mini/api/02502a
      * @sdk2 2.7.4
      */
-    saveFileSync(tempFilePath: string, filePath?: boolean): ISaveFileResponse;
+    saveFileSync(tempFilePath: string, filePath?: string): ISaveFileResponse;
     /**
      * 获取文件信息
      * @see https://opendocs.alipay.com/mini/api/022b6o
@@ -11097,7 +11268,7 @@ declare namespace my {
             | {
                 error: 3;
                 errorMessage: '未知错误';
-              },
+              }
         ): void;
         /**
          * 接口调用结束的回调函数（调用成功、失败都会执行）
@@ -11122,9 +11293,9 @@ declare namespace my {
                     error: 3;
                     errorMessage: '未知错误';
                   }
-              ),
+              )
         ): void;
-      },
+      }
     ): Promise<IStatResponse>;
     /**
      * 同步获取文件信息
@@ -11172,7 +11343,7 @@ declare namespace my {
             | {
                 error: 10024;
                 errorMessage: '指定的路径没有删除权限';
-              },
+              }
         ): void;
         /**
          * 接口调用结束的回调函数（调用成功、失败都会执行）
@@ -11203,9 +11374,9 @@ declare namespace my {
                     error: 10024;
                     errorMessage: '指定的路径没有删除权限';
                   }
-              ),
+              )
         ): void;
-      },
+      }
     ): Promise<{
       success: true;
     }>;
@@ -11271,7 +11442,7 @@ declare namespace my {
             | {
                 error: 3;
                 errorMessage: '解压失败';
-              },
+              }
         ): void;
         /**
          * 接口调用结束的回调函数（调用成功、失败都会执行）
@@ -11318,9 +11489,9 @@ declare namespace my {
                     error: 3;
                     errorMessage: '解压失败';
                   }
-              ),
+              )
         ): void;
-      },
+      }
     ): Promise<{
       success: true;
     }>;
@@ -11366,7 +11537,7 @@ declare namespace my {
             | {
                 error: 10028;
                 errorMessage: '文件夹超过 50M';
-              },
+              }
         ): void;
         /**
          * 接口调用结束的回调函数（调用成功、失败都会执行）
@@ -11405,9 +11576,9 @@ declare namespace my {
                     error: 10028;
                     errorMessage: '文件夹超过 50M';
                   }
-              ),
+              )
         ): void;
-      },
+      }
     ): Promise<{
       success: true;
     }>;
@@ -11422,7 +11593,11 @@ declare namespace my {
      * @see https://opendocs.alipay.com/mini/api/024whd
      * @sdk2 2.7.4
      */
-    writeFileSync(filePath: string, data: string | ArrayBuffer, encoding?: `${EFileSystemEncoding}`): void;
+    writeFileSync(
+      filePath: string,
+      data: string | ArrayBuffer,
+      encoding?: `${EFileSystemEncoding}`
+    ): void;
     /**
      * 压缩文件
      * @sdk2 2.6.7
@@ -11481,7 +11656,7 @@ declare namespace my {
           | {
               error: 3;
               errorMessage: '压缩失败';
-            },
+            }
       ): void;
       /**
        * 接口调用结束的回调函数（调用成功、失败都会执行）
@@ -11528,7 +11703,7 @@ declare namespace my {
                   error: 3;
                   errorMessage: '压缩失败';
                 }
-            ),
+            )
       ): void;
     }): Promise<{
       success: true;
@@ -11593,7 +11768,7 @@ declare namespace my {
           techs?: string[];
           messages?: string[];
         };
-      }) => void,
+      }) => void
     ): void;
     /**
      * 监听 NFC Tag
@@ -11604,7 +11779,7 @@ declare namespace my {
           techs?: string[];
           messages?: string[];
         };
-      }) => void,
+      }) => void
     ): void;
     /**
      * 开始扫描 NFC
@@ -11682,7 +11857,7 @@ declare namespace my {
           | {
               error: 61014;
               errorMessage: 'Invalid param';
-            },
+            }
       ): void;
       /**
        * 接口调用结束的回调函数（调用成功、失败都会执行）
@@ -11757,7 +11932,7 @@ declare namespace my {
                   error: 61014;
                   errorMessage: 'Invalid param';
                 }
-            ),
+            )
       ): void;
     }): Promise<{
       success: true;
@@ -11838,7 +12013,7 @@ declare namespace my {
           | {
               error: 61014;
               errorMessage: 'Invalid param';
-            },
+            }
       ): void;
       /**
        * 接口调用结束的回调函数（调用成功、失败都会执行）
@@ -11913,7 +12088,7 @@ declare namespace my {
                   error: 61014;
                   errorMessage: 'Invalid param';
                 }
-            ),
+            )
       ): void;
     }): Promise<{
       success: true;
@@ -11963,7 +12138,12 @@ declare namespace my {
     /**
      * 设置动画从固定三维轴顺时针旋转指定角度
      */
-    rotate3d(x: string | number, y: string | number, z: string | number, deg: string | number): this;
+    rotate3d(
+      x: string | number,
+      y: string | number,
+      z: string | number,
+      deg: string | number
+    ): this;
     /**
      * 设置动画以 X 轴顺时针旋转指定角度
      */
@@ -11983,7 +12163,11 @@ declare namespace my {
     /**
      * 设置动画三维缩放
      */
-    scale3d(sx: string | number, sy: string | number, sz: string | number): this;
+    scale3d(
+      sx: string | number,
+      sy: string | number,
+      sz: string | number
+    ): this;
     /**
      * 设置动画以 X 轴缩放
      */
@@ -12044,7 +12228,11 @@ declare namespace my {
     /**
      * 设置动画对三维方向平移变换
      */
-    translate3d(tx: string | number, ty: string | number, tz: string | number): this;
+    translate3d(
+      tx: string | number,
+      ty: string | number,
+      tz: string | number
+    ): this;
     /**
      * 设置动画对 X 轴平移变换
      */
@@ -12083,7 +12271,10 @@ declare namespace my {
      * 获取节点的指定字段信息
      * @see https://opendocs.alipay.com/mini/api/021zn2
      */
-    fields(option: ISelectorQueryFieldsOption, callback?: (res: unknown) => void): this;
+    fields(
+      option: ISelectorQueryFieldsOption,
+      callback?: (res: unknown) => void
+    ): this;
     /**
      * 将选择器的选取范围更改为自定义组件内
      * @sdk2 2.6.7
@@ -12248,7 +12439,7 @@ declare namespace my {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       /**
@@ -12380,7 +12571,7 @@ declare namespace my {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       /**
@@ -12465,7 +12656,7 @@ declare namespace my {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       /**
@@ -12534,7 +12725,7 @@ declare namespace my {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       /**
@@ -12580,7 +12771,7 @@ declare namespace my {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       /**
@@ -12626,7 +12817,7 @@ declare namespace my {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       /**
@@ -12672,7 +12863,7 @@ declare namespace my {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       /**
@@ -12789,9 +12980,9 @@ declare namespace my {
             | {
                 error?: number;
                 errorMessage?: string;
-              },
+              }
         ): void;
-      },
+      }
     ): Promise<{
       /**
        * 横坐标
@@ -12820,7 +13011,7 @@ declare namespace my {
          * 接口调用结束的回调函数（调用成功、失败都会执行）
          */
         complete?(arg: { error?: number; errorMessage?: string }): void;
-      },
+      }
     ): Promise<void>;
     /**
      * 判断矩形区域是否包含传入的经纬度点
@@ -12864,7 +13055,7 @@ declare namespace my {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       /**
@@ -12947,7 +13138,7 @@ declare namespace my {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<IMapContextPoint>;
     /**
@@ -13434,30 +13625,11 @@ declare namespace my {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       success: true;
     }>;
-    /**
-     * 取消监听向支付宝后台请求检查更新结果事件。
-     */
-    offCheckForUpdate(cb?: (arg: { hasUpdate: boolean }) => void): void;
-    /**
-     * 监听向支付宝后台请求检查更新结果事件。
-     * @see https://opendocs.alipay.com/mini/api/nm7dtb
-     */
-    onCheckForUpdate(cb: (arg: { hasUpdate: boolean }) => void): void;
-    /**
-     * 用于监听小程序更新失败事件。
-     * @see https://opendocs.alipay.com/mini/api/sy1k0e
-     */
-    onUpdateFailed(cb: () => void): void;
-    /**
-     * 监听小程序有版本更新事件。
-     * @see https://opendocs.alipay.com/mini/api/gfz316
-     */
-    onUpdateReady(cb: () => void): void;
   }
   export interface EventChannel {
     /**
@@ -13497,12 +13669,18 @@ declare namespace my {
      * 指定目标节点并开始监听相交状态变化情况
      * @see https://opendocs.alipay.com/mini/api/pra7yc
      */
-    observe(targetSelector: string, callback: (payload: IIntersectionObserverObserveCallback) => void): void;
+    observe(
+      targetSelector: string,
+      callback: (payload: IIntersectionObserverObserveCallback) => void
+    ): void;
     /**
      * 使用选择器指定一个节点，作为参照区域之一
      * @see https://opendocs.alipay.com/mini/api/oiuxz6
      */
-    relativeTo(selector: string, margins: IIntersectionObserverRelativeToMargins): this;
+    relativeTo(
+      selector: string,
+      margins: IIntersectionObserverRelativeToMargins
+    ): this;
     /**
      * 指定页面显示区域作为参照区域之一
      * @see https://opendocs.alipay.com/mini/api/ghh846
@@ -13559,15 +13737,17 @@ declare namespace my {
           | {
               error: number;
               errorMessage: string;
-            },
-      ) => void,
+            }
+      ) => void
     ): void;
     /**
      * 取消监听已录制完制定帧大小的文件事件
      * @see https://opendocs.alipay.com/mini/api/recordermanager/offframerecorded
      * @sdk2 2.7.4
      */
-    offFrameRecorded(cb?: (arg: { frameBuffer: ArrayBuffer; isLastFrame: boolean }) => void): void;
+    offFrameRecorded(
+      cb?: (arg: { frameBuffer: ArrayBuffer; isLastFrame: boolean }) => void
+    ): void;
     /**
      * 取消监听录音暂停事件
      * @see https://opendocs.alipay.com/mini/api/recordermanager/offpause
@@ -13601,7 +13781,7 @@ declare namespace my {
          * @native 10.2.90
          */
         fileSize: number;
-      }) => void,
+      }) => void
     ): void;
     /**
      * 监听声音的分贝变化回调事件
@@ -13628,15 +13808,17 @@ declare namespace my {
           | {
               error: number;
               errorMessage: string;
-            },
-      ) => void,
+            }
+      ) => void
     ): void;
     /**
      * 监听已录制完制定帧大小的文件事件。如果设置了 frameSize，则会回调此事件
      * @see https://opendocs.alipay.com/mini/api/recordermanager/onframerecorded
      * @sdk2 2.7.4
      */
-    onFrameRecorded(cb: (arg: { frameBuffer: ArrayBuffer; isLastFrame: boolean }) => void): void;
+    onFrameRecorded(
+      cb: (arg: { frameBuffer: ArrayBuffer; isLastFrame: boolean }) => void
+    ): void;
     /**
      * 监听录音暂停事件
      * @see https://opendocs.alipay.com/mini/api/recordermanager/onpause
@@ -13670,7 +13852,7 @@ declare namespace my {
          * @native 10.2.90
          */
         fileSize: number;
-      }) => void,
+      }) => void
     ): void;
     /**
      * 暂停录音
@@ -13743,96 +13925,46 @@ declare namespace my {
      * 取消监听 WebSocket 关闭消息
      * @sdk2 2.3.1
      */
-    offClose(
-      cb?: (arg: {
-        data: {
-          socketTaskID: string;
-        };
-      }) => void,
-    ): void;
+    offClose(cb?: (arg: { data: IOnSocketTaskCloseData }) => void): void;
     /**
      * 取消监听 WebSocket 错误消息
      * @sdk2 2.3.1
      */
     offError(
-      cb?: (arg: {
-        data: {
-          socketTaskID: string;
-        };
-        error: number;
-      }) => void,
+      cb?: (arg: { data: IOnSocketTaskErrorData; error: number }) => void
     ): void;
     /**
      * 取消监听 WebSocket 消息
      * @sdk2 2.3.1
      */
-    offMessage(
-      cb?: (arg: {
-        data: {
-          socketTaskID: string;
-          data: string | ArrayBuffer;
-          isBuffer: boolean;
-        };
-      }) => void,
-    ): void;
+    offMessage(cb?: (arg: { data: IOnSocketTaskMessageData }) => void): void;
     /**
      * 取消监听 WebSocket open 事件
      * @sdk2 2.3.1
      */
-    offOpen(
-      cb?: (arg: {
-        data: {
-          socketTaskID: string;
-        };
-      }) => void,
-    ): void;
+    offOpen(cb?: (arg: { data: IOnSocketTaskOpenData }) => void): void;
     /**
      * 监听 WebSocket 关闭消息
      * @sdk2 2.3.1
      */
-    onClose(
-      cb: (arg: {
-        data: {
-          socketTaskID: string;
-        };
-      }) => void,
-    ): void;
+    onClose(cb: (arg: { data: IOnSocketTaskCloseData }) => void): void;
     /**
      * 监听 WebSocket 错误消息
      * @sdk2 2.3.1
      */
     onError(
-      cb: (arg: {
-        data: {
-          socketTaskID: string;
-        };
-        error: number;
-      }) => void,
+      cb: (arg: { data: IOnSocketTaskErrorData; error: number }) => void
     ): void;
     /**
      * 监听 WebSocket 消息
      * @sdk2 2.3.1
      */
-    onMessage(
-      cb: (arg: {
-        data: {
-          socketTaskID: string;
-          data: string | ArrayBuffer;
-          isBuffer: boolean;
-        };
-      }) => void,
-    ): void;
+    onMessage(cb: (arg: { data: IOnSocketTaskMessageData }) => void): void;
     /**
      * 监听 WebSocket open 事件
      * @sdk2 2.3.1
      */
-    onOpen(
-      cb: (arg: {
-        data: {
-          socketTaskID: string;
-        };
-      }) => void,
-    ): void;
+    onOpen(cb: (arg: { data: IOnSocketTaskOpenData }) => void): void;
   }
   export interface InnerAudioContext {
     /**
@@ -13931,8 +14063,8 @@ declare namespace my {
           | {
               errCode: number;
               errMessage: string;
-            },
-      ) => void,
+            }
+      ) => void
     ): void;
     /**
      * 停止监听播放下一首的事件
@@ -13996,8 +14128,8 @@ declare namespace my {
           | {
               errCode: number;
               errMessage: string;
-            },
-      ) => void,
+            }
+      ) => void
     ): void;
     /**
      * 监听播放下一首的事件
@@ -14087,7 +14219,7 @@ declare namespace my {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       duration: number;
@@ -14152,13 +14284,18 @@ declare namespace my {
               /**
                * 渲染方式
                */
-              renderType?: 'lottie' | 'skottie' | 'antmation' | 'mars' | 'video';
+              renderType?:
+                | 'lottie'
+                | 'skottie'
+                | 'antmation'
+                | 'mars'
+                | 'video';
               syncCreateView?: 'true' | 'false';
             }
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       /**
@@ -14484,7 +14621,14 @@ declare namespace my {
      * @description 圆弧路径的圆心在 (x, y) 位置，半径为 r ，根据anticlockwise （默认为顺时针）指定的方向从 startAngle 开始绘制，到 endAngle 结束。
      * @see https://opendocs.alipay.com/mini/api/lut4uo
      */
-    arc(x: number, y: number, radius: number, startAngle: number, endAngle: number, anticlockwise?: boolean): void;
+    arc(
+      x: number,
+      y: number,
+      radius: number,
+      startAngle: number,
+      endAngle: number,
+      anticlockwise?: boolean
+    ): void;
     /**
      * 在 Canvas 上绘制圆弧路径
      * @description 根据控制点和半径绘制圆弧路径，使用当前的描点(前一个moveTo或lineTo等函数的止点)。根据当前描点与给定的控制点1连接的直线，和控制点1与控制点2连接的直线，作为使用指定半径的圆的切线，画出两条切线之间的弧线路径。
@@ -14502,7 +14646,14 @@ declare namespace my {
      * @description 该方法需要三个点。 第一、第二个点是控制点，第三个点是结束点。起始点是当前路径的最后一个点，绘制贝赛尔曲线前，可以通过调用 moveTo() 进行修改。
      * @see https://opendocs.alipay.com/mini/api/dzf516
      */
-    bezierCurveTo(cp1x: number, cp1y: number, cp2x: number, cp2y: number, x: number, y: number): void;
+    bezierCurveTo(
+      cp1x: number,
+      cp1y: number,
+      cp2x: number,
+      cp2y: number,
+      x: number,
+      y: number
+    ): void;
     /**
      * 清除 Canvas 矩形区域
      * @description 通过把像素设置为透明以达到擦除一个矩形区域的方法
@@ -14519,7 +14670,10 @@ declare namespace my {
      * 使用指定的图像创建模式的方法
      * @see https://opendocs.alipay.com/mini/api/pattern
      */
-    createPattern(image: string | CanvasContextImageSource, repetition: string | null): CanvasPattern;
+    createPattern(
+      image: string | CanvasContextImageSource,
+      repetition: string | null
+    ): CanvasPattern;
     /**
      * 提交 Canvas 绘制指令
      * @description 用于将之前在绘图上下文中的描述（路径、变形、样式）画到 canvas 中
@@ -14531,7 +14685,17 @@ declare namespace my {
      * @description 图像保持原始尺寸
      * @see https://opendocs.alipay.com/mini/api/pzmtqk
      */
-    drawImage(image: string | ICanvasContext, sx: number, sy: number, sWidth: number, sHeight: number, dx: number, dy: number, dWidth: number, dHeight: number): void;
+    drawImage(
+      image: string | ICanvasContext,
+      sx: number,
+      sy: number,
+      sWidth: number,
+      sHeight: number,
+      dx: number,
+      dy: number,
+      dWidth: number,
+      dHeight: number
+    ): void;
     /**
      * 绘制填充矩形的方法
      * @see https://opendocs.alipay.com/mini/api/vfpyra
@@ -14556,7 +14720,12 @@ declare namespace my {
       /**
        * 接口调用成功的回调函数
        */
-      success?(data: { width: number; height: number; length: number; data: Uint8ClampedArray }): void;
+      success?(data: {
+        width: number;
+        height: number;
+        length: number;
+        data: Uint8ClampedArray;
+      }): void;
       /**
        * 接口调用失败的回调函数
        */
@@ -14575,7 +14744,7 @@ declare namespace my {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       width: number;
@@ -14713,7 +14882,12 @@ declare namespace my {
      * 设置 Canvas 阴影的位置和颜色
      * @see https://opendocs.alipay.com/mini/api/btvtra
      */
-    setShadow(offsetX: number, offsetY: number, blur: number, color: string): void;
+    setShadow(
+      offsetX: number,
+      offsetY: number,
+      blur: number,
+      color: string
+    ): void;
     /**
      * 设置 Canvas 描边颜色
      * @description 若没有设置，则默认颜色为 black。
@@ -14724,18 +14898,35 @@ declare namespace my {
      * 设置 Canvas 文本的对齐方式
      * @see https://opendocs.alipay.com/mini/api/rf1uma
      */
-    setTextAlign(textAlign: 'left' | 'right' | 'start' | 'center' | 'end'): void;
+    setTextAlign(
+      textAlign: 'left' | 'right' | 'start' | 'center' | 'end'
+    ): void;
     /**
      * 设置 Canvas 文本的竖直对齐方式
      * @see https://opendocs.alipay.com/mini/api/wo3gqy
      */
-    setTextBaseline(textBaseline: 'bottom' | 'top' | 'alphabetic' | 'hanging' | 'ideographic' | 'middle'): void;
+    setTextBaseline(
+      textBaseline:
+        | 'bottom'
+        | 'top'
+        | 'alphabetic'
+        | 'hanging'
+        | 'ideographic'
+        | 'middle'
+    ): void;
     /**
      * 更新 Canvas 仿射变换矩阵
      * @description 使用单位矩阵重新设置当前的变换并调用变换的方法
      * @see https://opendocs.alipay.com/mini/api/wt6glg
      */
-    setTransform(a: number, b: number, c: number, d: number, e: number, f: number): void;
+    setTransform(
+      a: number,
+      b: number,
+      c: number,
+      d: number,
+      e: number,
+      f: number
+    ): void;
     /**
      * 描绘一个的矩形的方法
      * @see https://opendocs.alipay.com/mini/api/vz04q8
@@ -14838,7 +15029,7 @@ declare namespace my {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       /**
@@ -14851,7 +15042,14 @@ declare namespace my {
      * @description 使用矩阵多次叠加当前变换的方法，矩阵由方法的参数进行描述
      * @see https://opendocs.alipay.com/mini/api/fv97do
      */
-    transform(a: number, b: number, c: number, d: number, e: number, f: number): void;
+    transform(
+      a: number,
+      b: number,
+      c: number,
+      d: number,
+      e: number,
+      f: number
+    ): void;
     /**
      * 对当前网格添加平移变换的方法
      * @see https://opendocs.alipay.com/mini/api/lgqkb2
@@ -14892,7 +15090,10 @@ declare namespace my {
     /**
      * 返回 canvas 的绘制上下文
      */
-    getContext(contextId: 'webgl', options?: WebGLContextAttributes): WebGLRenderingContext;
+    getContext(
+      contextId: 'webgl',
+      options?: WebGLContextAttributes
+    ): WebGLRenderingContext;
     /**
      * 录制视频
      * @native 10.2.26
@@ -14988,7 +15189,7 @@ declare namespace my {
                * 错误信息
                */
               errorMessage: string;
-            },
+            }
       ): void;
     }): Promise<{
       /**
@@ -15021,7 +15222,10 @@ declare namespace my {
     /**
      * 返回 canvas 的绘制上下文
      */
-    getContext(contextId: 'webgl', options?: WebGLContextAttributes): WebGLRenderingContext;
+    getContext(
+      contextId: 'webgl',
+      options?: WebGLContextAttributes
+    ): WebGLRenderingContext;
     /**
      * 在下次重绘时执行的方法
      */
@@ -15111,7 +15315,7 @@ declare namespace my {
                * 错误信息
                */
               errorMessage: string;
-            },
+            }
       ): void;
     }): Promise<{
       /**
@@ -15208,12 +15412,25 @@ declare namespace my {
     /**
      * 当前文本基线的属性
      */
-    readonly textBaseline: 'top' | 'bottom' | 'alphabetic' | 'hanging' | 'ideographic' | 'middle';
+    readonly textBaseline:
+      | 'top'
+      | 'bottom'
+      | 'alphabetic'
+      | 'hanging'
+      | 'ideographic'
+      | 'middle';
     /**
      * 绘制圆弧路径的方法
      * @description 圆弧路径的圆心在 (x, y) 位置，半径为 r ，根据anticlockwise （默认为顺时针）指定的方向从 startAngle 开始绘制，到 endAngle 结束。
      */
-    arc(x: number, y: number, radius: number, startAngle: number, endAngle: number, anticlockwise?: boolean): void;
+    arc(
+      x: number,
+      y: number,
+      radius: number,
+      startAngle: number,
+      endAngle: number,
+      anticlockwise?: boolean
+    ): void;
     /**
      * 绘制圆弧路径的方法
      * @description 根据控制点和半径绘制圆弧路径，使用当前的描点(前一个moveTo或lineTo等函数的止点)。根据当前描点与给定的控制点1连接的直线，和控制点1与控制点2连接的直线，作为使用指定半径的圆的切线，画出两条切线之间的弧线路径。
@@ -15228,7 +15445,14 @@ declare namespace my {
      * 绘制三次贝赛尔曲线路径的方法
      * @description 该方法需要三个点。 第一、第二个点是控制点，第三个点是结束点。起始点是当前路径的最后一个点，绘制贝赛尔曲线前，可以通过调用 moveTo() 进行修改。
      */
-    bezierCurveTo(cp1x: number, cp1y: number, cp2x: number, cp2y: number, x: number, y: number): void;
+    bezierCurveTo(
+      cp1x: number,
+      cp1y: number,
+      cp2x: number,
+      cp2y: number,
+      x: number,
+      y: number
+    ): void;
     /**
      * 清除矩形区域
      * @description 通过把像素设置为透明以达到擦除一个矩形区域的方法
@@ -15254,11 +15478,20 @@ declare namespace my {
     /**
      * 创建一个指定大小的 ImageData 对象
      */
-    createImageData(width: number, height: number, imagedata: ImageData): ImageData;
+    createImageData(
+      width: number,
+      height: number,
+      imagedata: ImageData
+    ): ImageData;
     /**
      * 创建一个沿参数坐标指定的直线的渐变
      */
-    createLinearGradient(x0: number, y0: number, x1: number, y1: number): CanvasGradient;
+    createLinearGradient(
+      x0: number,
+      y0: number,
+      x1: number,
+      y1: number
+    ): CanvasGradient;
     /**
      * 创建 Path2D 对象
      */
@@ -15266,12 +15499,22 @@ declare namespace my {
     /**
      * 使用指定的图像创建模式的方法
      */
-    createPattern(image: TMYCanvasImageSource, repetition: string | null): CanvasPattern | null;
+    createPattern(
+      image: TMYCanvasImageSource,
+      repetition: string | null
+    ): CanvasPattern | null;
     /**
      * 绘制放射性渐变的方法
      * @description 根据参数确定两个圆的坐标，绘制放射性渐变的方法
      */
-    createRadialGradient(x0: number, y0: number, r0: number, x1: number, y1: number, r1: number): CanvasGradient;
+    createRadialGradient(
+      x0: number,
+      y0: number,
+      r0: number,
+      x1: number,
+      y1: number,
+      r1: number
+    ): CanvasGradient;
     /**
      * 绘制图像的方法
      * @description 用于将之前在绘图上下文中的描述（路径、变形、样式）画到 canvas 中
@@ -15286,17 +15529,42 @@ declare namespace my {
      * 绘制图像的方法
      * @description 用户绘制图像，图像保持原始尺寸
      */
-    drawImage(image: TMYCanvasImageSource, dx: number, dy: number, dWidth: number, dHeight: number): void;
+    drawImage(
+      image: TMYCanvasImageSource,
+      dx: number,
+      dy: number,
+      dWidth: number,
+      dHeight: number
+    ): void;
     /**
      * 绘制图像的方法
      * @description 用户绘制图像，图像保持原始尺寸
      */
-    drawImage(image: TMYCanvasImageSource, sx: number, sy: number, sWidth: number, sHeight: number, dx: number, dy: number, dWidth: number, dHeight: number): void;
+    drawImage(
+      image: TMYCanvasImageSource,
+      sx: number,
+      sy: number,
+      sWidth: number,
+      sHeight: number,
+      dx: number,
+      dy: number,
+      dWidth: number,
+      dHeight: number
+    ): void;
     /**
      * 添加椭圆路径的方法
      * @description 椭圆的圆心在（x,y）位置，半径分别是radiusX 和 radiusY ，按照anticlockwise（默认顺时针）指定的方向，从 startAngle  开始绘制，到 endAngle 结束。
      */
-    ellipse(x: number, y: number, radiusX: number, radiusY: number, rotation: number, startAngle: number, endAngle: number, counterclockwise?: boolean): void;
+    ellipse(
+      x: number,
+      y: number,
+      radiusX: number,
+      radiusY: number,
+      rotation: number,
+      startAngle: number,
+      endAngle: number,
+      counterclockwise?: boolean
+    ): void;
     /**
      * 根据当前的填充样式填充当前或已存在的路径的方法
      */
@@ -15352,7 +15620,15 @@ declare namespace my {
     /**
      * 将数据从已有的 ImageData 对象绘制到位图的方法
      */
-    putImageData(imagedata: ImageData, dx: number, dy: number, dirtyX: number, dirtyY: number, dirtyWidth: number, dirtyHeight: number): void;
+    putImageData(
+      imagedata: ImageData,
+      dx: number,
+      dy: number,
+      dirtyX: number,
+      dirtyY: number,
+      dirtyWidth: number,
+      dirtyHeight: number
+    ): void;
     /**
      * 新增二次贝塞尔曲线路径的方法
      */
@@ -15397,7 +15673,14 @@ declare namespace my {
      * 重新设置当前的变换并调用变换的方法
      * @description 使用单位矩阵重新设置当前的变换并调用变换的方法
      */
-    setTransform(a: number, b: number, c: number, d: number, e: number, f: number): void;
+    setTransform(
+      a: number,
+      b: number,
+      c: number,
+      d: number,
+      e: number,
+      f: number
+    ): void;
     /**
      * 根据当前的画线样式绘制当前或已经存在的路径的方法
      * @description 使用非零环绕规则,根据当前的画线样式绘制当前或已经存在的路径的方法
@@ -15424,7 +15707,14 @@ declare namespace my {
      * 使用矩阵多次叠加当前变换的方法
      * @description 使用矩阵多次叠加当前变换的方法，矩阵由方法的参数进行描述
      */
-    transform(a: number, b: number, c: number, d: number, e: number, f: number): void;
+    transform(
+      a: number,
+      b: number,
+      c: number,
+      d: number,
+      e: number,
+      f: number
+    ): void;
     /**
      * 对当前网格添加平移变换的方法
      */
@@ -15754,7 +16044,11 @@ declare namespace my {
     /**
      * 将通用顶点索引绑定到属性变量
      */
-    bindAttribLocation(program: WebGLProgram, index: TMYGLuint, name: string): void;
+    bindAttribLocation(
+      program: WebGLProgram,
+      index: TMYGLuint,
+      name: string
+    ): void;
     /**
      * 将给定的 WebGLBuffer 绑定到目标
      */
@@ -15762,12 +16056,18 @@ declare namespace my {
     /**
      * 将给定的 WebGLFramebuffer 绑定到目标
      */
-    bindFramebuffer(target: TMYGLenum, framebuffer: WebGLFramebuffer | null): void;
+    bindFramebuffer(
+      target: TMYGLenum,
+      framebuffer: WebGLFramebuffer | null
+    ): void;
     /**
      * 将给定的 WebGLRenderbuffer 绑定到目标
      * @description 它必须是 gl.RENDERBUFFER
      */
-    bindRenderbuffer(target: TMYGLenum, renderbuffer: WebGLRenderbuffer | null): void;
+    bindRenderbuffer(
+      target: TMYGLenum,
+      renderbuffer: WebGLRenderbuffer | null
+    ): void;
     /**
      * 将给定的 WebGLTexture 绑定到目标
      */
@@ -15775,7 +16075,12 @@ declare namespace my {
     /**
      * 用于设置源和目标混合因子
      */
-    blendColor(red: TMYGLclampf, green: TMYGLclampf, blue: TMYGLclampf, alpha: TMYGLclampf): void;
+    blendColor(
+      red: TMYGLclampf,
+      green: TMYGLclampf,
+      blue: TMYGLclampf,
+      alpha: TMYGLclampf
+    ): void;
     /**
      * 将 RGB 混合方程和 alpha 混合方程设置为单个方程
      * @description 混合方程式确定新像素如何与 WebGLFramebuffer 中的像素组合
@@ -15793,7 +16098,12 @@ declare namespace my {
     /**
      * 定义混合 RGB 和 alpha 分量的像素算术的函数
      */
-    blendFuncSeparate(srcRGB: TMYGLenum, dstRGB: TMYGLenum, srcAlpha: TMYGLenum, dstAlpha: TMYGLenum): void;
+    blendFuncSeparate(
+      srcRGB: TMYGLenum,
+      dstRGB: TMYGLenum,
+      srcAlpha: TMYGLenum,
+      dstAlpha: TMYGLenum
+    ): void;
     /**
      * 创建并初始化 Buffer 对象的数据存储区
      */
@@ -15801,11 +16111,19 @@ declare namespace my {
     /**
      * 创建并初始化 Buffer 对象的数据存储区
      */
-    bufferData(target: TMYGLenum, srcData: TMYBufferSource | null, usage: TMYGLenum): void;
+    bufferData(
+      target: TMYGLenum,
+      srcData: TMYBufferSource | null,
+      usage: TMYGLenum
+    ): void;
     /**
      * 更新缓冲区对象的数据存储的子集
      */
-    bufferSubData(target: TMYGLenum, offset: TMYGLintptr, srcData: TMYBufferSource): void;
+    bufferSubData(
+      target: TMYGLenum,
+      offset: TMYGLintptr,
+      srcData: TMYBufferSource
+    ): void;
     /**
      * 返回 WebGLFramebuffer 对象的完整性状态
      */
@@ -15818,7 +16136,12 @@ declare namespace my {
      * 用于设置清空颜色缓冲时的颜色值
      * @description 这指定调用 clear() 方法时使用的颜色值。这些值在 0 到 1 的范围间。
      */
-    clearColor(red: TMYGLclampf, green: TMYGLclampf, blue: TMYGLclampf, alpha: TMYGLclampf): void;
+    clearColor(
+      red: TMYGLclampf,
+      green: TMYGLclampf,
+      blue: TMYGLclampf,
+      alpha: TMYGLclampf
+    ): void;
     /**
      * 用于设置深度缓冲区的深度清除值
      * @description 这个深度清除值的设定，是为了调用clear() 的时候使用，这个值的范围是 0 到 1。
@@ -15831,7 +16154,12 @@ declare namespace my {
     /**
      * 设置在绘制或渲染到 WebGLFramebuffer 时启用或禁用哪些颜色组件
      */
-    colorMask(red: TMYGLboolean, green: TMYGLboolean, blue: TMYGLboolean, alpha: TMYGLboolean): void;
+    colorMask(
+      red: TMYGLboolean,
+      green: TMYGLboolean,
+      blue: TMYGLboolean,
+      alpha: TMYGLboolean
+    ): void;
     /**
      * 编译 GLSL 着色器
      * @description 编译一个 GLSL 着色器，使其成为为二进制数据，然后就可以被 WebGLProgram 对象所使用。
@@ -15840,7 +16168,15 @@ declare namespace my {
     /**
      * 压缩二维或三维纹理图像的格式
      */
-    compressedTexImage2D(target: TMYGLenum, level: TMYGLint, internalformat: TMYGLenum, width: TMYGLsizei, height: TMYGLsizei, border: TMYGLint, pixels: ArrayBufferView): void;
+    compressedTexImage2D(
+      target: TMYGLenum,
+      level: TMYGLint,
+      internalformat: TMYGLenum,
+      width: TMYGLsizei,
+      height: TMYGLsizei,
+      border: TMYGLint,
+      pixels: ArrayBufferView
+    ): void;
     /**
      * 为压缩格式的纹理图像指定二维子矩形
      * @description 在使用此方法之前，必须通过 WebGL 扩展启用压缩图像格式。
@@ -15853,16 +16189,34 @@ declare namespace my {
       width: TMYGLsizei,
       height: TMYGLsizei,
       format: TMYGLenum,
-      pixels: ArrayBufferView,
+      pixels: ArrayBufferView
     ): void;
     /**
      * 将像素从当前 WebGLFramebuffer 复制到 2D 纹理图像中
      */
-    copyTexImage2D(target: TMYGLenum, level: TMYGLint, internalformat: TMYGLenum, x: TMYGLint, y: TMYGLint, width: TMYGLsizei, height: TMYGLsizei, border: TMYGLint): void;
+    copyTexImage2D(
+      target: TMYGLenum,
+      level: TMYGLint,
+      internalformat: TMYGLenum,
+      x: TMYGLint,
+      y: TMYGLint,
+      width: TMYGLsizei,
+      height: TMYGLsizei,
+      border: TMYGLint
+    ): void;
     /**
      * 将像素从当前 WebGLFramebuffer 复制到现有的 2D 纹理子图像中
      */
-    copyTexSubImage2D(target: TMYGLenum, level: TMYGLint, xoffset: TMYGLint, yoffset: TMYGLint, x: TMYGLint, y: TMYGLint, width: TMYGLsizei, height: TMYGLsizei): void;
+    copyTexSubImage2D(
+      target: TMYGLenum,
+      level: TMYGLint,
+      xoffset: TMYGLint,
+      yoffset: TMYGLint,
+      x: TMYGLint,
+      y: TMYGLint,
+      width: TMYGLsizei,
+      height: TMYGLsizei
+    ): void;
     /**
      * 创建并初始化一个用于储存顶点数据或着色数据的 WebGLBuffer 对象
      */
@@ -15953,7 +16307,12 @@ declare namespace my {
     /**
      * 从数组数据渲染图元
      */
-    drawElements(mode: TMYGLenum, count: TMYGLsizei, type: TMYGLenum, offset: TMYGLintptr): void;
+    drawElements(
+      mode: TMYGLenum,
+      count: TMYGLsizei,
+      type: TMYGLenum,
+      offset: TMYGLintptr
+    ): void;
     /**
      * 对该上下文开启某种特性
      */
@@ -15975,11 +16334,22 @@ declare namespace my {
     /**
      * 将 WebGLRenderbuffer 对象附加到 WebGLFramebuffer 对象
      */
-    framebufferRenderbuffer(target: TMYGLenum, attachment: TMYGLenum, renderbuffertarget: TMYGLenum, renderbuffer: WebGLRenderbuffer | null): void;
+    framebufferRenderbuffer(
+      target: TMYGLenum,
+      attachment: TMYGLenum,
+      renderbuffertarget: TMYGLenum,
+      renderbuffer: WebGLRenderbuffer | null
+    ): void;
     /**
      * 将纹理附加到 WebGLFramebuffer
      */
-    framebufferTexture2D(target: TMYGLenum, attachment: TMYGLenum, textarget: TMYGLenum, texture: WebGLTexture | null, level: TMYGLint): void;
+    framebufferTexture2D(
+      target: TMYGLenum,
+      attachment: TMYGLenum,
+      textarget: TMYGLenum,
+      texture: WebGLTexture | null,
+      level: TMYGLint
+    ): void;
     /**
      * 指定多边形是正面还是背面
      * @description 通过设置缠绕方向来指定多边形是正面还是背面
@@ -15996,12 +16366,18 @@ declare namespace my {
      * 返回 WebGLActiveInfo 对象
      * @description 返回一个包含大小、类型和顶点属性名称的 WebGLActiveInfo 对象，它通常在查询未知属性以进行调试或创建通用库时使用。
      */
-    getActiveAttrib(program: WebGLProgram, index: TMYGLuint): WebGLActiveInfo | null;
+    getActiveAttrib(
+      program: WebGLProgram,
+      index: TMYGLuint
+    ): WebGLActiveInfo | null;
     /**
      * 返回 WebGLActiveInfo 对象
      * @description 其中包含统一属性的大小、类型和名称。它通常在查询未知制服以进行调试或创建通用库时使用。
      */
-    getActiveUniform(program: WebGLProgram, index: TMYGLuint): WebGLActiveInfo | null;
+    getActiveUniform(
+      program: WebGLProgram,
+      index: TMYGLuint
+    ): WebGLActiveInfo | null;
     /**
      * 返回附加到 WebGLProgram 的 WebGLShader 对象列表
      */
@@ -16017,7 +16393,7 @@ declare namespace my {
      */
     getBufferParameter(
       target: TMYGLenum,
-      pname: TMYGLenum,
+      pname: TMYGLenum
     ): /**
      * @summary 取决于请求的信息
      * @description由 pname 指定
@@ -16041,7 +16417,7 @@ declare namespace my {
     getFramebufferAttachmentParameter(
       target: TMYGLenum,
       attachment: TMYGLenum,
-      pname: TMYGLenum,
+      pname: TMYGLenum
     ): /**
      * @summary 取决于请求的信息
      * @description 由 pname 指定，GLint、GLenum、WebGLRenderbuffer 或 WebGLTexture。
@@ -16067,7 +16443,7 @@ declare namespace my {
      */
     getRenderbufferParameter(
       target: TMYGLenum,
-      pname: TMYGLenum,
+      pname: TMYGLenum
     ): /**
      * @summary 取决于请求的信息
      * @description 由 pname 指定
@@ -16088,7 +16464,10 @@ declare namespace my {
      * 返回 WebGLShaderPrecisionFormat 对象
      * @description 返回一个新的 WebGLShaderPrecisionFormat 对象，描述指定着色器数字格式的范围和精度
      */
-    getShaderPrecisionFormat(shadertype: TMYGLenum, precisiontype: TMYGLenum): WebGLShaderPrecisionFormat | null;
+    getShaderPrecisionFormat(
+      shadertype: TMYGLenum,
+      precisiontype: TMYGLenum
+    ): WebGLShaderPrecisionFormat | null;
     /**
      * 返回 WebGLShader 的源码
      */
@@ -16116,7 +16495,10 @@ declare namespace my {
      * @description 统一变量作为 WebGLUniformLocation 对象返回，该对象是一个不透明的标识符，用于指定统一变量在 GPU 内存中的位置。
      * 获得制服的位置后，您可以使用其他制服访问方法之一访问制服本身，将制服位置作为输入之一传入：
      */
-    getUniformLocation(program: WebGLProgram, name: string): WebGLUniformLocation | null;
+    getUniformLocation(
+      program: WebGLProgram,
+      name: string
+    ): WebGLUniformLocation | null;
     /**
      * 返回有关给定位置的顶点属性的信息
      */
@@ -16184,11 +16566,24 @@ declare namespace my {
     /**
      * 从当前颜色帧缓冲区的指定矩形中读取一块像素到 ArrayBufferView 对象中
      */
-    readPixels(x: TMYGLint, y: TMYGLint, width: TMYGLsizei, height: TMYGLsizei, format: TMYGLenum, type: TMYGLenum, pixels: ArrayBufferView | null): void;
+    readPixels(
+      x: TMYGLint,
+      y: TMYGLint,
+      width: TMYGLsizei,
+      height: TMYGLsizei,
+      format: TMYGLenum,
+      type: TMYGLenum,
+      pixels: ArrayBufferView | null
+    ): void;
     /**
      * 创建和初始化一个渲染缓冲区对象的数据存储
      */
-    renderbufferStorage(target: TMYGLenum, internalformat: TMYGLenum, width: TMYGLsizei, height: TMYGLsizei): void;
+    renderbufferStorage(
+      target: TMYGLenum,
+      internalformat: TMYGLenum,
+      width: TMYGLsizei,
+      height: TMYGLsizei
+    ): void;
     /**
      * 为抗锯齿效果指定多样本覆盖参数
      */
@@ -16197,7 +16592,12 @@ declare namespace my {
      * 将绘图区域限制在其限定的盒形区域
      * @description 指定了一个裁剪区域，用来将绘图区域限制在其限定的盒形区域内
      */
-    scissor(x: TMYGLint, y: TMYGLint, width: TMYGLsizei, height: TMYGLsizei): void;
+    scissor(
+      x: TMYGLint,
+      y: TMYGLint,
+      width: TMYGLsizei,
+      height: TMYGLsizei
+    ): void;
     /**
      * 返回 WebGLShader 的源码
      */
@@ -16210,7 +16610,12 @@ declare namespace my {
      * 设置模板测试的正面或背面功能和参考值
      * @description Stencilling 启用和禁用基于每个像素的绘图。 它通常用于多通道渲染以实现特殊效果。
      */
-    stencilFuncSeparate(face: TMYGLenum, func: TMYGLenum, ref: TMYGLint, mask: TMYGLuint): void;
+    stencilFuncSeparate(
+      face: TMYGLenum,
+      func: TMYGLenum,
+      ref: TMYGLint,
+      mask: TMYGLuint
+    ): void;
     /**
      * 控制启用和禁用模板平面中各个位的正面和背面写入
      * @description WebGLRenderingContext.stencilMaskSeparate() 方法可以将前后模板写入掩码设置为不同的值。
@@ -16228,7 +16633,12 @@ declare namespace my {
     /**
      * 设置正面和/或背面模板测试操作
      */
-    stencilOpSeparate(face: TMYGLenum, fail: TMYGLenum, zfail: TMYGLenum, zpass: TMYGLenum): void;
+    stencilOpSeparate(
+      face: TMYGLenum,
+      fail: TMYGLenum,
+      zfail: TMYGLenum,
+      zpass: TMYGLenum
+    ): void;
     /**
      * 指定二维纹理图像
      */
@@ -16241,12 +16651,19 @@ declare namespace my {
       border: TMYGLint,
       format: TMYGLenum,
       type: TMYGLenum,
-      pixels: ArrayBufferView | null,
+      pixels: ArrayBufferView | null
     ): void;
     /**
      * 指定二维纹理图像
      */
-    texImage2D(target: TMYGLenum, level: TMYGLint, internalformat: TMYGLint, format: TMYGLenum, type: TMYGLenum, pixels: TMYCanvasImageSource): void;
+    texImage2D(
+      target: TMYGLenum,
+      level: TMYGLint,
+      internalformat: TMYGLint,
+      format: TMYGLenum,
+      type: TMYGLenum,
+      pixels: TMYCanvasImageSource
+    ): void;
     /**
      * 用于设置纹理参数
      */
@@ -16267,12 +16684,20 @@ declare namespace my {
       height: TMYGLsizei,
       format: TMYGLenum,
       type: TMYGLenum,
-      pixels: ArrayBufferView | null,
+      pixels: ArrayBufferView | null
     ): void;
     /**
      * 指定当前纹理的子矩形
      */
-    texSubImage2D(target: TMYGLenum, level: TMYGLint, xoffset: TMYGLint, yoffset: TMYGLint, format: TMYGLenum, type: TMYGLenum, pixels: TMYCanvasImageSource): void;
+    texSubImage2D(
+      target: TMYGLenum,
+      level: TMYGLint,
+      xoffset: TMYGLint,
+      yoffset: TMYGLint,
+      format: TMYGLenum,
+      type: TMYGLenum,
+      pixels: TMYCanvasImageSource
+    ): void;
     /**
      * 把画布上的绘制内容以一个 data URI 的格式返回
      */
@@ -16306,7 +16731,11 @@ declare namespace my {
      * @description 所有在 ShaderProgram 对象中定义的，且激活的 uniform 变量在 ShaderProgram 执行 link 成功后被初始化为 0。
      * 它们将保留通过调用此方法分配给它们的值，直到再次将其初始化为 0 时，也就是 ShaderProgram 对象上发生下一次成功的 link 操作为止。
      */
-    uniform2f(location: WebGLUniformLocation | null, x: TMYGLfloat, y: TMYGLfloat): void;
+    uniform2f(
+      location: WebGLUniformLocation | null,
+      x: TMYGLfloat,
+      y: TMYGLfloat
+    ): void;
     /**
      * 指定 uniform 变量
      * @description 所有在 ShaderProgram 对象中定义的，且激活的 uniform 变量在 ShaderProgram 执行 link 成功后被初始化为 0。
@@ -16318,7 +16747,11 @@ declare namespace my {
      * @description 所有在 ShaderProgram 对象中定义的，且激活的 uniform 变量在 ShaderProgram 执行 link 成功后被初始化为 0。
      * 它们将保留通过调用此方法分配给它们的值，直到再次将其初始化为 0 时，也就是 ShaderProgram 对象上发生下一次成功的 link 操作为止。
      */
-    uniform2i(location: WebGLUniformLocation | null, x: TMYGLint, y: TMYGLint): void;
+    uniform2i(
+      location: WebGLUniformLocation | null,
+      x: TMYGLint,
+      y: TMYGLint
+    ): void;
     /**
      * 指定 uniform 变量
      * @description 所有在 ShaderProgram 对象中定义的，且激活的 uniform 变量在 ShaderProgram 执行 link 成功后被初始化为 0。
@@ -16330,7 +16763,12 @@ declare namespace my {
      * @description 所有在 ShaderProgram 对象中定义的，且激活的 uniform 变量在 ShaderProgram 执行 link 成功后被初始化为 0。
      * 它们将保留通过调用此方法分配给它们的值，直到再次将其初始化为 0 时，也就是 ShaderProgram 对象上发生下一次成功的 link 操作为止。
      */
-    uniform3f(location: WebGLUniformLocation | null, x: TMYGLfloat, y: TMYGLfloat, z: TMYGLfloat): void;
+    uniform3f(
+      location: WebGLUniformLocation | null,
+      x: TMYGLfloat,
+      y: TMYGLfloat,
+      z: TMYGLfloat
+    ): void;
     /**
      * 指定 uniform 变量
      * @description 所有在 ShaderProgram 对象中定义的，且激活的 uniform 变量在 ShaderProgram 执行 link 成功后被初始化为 0。
@@ -16342,7 +16780,12 @@ declare namespace my {
      * @description 所有在 ShaderProgram 对象中定义的，且激活的 uniform 变量在 ShaderProgram 执行 link 成功后被初始化为 0。
      * 它们将保留通过调用此方法分配给它们的值，直到再次将其初始化为 0 时，也就是 ShaderProgram 对象上发生下一次成功的 link 操作为止。
      */
-    uniform3i(location: WebGLUniformLocation | null, x: TMYGLint, y: TMYGLint, z: TMYGLint): void;
+    uniform3i(
+      location: WebGLUniformLocation | null,
+      x: TMYGLint,
+      y: TMYGLint,
+      z: TMYGLint
+    ): void;
     /**
      * 指定 uniform 变量
      * @description 所有在 ShaderProgram 对象中定义的，且激活的 uniform 变量在 ShaderProgram 执行 link 成功后被初始化为 0。
@@ -16354,7 +16797,13 @@ declare namespace my {
      * @description 所有在 ShaderProgram 对象中定义的，且激活的 uniform 变量在 ShaderProgram 执行 link 成功后被初始化为 0。
      * 它们将保留通过调用此方法分配给它们的值，直到再次将其初始化为 0 时，也就是 ShaderProgram 对象上发生下一次成功的 link 操作为止。
      */
-    uniform4f(location: WebGLUniformLocation | null, x: TMYGLfloat, y: TMYGLfloat, z: TMYGLfloat, w: TMYGLfloat): void;
+    uniform4f(
+      location: WebGLUniformLocation | null,
+      x: TMYGLfloat,
+      y: TMYGLfloat,
+      z: TMYGLfloat,
+      w: TMYGLfloat
+    ): void;
     /**
      * 指定 uniform 变量
      * @description 所有在 ShaderProgram 对象中定义的，且激活的 uniform 变量在 ShaderProgram 执行 link 成功后被初始化为 0。
@@ -16366,7 +16815,13 @@ declare namespace my {
      * @description 所有在 ShaderProgram 对象中定义的，且激活的 uniform 变量在 ShaderProgram 执行 link 成功后被初始化为 0。
      * 它们将保留通过调用此方法分配给它们的值，直到再次将其初始化为 0 时，也就是 ShaderProgram 对象上发生下一次成功的 link 操作为止。
      */
-    uniform4i(location: WebGLUniformLocation | null, x: TMYGLint, y: TMYGLint, z: TMYGLint, w: TMYGLint): void;
+    uniform4i(
+      location: WebGLUniformLocation | null,
+      x: TMYGLint,
+      y: TMYGLint,
+      z: TMYGLint,
+      w: TMYGLint
+    ): void;
     /**
      * 指定 uniform 变量
      * @description 所有在 ShaderProgram 对象中定义的，且激活的 uniform 变量在 ShaderProgram 执行 link 成功后被初始化为 0。
@@ -16376,15 +16831,27 @@ declare namespace my {
     /**
      * 为 uniform variables 指定矩阵值
      */
-    uniformMatrix2fv(location: WebGLUniformLocation | null, transpose: TMYGLboolean, value: TMYFloat32List): void;
+    uniformMatrix2fv(
+      location: WebGLUniformLocation | null,
+      transpose: TMYGLboolean,
+      value: TMYFloat32List
+    ): void;
     /**
      * 为 uniform variables 指定矩阵值
      */
-    uniformMatrix3fv(location: WebGLUniformLocation | null, transpose: TMYGLboolean, value: TMYFloat32List): void;
+    uniformMatrix3fv(
+      location: WebGLUniformLocation | null,
+      transpose: TMYGLboolean,
+      value: TMYFloat32List
+    ): void;
     /**
      * 为 uniform variables 指定矩阵值
      */
-    uniformMatrix4fv(location: WebGLUniformLocation | null, transpose: TMYGLboolean, value: TMYFloat32List): void;
+    uniformMatrix4fv(
+      location: WebGLUniformLocation | null,
+      transpose: TMYGLboolean,
+      value: TMYFloat32List
+    ): void;
     /**
      * 将定义好的 WebGLProgram 对象添加到当前的渲染状态中
      */
@@ -16413,7 +16880,12 @@ declare namespace my {
     /**
      * 为顶点 attibute 变量赋值
      */
-    vertexAttrib3f(index: TMYGLuint, x: TMYGLfloat, y: TMYGLfloat, z: TMYGLfloat): void;
+    vertexAttrib3f(
+      index: TMYGLuint,
+      x: TMYGLfloat,
+      y: TMYGLfloat,
+      z: TMYGLfloat
+    ): void;
     /**
      * 为顶点 attibute 变量赋值
      */
@@ -16421,7 +16893,13 @@ declare namespace my {
     /**
      * 为顶点 attibute 变量赋值
      */
-    vertexAttrib4f(index: TMYGLuint, x: TMYGLfloat, y: TMYGLfloat, z: TMYGLfloat, w: TMYGLfloat): void;
+    vertexAttrib4f(
+      index: TMYGLuint,
+      x: TMYGLfloat,
+      y: TMYGLfloat,
+      z: TMYGLfloat,
+      w: TMYGLfloat
+    ): void;
     /**
      * 为顶点 attibute 变量赋值
      */
@@ -16431,18 +16909,32 @@ declare namespace my {
      * @@summary 从当前绑定的缓冲区中读取顶点数据
      * @description WebGL API 的WebGLRenderingContext.vertexAttribPointer()方法绑定当前缓冲区范围到gl.ARRAY_BUFFER,成为当前顶点缓冲区对象的通用顶点属性并指定它的布局(缓冲区对象中的偏移量)。
      */
-    vertexAttribPointer(index: TMYGLuint, size: TMYGLint, type: TMYGLenum, normalized: TMYGLboolean, stride: TMYGLsizei, offset: TMYGLintptr): void;
+    vertexAttribPointer(
+      index: TMYGLuint,
+      size: TMYGLint,
+      type: TMYGLenum,
+      normalized: TMYGLboolean,
+      stride: TMYGLsizei,
+      offset: TMYGLintptr
+    ): void;
     /**
      * 设置视口
      * @description 即指定从标准设备到窗口坐标的 x、y 仿射变换
      */
-    viewport(x: TMYGLint, y: TMYGLint, width: TMYGLsizei, height: TMYGLsizei): void;
+    viewport(
+      x: TMYGLint,
+      y: TMYGLint,
+      width: TMYGLsizei,
+      height: TMYGLsizei
+    ): void;
   }
   export interface CanvasVideoRecorder {
     /**
      * 取消错误监听函数
      */
-    offError(callback: (res: { err_code: number; err_msg: string }) => void): void;
+    offError(
+      callback: (res: { err_code: number; err_msg: string }) => void
+    ): void;
     /**
      * 取消 stop 返回函数
      */
@@ -16452,12 +16944,14 @@ declare namespace my {
          * video 路径
          */
         videoPath: string;
-      }) => void,
+      }) => void
     ): void;
     /**
      * 添加错误监听函数
      */
-    onError(callback: (res: { err_code: number; err_msg: string }) => void): void;
+    onError(
+      callback: (res: { err_code: number; err_msg: string }) => void
+    ): void;
     /**
      * 添加 stop 返回函数
      */
@@ -16467,7 +16961,7 @@ declare namespace my {
          * video 路径
          */
         videoPath: string;
-      }) => void,
+      }) => void
     ): void;
     /**
      * 指定录制视频的帧率
@@ -16549,7 +17043,14 @@ declare namespace my {
      * 绘制圆弧路径的方法
      * @description 圆弧路径的圆心在 (x, y) 位置，半径为 r ，根据anticlockwise （默认为顺时针）指定的方向从 startAngle 开始绘制，到 endAngle 结束。
      */
-    arc(x: number, y: number, radius: number, startAngle: number, endAngle: number, anticlockwise?: boolean): void;
+    arc(
+      x: number,
+      y: number,
+      radius: number,
+      startAngle: number,
+      endAngle: number,
+      anticlockwise?: boolean
+    ): void;
     /**
      * 绘制圆弧路径的方法
      * @description 根据控制点和半径绘制圆弧路径，使用当前的描点(前一个moveTo或lineTo等函数的止点)。根据当前描点与给定的控制点1连接的直线，和控制点1与控制点2连接的直线，作为使用指定半径的圆的切线，画出两条切线之间的弧线路径。
@@ -16559,7 +17060,14 @@ declare namespace my {
      * 绘制三次贝赛尔曲线路径的方法
      * @description 该方法需要三个点。 第一、第二个点是控制点，第三个点是结束点。起始点是当前路径的最后一个点，绘制贝赛尔曲线前，可以通过调用 moveTo() 进行修改。
      */
-    bezierCurveTo(cp1x: number, cp1y: number, cp2x: number, cp2y: number, x: number, y: number): void;
+    bezierCurveTo(
+      cp1x: number,
+      cp1y: number,
+      cp2x: number,
+      cp2y: number,
+      x: number,
+      y: number
+    ): void;
     /**
      * 将笔点返回到当前子路径起始点的方法
      * @description 它尝试从当前点到起始点绘制一条直线。 如果图形已经是封闭的或者只有一个点，那么此方法不会做任何操作。
@@ -16569,7 +17077,16 @@ declare namespace my {
      * 添加椭圆路径的方法
      * @description 椭圆的圆心在（x,y）位置，半径分别是radiusX 和 radiusY ，按照anticlockwise（默认顺时针）指定的方向，从 startAngle  开始绘制，到 endAngle 结束。
      */
-    ellipse(x: number, y: number, radiusX: number, radiusY: number, rotation: number, startAngle: number, endAngle: number, counterclockwise?: boolean): void;
+    ellipse(
+      x: number,
+      y: number,
+      radiusX: number,
+      radiusY: number,
+      rotation: number,
+      startAngle: number,
+      endAngle: number,
+      counterclockwise?: boolean
+    ): void;
     /**
      * 使用直线连接子路径的终点到某个坐标的方法
      * @description 并不会真正地绘制。
@@ -16654,17 +17171,51 @@ declare namespace my {
     multiplySelf(other?: TypeDOMMatrixInit): DOMMatrix;
     preMultiplySelf(other?: TypeDOMMatrixInit): DOMMatrix;
     rotate(rotX?: number, rotY?: number, rotZ?: number): DOMMatrix;
-    rotateAxisAngle(x?: number, y?: number, z?: number, angle?: number): DOMMatrix;
-    rotateAxisAngleSelf(x?: number, y?: number, z?: number, angle?: number): DOMMatrix;
+    rotateAxisAngle(
+      x?: number,
+      y?: number,
+      z?: number,
+      angle?: number
+    ): DOMMatrix;
+    rotateAxisAngleSelf(
+      x?: number,
+      y?: number,
+      z?: number,
+      angle?: number
+    ): DOMMatrix;
     rotateFromVector(x?: number, y?: number): DOMMatrix;
     rotateFromVectorSelf(x?: number, y?: number): DOMMatrix;
     rotateSelf(rotX?: number, rotY?: number, rotZ?: number): DOMMatrix;
-    scale(scaleX?: number, scaleY?: number, scaleZ?: number, originX?: number, originY?: number, originZ?: number): DOMMatrix;
-    scale3d(scale?: number, originX?: number, originY?: number, originZ?: number): DOMMatrix;
-    scale3dSelf(scale?: number, originX?: number, originY?: number, originZ?: number): DOMMatrix;
+    scale(
+      scaleX?: number,
+      scaleY?: number,
+      scaleZ?: number,
+      originX?: number,
+      originY?: number,
+      originZ?: number
+    ): DOMMatrix;
+    scale3d(
+      scale?: number,
+      originX?: number,
+      originY?: number,
+      originZ?: number
+    ): DOMMatrix;
+    scale3dSelf(
+      scale?: number,
+      originX?: number,
+      originY?: number,
+      originZ?: number
+    ): DOMMatrix;
     /** @deprecated */
     scaleNonUniform(scaleX?: number, scaleY?: number): DOMMatrix;
-    scaleSelf(scaleX?: number, scaleY?: number, scaleZ?: number, originX?: number, originY?: number, originZ?: number): DOMMatrix;
+    scaleSelf(
+      scaleX?: number,
+      scaleY?: number,
+      scaleZ?: number,
+      originX?: number,
+      originY?: number,
+      originZ?: number
+    ): DOMMatrix;
     setMatrixValue(transformList: string): DOMMatrix;
     skewX(sx?: number): DOMMatrix;
     skewXSelf(sx?: number): DOMMatrix;
@@ -16751,7 +17302,13 @@ declare namespace my {
     /**
      * 内容点击接口
      */
-    clickContent(spmId?: string, scm?: string, newChinfo?: string, params?: object, newScm?: string): void;
+    clickContent(
+      spmId?: string,
+      scm?: string,
+      newChinfo?: string,
+      params?: object,
+      newScm?: string
+    ): void;
     /**
      * 发送曝光埋点
      */
@@ -16759,7 +17316,13 @@ declare namespace my {
     /**
      * 内容曝光接口
      */
-    expoContent(spmId?: string, scm?: string, newChinfo?: string, params?: object, newScm?: string): void;
+    expoContent(
+      spmId?: string,
+      scm?: string,
+      newChinfo?: string,
+      params?: object,
+      newScm?: string
+    ): void;
     /**
      * 获取 Tracert 的属性或者方法
      */
@@ -16780,7 +17343,7 @@ declare namespace my {
              * 是否只取第一个
              */
             isFirst?: boolean;
-          },
+          }
     ): void;
     /**
      * 获取渠道链 UUID 并生成一条事件埋点上报渠道
@@ -16793,7 +17356,7 @@ declare namespace my {
          */
         isFiltered?: string | boolean;
         bizName?: string;
-      },
+      }
     ): void;
     /**
      * 获取当前页面参数
@@ -16862,7 +17425,7 @@ declare namespace my {
         setNextPageNewChinfo: unknown;
         handleUEPEvent: unknown;
         reportUEPData: unknown;
-      }>,
+      }>
     ): void;
     setCurrentPageNewChinfo(param?: object): void;
     setNextPageNewChinfo(param?: object): void;
@@ -17233,7 +17796,12 @@ declare namespace my {
     /**
      * 创建 Session
      */
-    createSession(params: { mode: TrackMode; success: (entity: IARSession) => void; fail: () => void; complete: () => void }): boolean;
+    createSession(params: {
+      mode: TrackMode;
+      success: (entity: IARSession) => void;
+      fail: () => void;
+      complete: () => void;
+    }): boolean;
     /**
      * 获取探测结果
      */
@@ -17261,12 +17829,17 @@ declare namespace my {
           type: number;
           transform: Float32Array;
         };
-      }) => void,
+      }) => void
     ): void;
     /**
      * 检查是否支持某个模式
      */
-    isSupported(params: { mode: TrackMode; success: () => void; fail: () => void; complete: () => void }): boolean;
+    isSupported(params: {
+      mode: TrackMode;
+      success: () => void;
+      fail: () => void;
+      complete: () => void;
+    }): boolean;
     /**
      * @summary
      */
@@ -17336,7 +17909,7 @@ declare namespace my {
           | {
               error: 1002;
               errorMessage: '逆地理编码信息为空';
-            },
+            }
       ): void;
       /**
        * 接口调用结束的回调函数（调用成功、失败都会执行）
@@ -17370,7 +17943,7 @@ declare namespace my {
                   error: 1002;
                   errorMessage: '逆地理编码信息为空';
                 }
-            ),
+            )
       ): void;
     }): Promise<{
       country: string;
@@ -17410,7 +17983,7 @@ declare namespace my {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       success: true;
@@ -17432,7 +18005,7 @@ declare namespace my {
          * 开发者服务器返回的 HTTP Response Header
          */
         header: IUploadTaskOnHeadersReceivedHeader;
-      }) => void,
+      }) => void
     ): void;
     /**
      * 监听上传进度变化事件
@@ -17446,7 +18019,7 @@ declare namespace my {
         progress: number;
         totalBytesWritten: number;
         totalBytesExpectedToWrite: number;
-      }) => void,
+      }) => void
     ): void;
   }
   export interface DownloadTask {
@@ -17476,7 +18049,7 @@ declare namespace my {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       success: true;
@@ -17485,7 +18058,13 @@ declare namespace my {
      * 监听下载进度变化事件
      * @sdk2 2.4.4
      */
-    onProgressUpdate(cb: (arg: { progress: number; totalBytesWritten: number; totalBytesExpectedToWrite: number }) => void): void;
+    onProgressUpdate(
+      cb: (arg: {
+        progress: number;
+        totalBytesWritten: number;
+        totalBytesExpectedToWrite: number;
+      }) => void
+    ): void;
   }
   export interface RPCTask {
     /**
@@ -17519,7 +18098,7 @@ declare namespace my {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       success: true;
@@ -17557,7 +18136,7 @@ declare namespace my {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       success: true;
@@ -17573,7 +18152,7 @@ declare namespace my {
         progress: number;
         totalBytesWritten: number;
         totalBytesExpectedToWrite: number;
-      }) => void,
+      }) => void
     ): void;
   }
   export interface AccessibilityManager {
@@ -17604,7 +18183,7 @@ declare namespace my {
           | {
               error: 60004;
               errorMessage: 'screen reader not running';
-            },
+            }
       ): void;
       /**
        * 接口调用结束的回调函数（调用成功、失败都会执行）
@@ -17627,7 +18206,7 @@ declare namespace my {
                   error: 60004;
                   errorMessage: 'screen reader not running';
                 }
-            ),
+            )
       ): void;
     }): Promise<{
       success: boolean;
@@ -17657,7 +18236,7 @@ declare namespace my {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       enabled: boolean;
@@ -17680,7 +18259,7 @@ declare namespace my {
          * 当前定位城市维度。
          */
         latitude: number;
-      }) => void,
+      }) => void
     ): void;
     /**
      * 监听该页面地理位置定位完成的事件
@@ -17698,7 +18277,7 @@ declare namespace my {
          * 当前定位城市维度。
          */
         latitude: number;
-      }) => void,
+      }) => void
     ): void;
     /**
      * 修改定位城市名称
@@ -17752,7 +18331,7 @@ declare namespace my {
           | {
               error: 14;
               errorMessage: '请等chooseCityTask.onLocatedComplete触发后再调用chooseCityTask.setLocatedCity';
-            },
+            }
       ): void;
       /**
        * 接口调用结束的回调函数（调用成功、失败都会执行）
@@ -17786,7 +18365,7 @@ declare namespace my {
                   error: 14;
                   errorMessage: '请等chooseCityTask.onLocatedComplete触发后再调用chooseCityTask.setLocatedCity';
                 }
-            ),
+            )
       ): void;
     }): Promise<{
       /**
@@ -17991,15 +18570,15 @@ declare namespace my {
   }
   interface IBeaconUpdateBeacons {
     /**
-     * iBeacon 设备广播的 UUID。
+     * iBeacon 设备广播的 UUID
      */
     uuid: string;
     /**
-     * iBeacon 设备的主 ID。
+     * iBeacon 设备的主 ID
      */
     major: string;
     /**
-     * iBeacon 设备的次 ID。
+     * iBeacon 设备的次 ID
      */
     minor: string;
     /**
@@ -18007,11 +18586,11 @@ declare namespace my {
      */
     proximity: EBeaconUpdateBeaconsProximity;
     /**
-     * iBeacon 设备的距离。
+     * iBeacon 设备的距离
      */
     accuracy: string;
     /**
-     * iBeacon 信号强度。
+     * iBeacon 信号强度
      */
     rssi: string;
   }
@@ -18237,19 +18816,19 @@ declare namespace my {
   }
   interface IGetWifiListWifiList {
     /**
-     * Wifi 的 SSID。
+     * Wifi 的 SSID
      */
     SSID: string;
     /**
-     * Wifi 的 BSSID。
+     * Wifi 的 BSSID
      */
     BSSID: string;
     /**
-     * Wifi 是否安全。
+     * Wifi 是否安全
      */
     secure: boolean;
     /**
-     * Wifi 信号强度。
+     * Wifi 信号强度
      */
     signalStrength: number;
   }
@@ -20380,6 +20959,20 @@ declare namespace my {
      */
     entityList?: string[];
   }
+  interface IOnSocketTaskCloseData {
+    socketTaskID: string;
+  }
+  interface IOnSocketTaskErrorData {
+    socketTaskID: string;
+  }
+  interface IOnSocketTaskMessageData {
+    socketTaskID: string;
+    data: string | ArrayBuffer;
+    isBuffer: boolean;
+  }
+  interface IOnSocketTaskOpenData {
+    socketTaskID: string;
+  }
   interface IOpenEmbeddedMiniProgramParam {
     [key: string]: unknown;
   }
@@ -20556,7 +21149,7 @@ declare namespace my {
     /**
      * 要存储的文件路径
      */
-    filePath?: boolean;
+    filePath?: string;
   }
   interface ISaveFileResponse {
     /**
@@ -20842,21 +21435,21 @@ declare namespace my {
      */
     idCardAuthData: string;
   }
-  interface IWifiInfo {
+  interface IWifiConnectedWifi {
     /**
-     * Wifi 的 SSID。
+     * Wifi 的 SSID
      */
     SSID: string;
     /**
-     * Wifi 的 BSSID。
+     * Wifi 的 BSSID
      */
     BSSID: string;
     /**
-     * Wifi 是否安全。
+     * Wifi 是否安全
      */
     secure: boolean;
     /**
-     * Wifi 信号强度。
+     * Wifi 信号强度
      */
     signalStrength: number;
   }
@@ -21426,7 +22019,7 @@ declare namespace my.ap {
         | {
             error: 2;
             errorMessage: 'addressCode is required';
-          },
+          }
     ): void;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
@@ -21448,7 +22041,7 @@ declare namespace my.ap {
         | {
             error: 2;
             errorMessage: 'addressCode is required';
-          },
+          }
     ): void;
   }): Promise<void>;
   /**
@@ -21512,7 +22105,7 @@ declare namespace my.ap {
               | 'OPEN_FORM_FIELD_NOT_PERMITTED'
               | 'OPEN_FORM_USER_LACK_INFO'
               | 'SYSTEM_ERROR';
-          },
+          }
     ): void;
     /**
      * 接口调用失败的回调函数
@@ -21576,7 +22169,7 @@ declare namespace my.ap {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<
     | {
@@ -21755,7 +22348,7 @@ declare namespace my.ap {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     /**
@@ -21881,7 +22474,7 @@ declare namespace my.ap {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     /**
@@ -21984,7 +22577,7 @@ declare namespace my.ap {
         | {
             error: 'OVER_LIMIT';
             errorMessage: '超过调用量限制';
-          },
+          }
     ): void;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
@@ -22046,7 +22639,7 @@ declare namespace my.ap {
                 error: 'OVER_LIMIT';
                 errorMessage: '超过调用量限制';
               }
-          ),
+          )
     ): void;
   }): Promise<{
     /**
@@ -22074,7 +22667,15 @@ declare namespace my.ap {
     /**
      * 要跳转的支付宝官方业务。例如付款码，appCode: 'payCode'
      */
-    appCode: 'alipayScan' | 'redPacket' | 'collectOil' | 'tinyAppSHH' | 'antForest' | 'antFarm' | 'stockDetail' | 'payCode';
+    appCode:
+      | 'alipayScan'
+      | 'redPacket'
+      | 'collectOil'
+      | 'tinyAppSHH'
+      | 'antForest'
+      | 'antFarm'
+      | 'stockDetail'
+      | 'payCode';
     /**
      * appCode 配套参数，需要和 appCode 搭配使用
      */
@@ -22108,7 +22709,7 @@ declare namespace my.ap {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     /**
@@ -22158,7 +22759,7 @@ declare namespace my.ap {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     /**
@@ -22181,7 +22782,7 @@ declare namespace my.ap {
        * 接口调用结束的回调函数（调用成功、失败都会执行）
        */
       complete?(arg: { error?: number; errorMessage?: string }): void;
-    },
+    }
   ): Promise<void>;
   export function navigateToFinance(
     r: IAP$NavigateToFinanceOptionsPortfolioDetail & {
@@ -22197,7 +22798,7 @@ declare namespace my.ap {
        * 接口调用结束的回调函数（调用成功、失败都会执行）
        */
       complete?(arg: { error?: number; errorMessage?: string }): void;
-    },
+    }
   ): Promise<void>;
   export function navigateToFinance(
     r: IAP$NavigateToFinanceOptionsFundBuy & {
@@ -22213,7 +22814,7 @@ declare namespace my.ap {
        * 接口调用结束的回调函数（调用成功、失败都会执行）
        */
       complete?(arg: { error?: number; errorMessage?: string }): void;
-    },
+    }
   ): Promise<void>;
   export function navigateToFinance(
     r: IAP$NavigateToFinanceOptionsGoldBuy & {
@@ -22229,7 +22830,7 @@ declare namespace my.ap {
        * 接口调用结束的回调函数（调用成功、失败都会执行）
        */
       complete?(arg: { error?: number; errorMessage?: string }): void;
-    },
+    }
   ): Promise<void>;
   export function navigateToFinance(
     r: IAP$NavigateToFinanceOptionsPortfolioBuy & {
@@ -22245,7 +22846,7 @@ declare namespace my.ap {
        * 接口调用结束的回调函数（调用成功、失败都会执行）
        */
       complete?(arg: { error?: number; errorMessage?: string }): void;
-    },
+    }
   ): Promise<void>;
   export function navigateToFinance(
     r: IAP$NavigateToFinanceOptionsFundSign & {
@@ -22261,7 +22862,7 @@ declare namespace my.ap {
        * 接口调用结束的回调函数（调用成功、失败都会执行）
        */
       complete?(arg: { error?: number; errorMessage?: string }): void;
-    },
+    }
   ): Promise<void>;
   export function navigateToFinance(
     r: IAP$NavigateToFinanceOptionsGoldSign & {
@@ -22277,7 +22878,7 @@ declare namespace my.ap {
        * 接口调用结束的回调函数（调用成功、失败都会执行）
        */
       complete?(arg: { error?: number; errorMessage?: string }): void;
-    },
+    }
   ): Promise<void>;
   export function navigateToFinance(
     r: IAP$NavigateToFinanceOptionsWealthShop & {
@@ -22293,7 +22894,7 @@ declare namespace my.ap {
        * 接口调用结束的回调函数（调用成功、失败都会执行）
        */
       complete?(arg: { error?: number; errorMessage?: string }): void;
-    },
+    }
   ): Promise<void>;
   export function navigateToFinance(
     r: IAP$NavigateToFinanceOptionsH5Page & {
@@ -22309,7 +22910,7 @@ declare namespace my.ap {
        * 接口调用结束的回调函数（调用成功、失败都会执行）
        */
       complete?(arg: { error?: number; errorMessage?: string }): void;
-    },
+    }
   ): Promise<void>;
   /**
    * 判断用户在先享后付场景下是否有风险的 API
@@ -22351,7 +22952,7 @@ declare namespace my.ap {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     /**
@@ -22388,7 +22989,7 @@ declare namespace my.ap {
         | {
             error: number;
             errorMessage: string;
-          },
+          }
     ): void;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
@@ -22402,7 +23003,7 @@ declare namespace my.ap {
         | {
             error: number;
             errorMessage: string;
-          },
+          }
     ): void;
   }): Promise<void>;
   /**
@@ -22610,7 +23211,7 @@ declare namespace my.ap {
         | {
             error: number;
             errorMessage: string;
-          },
+          }
     ): void;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
@@ -22628,7 +23229,7 @@ declare namespace my.ap {
         | {
             error: number;
             errorMessage: string;
-          },
+          }
     ): void;
   }): Promise<void>;
   export function openVoucherDetail(r: {
@@ -22728,7 +23329,7 @@ declare namespace my.ap {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     /**
@@ -22792,7 +23393,7 @@ declare namespace my.ap {
              * 错误信息
              */
             errorMessage: string;
-          },
+          }
     ): void;
   }): Promise<{
     /**
@@ -22832,7 +23433,7 @@ declare namespace my.ap {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     /**
@@ -22924,7 +23525,7 @@ declare namespace my.ap {
         | {
             error?: number;
             errorMessage?: string;
-          },
+          }
     ): void;
   }): Promise<{
     /**
@@ -23036,9 +23637,9 @@ declare namespace my.ap {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
-    },
+    }
   ): Promise<{
     /**
      * 商户发起借用服务时传入的参数，需要在借用结束后返回给商户的参数。
@@ -23152,9 +23753,9 @@ declare namespace my.ap {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
-    },
+    }
   ): Promise<{
     /**
      * 商户发起借用服务时传入的参数，需要在借用结束后返回给商户的参数。
@@ -23761,7 +24362,15 @@ declare const enum TypeSystemInfo$Performance {
 
 declare namespace NFCAdapter {
   export interface Ndef {
-    readonly techType: 'NDEF' | 'NFC-A' | 'NFC-B' | 'ISO-DEP' | 'NFC-F' | 'NFC-V' | 'MIFARE Classic' | 'MIFARE Ultralight';
+    readonly techType:
+      | 'NDEF'
+      | 'NFC-A'
+      | 'NFC-B'
+      | 'ISO-DEP'
+      | 'NFC-F'
+      | 'NFC-V'
+      | 'MIFARE Classic'
+      | 'MIFARE Ultralight';
     /**
      * 断开连接
      */
@@ -23785,7 +24394,7 @@ declare namespace NFCAdapter {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       success: true;
@@ -23813,7 +24422,7 @@ declare namespace NFCAdapter {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       success: true;
@@ -23849,7 +24458,7 @@ declare namespace NFCAdapter {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       /**
@@ -23865,7 +24474,7 @@ declare namespace NFCAdapter {
           id: ArrayBuffer;
           payload: ArrayBuffer;
         }>;
-      }) => void,
+      }) => void
     ): void;
     onNdefMessage(
       cb: (arg: {
@@ -23875,7 +24484,7 @@ declare namespace NFCAdapter {
           id: ArrayBuffer;
           payload: ArrayBuffer;
         }>;
-      }) => void,
+      }) => void
     ): void;
     readNdefMessage(r?: {
       /**
@@ -23897,7 +24506,7 @@ declare namespace NFCAdapter {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       data: IReadNdefMessageData;
@@ -23929,7 +24538,7 @@ declare namespace NFCAdapter {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       success: true;
@@ -23969,7 +24578,7 @@ declare namespace NFCAdapter {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       /**
@@ -23998,14 +24607,22 @@ declare namespace NFCAdapter {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       success: true;
     }>;
   }
   export interface NfcA {
-    readonly techType: 'NDEF' | 'NFC-A' | 'NFC-B' | 'ISO-DEP' | 'NFC-F' | 'NFC-V' | 'MIFARE Classic' | 'MIFARE Ultralight';
+    readonly techType:
+      | 'NDEF'
+      | 'NFC-A'
+      | 'NFC-B'
+      | 'ISO-DEP'
+      | 'NFC-F'
+      | 'NFC-V'
+      | 'MIFARE Classic'
+      | 'MIFARE Ultralight';
     /**
      * 断开连接
      */
@@ -24029,7 +24646,7 @@ declare namespace NFCAdapter {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       success: true;
@@ -24057,7 +24674,7 @@ declare namespace NFCAdapter {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       success: true;
@@ -24093,7 +24710,7 @@ declare namespace NFCAdapter {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       /**
@@ -24132,7 +24749,7 @@ declare namespace NFCAdapter {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       /**
@@ -24171,7 +24788,7 @@ declare namespace NFCAdapter {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       /**
@@ -24206,7 +24823,7 @@ declare namespace NFCAdapter {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       success: true;
@@ -24246,7 +24863,7 @@ declare namespace NFCAdapter {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       /**
@@ -24256,7 +24873,15 @@ declare namespace NFCAdapter {
     }>;
   }
   export interface IsoDep {
-    readonly techType: 'NDEF' | 'NFC-A' | 'NFC-B' | 'ISO-DEP' | 'NFC-F' | 'NFC-V' | 'MIFARE Classic' | 'MIFARE Ultralight';
+    readonly techType:
+      | 'NDEF'
+      | 'NFC-A'
+      | 'NFC-B'
+      | 'ISO-DEP'
+      | 'NFC-F'
+      | 'NFC-V'
+      | 'MIFARE Classic'
+      | 'MIFARE Ultralight';
     /**
      * 断开连接
      */
@@ -24280,7 +24905,7 @@ declare namespace NFCAdapter {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       success: true;
@@ -24308,7 +24933,7 @@ declare namespace NFCAdapter {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       success: true;
@@ -24344,7 +24969,7 @@ declare namespace NFCAdapter {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       /**
@@ -24383,7 +25008,7 @@ declare namespace NFCAdapter {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       /**
@@ -24418,7 +25043,7 @@ declare namespace NFCAdapter {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       success: true;
@@ -24458,7 +25083,7 @@ declare namespace NFCAdapter {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       /**
@@ -24468,7 +25093,15 @@ declare namespace NFCAdapter {
     }>;
   }
   export interface NfcV {
-    readonly techType: 'NDEF' | 'NFC-A' | 'NFC-B' | 'ISO-DEP' | 'NFC-F' | 'NFC-V' | 'MIFARE Classic' | 'MIFARE Ultralight';
+    readonly techType:
+      | 'NDEF'
+      | 'NFC-A'
+      | 'NFC-B'
+      | 'ISO-DEP'
+      | 'NFC-F'
+      | 'NFC-V'
+      | 'MIFARE Classic'
+      | 'MIFARE Ultralight';
     /**
      * 断开连接
      */
@@ -24492,7 +25125,7 @@ declare namespace NFCAdapter {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       success: true;
@@ -24520,7 +25153,7 @@ declare namespace NFCAdapter {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       success: true;
@@ -24556,7 +25189,7 @@ declare namespace NFCAdapter {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       /**
@@ -24591,7 +25224,7 @@ declare namespace NFCAdapter {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       success: true;
@@ -24631,7 +25264,7 @@ declare namespace NFCAdapter {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       /**
@@ -24641,7 +25274,15 @@ declare namespace NFCAdapter {
     }>;
   }
   export interface NfcB {
-    readonly techType: 'NDEF' | 'NFC-A' | 'NFC-B' | 'ISO-DEP' | 'NFC-F' | 'NFC-V' | 'MIFARE Classic' | 'MIFARE Ultralight';
+    readonly techType:
+      | 'NDEF'
+      | 'NFC-A'
+      | 'NFC-B'
+      | 'ISO-DEP'
+      | 'NFC-F'
+      | 'NFC-V'
+      | 'MIFARE Classic'
+      | 'MIFARE Ultralight';
     /**
      * 断开连接
      */
@@ -24665,7 +25306,7 @@ declare namespace NFCAdapter {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       success: true;
@@ -24693,7 +25334,7 @@ declare namespace NFCAdapter {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       success: true;
@@ -24729,7 +25370,7 @@ declare namespace NFCAdapter {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       /**
@@ -24764,7 +25405,7 @@ declare namespace NFCAdapter {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       success: true;
@@ -24804,7 +25445,7 @@ declare namespace NFCAdapter {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       /**
@@ -24814,7 +25455,15 @@ declare namespace NFCAdapter {
     }>;
   }
   export interface NfcF {
-    readonly techType: 'NDEF' | 'NFC-A' | 'NFC-B' | 'ISO-DEP' | 'NFC-F' | 'NFC-V' | 'MIFARE Classic' | 'MIFARE Ultralight';
+    readonly techType:
+      | 'NDEF'
+      | 'NFC-A'
+      | 'NFC-B'
+      | 'ISO-DEP'
+      | 'NFC-F'
+      | 'NFC-V'
+      | 'MIFARE Classic'
+      | 'MIFARE Ultralight';
     /**
      * 断开连接
      */
@@ -24838,7 +25487,7 @@ declare namespace NFCAdapter {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       success: true;
@@ -24866,7 +25515,7 @@ declare namespace NFCAdapter {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       success: true;
@@ -24902,7 +25551,7 @@ declare namespace NFCAdapter {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       /**
@@ -24937,7 +25586,7 @@ declare namespace NFCAdapter {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       success: true;
@@ -24977,7 +25626,7 @@ declare namespace NFCAdapter {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       /**
@@ -24987,7 +25636,15 @@ declare namespace NFCAdapter {
     }>;
   }
   export interface MifareClassic {
-    readonly techType: 'NDEF' | 'NFC-A' | 'NFC-B' | 'ISO-DEP' | 'NFC-F' | 'NFC-V' | 'MIFARE Classic' | 'MIFARE Ultralight';
+    readonly techType:
+      | 'NDEF'
+      | 'NFC-A'
+      | 'NFC-B'
+      | 'ISO-DEP'
+      | 'NFC-F'
+      | 'NFC-V'
+      | 'MIFARE Classic'
+      | 'MIFARE Ultralight';
     /**
      * 断开连接
      */
@@ -25011,7 +25668,7 @@ declare namespace NFCAdapter {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       success: true;
@@ -25039,7 +25696,7 @@ declare namespace NFCAdapter {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       success: true;
@@ -25075,7 +25732,7 @@ declare namespace NFCAdapter {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       /**
@@ -25110,7 +25767,7 @@ declare namespace NFCAdapter {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       success: true;
@@ -25150,7 +25807,7 @@ declare namespace NFCAdapter {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       /**
@@ -25160,7 +25817,15 @@ declare namespace NFCAdapter {
     }>;
   }
   export interface MifareUltralight {
-    readonly techType: 'NDEF' | 'NFC-A' | 'NFC-B' | 'ISO-DEP' | 'NFC-F' | 'NFC-V' | 'MIFARE Classic' | 'MIFARE Ultralight';
+    readonly techType:
+      | 'NDEF'
+      | 'NFC-A'
+      | 'NFC-B'
+      | 'ISO-DEP'
+      | 'NFC-F'
+      | 'NFC-V'
+      | 'MIFARE Classic'
+      | 'MIFARE Ultralight';
     /**
      * 断开连接
      */
@@ -25184,7 +25849,7 @@ declare namespace NFCAdapter {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       success: true;
@@ -25212,7 +25877,7 @@ declare namespace NFCAdapter {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       success: true;
@@ -25248,7 +25913,7 @@ declare namespace NFCAdapter {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       /**
@@ -25283,7 +25948,7 @@ declare namespace NFCAdapter {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       success: true;
@@ -25323,7 +25988,7 @@ declare namespace NFCAdapter {
           | {
               error?: number;
               errorMessage?: string;
-            },
+            }
       ): void;
     }): Promise<{
       /**
