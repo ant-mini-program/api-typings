@@ -1,4 +1,9 @@
-# [](https://github.com/ant-mini-program/api-typings/compare/v3.0.0...v) (2023-01-06)
+# [](https://github.com/ant-mini-program/api-typings/compare/v3.0.0...v) (2023-02-01)
+
+
+### Features
+
+* update typings ([2c2a114](https://github.com/ant-mini-program/api-typings/commit/2c2a1143710de2d547722c2194a35314cdd38036))
 
 
 
