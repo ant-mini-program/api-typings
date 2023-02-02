@@ -118,6 +118,11 @@ declare namespace MiniProgram.Component {
      */
     options: Partial<{
       /**
+       * 开启虚拟化自定义组件节点，默认值为 true
+       * @version 2.8.0
+       */
+      virtualHost: boolean;
+      /**
        * 开启 observers 数据变化观测器
        * @version 2.8.1
        */
