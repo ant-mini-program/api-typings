@@ -1,9 +1,8 @@
 import { expectType } from 'tsd-lite';
-import { IAppOnLaunchOptions } from '../../packages/alipay/types';
-
+import { IAppOnLaunchOptions } from '../../packages/global/types/lib.global.d';
 
 App({
- onLaunch(options: IAppOnLaunchOptions<{a: string}>) {
+  onLaunch(options: IAppOnLaunchOptions<{ a: string }>) {
     console.log('App Launch', options);
     expectType<string>(options.path);
     expectType<string>(options.query.a);
