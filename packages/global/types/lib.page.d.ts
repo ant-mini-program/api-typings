@@ -109,7 +109,7 @@ declare namespace MiniProgram.Page {
      * @param query 打开当前页面路径中的参数
      * @see https://opendocs.alipay.com/mini/03durs
      */
-    onLoad<Query = {}>(query: Query): void;
+    onLoad(query: unknown): void;
     /**
      * 页面显示时/切入前台时触发
      */
@@ -201,7 +201,7 @@ declare namespace MiniProgram.Page {
      * @param query 打开当前页面路径中的参数
      * @see https://opendocs.alipay.com/mini/03durs
      */
-    onLoad<Query = {}>(query: Query): void;
+    onLoad(query: unknown): void;
     /**
      * 页面显示时/切入前台时触发
      */
