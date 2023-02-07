@@ -10344,13 +10344,17 @@ declare namespace my {
      * @see https://opendocs.alipay.com/mini/api/025027
      * @sdk2 2.7.4
      */
-    accessSync(request: IAccessRequest): void;
+    accessSync(request: IAccessRequest): {
+      success: true;
+    };
     /**
      * 同步判断文件、目录是否存在
      * @see https://opendocs.alipay.com/mini/api/025027
      * @sdk2 2.7.4
      */
-    accessSync(path: string): void;
+    accessSync(path: string): {
+      success: true;
+    };
     /**
      * 在文件结尾追加内容
      * @see https://opendocs.alipay.com/mini/api/0228qi
@@ -10435,7 +10439,9 @@ declare namespace my {
      * @see https://opendocs.alipay.com/mini/api/025028
      * @sdk2 2.7.4
      */
-    appendFileSync(request: IAppendFileRequest): void;
+    appendFileSync(request: IAppendFileRequest): {
+      success: true;
+    };
     /**
      * 同步在文件结尾追加内容
      * @see https://opendocs.alipay.com/mini/api/025028
@@ -10445,7 +10451,9 @@ declare namespace my {
       filePath: string,
       data: string | ArrayBuffer,
       encoding?: `${EFileSystemEncoding}`
-    ): void;
+    ): {
+      success: true;
+    };
     /**
      * 复制文件
      * @description 支持复制临时文件、缓存文件、用户文件到本地用户文件位置
@@ -10531,13 +10539,20 @@ declare namespace my {
      * @see https://opendocs.alipay.com/mini/api/024ytt
      * @sdk2 2.7.4
      */
-    copyFileSync(request: ICopyFileRequest): void;
+    copyFileSync(request: ICopyFileRequest): {
+      success: true;
+    };
     /**
      * 同步复制文件
      * @see https://opendocs.alipay.com/mini/api/024ytt
      * @sdk2 2.7.4
      */
-    copyFileSync(srcPath: string, destPath: string): void;
+    copyFileSync(
+      srcPath: string,
+      destPath: string
+    ): {
+      success: true;
+    };
     /**
      * 获取该小程序下的本地临时文件或本地缓存文件信息
      * @see https://opendocs.alipay.com/mini/api/0226og
@@ -10728,13 +10743,20 @@ declare namespace my {
      * @see https://opendocs.alipay.com/mini/api/024ytu
      * @sdk2 2.7.4
      */
-    mkdirSync(request: IMkdirRequest): void;
+    mkdirSync(request: IMkdirRequest): {
+      success: true;
+    };
     /**
      * 同步创建文件系统目录
      * @see https://opendocs.alipay.com/mini/api/024ytu
      * @sdk2 2.7.4
      */
-    mkdirSync(dirPath: string, recursive?: boolean): void;
+    mkdirSync(
+      dirPath: string,
+      recursive?: boolean
+    ): {
+      success: true;
+    };
     /**
      * 读取目录内文件列表
      * @see https://opendocs.alipay.com/mini/api/0226oi
@@ -10972,13 +10994,17 @@ declare namespace my {
      * @see https://opendocs.alipay.com/mini/api/0229pv
      * @sdk2 2.7.4
      */
-    removeSavedFileSync(request: IRemoveSavedFileRequest): void;
+    removeSavedFileSync(request: IRemoveSavedFileRequest): {
+      success: true;
+    };
     /**
      * 同步删除该小程序下已保存的本地缓存文件
      * @see https://opendocs.alipay.com/mini/api/0229pv
      * @sdk2 2.7.4
      */
-    removeSavedFileSync(filePath: string): void;
+    removeSavedFileSync(filePath: string): {
+      success: true;
+    };
     /**
      * 重命名文件
      * @description 可以把文件从 oldPath 移动到 newPath。
@@ -11057,14 +11083,21 @@ declare namespace my {
      * @see https://opendocs.alipay.com/mini/api/024ytw
      * @sdk2 2.7.4
      */
-    renameSync(request: IRenameRequest): void;
+    renameSync(request: IRenameRequest): {
+      success: true;
+    };
     /**
      * 同步重命名文件
      * @description 可以把文件从 oldPath 移动到 newPath。
      * @see https://opendocs.alipay.com/mini/api/024ytw
      * @sdk2 2.7.4
      */
-    renameSync(oldPath: string, newPath: string): void;
+    renameSync(
+      oldPath: string,
+      newPath: string
+    ): {
+      success: true;
+    };
     /**
      * 删除目录
      * @see https://opendocs.alipay.com/mini/api/0229px
@@ -11149,13 +11182,20 @@ declare namespace my {
      * @see https://opendocs.alipay.com/mini/api/024ytx
      * @sdk2 2.7.4
      */
-    rmdirSync(request: IRmdirRequest): void;
+    rmdirSync(request: IRmdirRequest): {
+      success: true;
+    };
     /**
      * 同步删除目录
      * @see https://opendocs.alipay.com/mini/api/024ytx
      * @sdk2 2.7.4
      */
-    rmdirSync(dirPath: string, recursive?: boolean): void;
+    rmdirSync(
+      dirPath: string,
+      recursive?: boolean
+    ): {
+      success: true;
+    };
     /**
      * 保存临时文件到本地
      * @description 此接口会移动临时文件，因此调用成功后，tempFilePath 将不可用
@@ -11385,13 +11425,17 @@ declare namespace my {
      * @see https://opendocs.alipay.com/mini/api/024whc
      * @sdk2 2.7.4
      */
-    unlinkSync(request: IUnlinkRequest): void;
+    unlinkSync(request: IUnlinkRequest): {
+      success: true;
+    };
     /**
      * 同步删除文件
      * @see https://opendocs.alipay.com/mini/api/024whc
      * @sdk2 2.7.4
      */
-    unlinkSync(filePath: string): void;
+    unlinkSync(filePath: string): {
+      success: true;
+    };
     /**
      * 解压文件
      * @see https://opendocs.alipay.com/mini/api/0229q3
@@ -11587,7 +11631,9 @@ declare namespace my {
      * @see https://opendocs.alipay.com/mini/api/024whd
      * @sdk2 2.7.4
      */
-    writeFileSync(request: IWriteFileRequest): void;
+    writeFileSync(request: IWriteFileRequest): {
+      success: true;
+    };
     /**
      * 同步用于写文件
      * @see https://opendocs.alipay.com/mini/api/024whd
@@ -11597,7 +11643,9 @@ declare namespace my {
       filePath: string,
       data: string | ArrayBuffer,
       encoding?: `${EFileSystemEncoding}`
-    ): void;
+    ): {
+      success: true;
+    };
     /**
      * 压缩文件
      * @sdk2 2.6.7

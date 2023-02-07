@@ -14,3 +14,7 @@ my.downloadFile({
     });
   },
 });
+
+let result = fs.accessSync(`${my.env.USER_DATA_PATH}/test.txt`);
+console.log(result);
+expectAssignable<boolean>(result.success);
