@@ -1,4 +1,19 @@
-# [](https://github.com/ant-mini-program/api-typings/compare/v3.0.0...v) (2023-02-01)
+# [](https://github.com/ant-mini-program/api-typings/compare/v3.0.1...v) (2023-02-07)
+
+
+### Bug Fixes
+
+* add missing return value of fs sync method ([1dd91a5](https://github.com/ant-mini-program/api-typings/commit/1dd91a5ff039cd9c17aaac63dfc5c3ec4d522e10)), closes [#32](https://github.com/ant-mini-program/api-typings/issues/32)
+* unload params ([e0babf4](https://github.com/ant-mini-program/api-typings/commit/e0babf4bd2c11799b366d7672c8934635323a65a))
+
+
+### Features
+
+* **component:** add virtualHost options ([#31](https://github.com/ant-mini-program/api-typings/issues/31)) ([facd0ff](https://github.com/ant-mini-program/api-typings/commit/facd0ff18b48fe33acb1f6b982ba5eebff04b642))
+
+
+
+## [3.0.1](https://github.com/ant-mini-program/api-typings/compare/v3.0.0...v3.0.1) (2023-02-01)
 
 
 ### Features
