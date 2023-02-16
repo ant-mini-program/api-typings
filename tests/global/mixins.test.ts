@@ -4,7 +4,13 @@ const mixins1 = {
   data: {
     b: 1,
   },
-};
+} as MiniProgram.Mixin.IMixin4Legacy<
+  {
+    b: number;
+  },
+  {},
+  {}
+>;
 
 Component({
   mixins: [mixins1, { didMount() {}, methods: { mixinMethod() {} } }], // mixins 方便复用代码

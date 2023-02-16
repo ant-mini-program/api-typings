@@ -2,18 +2,25 @@ declare namespace MiniProgram.Mixin {
   /**
    * 传统的组件间代码复用，仅Component的mixins参数支持传入，Mixin参数mixins 则只支持传入Mixin()的返回值
    */
-  type IMixin4Legacy = Partial<
-    Omit<
-      Component.IOptions<
-        UnknownRecord,
-        UnknownRecord,
-        UnknownRecord,
-        UnknownRecord,
+  type IMixin4Legacy<
+    Data extends UnknownRecord,
+    Props extends UnknownRecord,
+    Methods extends UnknownRecord,
+    ExtraThis extends UnknownRecord = UnknownRecord,
+    ExtraOptions extends UnknownRecord = UnknownRecord
+  > = Partial<
+    MiniProgram.Component.IOptions<Data, Props, Methods, ExtraOptions, []>
+  > &
+    ThisType<
+      MiniProgram.Component.IInstance<
+        Data,
+        Props,
+        Methods,
+        ExtraThis & IGlobalMiniProgramExtraThis4Component,
+        ExtraOptions,
         []
-      >,
-      'ref' | 'options' | 'mixins' | 'externalClasses'
-    >
-  >;
+      >
+    >;
   /**
    * Mixin() 返回值
    */
@@ -77,12 +84,12 @@ declare namespace MiniProgram.Mixin {
 
   interface Constructor {
     <
-      Data = {},
-      Props = {},
-      Methods = {},
-      ExtraThis = {},
-      ExtraOptions extends Record<string, unknown> = {},
-      Mixins extends IMixinIdentifier[] = IMixinIdentifier[]
+      Data = UnknownRecord,
+      Props = UnknownRecord,
+      Methods = UnknownRecord,
+      ExtraThis = UnknownRecord,
+      ExtraOptions extends UnknownRecord = UnknownRecord,
+      Mixins extends IMixinIdentifier[] = []
     >(
       options: IMixinOptions<
         Data,

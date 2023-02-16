@@ -27,11 +27,11 @@ declare namespace MiniProgram {
 
   // 获取 methods、props、data 类型(主要就是这个三个)
 
-  type TGetMixinMethods<T> = T extends { methods: infer M } ? M : never;
+  type TGetMixinMethods<T> = T extends { methods?: infer M } ? M : never;
 
-  type TGetMixinData<T> = T extends { data: infer D } ? D : never;
+  type TGetMixinData<T> = T extends { data?: infer D } ? D : never;
 
-  type TGetMixinProps<T> = T extends { props: infer P } ? P : never;
+  type TGetMixinProps<T> = T extends { props?: infer P } ? P : never;
 
   // 整合一下类型
   type UnionToIntersection<T> = (
