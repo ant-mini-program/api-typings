@@ -7,6 +7,20 @@ export interface IRequirePlugin<
   <Result extends any>(pluginName: string): Result;
 }
 
+export type IMixin4Legacy<
+  Data,
+  Props,
+  Methods,
+  ExtraThis = MiniProgram.UnknownRecord,
+  ExtraOptions extends MiniProgram.UnknownRecord = MiniProgram.UnknownRecord
+> = MiniProgram.Mixin.IMixin4Legacy<
+  Data,
+  Props,
+  Methods,
+  ExtraThis,
+  ExtraOptions
+>;
+
 declare global {
   /**
    * Extra `this` for Component instance.

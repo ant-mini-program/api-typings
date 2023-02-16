@@ -277,11 +277,11 @@ declare namespace MiniProgram.Component {
   >;
   interface Constructor {
     <
-      Data = {},
-      Props = {},
-      Methods = {},
-      ExtraThis = {},
-      ExtraOptions extends Record<string, unknown> = {},
+      Data = UnknownRecord,
+      Props = UnknownRecord,
+      Methods = UnknownRecord,
+      ExtraThis = UnknownRecord,
+      ExtraOptions extends Record<string, unknown> = UnknownRecord,
       Mixins extends Array<
         Mixin.IMixin4Legacy | ReturnType<Mixin.Constructor>
       > = any[]
