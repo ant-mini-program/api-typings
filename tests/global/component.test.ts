@@ -4,6 +4,7 @@ const mixin = Mixin({});
 
 Component({
   mixins: [],
+  test: 111,
   data() {
     expectAssignable<void>(this);
     return {
@@ -30,6 +31,7 @@ Component({
     expectAssignable<String>(this.is);
     expectAssignable<Object>(this.$page);
     expectAssignable<Number>(this.$id);
+    expectAssignable<Number>(this.test);
   },
   didMount() {
     expectType<number>(this.data.x);
@@ -159,3 +161,11 @@ Component({
     },
   }
 });
+
+
+Component<{}, {}, {}, {}, {test: number}>({
+  test: 111,
+  onInit() {
+    expectAssignable<Number>(this.test);
+  }
+})
