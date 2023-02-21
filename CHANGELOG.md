@@ -1,4 +1,14 @@
-# [](https://github.com/ant-mini-program/api-typings/compare/v3.0.1...v) (2023-02-07)
+# [](https://github.com/ant-mini-program/api-typings/compare/v3.0.3...v) (2023-02-21)
+
+
+### Features
+
+* add mixin typing ([2997add](https://github.com/ant-mini-program/api-typings/commit/2997add00aae8c692721ed88813551d90798d95c))
+* Component构造器允许识别额外参数，并作为对应实例的属性 ([#34](https://github.com/ant-mini-program/api-typings/issues/34)) ([1f6822e](https://github.com/ant-mini-program/api-typings/commit/1f6822ee10ce5d07800ca449f0dff093cc1274e6))
+
+
+
+## [3.0.3](https://github.com/ant-mini-program/api-typings/compare/v3.0.1...v3.0.3) (2023-02-07)
 
 
 ### Bug Fixes
