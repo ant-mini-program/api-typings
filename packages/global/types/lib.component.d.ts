@@ -286,7 +286,17 @@ declare namespace MiniProgram.Component {
         Mixin.IMixin4Legacy | ReturnType<Mixin.Constructor>
       > = any[]
     >(
-      opts: Partial<IOptions<Data, Props, Methods, ExtraOptions, Mixins>> &
+      opts: {
+        [P in keyof ExtraOptions]: P extends keyof IOptions<
+          Data,
+          Props,
+          Methods,
+          ExtraOptions,
+          Mixins
+        >
+          ? unknown
+          : ExtraOptions[P];
+      } & Partial<IOptions<Data, Props, Methods, ExtraOptions, Mixins>> &
         ThisType<
           IInstance<
             Data,
