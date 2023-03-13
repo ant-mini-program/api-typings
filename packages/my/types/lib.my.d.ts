@@ -13,13 +13,11 @@ declare namespace my {
     /**
      * 客户端名称简写
      * @description 支付宝客户端为 'ap'。
-     * @sdk2 2.6.2
      * @example "ap"
      */
     clientName: string;
     /**
      * 客户端版本号
-     * @sdk2 2.6.2
      * @example "10.2.90"
      */
     clientVersion: string;
@@ -30,7 +28,6 @@ declare namespace my {
      * - 英文: "en"
      * - 繁体中文-香港: "zh-HK"
      * - 繁体中文-台湾: "zh-Hant"
-     * @sdk2 2.6.2
      * @example "zh-Hans"
      */
     language: string;
@@ -40,15 +37,9 @@ declare namespace my {
      * - iOS 系统: 'iOS'
      * - 安卓系统: 'Android'
      * - 其他系统: 'unknown'
-     * @sdk2 2.6.2
      * @example "iOS"
      */
     platform: string;
-    /**
-     * 当前客户端环境
-     * @sdk2 2.7.24
-     */
-    clientEnv?: 'prod' | 'test' | 'stable' | 'pre' | 'unknown';
   };
   /**
    * 判断当前是否为 IDE 环境
@@ -64,26 +55,6 @@ declare namespace my {
    * @see https://opendocs.alipay.com/mini/api/sdk-version
    */
   export const SDKVersion: string;
-  /**
-   * 创建 canvas 对象
-   */
-  export function _createCanvas(payload: {
-    /**
-     * canvas 元素的 id 属性
-     */
-    id: string;
-    /**
-     * 成功回调
-     */
-    success: (canvas: Canvas) => void;
-  }): void;
-  /**
-   * 创建离屏 canvas 对象
-   */
-  export function _createOffscreenCanvas(
-    width?: number,
-    height?: number
-  ): OffScreenCanvas;
   /**
    * 写入联系人资料到设备通讯录
    * @description 用户可以选择将表单以“创建新联系人”或“添加到现有联系人”的方式，写入联系人资料到手机系统的通讯录
@@ -142,29 +113,91 @@ declare namespace my {
      * 支付宝账号
      */
     alipayAccount?: string;
+    /**
+     * 公司
+     */
     organization?: string;
+    /**
+     * 职位
+     */
     title?: string;
+    /**
+     * 电子邮件
+     */
     email?: string;
+    /**
+     * 网站
+     */
     url?: string;
+    /**
+     * 联系地址国家
+     */
     addressCountry?: string;
+    /**
+     * 联系地址省份
+     */
     addressState?: string;
+    /**
+     * 联系地址城市
+     */
     addressCity?: string;
+    /**
+     * 联系地址街道
+     */
     addressStreet?: string;
+    /**
+     * 联系地址邮政编码
+     */
     addressPostalCode?: string;
+    /**
+     * 工作地址国家
+     */
     workCountry?: string;
+    /**
+     * 工作地址省份
+     */
     workState?: string;
+    /**
+     * 工作地址城市
+     */
     workCity?: string;
+    /**
+     * 工作地址街道
+     */
     workStreet?: string;
+    /**
+     * 工作地址邮政编码
+     */
     workPostalCode?: string;
+    /**
+     * 家庭住址国家
+     */
     homeCountry?: string;
+    /**
+     * 家庭住址省份
+     */
     homeState?: string;
+    /**
+     * 家庭住址城市
+     */
     homeCity?: string;
+    /**
+     * 家庭住址街道
+     */
     homeStreet?: string;
+    /**
+     * 家庭住址邮政编码
+     */
     homePostalCode?: string;
     /**
      * 接口调用成功的回调函数
      */
-    success?(data: { success: true }): void;
+    success?(data: {
+      /**
+       * 是否成功
+       */
+      success: true;
+    }): void;
     /**
      * 接口调用失败的回调函数
      */
@@ -175,6 +208,9 @@ declare namespace my {
     complete?(
       arg:
         | {
+            /**
+             * 是否成功
+             */
             success: true;
           }
         | {
@@ -183,6 +219,9 @@ declare namespace my {
           }
     ): void;
   }): Promise<{
+    /**
+     * 是否成功
+     */
     success: true;
   }>;
   /**
@@ -203,14 +242,12 @@ declare namespace my {
     content?: string;
     /**
      * 按钮文字
-     * @ide 2.0
      * @default "确定"
      * @example "我知道了"
      */
     buttonText?: string;
     /**
      * "确认" 按钮颜色，HEX 格式
-     * @sdk2 2.3.1
      */
     confirmColor?: string;
     /**
@@ -373,17 +410,39 @@ declare namespace my {
     canvasId?: string;
     /**
      * 画布标识，传入 canvas 组件实例 （canvas type="2d/webgl" 时使用该属性）。
-     * @sdk2 2.7.15
-     * @native 10.2.35
      */
     canvas?: CanvasContext;
+    /**
+     * 指定的画布区域的左上角横坐标
+     */
     x: number;
+    /**
+     * 指定的画布区域的左上角纵坐标
+     */
     y: number;
+    /**
+     * 指定的画布区域的宽度
+     */
     width: number;
+    /**
+     * 指定的画布区域的高度
+     */
     height: number;
+    /**
+     * 输出的图片的宽度
+     */
     destWidth: number;
+    /**
+     * 输出的图片的高度
+     */
     destHeight: number;
+    /**
+     * 目标文件的类型
+     */
     fileType: 'png' | 'jpg';
+    /**
+     * 图片的质量
+     */
     quality: number;
     /**
      * 接口调用成功的回调函数
@@ -393,6 +452,9 @@ declare namespace my {
        * 生成文件的临时路径 (本地路径)。
        */
       tempFilePath: string;
+      /**
+       * 生成文件的临时路径 (本地路径)。
+       */
       apFilePath: string;
     }): void;
     /**
@@ -419,6 +481,9 @@ declare namespace my {
              * 生成文件的临时路径 (本地路径)。
              */
             tempFilePath: string;
+            /**
+             * 生成文件的临时路径 (本地路径)。
+             */
             apFilePath: string;
           }
         | (
@@ -437,10 +502,14 @@ declare namespace my {
      * 生成文件的临时路径 (本地路径)。
      */
     tempFilePath: string;
+    /**
+     * 生成文件的临时路径 (本地路径)。
+     */
     apFilePath: string;
   }>;
   /**
    * 获取本机支持的 IFAA 生物认证方式
+   * @see https://opendocs.alipay.com/mini/05v8jv
    */
   export function checkIsIfaaEnrolledInDevice(r: {
     /**
@@ -452,9 +521,13 @@ declare namespace my {
      */
     success?(data: {
       /**
-       * 是否已录入信息
+       * 是否成功
        */
-      isEnrolled: boolean;
+      success?: boolean;
+      /**
+       * 是否录入
+       */
+      isEnrolled?: boolean;
     }): void;
     /**
      * 接口调用失败的回调函数
@@ -467,9 +540,13 @@ declare namespace my {
       arg:
         | {
             /**
-             * 是否已录入信息
+             * 是否成功
              */
-            isEnrolled: boolean;
+            success?: boolean;
+            /**
+             * 是否录入
+             */
+            isEnrolled?: boolean;
           }
         | {
             error?: number;
@@ -478,32 +555,32 @@ declare namespace my {
     ): void;
   }): Promise<{
     /**
-     * 是否已录入信息
+     * 是否成功
      */
-    isEnrolled: boolean;
+    success?: boolean;
+    /**
+     * 是否录入
+     */
+    isEnrolled?: boolean;
   }>;
   /**
    * 获取本机支持的 IFAA 生物认证方式
+   * @see https://opendocs.alipay.com/mini/05vh0m
    */
   export function checkIsSupportIfaaAuthentication(r?: {
     /**
      * 接口调用成功的回调函数
      */
-    success?(
-      data:
-        | {
-            /**
-             * 该设备支持的可被 IFAA 识别的生物识别方式
-             */
-            supportMode?: string[];
-            success?: boolean;
-          }
-        | {
-            error: number;
-            errorMessage: string;
-            message?: string;
-          }
-    ): void;
+    success?(data: {
+      /**
+       * 该设备支持的可被 IFAA 识别的生物识别方式
+       */
+      supportMode?: string[];
+      /**
+       * 是否成功
+       */
+      success?: boolean;
+    }): void;
     /**
      * 接口调用失败的回调函数
      */
@@ -513,41 +590,34 @@ declare namespace my {
      */
     complete?(
       arg:
-        | (
-            | {
-                /**
-                 * 该设备支持的可被 IFAA 识别的生物识别方式
-                 */
-                supportMode?: string[];
-                success?: boolean;
-              }
-            | {
-                error: number;
-                errorMessage: string;
-                message?: string;
-              }
-          )
+        | {
+            /**
+             * 该设备支持的可被 IFAA 识别的生物识别方式
+             */
+            supportMode?: string[];
+            /**
+             * 是否成功
+             */
+            success?: boolean;
+          }
         | {
             error?: number;
             errorMessage?: string;
           }
     ): void;
-  }): Promise<
-    | {
-        /**
-         * 该设备支持的可被 IFAA 识别的生物识别方式
-         */
-        supportMode?: string[];
-        success?: boolean;
-      }
-    | {
-        error: number;
-        errorMessage: string;
-        message?: string;
-      }
-  >;
+  }): Promise<{
+    /**
+     * 该设备支持的可被 IFAA 识别的生物识别方式
+     */
+    supportMode?: string[];
+    /**
+     * 是否成功
+     */
+    success?: boolean;
+  }>;
   /**
    * 从支付宝通讯录中选择联系人
+   * @description 唤起支付宝通讯录，选择一个或者多个支付宝联系人
    * @see https://opendocs.alipay.com/mini/api/ui-contact
    */
   export function chooseAlipayContact(r?: {
@@ -569,7 +639,21 @@ declare namespace my {
     /**
      * 接口调用失败的回调函数
      */
-    fail?(err: { error?: number; errorMessage?: string }): void;
+    fail?(
+      err:
+        | {
+            error?: number;
+            errorMessage?: string;
+          }
+        | {
+            error: 10;
+            errorMessage: '没有权限';
+          }
+        | {
+            error: 11;
+            errorMessage: '用户取消操作（或设备未授权使用通讯录）';
+          }
+    ): void;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
@@ -581,10 +665,20 @@ declare namespace my {
              */
             contacts: IMyChooseAlipayContactContacts[];
           }
-        | {
-            error?: number;
-            errorMessage?: string;
-          }
+        | (
+            | {
+                error?: number;
+                errorMessage?: string;
+              }
+            | {
+                error: 10;
+                errorMessage: '没有权限';
+              }
+            | {
+                error: 11;
+                errorMessage: '用户取消操作（或设备未授权使用通讯录）';
+              }
+          )
     ): void;
   }): Promise<{
     /**
@@ -598,30 +692,30 @@ declare namespace my {
    */
   export function chooseCity(r?: {
     /**
-     * 是否显示当前定位城市。
+     * 是否显示当前定位城市
      * @default false
      */
     showLocatedCity?: boolean;
     /**
-     * 是否显示热门城市。
+     * 是否显示热门城市
      * @default true
      */
     showHotCities?: boolean;
     /**
-     * 是否修改当前定位城市，如果 showLocatedCity 为 false，此设置无效。
+     * 是否修改当前定位城市，如果 showLocatedCity 为 false，此设置无效
      * @default false
      */
     setLocatedCity?: boolean;
     /**
-     * 自定义城市列表。
+     * 自定义城市列表
      */
     cities?: ITypeCityInfo[];
     /**
-     * 自定义热门城市列表。
+     * 自定义热门城市列表
      */
     hotCities?: ITypeCityInfo[];
     /**
-     * 自定义历史访问城市列表。
+     * 自定义历史访问城市列表
      */
     customHistoryCities?: ITypeCityInfo[];
     /**
@@ -629,19 +723,19 @@ declare namespace my {
      */
     success?(data: {
       /**
-       * 城市名。
+       * 城市名
        */
       city: string;
       /**
-       * 行政区划代码。
+       * 行政区划代码
        */
       adCode: string;
       /**
-       * 经度（注意：仅用户选择当前定位城市才会返回）。
+       * 经度（注意：仅用户选择当前定位城市才会返回）
        */
       longitude?: number;
       /**
-       * 纬度（注意：仅用户选择当前定位城市才会返回）。
+       * 纬度（注意：仅用户选择当前定位城市才会返回）
        */
       latitude?: number;
     }): void;
@@ -666,19 +760,19 @@ declare namespace my {
       arg:
         | {
             /**
-             * 城市名。
+             * 城市名
              */
             city: string;
             /**
-             * 行政区划代码。
+             * 行政区划代码
              */
             adCode: string;
             /**
-             * 经度（注意：仅用户选择当前定位城市才会返回）。
+             * 经度（注意：仅用户选择当前定位城市才会返回）
              */
             longitude?: number;
             /**
-             * 纬度（注意：仅用户选择当前定位城市才会返回）。
+             * 纬度（注意：仅用户选择当前定位城市才会返回）
              */
             latitude?: number;
           }
@@ -695,25 +789,25 @@ declare namespace my {
     ): void;
   }): Promise<{
     /**
-     * 城市名。
+     * 城市名
      */
     city: string;
     /**
-     * 行政区划代码。
+     * 行政区划代码
      */
     adCode: string;
     /**
-     * 经度（注意：仅用户选择当前定位城市才会返回）。
+     * 经度（注意：仅用户选择当前定位城市才会返回）
      */
     longitude?: number;
     /**
-     * 纬度（注意：仅用户选择当前定位城市才会返回）。
+     * 纬度（注意：仅用户选择当前定位城市才会返回）
      */
     latitude?: number;
   }> &
     ChooseCityTask;
   /**
-   * 唤起选择人
+   * 唤起选择联系人
    * @description 默认只包含支付宝联系人，可通过修改参数选择手机通讯录联系人或者双向通讯录联系人。
    * @see https://opendocs.alipay.com/mini/api/eqx2u5
    */
@@ -722,6 +816,9 @@ declare namespace my {
      * 选择类型。
      */
     chooseType: 'single' | 'multi';
+    /**
+     * 是否包含自己
+     */
     includeMe?: boolean;
     /**
      * 选择手机通讯录联系人的模式。
@@ -782,36 +879,71 @@ declare namespace my {
    */
   export function chooseDistrict(r: {
     /**
-     * - 0 境内
-     * - 1 境外
-     * - 2 境内+境外
+     * 指定场景。
+     * @default 0
      */
     mode: EChooseDistrictMode;
     /**
+     * 境内 Tab 自定义标题。
      * @default "国内"
      */
     mainTitle?: string;
-    mainHeadList?: IChooseDistrictHeadItem[];
-    mainNormalList?: IChooseDistrictListItem[];
-    mainMergeOptions?: Record<string, string>;
     /**
-     * 境外 Tab 自定义标题
+     * 头部自定义对象数组。如定位区块、热门城市区块。
+     */
+    mainHeadList?: IChooseDistrictHeadModel[];
+    /**
+     * 底部城市列表。
+     * 当对象为空时，默认使用内置的境内城市列表填充。
+     */
+    mainNormalList?: IChooseDistrictItemModel[];
+    /**
+     * 境外 Tab 自定义标题。
      * @default "国际/港澳台"
      */
     seniorTitle?: string;
-    seniorPageList?: IChooseDistrictSeniorPageList[];
     /**
-     * 使用文件读取方式
-     *
-     * 自定义数据量大时，建议将数据文件内置在小程序内。文件内参数格式同接口定义。
+     * 境外多 tab 数据集合。
+     * 如果对象为空时，默认使用内置的境外城市列表填充。
+     */
+    seniorPageList?: IChooseDistrictPageModel[];
+    /**
+     * 修改内置数据的参数接口。传值方式为 {“key”,"value"}。其中 key 是需要修改的城市的 adCode， value 是展示的城市名。
+     * 仅在 mainNormalList 为空时生效，支持对默认境内数据差量更新:{"371200":"","542400":"","540600":"那曲","659010":"胡杨河市"}。
+     * value 为空代表删除对应 adCode 的城市；value 不为空代表更新对应 adCode 的城市。
+     */
+    mainMergeOptions?: IChooseDistrictMainMergeOptions;
+    /**
+     * 自定义数据文件地址。自定义数据量大时，建议将数据文件内置在小程序内。文件内参数格式同接口定义。
      */
     src?: string;
+    /**
+     * 指定行政区划版本号：
+     *
+     * ● null、空串：使用老版本（2020Q1）
+     *
+     * ● UPTODATE：使用最新版
+     *
+     * ● 2022Q2：使用2022Q2版本
+     *
+     * 10.3.20开始支持，接入联系百喻
+     */
+    adVersion?: string;
     /**
      * 接口调用成功的回调函数
      */
     success?(data: {
+      /**
+       * 城市名称。
+       */
       name: string;
+      /**
+       * 城市编码。
+       */
       adCode: string;
+      /**
+       * 自定义扩展字段透传。
+       */
       ext?: Record<string, string>;
     }): void;
     /**
@@ -824,8 +956,17 @@ declare namespace my {
     complete?(
       arg:
         | {
+            /**
+             * 城市名称。
+             */
             name: string;
+            /**
+             * 城市编码。
+             */
             adCode: string;
+            /**
+             * 自定义扩展字段透传。
+             */
             ext?: Record<string, string>;
           }
         | {
@@ -834,8 +975,17 @@ declare namespace my {
           }
     ): void;
   }): Promise<{
+    /**
+     * 城市名称。
+     */
     name: string;
+    /**
+     * 城市编码。
+     */
     adCode: string;
+    /**
+     * 自定义扩展字段透传。
+     */
     ext?: Record<string, string>;
   }>;
   /**
@@ -850,27 +1000,25 @@ declare namespace my {
     count?: number;
     /**
      * 图片类型。
-     * @sdk2 2.3.1
-     * @native 10.1.35
      * @default ["original","compressed"]
      */
-    sizeType?: Array<`${EChooseImageSizeType}`> | `${EChooseImageSizeType}`;
+    sizeType?: `${EChooseImageSizeType}`[];
     /**
      * 图片类型。
      * @default ["camera","album"]
      */
-    sourceType?:
-      | Array<`${EChooseImageSourceType}`>
-      | `${EChooseImageSourceType}`;
+    sourceType?: `${EChooseImageSourceType}`[] | `${EChooseImageSourceType}`;
     /**
      * 选图过程中拍摄的照片是否落相册（默认不落相册）
-     * @native 10.2.10
      */
     storeToAlbum?: boolean;
     /**
      * 接口调用成功的回调函数
      */
     success?(data: {
+      /**
+       * 图片的 [本地临时文件](https://opendocs.alipay.com/mini/03dt4s#本地临时文件) 路径列表
+       */
       apFilePaths: string[];
       /**
        * 图片的 [本地临时文件](https://opendocs.alipay.com/mini/03dt4s#本地临时文件) 路径列表
@@ -878,7 +1026,6 @@ declare namespace my {
       tempFilePaths: string[];
       /**
        * 图片的 [本地临时文件](https://opendocs.alipay.com/mini/03dt4s#本地临时文件) 列表
-       * @sdk2 2.3.1
        */
       tempFiles: IMyChooseImageTempFiles;
     }): void;
@@ -906,6 +1053,9 @@ declare namespace my {
     complete?(
       arg:
         | {
+            /**
+             * 图片的 [本地临时文件](https://opendocs.alipay.com/mini/03dt4s#本地临时文件) 路径列表
+             */
             apFilePaths: string[];
             /**
              * 图片的 [本地临时文件](https://opendocs.alipay.com/mini/03dt4s#本地临时文件) 路径列表
@@ -913,7 +1063,6 @@ declare namespace my {
             tempFilePaths: string[];
             /**
              * 图片的 [本地临时文件](https://opendocs.alipay.com/mini/03dt4s#本地临时文件) 列表
-             * @sdk2 2.3.1
              */
             tempFiles: IMyChooseImageTempFiles;
           }
@@ -933,6 +1082,9 @@ declare namespace my {
           )
     ): void;
   }): Promise<{
+    /**
+     * 图片的 [本地临时文件](https://opendocs.alipay.com/mini/03dt4s#本地临时文件) 路径列表
+     */
     apFilePaths: string[];
     /**
      * 图片的 [本地临时文件](https://opendocs.alipay.com/mini/03dt4s#本地临时文件) 路径列表
@@ -940,48 +1092,8 @@ declare namespace my {
     tempFilePaths: string[];
     /**
      * 图片的 [本地临时文件](https://opendocs.alipay.com/mini/03dt4s#本地临时文件) 列表
-     * @sdk2 2.3.1
      */
     tempFiles: IMyChooseImageTempFiles;
-  }>;
-  /**
-   * 选择发票抬头
-   */
-  export function chooseInvoiceTitle(r?: {
-    /**
-     * 接口调用成功的回调函数
-     */
-    success?(data: {
-      /**
-       * 用户选择的抬头动态码，目前有效期限制1小时，需尽快使用
-       */
-      dynamicCode: string;
-    }): void;
-    /**
-     * 接口调用失败的回调函数
-     */
-    fail?(err: { error?: number; errorMessage?: string }): void;
-    /**
-     * 接口调用结束的回调函数（调用成功、失败都会执行）
-     */
-    complete?(
-      arg:
-        | {
-            /**
-             * 用户选择的抬头动态码，目前有效期限制1小时，需尽快使用
-             */
-            dynamicCode: string;
-          }
-        | {
-            error?: number;
-            errorMessage?: string;
-          }
-    ): void;
-  }): Promise<{
-    /**
-     * 用户选择的抬头动态码，目前有效期限制1小时，需尽快使用
-     */
-    dynamicCode: string;
   }>;
   /**
    * 选择地理位置
@@ -1164,9 +1276,7 @@ declare namespace my {
      * 视频选择的来源。
      * @default ['album','camera']
      */
-    sourceType?:
-      | Array<`${EChooseVideoSourceType}`>
-      | `${EChooseVideoSourceType}`;
+    sourceType?: `${EChooseVideoSourceType}`[] | `${EChooseVideoSourceType}`;
     /**
      * 是否压缩所选择的视频文件。对iOS总是有压缩的，只是压缩级别不同。
      * @default true
@@ -1181,14 +1291,13 @@ declare namespace my {
      * 默认拉起的是前置或者后置摄像头。部分 Android 手机下由于系统 ROM 不支持无法生效。
      * @default back
      */
-    camera?: Array<`${EChooseVideoCamera}`> | `${EChooseVideoCamera}`;
+    camera?: `${EChooseVideoCamera}`[] | `${EChooseVideoCamera}`;
     /**
      * 接口调用成功的回调函数
      */
     success?(data: {
       /**
        * 选定视频的临时文件路径。
-       * @sdk2 2.4.4
        */
       filePath: string;
       /**
@@ -1209,7 +1318,6 @@ declare namespace my {
       width: number;
       /**
        * 选定视频的临时文件路径。
-       * @sdk2 2.4.4
        */
       tempFilePath: string;
     }): void;
@@ -1225,7 +1333,6 @@ declare namespace my {
         | {
             /**
              * 选定视频的临时文件路径。
-             * @sdk2 2.4.4
              */
             filePath: string;
             /**
@@ -1246,7 +1353,6 @@ declare namespace my {
             width: number;
             /**
              * 选定视频的临时文件路径。
-             * @sdk2 2.4.4
              */
             tempFilePath: string;
           }
@@ -1258,7 +1364,6 @@ declare namespace my {
   }): Promise<{
     /**
      * 选定视频的临时文件路径。
-     * @sdk2 2.4.4
      */
     filePath: string;
     /**
@@ -1279,7 +1384,6 @@ declare namespace my {
     width: number;
     /**
      * 选定视频的临时文件路径。
-     * @sdk2 2.4.4
      */
     tempFilePath: string;
   }>;
@@ -1294,7 +1398,12 @@ declare namespace my {
     /**
      * 接口调用成功的回调函数
      */
-    success?(data: { success: boolean }): void;
+    success?(data: {
+      /**
+       * 是否成功
+       */
+      success: boolean;
+    }): void;
     /**
      * 接口调用失败的回调函数
      */
@@ -1305,6 +1414,9 @@ declare namespace my {
     complete?(
       arg:
         | {
+            /**
+             * 是否成功
+             */
             success: boolean;
           }
         | {
@@ -1313,6 +1425,9 @@ declare namespace my {
           }
     ): void;
   }): Promise<{
+    /**
+     * 是否成功
+     */
     success: boolean;
   }>;
   /**
@@ -1320,6 +1435,9 @@ declare namespace my {
    * @see https://opendocs.alipay.com/mini/api/ulv85u
    */
   export function clearStorageSync(): {
+    /**
+     * 是否成功
+     */
     success: boolean;
   };
   /**
@@ -1341,26 +1459,29 @@ declare namespace my {
     complete?(arg: { error?: number; errorMessage?: string }): void;
   }): Promise<void>;
   /**
-   * 关闭 WebSocket 连接
    * @deprecated 推荐使用 [WebSocketTask]() 进行多链接管理
+   * 关闭 WebSocket 连接
    * @see https://opendocs.alipay.com/mini/api/network
    */
   export function closeSocket(r?: {
     /**
      * 关闭连接的状态号
-     * @sdk2 2.3.1
      * @default 1000
      */
     code?: number;
     /**
      * 连接被关闭的原因
-     * @sdk2 2.3.1
      */
     reason?: string;
     /**
      * 接口调用成功的回调函数
      */
-    success?(data: { message: string }): void;
+    success?(data: {
+      /**
+       * 消息内容
+       */
+      message: string;
+    }): void;
     /**
      * 接口调用失败的回调函数
      */
@@ -1371,6 +1492,9 @@ declare namespace my {
     complete?(
       arg:
         | {
+            /**
+             * 消息内容
+             */
             message: string;
           }
         | {
@@ -1379,6 +1503,9 @@ declare namespace my {
           }
     ): void;
   }): Promise<{
+    /**
+     * 消息内容
+     */
     message: string;
   }>;
   /**
@@ -1472,12 +1599,10 @@ declare namespace my {
     cancelButtonText?: string;
     /**
      * "确认" 按钮颜色，HEX 格式
-     * @sdk2 2.3.1
      */
     confirmColor?: string;
     /**
      * "取消" 按钮颜色，HEX 格式
-     * @sdk2 2.3.1
      */
     cancelColor?: string;
     /**
@@ -1584,7 +1709,7 @@ declare namespace my {
    */
   export function connectSocket(param: {
     /**
-     * @sdk2 2.3.1
+     * 使用 SocketTask 模式，允许创建多条 socket 连接
      */
     multiple?: boolean;
     /**
@@ -1602,7 +1727,6 @@ declare namespace my {
     header?: Record<string, string>;
     /**
      * 协议
-     * @sdk2 2.3.1
      */
     protocols?: string[];
   }): void;
@@ -1611,15 +1735,44 @@ declare namespace my {
    * @see https://opendocs.alipay.com/mini/api/connectwifi
    */
   export function connectWifi(r?: {
+    /**
+     * Wi-Fi 设备 SSID
+     */
     SSID?: string;
+    /**
+     * Wi-Fi 设备 BSSID
+     */
     BSSID?: string;
+    /**
+     * 手动连接
+     */
     maunal?: boolean;
+    /**
+     * Wi-Fi 是 WEP Wi-Fi 还是 WPA or WPA2 personal Wi-Fi
+     * @default false
+     */
     isWEP?: boolean;
+    /**
+     * Wi-Fi 设备密码
+     */
     password?: string;
     /**
      * 接口调用成功的回调函数
      */
-    success?(data: { success: true }): void;
+    success?(data: {
+      /**
+       * 是否成功
+       */
+      success: true;
+      /**
+       * 错误码
+       */
+      error: string;
+      /**
+       * 错误信息
+       */
+      errorMessage: string;
+    }): void;
     /**
      * 接口调用失败的回调函数
      */
@@ -1630,7 +1783,18 @@ declare namespace my {
     complete?(
       arg:
         | {
+            /**
+             * 是否成功
+             */
             success: true;
+            /**
+             * 错误码
+             */
+            error: string;
+            /**
+             * 错误信息
+             */
+            errorMessage: string;
           }
         | {
             error?: number;
@@ -1638,38 +1802,34 @@ declare namespace my {
           }
     ): void;
   }): Promise<{
+    /**
+     * 是否成功
+     */
     success: true;
+    /**
+     * 错误码
+     */
+    error: string;
+    /**
+     * 错误信息
+     */
+    errorMessage: string;
   }>;
   /**
    * 创建动画实例
    * @see https://opendocs.alipay.com/mini/api/ui-animation
    */
-  export function createAnimation(param?: {
-    /**
-     * 动画持续时间，单位 ms
-     * @default 400
-     */
-    duration?: number;
-    /**
-     * 动画的效果
-     * @default "linear"
-     */
-    timeFunction?: string;
-    /**
-     * 动画延迟时间，单位 ms
-     */
-    delay?: number;
-    /**
-     * 动画变形的原点
-     * @default "50% 50% 0"
-     */
-    transformOrigin?: string;
-  }): Animation;
+  export function createAnimation(param: IMyCreateAnimationParam): Animation;
   /**
-   * 创建并返回 <canvas> 组件上下文
+   * @deprecated 请使用 [Canvas](miniapi:Canvas) 标准接口
+   * 创建并返回 [<canvas>](minielement:canvas) 组件上下文
    * @see https://opendocs.alipay.com/mini/api/ui-canvas
    */
   export function createCanvasContext(canvasId: string): CanvasContext;
+  /**
+   * 创建并返回云托管上下文
+   */
+  export function createCloudContext(env: string, appId: string): CloudContext;
   /**
    * 创建并返回内部音频上下文
    * @see https://opendocs.alipay.com/mini/00bg4q
@@ -1680,20 +1840,22 @@ declare namespace my {
    * @see https://opendocs.alipay.com/mini/api/intersectionobserver
    */
   export function createIntersectionObserver(
-    option?: IMyCreateIntersectionObserverOption
+    options?: ITypeIntersectionObserverOption
   ): IntersectionObserver;
   /**
-   * 创建并返回 <lottie> 组件上下文
+   * 创建并返回 [<lottie>](minielement:lottie) 组件上下文
    * @see https://opendocs.alipay.com/mini/api/createlottiecontext
    */
   export function createLottieContext(lottieId: string): LottieContext;
   /**
-   * 创建并返回 <map> 组件上下文
+   * 创建并返回 [<map>](minielement:map) 组件上下文
+   * @description 创建并返回 [map](minielement) 组件上下文 [MapContext]() 对象，也可以使用 [my.createSelectorQuery]() 获取
    * @see https://opendocs.alipay.com/mini/api/ui-map
    */
   export function createMapContext(id: string): MapContext;
   /**
-   * 创建离屏 canvas 对象
+   * 创建离屏 Canvas 实例
+   * @see https://opendocs.alipay.com/mini/api/021zn0
    */
   export function createOffscreenCanvas(
     width?: number,
@@ -1701,19 +1863,19 @@ declare namespace my {
   ): OffScreenCanvas;
   /**
    * 创建视图信息查询实例
-   * @description 在 `自定义组件` 或包含 `自定义组件` 页面中，希望仅查询自身模板（不跨组件）的视图信息，应使用 `this.createSelectorQuery()` 来代替
+   * @description 在 `自定义组件` 或包含 `自定义组件` 页面中，希望仅查询自身模板（不跨组件）的视图信息，应使用 [this.createSelectorQuery()](miniapi:Component.createSelectorQuery) 来代替
    * @see https://opendocs.alipay.com/mini/api/selector-query
    */
   export function createSelectorQuery(
     option?: IMyCreateSelectorQueryOption
   ): SelectorQuery;
   /**
-   * 创建并返回 <video> 组件上下文
+   * 创建并返回 [<video>](minielement:video) 组件上下文
    * @see https://opendocs.alipay.com/mini/api/media/video/my.createvideocontext
    */
   export function createVideoContext(id: string): VideoContext;
   /**
-   * 创建并返回 <web-view> 组件上下文
+   * 创建并返回 [<web-view>](minielement:web-view) 组件上下文
    * @see https://opendocs.alipay.com/mini/api/webview-context
    */
   export function createWebViewContext(id: string): WebViewContext;
@@ -1733,6 +1895,7 @@ declare namespace my {
     /**
      * 返回的日期格式。
      * @default "yyyy-MM-dd"
+     * @example "yyyy-MM-dd"
      */
     format?:
       | 'yyyy-MM-dd'
@@ -1761,7 +1924,12 @@ declare namespace my {
     /**
      * 接口调用成功的回调函数
      */
-    success?(data: { date: string }): void;
+    success?(data: {
+      /**
+       * 选中的日期
+       */
+      date: string;
+    }): void;
     /**
      * 接口调用失败的回调函数
      */
@@ -1772,6 +1940,9 @@ declare namespace my {
     complete?(
       arg:
         | {
+            /**
+             * 选中的日期
+             */
             date: string;
           }
         | {
@@ -1780,6 +1951,9 @@ declare namespace my {
           }
     ): void;
   }): Promise<{
+    /**
+     * 选中的日期
+     */
     date: string;
   }>;
   /**
@@ -1790,7 +1964,12 @@ declare namespace my {
     /**
      * 接口调用成功的回调函数
      */
-    success?(data: { success: boolean }): void;
+    success?(data: {
+      /**
+       * 是否成功
+       */
+      success: boolean;
+    }): void;
     /**
      * 接口调用失败的回调函数
      */
@@ -1819,6 +1998,9 @@ declare namespace my {
     complete?(
       arg:
         | {
+            /**
+             * 是否成功
+             */
             success: boolean;
           }
         | (
@@ -1841,6 +2023,9 @@ declare namespace my {
           )
     ): void;
   }): Promise<{
+    /**
+     * 是否成功
+     */
     success: boolean;
   }>;
   /**
@@ -1923,7 +2108,6 @@ declare namespace my {
       apFilePath: string;
       /**
        * 临时文件路径(本地临时文件)
-       * @sdk2 2.7.23
        */
       tempFilePath: string;
     }): void;
@@ -1961,7 +2145,6 @@ declare namespace my {
             apFilePath: string;
             /**
              * 临时文件路径(本地临时文件)
-             * @sdk2 2.7.23
              */
             tempFilePath: string;
           }
@@ -1991,7 +2174,6 @@ declare namespace my {
     apFilePath: string;
     /**
      * 临时文件路径(本地临时文件)
-     * @sdk2 2.7.23
      */
     tempFilePath: string;
   }> &
@@ -2012,7 +2194,12 @@ declare namespace my {
     /**
      * 接口调用成功的回调函数
      */
-    success?(data: { success: boolean }): void;
+    success?(data: {
+      /**
+       * 是否成功
+       */
+      success: boolean;
+    }): void;
     /**
      * 接口调用失败的回调函数
      */
@@ -2041,6 +2228,9 @@ declare namespace my {
     complete?(
       arg:
         | {
+            /**
+             * 是否成功
+             */
             success: boolean;
           }
         | (
@@ -2063,6 +2253,9 @@ declare namespace my {
           )
     ): void;
   }): Promise<{
+    /**
+     * 是否成功
+     */
     success: boolean;
   }>;
   /**
@@ -2105,7 +2298,7 @@ declare namespace my {
     ): void;
   }): Promise<void>;
   /**
-   * 生成二维码
+   * 离线生成二维码
    * @description 不需要网络直接由设备端生成
    * @see https://opendocs.alipay.com/mini/api/media/image/my.generateimagefromcode
    */
@@ -2144,6 +2337,11 @@ declare namespace my {
       | 'down-mirrored'
       | 'left-mirrored'
       | 'right-mirrored';
+    /**
+     * 二维码颜色
+     * @example "#ff0000"
+     */
+    codeColor: string;
     /**
      * 接口调用成功的回调函数
      */
@@ -2221,40 +2419,7 @@ declare namespace my {
              * 表示用户选择了一个地址
              */
             resultStatus: '9000';
-            result: {
-              /**
-               * 详细地址
-               */
-              address: string;
-              /**
-               * 国家名称
-               */
-              country: string;
-              /**
-               * 省
-               */
-              prov: string;
-              /**
-               * 市
-               */
-              city: string;
-              /**
-               * 区
-               */
-              area: string;
-              /**
-               * 街道
-               */
-              street: string;
-              /**
-               * 姓名
-               */
-              fullname: string;
-              /**
-               * 手机号
-               */
-              mobilePhone: string;
-            };
+            result: IMyApGetAddressResult;
           }
     ): void;
     /**
@@ -2289,40 +2454,7 @@ declare namespace my {
                  * 表示用户选择了一个地址
                  */
                 resultStatus: '9000';
-                result: {
-                  /**
-                   * 详细地址
-                   */
-                  address: string;
-                  /**
-                   * 国家名称
-                   */
-                  country: string;
-                  /**
-                   * 省
-                   */
-                  prov: string;
-                  /**
-                   * 市
-                   */
-                  city: string;
-                  /**
-                   * 区
-                   */
-                  area: string;
-                  /**
-                   * 街道
-                   */
-                  street: string;
-                  /**
-                   * 姓名
-                   */
-                  fullname: string;
-                  /**
-                   * 手机号
-                   */
-                  mobilePhone: string;
-                };
+                result: IMyApGetAddressResult;
               }
           )
         | (
@@ -2349,40 +2481,7 @@ declare namespace my {
          * 表示用户选择了一个地址
          */
         resultStatus: '9000';
-        result: {
-          /**
-           * 详细地址
-           */
-          address: string;
-          /**
-           * 国家名称
-           */
-          country: string;
-          /**
-           * 省
-           */
-          prov: string;
-          /**
-           * 市
-           */
-          city: string;
-          /**
-           * 区
-           */
-          area: string;
-          /**
-           * 街道
-           */
-          street: string;
-          /**
-           * 姓名
-           */
-          fullname: string;
-          /**
-           * 手机号
-           */
-          mobilePhone: string;
-        };
+        result: IMyApGetAddressResult;
       }
   >;
   /**
@@ -2390,85 +2489,63 @@ declare namespace my {
    */
   export function getAppAuthorizeSetting(): {
     /**
-     * 是否开启悬浮窗权限 //客户端 [10.2.53, 10.2.80) 版本返回 boolean, 10.2.80 及以上版本返回 string
-     * @native 10.2.53
-     * @ios false
-     */
-    overlayAuthorized: boolean | string;
-    /**
      * 允许使用相册的开关
-     * @android false
-     * @native 10.2.80
      */
     albumAuthorized: string;
     /**
      * 允许使用蓝牙的开关
-     * @android false
-     * @native 10.2.80
      */
     bluetoothAuthorized: string;
     /**
      * 允许使用摄像头的开关
-     * @native 10.2.80
      */
     cameraAuthorized: string;
     /**
      * 允许使用定位的开关
-     * @native 10.2.80
      */
     locationAuthorized: string;
     /**
      * 允许使用麦克风的开关
-     * @native 10.2.80
      */
     microphoneAuthorized: string;
     /**
      * 允许通知的开关
-     * @native 10.2.80
      */
     notificationAuthorized: string;
     /**
      * 允许通知带有提醒的开关
-     * @android false
-     * @native 10.2.80
      */
     notificationAlertAuthorized: string;
     /**
      * 允许通知带有标记的开关
-     * @android false
-     * @native 10.2.80
      */
     notificationBadgeAuthorized: string;
     /**
      * 允许通知带有声音的开关
-     * @android false
-     * @native 10.2.80
      */
     notificationSoundAuthorized: string;
     /**
+     * 悬浮窗权限
+     * @description 客户端 [10.2.53, 10.2.80] 版本返回 boolean, 10.2.80 及以上版本返回 string
+     */
+    overlayAuthorized: boolean | string;
+    /**
      * 定位准确度。true 表示模糊定位，false 表示精确定位
-     * @android false
-     * @native 10.2.80
      */
     locationReducedAccuracy?: boolean;
     /**
      * 允许读写日历的开关
-     * @native 10.2.80
      */
     phoneCalendarAuthorized?: string;
   };
   /**
-   * 同步获取 APP 基础信息
+   * 同步获取小程序基础信息接口
    */
   export function getAppBaseInfo(): {
     /**
      * 基础库版本。
      */
     SDKVersion: string;
-    /**
-     * 当前小程序运行的宿主环境。
-     */
-    host?: IMyGetAppBaseInfoHost;
     /**
      * 客户端设置的语言。分别有以下值：zh-Hans（简体中文）、en（English）、zh-Hant（繁体中文（台湾））、zh-HK（繁体中文（香港））。
      */
@@ -2488,7 +2565,6 @@ declare namespace my {
      */
     appId: string;
   };
-  export function getARSessionManager(): ARSessionManager;
   /**
    * 获取授权码 (AuthCode)
    * @see https://opendocs.alipay.com/mini/api/openapi-authorize
@@ -2567,6 +2643,9 @@ declare namespace my {
      * 接口调用成功的回调函数
      */
     success?(data: {
+      /**
+       * 音频来源
+       */
       audioSources: (
         | 'auto'
         | 'buildInMic'
@@ -2585,6 +2664,9 @@ declare namespace my {
     complete?(
       arg:
         | {
+            /**
+             * 音频来源
+             */
             audioSources: (
               | 'auto'
               | 'buildInMic'
@@ -2599,6 +2681,9 @@ declare namespace my {
           }
     ): void;
   }): Promise<{
+    /**
+     * 音频来源
+     */
     audioSources: (
       | 'auto'
       | 'buildInMic'
@@ -2618,6 +2703,7 @@ declare namespace my {
    */
   export function getBackgroundFetchData(r: {
     /**
+     * 预加载类型
      * @description 请求类型
      * @default "pre"
      */
@@ -2627,15 +2713,18 @@ declare namespace my {
      */
     success?(data: {
       /**
+       * 预加载类型
        * @description 请求类型
        * @default "pre"
        */
       fetchType: string;
       /**
+       * 时间戳
        * @description 客户端拿到缓存数据的时间戳
        */
       timestamp: number;
       /**
+       * 预加载的数据
        * @description 当前预加载的response数据，
        */
       fetchedData: Record<string, unknown>;
@@ -2651,15 +2740,18 @@ declare namespace my {
       arg:
         | {
             /**
+             * 预加载类型
              * @description 请求类型
              * @default "pre"
              */
             fetchType: string;
             /**
+             * 时间戳
              * @description 客户端拿到缓存数据的时间戳
              */
             timestamp: number;
             /**
+             * 预加载的数据
              * @description 当前预加载的response数据，
              */
             fetchedData: Record<string, unknown>;
@@ -2671,15 +2763,18 @@ declare namespace my {
     ): void;
   }): Promise<{
     /**
+     * 预加载类型
      * @description 请求类型
      * @default "pre"
      */
     fetchType: string;
     /**
+     * 时间戳
      * @description 客户端拿到缓存数据的时间戳
      */
     timestamp: number;
     /**
+     * 预加载的数据
      * @description 当前预加载的response数据，
      */
     fetchedData: Record<string, unknown>;
@@ -2759,6 +2854,9 @@ declare namespace my {
      * 接口调用成功的回调函数
      */
     success?(data: {
+      /**
+       * 搜索到的 iBeacon 设备
+       */
       beacons: IGetBeaconsBeacons[];
       /**
        * errorCode=0，接口调用成功。
@@ -2779,6 +2877,9 @@ declare namespace my {
     complete?(
       arg:
         | {
+            /**
+             * 搜索到的 iBeacon 设备
+             */
             beacons: IGetBeaconsBeacons[];
             /**
              * errorCode=0，接口调用成功。
@@ -2795,6 +2896,9 @@ declare namespace my {
           }
     ): void;
   }): Promise<{
+    /**
+     * 搜索到的 iBeacon 设备
+     */
     beacons: IGetBeaconsBeacons[];
     /**
      * errorCode=0，接口调用成功。
@@ -3022,7 +3126,12 @@ declare namespace my {
     /**
      * 接口调用成功的回调函数
      */
-    success?(data: { mtu: number }): void;
+    success?(data: {
+      /**
+       * 最大传输单元
+       */
+      mtu: number;
+    }): void;
     /**
      * 接口调用失败的回调函数
      */
@@ -3033,6 +3142,9 @@ declare namespace my {
     complete?(
       arg:
         | {
+            /**
+             * 最大传输单元
+             */
             mtu: number;
           }
         | {
@@ -3041,6 +3153,9 @@ declare namespace my {
           }
     ): void;
   }): Promise<{
+    /**
+     * 最大传输单元
+     */
     mtu: number;
   }>;
   /**
@@ -3108,7 +3223,7 @@ declare namespace my {
       /**
        * 已发现的设备列表。
        */
-      devices: TypeBluetoothDevice[];
+      devices: ITypeBluetoothDevice[];
     }): void;
     /**
      * 接口调用失败的回调函数
@@ -3123,7 +3238,7 @@ declare namespace my {
             /**
              * 已发现的设备列表。
              */
-            devices: TypeBluetoothDevice[];
+            devices: ITypeBluetoothDevice[];
           }
         | {
             error?: number;
@@ -3134,7 +3249,7 @@ declare namespace my {
     /**
      * 已发现的设备列表。
      */
-    devices: TypeBluetoothDevice[];
+    devices: ITypeBluetoothDevice[];
   }>;
   /**
    * 获取已经配对的蓝牙设备
@@ -3144,7 +3259,12 @@ declare namespace my {
     /**
      * 接口调用成功的回调函数
      */
-    success?(data: { devices: TypeBluetoothDevice[] }): void;
+    success?(data: {
+      /**
+       * 设备列表
+       */
+      devices: ITypeBluetoothDevice[];
+    }): void;
     /**
      * 接口调用失败的回调函数
      */
@@ -3155,7 +3275,10 @@ declare namespace my {
     complete?(
       arg:
         | {
-            devices: TypeBluetoothDevice[];
+            /**
+             * 设备列表
+             */
+            devices: ITypeBluetoothDevice[];
           }
         | {
             error?: number;
@@ -3163,11 +3286,14 @@ declare namespace my {
           }
     ): void;
   }): Promise<{
-    devices: TypeBluetoothDevice[];
+    /**
+     * 设备列表
+     */
+    devices: ITypeBluetoothDevice[];
   }>;
   /**
-   * 获取剪贴板数据
    * @deprecated 已对外下线，读取权限由客户端白名单控制
+   * 获取剪贴板数据
    * @see https://opendocs.alipay.com/mini/api/clipboard
    */
   export function getClipboard(r?: {
@@ -3221,7 +3347,7 @@ declare namespace my {
       /**
        * 已连接的设备列表。
        */
-      devices: TypeBluetoothDevice[];
+      devices: ITypeBluetoothDevice[];
     }): void;
     /**
      * 接口调用失败的回调函数
@@ -3236,7 +3362,7 @@ declare namespace my {
             /**
              * 已连接的设备列表。
              */
-            devices: TypeBluetoothDevice[];
+            devices: ITypeBluetoothDevice[];
           }
         | {
             error?: number;
@@ -3247,7 +3373,7 @@ declare namespace my {
     /**
      * 已连接的设备列表。
      */
-    devices: TypeBluetoothDevice[];
+    devices: ITypeBluetoothDevice[];
   }>;
   /**
    * 获取已连接的 Wi-Fi 信息
@@ -3257,7 +3383,16 @@ declare namespace my {
     /**
      * 接口调用成功的回调函数
      */
-    success?(data: { success: true; wifi: IGetConnectedWifiWifi }): void;
+    success?(data: {
+      /**
+       * 是否成功
+       */
+      success: true;
+      /**
+       * wifi 信息
+       */
+      wifi: IGetConnectedWifiWifi;
+    }): void;
     /**
      * 接口调用失败的回调函数
      */
@@ -3268,7 +3403,13 @@ declare namespace my {
     complete?(
       arg:
         | {
+            /**
+             * 是否成功
+             */
             success: true;
+            /**
+             * wifi 信息
+             */
             wifi: IGetConnectedWifiWifi;
           }
         | {
@@ -3277,7 +3418,13 @@ declare namespace my {
           }
     ): void;
   }): Promise<{
+    /**
+     * 是否成功
+     */
     success: true;
+    /**
+     * wifi 信息
+     */
     wifi: IGetConnectedWifiWifi;
   }>;
   /**
@@ -3305,7 +3452,6 @@ declare namespace my {
     scene?: number;
     /**
      * API 类别
-     * @sdk 2.7.22
      */
     apiCategory?: 'default' | 'embedded';
   };
@@ -3319,10 +3465,13 @@ declare namespace my {
      */
     success?(data: {
       /**
-       * 配置在模版小程序 `ext.json` 中的 `ext` 配置字段的值。
+       * 配置在模版小程序 `ext.json` 中的 `ext` 配置字段的值
        * @description 详见  [模板小程序参数配置](https://opendocs.alipay.com/mini/isv/creatminiapp#%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E)
        */
       data: Record<string, unknown>;
+      /**
+       * 配置在模版小程序 ext.json 中的 ext 配置字段的值
+       */
       extConfig?: Record<string, unknown>;
     }): void;
     /**
@@ -3336,10 +3485,13 @@ declare namespace my {
       arg:
         | {
             /**
-             * 配置在模版小程序 `ext.json` 中的 `ext` 配置字段的值。
+             * 配置在模版小程序 `ext.json` 中的 `ext` 配置字段的值
              * @description 详见  [模板小程序参数配置](https://opendocs.alipay.com/mini/isv/creatminiapp#%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E)
              */
             data: Record<string, unknown>;
+            /**
+             * 配置在模版小程序 ext.json 中的 ext 配置字段的值
+             */
             extConfig?: Record<string, unknown>;
           }
         | {
@@ -3349,10 +3501,13 @@ declare namespace my {
     ): void;
   }): Promise<{
     /**
-     * 配置在模版小程序 `ext.json` 中的 `ext` 配置字段的值。
+     * 配置在模版小程序 `ext.json` 中的 `ext` 配置字段的值
      * @description 详见  [模板小程序参数配置](https://opendocs.alipay.com/mini/isv/creatminiapp#%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E)
      */
     data: Record<string, unknown>;
+    /**
+     * 配置在模版小程序 ext.json 中的 ext 配置字段的值
+     */
     extConfig?: Record<string, unknown>;
   }>;
   /**
@@ -3365,70 +3520,35 @@ declare namespace my {
    * @see https://opendocs.alipay.com/mini/api/file
    */
   export function getFileInfo(r: {
+    /**
+     * 文件路径
+     */
     filePath?: string;
+    /**
+     * 文件路径
+     */
     apFilePath?: string;
     /**
+     * 摘要算法
      * @default 'md5'
      */
     digestAlgorithm: 'md5' | 'sha1';
+    /**
+     * 跨小程序和 h5 的统一存储 biz
+     */
     sharedBiz?: string;
-    /**
-     * 接口调用成功的回调函数
-     */
-    success?(data: { size: number; digest: string }): void;
-    /**
-     * 接口调用失败的回调函数
-     */
-    fail?(err: { error?: number; errorMessage?: string }): void;
-    /**
-     * 接口调用结束的回调函数（调用成功、失败都会执行）
-     */
-    complete?(
-      arg:
-        | {
-            size: number;
-            digest: string;
-          }
-        | {
-            error?: number;
-            errorMessage?: string;
-          }
-    ): void;
-  }): Promise<{
-    size: number;
-    digest: string;
-  }>;
-  /**
-   * 获取文件管理器实例
-   * @see https://opendocs.alipay.com/mini/api/0226oc
-   */
-  export function getFileSystemManager(): FileSystemManager;
-  /**
-   * 获取地理编码管理器实例
-   */
-  export function getGeocoder(): Geocoder;
-  /**
-   * 获取会员身份信息
-   */
-  export function getIDNumber(r?: {
-    /**
-     * @sdk2 2.4.4
-     */
-    protocols?: IMyGetIDNumberProtocols;
     /**
      * 接口调用成功的回调函数
      */
     success?(data: {
       /**
-       * 加密的数据，前端需要将该报文发送到开发者服务端做验签和解密处理（详细的服务端处理流程参考[敏感信息加解密方法](https://docs.alipay.com/mini/introduce/aes)）。
-       * 解密后的字段如下：
-       * - `userName`，类型 `string`，用户姓名，注意：只有is_certified为T的时候才有意义，否则不保证准确性。
-       * - `certNo`，类型 `string`，证件号码，注意：只有is_certified为T的时候才有意义，否则不保证准确性。
-       * - `certType`，类型 `string`，证件类型，注意：只有is_certified为T的时候才有意义，否则不保证准确性.。
-       * 取值枚举： 0:身份证 1:护照 2:军官证 3:士兵证 4:回乡证 5:临时身份证 6:户口簿 7:警官证 8:台胞证 9:营业执照 10:其它证件 11:港澳居民来往内地通行证 12:台湾居民来往大陆通行证
-       * - `isCertified`，类型 `string`，是否通过实名认证，T:是；F:否。
+       * 文件大小
        */
-      response: string;
+      size: number;
+      /**
+       * 摘要结果
+       */
+      digest: string;
     }): void;
     /**
      * 接口调用失败的回调函数
@@ -3441,15 +3561,13 @@ declare namespace my {
       arg:
         | {
             /**
-             * 加密的数据，前端需要将该报文发送到开发者服务端做验签和解密处理（详细的服务端处理流程参考[敏感信息加解密方法](https://docs.alipay.com/mini/introduce/aes)）。
-             * 解密后的字段如下：
-             * - `userName`，类型 `string`，用户姓名，注意：只有is_certified为T的时候才有意义，否则不保证准确性。
-             * - `certNo`，类型 `string`，证件号码，注意：只有is_certified为T的时候才有意义，否则不保证准确性。
-             * - `certType`，类型 `string`，证件类型，注意：只有is_certified为T的时候才有意义，否则不保证准确性.。
-             * 取值枚举： 0:身份证 1:护照 2:军官证 3:士兵证 4:回乡证 5:临时身份证 6:户口簿 7:警官证 8:台胞证 9:营业执照 10:其它证件 11:港澳居民来往内地通行证 12:台湾居民来往大陆通行证
-             * - `isCertified`，类型 `string`，是否通过实名认证，T:是；F:否。
+             * 文件大小
              */
-            response: string;
+            size: number;
+            /**
+             * 摘要结果
+             */
+            digest: string;
           }
         | {
             error?: number;
@@ -3458,16 +3576,23 @@ declare namespace my {
     ): void;
   }): Promise<{
     /**
-     * 加密的数据，前端需要将该报文发送到开发者服务端做验签和解密处理（详细的服务端处理流程参考[敏感信息加解密方法](https://docs.alipay.com/mini/introduce/aes)）。
-     * 解密后的字段如下：
-     * - `userName`，类型 `string`，用户姓名，注意：只有is_certified为T的时候才有意义，否则不保证准确性。
-     * - `certNo`，类型 `string`，证件号码，注意：只有is_certified为T的时候才有意义，否则不保证准确性。
-     * - `certType`，类型 `string`，证件类型，注意：只有is_certified为T的时候才有意义，否则不保证准确性.。
-     * 取值枚举： 0:身份证 1:护照 2:军官证 3:士兵证 4:回乡证 5:临时身份证 6:户口簿 7:警官证 8:台胞证 9:营业执照 10:其它证件 11:港澳居民来往内地通行证 12:台湾居民来往大陆通行证
-     * - `isCertified`，类型 `string`，是否通过实名认证，T:是；F:否。
+     * 文件大小
      */
-    response: string;
+    size: number;
+    /**
+     * 摘要结果
+     */
+    digest: string;
   }>;
+  /**
+   * 获取文件管理器实例
+   * @see https://opendocs.alipay.com/mini/api/0226oc
+   */
+  export function getFileSystemManager(): FileSystemManager;
+  /**
+   * 获取地理编码管理器实例
+   */
+  export function getGeocoder(): Geocoder;
   /**
    * 获取图片信息
    * @see https://opendocs.alipay.com/mini/api/media/image/my.getimageinfo
@@ -3502,12 +3627,10 @@ declare namespace my {
       size?: number;
       /**
        * 返回图片的格式
-       * @sdk2 2.3.1
        */
       type: number;
       /**
        * 返回图片的方向
-       * @sdk2 2.3.1
        */
       orientation:
         | 'right'
@@ -3565,12 +3688,10 @@ declare namespace my {
             size?: number;
             /**
              * 返回图片的格式
-             * @sdk2 2.3.1
              */
             type: number;
             /**
              * 返回图片的方向
-             * @sdk2 2.3.1
              */
             orientation:
               | 'right'
@@ -3620,12 +3741,10 @@ declare namespace my {
     size?: number;
     /**
      * 返回图片的格式
-     * @sdk2 2.3.1
      */
     type: number;
     /**
      * 返回图片的方向
-     * @sdk2 2.3.1
      */
     orientation:
       | 'right'
@@ -3662,7 +3781,6 @@ declare namespace my {
     scene?: number;
     /**
      * API 类别
-     * @sdk 2.7.22
      */
     apiCategory?: 'default' | 'embedded';
   };
@@ -3682,14 +3800,11 @@ declare namespace my {
     cacheTimeout?: number;
     /**
      * 获取经纬度数据的类型。
-     * @sdk2 2.3.1
      * @default 0
      */
     type?: EMyGetLocationType;
     /**
      * 水平精度
-     * @native 10.0
-     * @android false
      */
     accuracy?: number;
     /**
@@ -4103,28 +4218,69 @@ declare namespace my {
     success: boolean;
     /**
      * 宽度，px
+     * @example 79
      */
     width: number;
     /**
      * 高度，px
+     * @example 30
      */
     height: number;
     /**
      * 顶部坐标
+     * @example 57
      */
     top: number;
     /**
      * 右边坐标
+     * @example 366
      */
     right: number;
     /**
      * 底部坐标
+     * @example 87
      */
     bottom: number;
     /**
      * 左边坐标
+     * @example 287
      */
     left: number;
+    /**
+     * 自定义按钮宽度
+     * @example 30
+     */
+    optionMenuWidth: number;
+    /**
+     * 自定义按钮高度
+     * @example 30
+     */
+    optionMenuHeight: number;
+    /**
+     * 自定义按钮上边界坐标
+     * @example 57
+     */
+    optionMenuTop: number;
+    /**
+     * 自定义按钮下边界坐标
+     * @example 87
+     */
+    optionMenuButtom: number;
+    /**
+     * 自定义按钮左边界坐标
+     * @example 249
+     */
+    optionMenuLeft: number;
+    /**
+     * 自定义按钮右边界坐标
+     * @example 279
+     */
+    optionMenuRight: number;
+    /**
+     * 收藏状态
+     * @example Favorite | UnFavorite
+     */
+    optionMenuStatus: unknown;
   };
   /**
    * 获取当前网络状态
@@ -4140,6 +4296,9 @@ declare namespace my {
        * 网络是否可用。
        */
       networkAvailable: boolean;
+      /**
+       * 网络类型
+       */
       networkType: `${EGetNetworkTypeNetworkInfo}`;
     }): void;
     /**
@@ -4156,6 +4315,9 @@ declare namespace my {
              * 网络是否可用。
              */
             networkAvailable: boolean;
+            /**
+             * 网络类型
+             */
             networkType: `${EGetNetworkTypeNetworkInfo}`;
           }
         | {
@@ -4168,12 +4330,11 @@ declare namespace my {
      * 网络是否可用。
      */
     networkAvailable: boolean;
+    /**
+     * 网络类型
+     */
     networkType: `${EGetNetworkTypeNetworkInfo}`;
   }>;
-  /**
-   * 获取 NFC 实例
-   */
-  export function getNFCAdapter(): NFCAdapter;
   /**
    * 获取支付宝会员的基础信息
    * @description
@@ -4183,7 +4344,7 @@ declare namespace my {
    */
   export function getOpenUserInfo(r?: {
     /**
-     * @sdk2 2.4.4
+     * 协议，支持插件自调用
      */
     protocols?: IMyGetOpenUserInfoProtocols;
     /**
@@ -4191,15 +4352,7 @@ declare namespace my {
      */
     success?(data: {
       /**
-       * 字符串（切记先 `JSON.parse` 一下）。
-       * 内部字段(两层 response)：
-       * - `response` 完整的对象，其值如下：
-       * - `response.avatar`，类型 `string`，头像图片地址
-       * - `response.nickName`，类型 `string`，昵称
-       * - `response.gender`，类型 `string`，性别，男对应“m”，女对应“f”
-       * - `response.countryCode`，类型 `string`，国家码
-       * - `response.province`，类型 `string`，省份
-       * - `response.city`，类型 `string`， 所在市区
+       * 响应嵌套对象字符串
        */
       response: string;
     }): void;
@@ -4214,15 +4367,7 @@ declare namespace my {
       arg:
         | {
             /**
-             * 字符串（切记先 `JSON.parse` 一下）。
-             * 内部字段(两层 response)：
-             * - `response` 完整的对象，其值如下：
-             * - `response.avatar`，类型 `string`，头像图片地址
-             * - `response.nickName`，类型 `string`，昵称
-             * - `response.gender`，类型 `string`，性别，男对应“m”，女对应“f”
-             * - `response.countryCode`，类型 `string`，国家码
-             * - `response.province`，类型 `string`，省份
-             * - `response.city`，类型 `string`， 所在市区
+             * 响应嵌套对象字符串
              */
             response: string;
           }
@@ -4233,24 +4378,18 @@ declare namespace my {
     ): void;
   }): Promise<{
     /**
-     * 字符串（切记先 `JSON.parse` 一下）。
-     * 内部字段(两层 response)：
-     * - `response` 完整的对象，其值如下：
-     * - `response.avatar`，类型 `string`，头像图片地址
-     * - `response.nickName`，类型 `string`，昵称
-     * - `response.gender`，类型 `string`，性别，男对应“m”，女对应“f”
-     * - `response.countryCode`，类型 `string`，国家码
-     * - `response.province`，类型 `string`，省份
-     * - `response.city`，类型 `string`， 所在市区
+     * 响应嵌套对象字符串
      */
     response: string;
   }>;
   /**
+   * @deprecated 请使用 [my.getParentAppIdSync]() 代替
    * 在插件中获取宿主小程序的 appId
    */
   export function getParentAppId(): string;
   /**
    * 在插件中获取宿主小程序的 appId
+   * @see https://opendocs.alipay.com/mini/plugin/xf7fya
    */
   export function getParentAppIdSync(): {
     /**
@@ -4267,7 +4406,7 @@ declare namespace my {
    */
   export function getPhoneNumber(r?: {
     /**
-     * @sdk2 2.4.4
+     * 协议，支持插件自调用
      */
     protocols?: IMyGetPhoneNumberProtocols;
     /**
@@ -4322,6 +4461,7 @@ declare namespace my {
   }>;
   /**
    * 在插件中获取插件自身的 Id
+   * @see https://opendocs.alipay.com/mini/02v9ao
    */
   export function getPluginIdSync(): {
     /**
@@ -4347,7 +4487,7 @@ declare namespace my {
      */
     countDate: string;
     /**
-     * @sdk2 2.4.4
+     * 协议，支持插件自调用
      */
     protocols?: IMyGetRunDataProtocols;
     /**
@@ -4479,12 +4619,31 @@ declare namespace my {
    * @see https://opendocs.alipay.com/mini/api/qrx6ze
    */
   export function getSavedFileInfo(r?: {
+    /**
+     * 文件路径
+     */
     filePath?: string;
+    /**
+     * 文件路径
+     */
     apFilePath?: string;
     /**
      * 接口调用成功的回调函数
      */
-    success?(data: { success: true; size: number; createTime: number }): void;
+    success?(data: {
+      /**
+       * 是否成功
+       */
+      success: true;
+      /**
+       * 文件大小
+       */
+      size: number;
+      /**
+       * 创建时间
+       */
+      createTime: number;
+    }): void;
     /**
      * 接口调用失败的回调函数
      */
@@ -4495,8 +4654,17 @@ declare namespace my {
     complete?(
       arg:
         | {
+            /**
+             * 是否成功
+             */
             success: true;
+            /**
+             * 文件大小
+             */
             size: number;
+            /**
+             * 创建时间
+             */
             createTime: number;
           }
         | {
@@ -4505,8 +4673,17 @@ declare namespace my {
           }
     ): void;
   }): Promise<{
+    /**
+     * 是否成功
+     */
     success: true;
+    /**
+     * 文件大小
+     */
     size: number;
+    /**
+     * 创建时间
+     */
     createTime: number;
   }>;
   /**
@@ -4518,7 +4695,13 @@ declare namespace my {
      * 接口调用成功的回调函数
      */
     success?(data: {
+      /**
+       * 是否成功
+       */
       success: true;
+      /**
+       * 文件列表
+       */
       fileList: IGetSavedFileListFileList[];
     }): void;
     /**
@@ -4531,7 +4714,13 @@ declare namespace my {
     complete?(
       arg:
         | {
+            /**
+             * 是否成功
+             */
             success: true;
+            /**
+             * 文件列表
+             */
             fileList: IGetSavedFileListFileList[];
           }
         | {
@@ -4540,7 +4729,13 @@ declare namespace my {
           }
     ): void;
   }): Promise<{
+    /**
+     * 是否成功
+     */
     success: true;
+    /**
+     * 文件列表
+     */
     fileList: IGetSavedFileListFileList[];
   }>;
   /**
@@ -4552,6 +4747,9 @@ declare namespace my {
      * 接口调用成功的回调函数
      */
     success?(data: {
+      /**
+       * 是否成功
+       */
       success: true;
       /**
        * 屏幕亮度，取值范围0-1
@@ -4568,6 +4766,9 @@ declare namespace my {
     complete?(
       arg:
         | {
+            /**
+             * 是否成功
+             */
             success: true;
             /**
              * 屏幕亮度，取值范围0-1
@@ -4580,58 +4781,15 @@ declare namespace my {
           }
     ): void;
   }): Promise<{
+    /**
+     * 是否成功
+     */
     success: true;
     /**
      * 屏幕亮度，取值范围0-1
      */
     brightness: number;
   }>;
-  export function getSelectedTextRange(r?: {
-    /**
-     * 接口调用成功的回调函数
-     */
-    success?(
-      data:
-        | {
-            cursor: number;
-          }
-        | {
-            start: number;
-            end: number;
-          }
-    ): void;
-    /**
-     * 接口调用失败的回调函数
-     */
-    fail?(err: { error?: number; errorMessage?: string }): void;
-    /**
-     * 接口调用结束的回调函数（调用成功、失败都会执行）
-     */
-    complete?(
-      arg:
-        | (
-            | {
-                cursor: number;
-              }
-            | {
-                start: number;
-                end: number;
-              }
-          )
-        | {
-            error?: number;
-            errorMessage?: string;
-          }
-    ): void;
-  }): Promise<
-    | {
-        cursor: number;
-      }
-    | {
-        start: number;
-        end: number;
-      }
-  >;
   /**
    * 获取当前服务器时间
    * @see https://opendocs.alipay.com/mini/api/get-server-time
@@ -4683,7 +4841,12 @@ declare namespace my {
     /**
      * 接口调用成功的回调函数
      */
-    success?(data: { authSetting: IGetSettingAuthSetting }): void;
+    success?(data: {
+      /**
+       * 表示各子项目上用户是否允许授权
+       */
+      authSetting: IGetSettingAuthSetting;
+    }): void;
     /**
      * 接口调用失败的回调函数
      */
@@ -4694,6 +4857,9 @@ declare namespace my {
     complete?(
       arg:
         | {
+            /**
+             * 表示各子项目上用户是否允许授权
+             */
             authSetting: IGetSettingAuthSetting;
           }
         | {
@@ -4702,6 +4868,9 @@ declare namespace my {
           }
     ): void;
   }): Promise<{
+    /**
+     * 表示各子项目上用户是否允许授权
+     */
     authSetting: IGetSettingAuthSetting;
   }>;
   /**
@@ -4709,11 +4878,19 @@ declare namespace my {
    * @see https://opendocs.alipay.com/mini/api/azfobl
    */
   export function getStorage(r: {
+    /**
+     * 本地缓存中指定的 key
+     */
     key: string;
     /**
      * 接口调用成功的回调函数
      */
-    success?(data: { data: any }): void;
+    success?(data: {
+      /**
+       * key 对应的内容
+       */
+      data: any;
+    }): void;
     /**
      * 接口调用失败的回调函数
      */
@@ -4724,6 +4901,9 @@ declare namespace my {
     complete?(
       arg:
         | {
+            /**
+             * key 对应的内容
+             */
             data: any;
           }
         | {
@@ -4732,6 +4912,9 @@ declare namespace my {
           }
     ): void;
   }): Promise<{
+    /**
+     * key 对应的内容
+     */
     data: any;
   }>;
   /**
@@ -4820,7 +5003,15 @@ declare namespace my {
    * 同步获取缓存数据
    * @see https://opendocs.alipay.com/mini/api/ox0wna
    */
-  export function getStorageSync(r: { key: string }): {
+  export function getStorageSync(r: {
+    /**
+     * 本地缓存中指定的 key
+     */
+    key: string;
+  }): {
+    /**
+     * key 对应的内容
+     */
     data: unknown;
   };
   /**
@@ -4830,20 +5021,16 @@ declare namespace my {
   export function getSystemInfo(r?: {
     /**
      * 额外返回 `notification*Authorized` 相关字段
-     * @native 10.2.0
-     * @android false
      */
     includeNotification?: boolean;
     /**
      * 额外返回 `bluetooth*`相关字段
-     * @native 10.2.0
-     * @android false
      */
     includeBluetooth?: boolean;
     /**
      * 接口调用成功的回调函数
      */
-    success?(data: TypeSystemInfo): void;
+    success?(data: ITypeSystemInfo): void;
     /**
      * 接口调用失败的回调函数
      */
@@ -4853,13 +5040,13 @@ declare namespace my {
      */
     complete?(
       arg:
-        | TypeSystemInfo
+        | ITypeSystemInfo
         | {
             error?: number;
             errorMessage?: string;
           }
     ): void;
-  }): Promise<TypeSystemInfo>;
+  }): Promise<ITypeSystemInfo>;
   /**
    * 获取手机系统信息的同步接口
    * @see https://opendocs.alipay.com/mini/api/gawhvz
@@ -4867,17 +5054,13 @@ declare namespace my {
   export function getSystemInfoSync(r?: {
     /**
      * 额外返回 `notification*Authorized` 相关字段
-     * @native 10.2.0
-     * @android false
      */
     includeNotification?: boolean;
     /**
      * 额外返回 bluetooth*相关字段
-     * @native 10.2.0
-     * @android false
      */
     includeBluetooth?: boolean;
-  }): TypeSystemInfo;
+  }): ITypeSystemInfo;
   /**
    * 同步获取设备设置
    */
@@ -4897,6 +5080,7 @@ declare namespace my {
   };
   /**
    * 获取导航栏背景色
+   * @description 设置导航栏背景色 backgroundColor 和前景色 frontColor 可以使用 [my.setNavigationBar]()
    * @see https://opendocs.alipay.com/mini/api/dplf2s
    */
   export function getTitleColor(r?: {
@@ -5104,7 +5288,12 @@ declare namespace my {
     /**
      * 接口调用成功的回调函数
      */
-    success?(data: {}): void;
+    success?(data: {
+      /**
+       * 是否成功
+       */
+      success: boolean;
+    }): void;
     /**
      * 接口调用失败的回调函数
      */
@@ -5112,34 +5301,51 @@ declare namespace my {
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?(arg: { error?: number; errorMessage?: string }): void;
-  }): Promise<void>;
+    complete?(
+      arg:
+        | {
+            /**
+             * 是否成功
+             */
+            success: boolean;
+          }
+        | {
+            error?: number;
+            errorMessage?: string;
+          }
+    ): void;
+  }): Promise<{
+    /**
+     * 是否成功
+     */
+    success: boolean;
+  }>;
   /**
    * 同步获取窗口信息
    */
   export function getWindowInfo(): {
     /**
-     * 设备像素比。
+     * 设备像素比
      */
     pixelRatio: number;
     /**
-     * 屏幕宽度。
+     * 屏幕宽度
      */
     screenWidth: number;
     /**
-     * 屏幕高度。
+     * 屏幕高度
      */
     screenHeight: number;
     /**
-     * 窗口宽度。
+     * 窗口宽度
      */
     windowWidth: number;
     /**
-     * 窗口高度。
+     * 窗口高度
      */
     windowHeight: number;
     /**
-     * 状态栏高度。
+     * 状态栏高度
      */
     statusBarHeight: number;
     /**
@@ -5147,7 +5353,7 @@ declare namespace my {
      */
     safeArea: IMyGetWindowInfoSafeArea;
     /**
-     * 窗口上边缘的y值
+     * 窗口上边缘的 y 值
      */
     screenTop?: number;
   };
@@ -5216,7 +5422,7 @@ declare namespace my {
     /**
      * 接口调用成功的回调函数
      */
-    success?(data: {}): void;
+    success?(data: { success: boolean; reason?: unknown }): void;
     /**
      * 接口调用失败的回调函数
      */
@@ -5224,8 +5430,21 @@ declare namespace my {
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?(arg: { error?: number; errorMessage?: string }): void;
-  }): Promise<void>;
+    complete?(
+      arg:
+        | {
+            success: boolean;
+            reason?: unknown;
+          }
+        | {
+            error?: number;
+            errorMessage?: string;
+          }
+    ): void;
+  }): Promise<{
+    success: boolean;
+    reason?: unknown;
+  }>;
   /**
    * 隐藏加载提示的过渡效果
    * @description 可与 [my.showLoading]() 配合使用
@@ -5396,7 +5615,6 @@ declare namespace my {
   export function loadFontFace(r: {
     /**
      * 是否同时加载 NativeCanvas 字体
-     * @sdk2 2.6.2
      * @default true
      */
     nativeCanvas?: boolean;
@@ -5417,13 +5635,17 @@ declare namespace my {
     desc?: IMyLoadFontFaceDesc;
     /**
      * 是否全局生效
-     * @sdk2 2.7.15
      */
     global?: boolean;
     /**
      * 接口调用成功的回调函数
      */
-    success?(data: { status: 'loaded' }): void;
+    success?(data: {
+      /**
+       * 状态
+       */
+      status: 'loaded';
+    }): void;
     /**
      * 接口调用失败的回调函数
      */
@@ -5444,6 +5666,9 @@ declare namespace my {
     complete?(
       arg:
         | {
+            /**
+             * 状态
+             */
             status: 'loaded';
           }
         | (
@@ -5458,6 +5683,9 @@ declare namespace my {
           )
     ): void;
   }): Promise<{
+    /**
+     * 状态
+     */
     status: 'loaded';
   }>;
   /**
@@ -5504,7 +5732,12 @@ declare namespace my {
     /**
      * 接口调用成功的回调函数
      */
-    success?(data: { success: true }): void;
+    success?(data: {
+      /**
+       * 是否成功
+       */
+      success: true;
+    }): void;
     /**
      * 接口调用失败的回调函数
      */
@@ -5515,6 +5748,9 @@ declare namespace my {
     complete?(
       arg:
         | {
+            /**
+             * 是否成功
+             */
             success: true;
           }
         | {
@@ -5523,6 +5759,9 @@ declare namespace my {
           }
     ): void;
   }): Promise<{
+    /**
+     * 是否成功
+     */
     success: true;
   }>;
   /**
@@ -5537,7 +5776,12 @@ declare namespace my {
     /**
      * 接口调用成功的回调函数
      */
-    success?(data: { success: true }): void;
+    success?(data: {
+      /**
+       * 是否成功
+       */
+      success: true;
+    }): void;
     /**
      * 接口调用失败的回调函数
      */
@@ -5548,6 +5792,9 @@ declare namespace my {
     complete?(
       arg:
         | {
+            /**
+             * 是否成功
+             */
             success: true;
           }
         | {
@@ -5556,6 +5803,9 @@ declare namespace my {
           }
     ): void;
   }): Promise<{
+    /**
+     * 是否成功
+     */
     success: true;
   }>;
   /**
@@ -5586,7 +5836,13 @@ declare namespace my {
      * 接口调用成功的回调函数
      */
     success?(data: {
+      /**
+       * 是否成功
+       */
       success: true;
+      /**
+       * 选择的结果
+       */
       result: IBeehiveMultilevelSelectResult[];
     }): void;
     /**
@@ -5599,7 +5855,13 @@ declare namespace my {
     complete?(
       arg:
         | {
+            /**
+             * 是否成功
+             */
             success: true;
+            /**
+             * 选择的结果
+             */
             result: IBeehiveMultilevelSelectResult[];
           }
         | {
@@ -5608,7 +5870,13 @@ declare namespace my {
           }
     ): void;
   }): Promise<{
+    /**
+     * 是否成功
+     */
     success: true;
+    /**
+     * 选择的结果
+     */
     result: IBeehiveMultilevelSelectResult[];
   }>;
   /**
@@ -5663,7 +5931,7 @@ declare namespace my {
    * @description
    * 可使用 [my.navigateBack]() 返回到原来页面。
    * 小程序中页面栈最多十层。
-   * [my.navigateTo]() 和 [my.redirectTo]() 不允许跳转到 Tab 页面；若需跳转到 Tab 页面，请使用 my.switchTab。
+   * [my.navigateTo]() 和 [my.redirectTo]() 不允许跳转到 Tab 页面；若需跳转到 Tab 页面，请使用 [my.switchTab]()
    * @see https://opendocs.alipay.com/mini/api/zwi8gx
    */
   export function navigateTo(r: {
@@ -5729,13 +5997,12 @@ declare namespace my {
      */
     path?: string;
     /**
-     * 用于设置目标小程序的app级别query参数
+     * 用于设置目标小程序应用的 `query` 数据。目标小程序可在 [App.onLaunch](miniapi:GlobalThis.App) （冷启动）或 [App.onshow](miniapi:GlobalThis.App) （热启动）中通过 `options.query` 获取
      * @description 目标小程序可在 App.onLaunch()，App.onShow() 中的 query 字段获取到这份数据。
-     * @sdk2 2.7.16
      */
     query?: IMyNavigateToMiniProgramQuery;
     /**
-     * 需要传递给目标小程序的数据
+     * 需要传递给目标小程序的数据。目标小程序可在 [App.onLaunch](miniapi:GlobalThis.App) （冷启动）或 [App.onshow](miniapi:GlobalThis.App) （热启动）中通过 `options.referrerInfo.extraData` 获取
      * @description 目标小程序可在 App.onLaunch()，App.onShow() 中的 referrerInfo.extraData 字段获取到这份数据。
      */
     extraData?: IMyNavigateToMiniProgramExtraData;
@@ -5777,8 +6044,6 @@ declare namespace my {
     characteristicId: string;
     /**
      * notify 的 descriptor 的 UUID
-     * @native 10.2.20
-     * @ios false
      * @default 00002902-0000-10008000-00805f9b34fb
      */
     descriptorId?: string;
@@ -5806,20 +6071,19 @@ declare namespace my {
   export function offAccelerometerChange(
     cb?: (arg: {
       /**
-       * x 轴。
+       * x 轴
        */
       x: number;
       /**
-       * y 轴。
+       * y 轴
        */
       y: number;
       /**
-       * z 轴。
+       * z 轴
        */
       z: number;
       /**
        * 时间戳
-       * @native 10.2.30
        */
       timestamp: number;
     }) => void
@@ -5880,11 +6144,20 @@ declare namespace my {
   export function offBLECharacteristicValueChange(
     cb?: (arg: {
       /**
-       * 蓝牙设备 ID。
+       * 蓝牙设备 ID
        */
       deviceId: string;
+      /**
+       * 蓝牙特征值对应 service 的 UUID
+       */
       serviceId: string;
+      /**
+       * 设备特征值
+       */
       characteristicId: string;
+      /**
+       * 值
+       */
       value: string;
     }) => void
   ): void;
@@ -5895,11 +6168,11 @@ declare namespace my {
   export function offBLEConnectionStateChanged(
     cb?: (arg: {
       /**
-       * 蓝牙设备 ID。
+       * 蓝牙设备 ID
        */
       deviceId: string;
       /**
-       * 连接目前的状态。
+       * 连接目前的状态
        */
       connected: boolean;
     }) => void
@@ -5929,7 +6202,7 @@ declare namespace my {
       /**
        * 新搜索到的设备列表
        */
-      devices: TypeBluetoothDevice[];
+      devices: ITypeBluetoothDevice[];
     }) => void
   ): void;
   /**
@@ -5944,7 +6217,6 @@ declare namespace my {
       direction: number;
       /**
        * 时间戳
-       * @native 10.2.30
        */
       timestamp: number;
     }) => void
@@ -5954,12 +6226,7 @@ declare namespace my {
    * @see https://opendocs.alipay.com/mini/api/offcomponent
    */
   export function offComponentError(
-    cb?: /**
-     * @param error 异常对象
-     * @param method 异常发生所在的自定义组件方法
-     * @param componentInstance 异常发生所在的自定义组件实例
-     */
-    (error: Error, method: string, componentInstance: any) => void
+    cb?: (error: Error, method: string, componentInstance: any) => void
   ): void;
   /**
    * 停止监听设备方向变化事件
@@ -5991,13 +6258,7 @@ declare namespace my {
    * 取消监听小程序错误事件
    * @see https://opendocs.alipay.com/mini/00njqm
    */
-  export function offError(
-    cb?: /**
-     * @param message 异常信息
-     * @param stack 异常堆栈
-     */
-    (message: string, stack: string) => void
-  ): void;
+  export function offError(cb?: (message: string, stack: string) => void): void;
   /**
    * 取消监听在获取到 Wi-Fi 列表数据时的事件
    * @see https://opendocs.alipay.com/mini/api/offgetwifilist
@@ -6017,15 +6278,15 @@ declare namespace my {
   export function offGyroscopeChange(
     cb?: (arg: {
       /**
-       * x 轴方向角速度。
+       * x 轴方向角速度
        */
       x: number;
       /**
-       * y 轴方向角速度。
+       * y 轴方向角速度
        */
       y: number;
       /**
-       * z 轴方向角速度。
+       * z 轴方向角速度
        */
       z: number;
       /**
@@ -6064,8 +6325,6 @@ declare namespace my {
       /**
        * 系统内存的告警等级
        * @description 仅 Android 返回，iOS 不返回，需要兼容判断
-       * @native 10.1.35
-       * @ios false
        */
       level?: EMemoryWarningLevel;
     }) => void
@@ -6203,20 +6462,19 @@ declare namespace my {
   export function onAccelerometerChange(
     cb: (arg: {
       /**
-       * x 轴。
+       * x 轴
        */
       x: number;
       /**
-       * y 轴。
+       * y 轴
        */
       y: number;
       /**
-       * z 轴。
+       * z 轴
        */
       z: number;
       /**
-       * @sdk2 2.7.5
-       * @native 10.2.30
+       * 时间戳
        */
       timestamp: number;
     }) => void
@@ -6257,7 +6515,6 @@ declare namespace my {
       scene?: number;
       /**
        * API 类别
-       * @sdk 2.7.22
        */
       apiCategory?: 'default' | 'embedded';
     }) => void
@@ -6308,11 +6565,20 @@ declare namespace my {
   export function onBLECharacteristicValueChange(
     cb: (arg: {
       /**
-       * 蓝牙设备 ID。
+       * 蓝牙设备 ID
        */
       deviceId: string;
+      /**
+       * 蓝牙特征值对应 service 的 UUID
+       */
       serviceId: string;
+      /**
+       * 设备特征值
+       */
       characteristicId: string;
+      /**
+       * 值
+       */
       value: string;
     }) => void
   ): void;
@@ -6323,11 +6589,11 @@ declare namespace my {
   export function onBLEConnectionStateChanged(
     cb: (arg: {
       /**
-       * 蓝牙设备 ID。
+       * 蓝牙设备 ID
        */
       deviceId: string;
       /**
-       * 连接目前的状态。
+       * 连接目前的状态
        */
       connected: boolean;
     }) => void
@@ -6357,7 +6623,7 @@ declare namespace my {
       /**
        * 新搜索到的设备列表
        */
-      devices: TypeBluetoothDevice[];
+      devices: ITypeBluetoothDevice[];
     }) => void
   ): void;
   /**
@@ -6370,13 +6636,11 @@ declare namespace my {
   export function onCompassChange(
     cb: (arg: {
       /**
-       * 面对的方向与正北方向的度数，值的范围为 `[0, 360)`。
+       * 面对的方向与正北方向的度数，值的范围为 `[0, 360)`
        */
       direction: number;
       /**
-       * 时间戳。
-       * @sdk2 2.7.5
-       * @native 10.2.30
+       * 时间戳
        */
       timestamp: number;
     }) => void
@@ -6387,12 +6651,7 @@ declare namespace my {
    * @see https://opendocs.alipay.com/mini/api/oncomponent
    */
   export function onComponentError(
-    cb: /**
-     * @param error 异常对象
-     * @param method 异常发生所在的自定义组件方法
-     * @param componentInstance 异常发生所在的自定义组件实例
-     */
-    (error: Error, method: string, componentInstance: any) => void
+    cb: (error: Error, method: string, componentInstance: any) => void
   ): void;
   /**
    * 监听设备方向变化
@@ -6429,13 +6688,7 @@ declare namespace my {
    * 使用 my.onError 监听页面报错，如果在多个页面开启监听没有关闭，则页面报错时会触发多个监听事件，建议在页面关闭时调用 my.offError 关闭监听。
    * @see https://opendocs.alipay.com/mini/00nnsx
    */
-  export function onError(
-    cb: /**
-     * @param message 异常信息
-     * @param stack 异常堆栈
-     */
-    (message: string, stack: string) => void
-  ): void;
+  export function onError(cb: (message: string, stack: string) => void): void;
   /**
    * 监听在获取到 Wi-Fi 列表数据时的事件
    * @see https://opendocs.alipay.com/mini/api/ongetwifilist
@@ -6458,15 +6711,15 @@ declare namespace my {
   export function onGyroscopeChange(
     cb: (arg: {
       /**
-       * x 轴方向角速度。
+       * x 轴方向角速度
        */
       x: number;
       /**
-       * y 轴方向角速度。
+       * y 轴方向角速度
        */
       y: number;
       /**
-       * z 轴方向角速度。
+       * z 轴方向角速度
        */
       z: number;
       /**
@@ -6505,8 +6758,6 @@ declare namespace my {
       /**
        * 系统内存的告警等级
        * @description 仅 Android 返回，iOS 不返回，需要兼容判断
-       * @native 10.1.35
-       * @ios false
        */
       level?: EMemoryWarningLevel;
     }) => void
@@ -6654,8 +6905,6 @@ declare namespace my {
   export function openBluetoothAdapter(r?: {
     /**
      * 表示是否在离开当前页面时自动断开蓝牙。
-     * @native 10.2.0
-     * @ios false
      * @default true
      */
     autoClose?: boolean;
@@ -6710,42 +6959,6 @@ declare namespace my {
      * - `pdf`：PDF 格式。
      */
     fileType?: string;
-    /**
-     * 接口调用成功的回调函数
-     */
-    success?(data: {}): void;
-    /**
-     * 接口调用失败的回调函数
-     */
-    fail?(err: { error?: number; errorMessage?: string }): void;
-    /**
-     * 接口调用结束的回调函数（调用成功、失败都会执行）
-     */
-    complete?(arg: { error?: number; errorMessage?: string }): void;
-  }): Promise<void>;
-  /**
-   * 打开半屏小程序
-   */
-  export function openEmbeddedMiniProgram(r: {
-    /**
-     * 要跳转的目标小程序 appId
-     */
-    appId: string;
-    /**
-     * 打开的页面路径
-     * @description 如果为空则打开首页。
-     */
-    path?: string;
-    /**
-     * 用于设置目标小程序的 app 级别 query 参数
-     * @description 目标小程序可在 App.onLaunch()，App.onShow() 中获取到这份数据。
-     */
-    query?: IOpenEmbeddedMiniProgramParam;
-    /**
-     * 需要传递给目标小程序的数据
-     * @description 目标小程序可在 App.onLaunch()，App.onShow() 中获取到这份数据。
-     */
-    extraData?: IOpenEmbeddedMiniProgramParam;
     /**
      * 接口调用成功的回调函数
      */
@@ -6895,14 +7108,20 @@ declare namespace my {
   }): Promise<void>;
   /**
    * 跳转到小程序设置界面
-   * @description 返回用户权限设置的结果
+   * @description 返回用户权限设置的结果，设置界面只会出现小程序已经向用户请求过的权限
    * @see https://opendocs.alipay.com/mini/api/qflu8f
    */
   export function openSetting(r?: {
     /**
      * 接口调用成功的回调函数
      */
-    success?(data: { authSetting: IOpenSettingAuthSetting }): void;
+    success?(data: {
+      /**
+       * 用户授权结果
+       * @description 其中 key 为 scope 值，value 为 Bool 值，表示用户是否允许授权，可查看 scopes 列表
+       */
+      authSetting: IOpenSettingAuthSetting;
+    }): void;
     /**
      * 接口调用失败的回调函数
      */
@@ -6913,6 +7132,10 @@ declare namespace my {
     complete?(
       arg:
         | {
+            /**
+             * 用户授权结果
+             * @description 其中 key 为 scope 值，value 为 Bool 值，表示用户是否允许授权，可查看 scopes 列表
+             */
             authSetting: IOpenSettingAuthSetting;
           }
         | {
@@ -6921,6 +7144,10 @@ declare namespace my {
           }
     ): void;
   }): Promise<{
+    /**
+     * 用户授权结果
+     * @description 其中 key 为 scope 值，value 为 Bool 值，表示用户是否允许授权，可查看 scopes 列表
+     */
     authSetting: IOpenSettingAuthSetting;
   }>;
   /**
@@ -7061,22 +7288,35 @@ declare namespace my {
    * @see https://opendocs.alipay.com/mini/api/options-select
    */
   export function optionsSelect(r: {
+    /**
+     * 头部标题信息
+     */
     title?: string;
+    /**
+     * 选项一列表
+     */
     optionsOne: string[];
+    /**
+     * 选项二列表
+     */
     optionsTwo?: string[];
     /**
+     * 选项一默认选中
      * @default 0
      */
     selectedOneIndex?: number;
     /**
+     * 选项二默认选中
      * @default 0
      */
     selectedTwoIndex?: number;
     /**
+     * 确定按钮文案
      * @default "确定"
      */
     positiveString?: string;
     /**
+     * 取消按钮文案
      * @default "取消"
      */
     negativeString?: string;
@@ -7084,9 +7324,23 @@ declare namespace my {
      * 接口调用成功的回调函数
      */
     success?(data: {
+      /**
+       * 选项一选择的值，若选择取消，则返回空字符串
+       */
       selectedOneIndex: number;
+      /**
+       * 选项一选择的内容，
+       * 若选择取消，则返回空字符串
+       */
       selectedTwoIndex?: number;
+      /**
+       * 选项二选择的值，
+       * 若选择取消，则返回空字符串
+       */
       selectedOneOption: string;
+      /**
+       * 选项二选择的内容，若选择取消，则返回空字符串
+       */
       selectedTwoOption?: string;
     }): void;
     /**
@@ -7099,9 +7353,23 @@ declare namespace my {
     complete?(
       arg:
         | {
+            /**
+             * 选项一选择的值，若选择取消，则返回空字符串
+             */
             selectedOneIndex: number;
+            /**
+             * 选项一选择的内容，
+             * 若选择取消，则返回空字符串
+             */
             selectedTwoIndex?: number;
+            /**
+             * 选项二选择的值，
+             * 若选择取消，则返回空字符串
+             */
             selectedOneOption: string;
+            /**
+             * 选项二选择的内容，若选择取消，则返回空字符串
+             */
             selectedTwoOption?: string;
           }
         | {
@@ -7110,9 +7378,23 @@ declare namespace my {
           }
     ): void;
   }): Promise<{
+    /**
+     * 选项一选择的值，若选择取消，则返回空字符串
+     */
     selectedOneIndex: number;
+    /**
+     * 选项一选择的内容，
+     * 若选择取消，则返回空字符串
+     */
     selectedTwoIndex?: number;
+    /**
+     * 选项二选择的值，
+     * 若选择取消，则返回空字符串
+     */
     selectedOneOption: string;
+    /**
+     * 选项二选择的内容，若选择取消，则返回空字符串
+     */
     selectedTwoOption?: string;
   }>;
   /**
@@ -7127,18 +7409,15 @@ declare namespace my {
     scrollTop?: number;
     /**
      * 滚动到选择器处于页面可见的位置
-     * @sdk2 2.6.0
      */
     selector?: string;
     /**
      * 滚动动画的时长，单位 ms
-     * @sdk2 2.6.0
      * @default 0
      */
     duration?: number;
     /**
      * 偏移距离，需要和 selector 参数搭配使用，可以滚动到 selector 加偏移距离的位置，单位 px
-     * @sdk2 2.8.0
      */
     offsetTop?: number;
     /**
@@ -7249,14 +7528,10 @@ declare namespace my {
   export function previewImage(r: {
     /**
      * 照片支持长按下载。
-     * @sdk2 2.4.4
-     * @native 10.1.35
      */
     enableSavePhoto?: boolean;
     /**
      * 是否在右下角显示下载入口。
-     * @sdk2 2.4.4
-     * @native 10.1.35
      */
     enableShowPhotoDownload?: boolean;
     /**
@@ -7306,12 +7581,10 @@ declare namespace my {
     placeholder?: string;
     /**
      * "确认" 按钮颜色，HEX 格式
-     * @sdk2 2.3.1
      */
     confirmColor?: string;
     /**
      * "取消" 按钮颜色，HEX 格式
-     * @sdk2 2.3.1
      */
     cancelColor?: string;
     /**
@@ -7327,7 +7600,16 @@ declare namespace my {
     /**
      * 接口调用成功的回调函数
      */
-    success?(data: { ok: boolean; inputValue: string }): void;
+    success?(data: {
+      /**
+       * 点击确认按钮返回 true，点击取消按钮返回 false
+       */
+      ok: boolean;
+      /**
+       * 当点击确认按钮时，返回用户输入的内容
+       */
+      inputValue: string;
+    }): void;
     /**
      * 接口调用失败的回调函数
      */
@@ -7338,7 +7620,13 @@ declare namespace my {
     complete?(
       arg:
         | {
+            /**
+             * 点击确认按钮返回 true，点击取消按钮返回 false
+             */
             ok: boolean;
+            /**
+             * 当点击确认按钮时，返回用户输入的内容
+             */
             inputValue: string;
           }
         | {
@@ -7347,7 +7635,13 @@ declare namespace my {
           }
     ): void;
   }): Promise<{
+    /**
+     * 点击确认按钮返回 true，点击取消按钮返回 false
+     */
     ok: boolean;
+    /**
+     * 当点击确认按钮时，返回用户输入的内容
+     */
     inputValue: string;
   }>;
   /**
@@ -7445,8 +7739,7 @@ declare namespace my {
      */
     customItem?: string;
     /**
-     * 自定义修改城市数据，支持删除、添加和更新城市信息。
-     * - 对城市信息的删除、添加、更新操作不会全局生效，仅单次生效。
+     * 自定义修改城市数据，支持删除、添加和更新城市信息，不会全局生效，仅单次生效
      */
     mergeOptions?: IRegionPickerMergeOptions;
     /**
@@ -7454,13 +7747,29 @@ declare namespace my {
      */
     selectedItem?: string[];
     /**
+     * 指定行政区划版本号：
+     *
+     * ● null、空串：使用老版本（2020Q1）
+     *
+     * ● UPTODATE：使用最新版
+     *
+     * ● 2022Q2：使用2022Q2版本
+     *
+     * 10.3.20开始支持，接入联系百喻
+     */
+    adVersion?: string;
+    /**
      * 接口调用成功的回调函数
      */
     success?(data: {
       /**
-       * 选择的省市区名称数组。
+       * 选择的省市区名称数组
        */
       data: string[];
+      /**
+       * 选择的省市区 ID 数组
+       */
+      code: string[];
     }): void;
     /**
      * 接口调用失败的回调函数
@@ -7473,9 +7782,13 @@ declare namespace my {
       arg:
         | {
             /**
-             * 选择的省市区名称数组。
+             * 选择的省市区名称数组
              */
             data: string[];
+            /**
+             * 选择的省市区 ID 数组
+             */
+            code: string[];
           }
         | {
             error?: number;
@@ -7484,9 +7797,13 @@ declare namespace my {
     ): void;
   }): Promise<{
     /**
-     * 选择的省市区名称数组。
+     * 选择的省市区名称数组
      */
     data: string[];
+    /**
+     * 选择的省市区 ID 数组
+     */
+    code: string[];
   }>;
   /**
    * 信任指定 SSID
@@ -7519,7 +7836,7 @@ declare namespace my {
     /**
      * 需要跳转的目标页面路径
      * @description
-     * 目标路径如果是 Tab 路径后不可以带参数
+     * 目标路径如果是 Tab 路径后在基础库 >= 2.8.1 时可以带参数，否则不可以带参数
      * 目标路径如果是非 Tab 页，可以携带参数，路径与参数之间使用 `?` 分隔，参数键与参数值用 `=` 相连，不同参数必须用 `&` 分隔
      */
     url: string;
@@ -7571,11 +7888,19 @@ declare namespace my {
    * @see https://opendocs.alipay.com/mini/api/of9hze
    */
   export function removeStorage(r: {
+    /**
+     * 缓存数据的 key
+     */
     key: string;
     /**
      * 接口调用成功的回调函数
      */
-    success?(data: { success: true; error: 0 }): void;
+    success?(data: {
+      /**
+       * 是否成功
+       */
+      success: true;
+    }): void;
     /**
      * 接口调用失败的回调函数
      */
@@ -7586,8 +7911,10 @@ declare namespace my {
     complete?(
       arg:
         | {
+            /**
+             * 是否成功
+             */
             success: true;
-            error: 0;
           }
         | {
             error?: number;
@@ -7595,16 +7922,25 @@ declare namespace my {
           }
     ): void;
   }): Promise<{
+    /**
+     * 是否成功
+     */
     success: true;
-    error: 0;
   }>;
   /**
    * 同步删除缓存数据
    * @see https://opendocs.alipay.com/mini/api/ytfrk4
    */
-  export function removeStorageSync(r: { key: string }): {
+  export function removeStorageSync(r: {
+    /**
+     * 缓存数据的 key
+     */
+    key: string;
+  }): {
+    /**
+     * 是否成功
+     */
     success: true;
-    error: 0;
   };
   /**
    * 移除 TabBar 某一项右上角的文本
@@ -7679,10 +8015,22 @@ declare namespace my {
      */
     headers?: Record<string, string>;
     /**
+     * 设置请求的 HTTP 头对象
+     * @description
+     * - "content-type" 字段默认为 `application/json`
+     * - `referer` 字段不可设置，其格式固定为 https://{appid}.hybrid.alipay-eco.com/{appid}/{version}/index.html#{page}，其中 {appid} 为小程序的 APPID，{version} 为小程序发布标识，{page} 为小程序当前页面。
+     */
+    header?: Record<string, string>;
+    /**
      * 超时时间，单位 ms
      * @default 30000
      */
     timeout?: number;
+    /**
+     * referer 策略
+     * @default 'querystring'
+     */
+    referrerStrategy?: string;
     /**
      * 接口调用成功的回调函数
      */
@@ -7780,10 +8128,12 @@ declare namespace my {
    * @see https://opendocs.alipay.com/mini/api/requestSubscribeMessage
    */
   export function requestSubscribeMessage(r: {
+    /**
+     * 应用 id
+     */
     appId?: string;
     /**
-     * @sdk2 2.7.15
-     * @native 10.2.56
+     * 使用消息订阅 JSAPI
      */
     aboveContent?: boolean;
     /**
@@ -7832,23 +8182,7 @@ declare namespace my {
     /**
      * 接口调用失败的回调函数
      */
-    fail?(
-      err:
-        | {
-            error?: number;
-            errorMessage?: string;
-          }
-        | {
-            /**
-             * 错误码。
-             */
-            errorCode: number;
-            /**
-             * 错误信息。
-             */
-            errorMessage: string;
-          }
-    ): void;
+    fail?(err: { error?: number; errorMessage?: string }): void;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
@@ -7886,22 +8220,10 @@ declare namespace my {
              */
             result?: IMyRequestSubscribeMessageResult;
           }
-        | (
-            | {
-                error?: number;
-                errorMessage?: string;
-              }
-            | {
-                /**
-                 * 错误码。
-                 */
-                errorCode: number;
-                /**
-                 * 错误信息。
-                 */
-                errorMessage: string;
-              }
-          )
+        | {
+            error?: number;
+            errorMessage?: string;
+          }
     ): void;
   }): Promise<{
     [entityId: string]: unknown;
@@ -8005,20 +8327,27 @@ declare namespace my {
    */
   export function saveFile(r: {
     /**
-     * 文件路径。
+     * 本地文件路径
      */
     apFilePath: string;
+    /**
+     * 本地文件路径
+     */
     filePath: string;
     /**
      * 是否将文件保存到外部存储目录
-     * @native 10.1.85
      * @default false
      */
     toDisk?: boolean;
     /**
      * 接口调用成功的回调函数
      */
-    success?(data: { success: true }): void;
+    success?(data: {
+      /**
+       * 是否成功
+       */
+      success: true;
+    }): void;
     /**
      * 接口调用失败的回调函数
      */
@@ -8029,6 +8358,9 @@ declare namespace my {
     complete?(
       arg:
         | {
+            /**
+             * 是否成功
+             */
             success: true;
           }
         | {
@@ -8037,27 +8369,38 @@ declare namespace my {
           }
     ): void;
   }): Promise<{
+    /**
+     * 是否成功
+     */
     success: true;
   }>;
   /**
    * 保存文件系统的文件到系统存储空间
+   * @see https://opendocs.alipay.com/mini/05vtu2
    */
   export function saveFileToDisk(r: {
     /**
-     * 文件路径。
+     * 本地文件路径
      */
     apFilePath: string;
+    /**
+     * 本地文件路径
+     */
     filePath: string;
     /**
      * 是否将文件保存到外部存储目录
-     * @native 10.1.85
      * @default false
      */
     toDisk?: boolean;
     /**
      * 接口调用成功的回调函数
      */
-    success?(data: { success: true }): void;
+    success?(data: {
+      /**
+       * 是否成功
+       */
+      success: true;
+    }): void;
     /**
      * 接口调用失败的回调函数
      */
@@ -8068,6 +8411,9 @@ declare namespace my {
     complete?(
       arg:
         | {
+            /**
+             * 是否成功
+             */
             success: true;
           }
         | {
@@ -8076,6 +8422,9 @@ declare namespace my {
           }
     ): void;
   }): Promise<{
+    /**
+     * 是否成功
+     */
     success: true;
   }>;
   /**
@@ -8090,13 +8439,11 @@ declare namespace my {
     url: string;
     /**
      * 是否显示图片操作菜单。
-     * @sdk2 2.4.4
      * @default false
      */
     showActionSheet?: boolean;
     /**
      * 返回具体错误码
-     * @sdk2 2.4.4
      * @default true
      */
     cusHandleResult?: boolean;
@@ -8166,11 +8513,19 @@ declare namespace my {
      * 要保存的图片链接。
      */
     filePath: string;
+    /**
+     * 隐藏 toast
+     */
     hideToast?: boolean;
     /**
      * 接口调用成功的回调函数
      */
-    success?(data: { success: true }): void;
+    success?(data: {
+      /**
+       * 是否成功
+       */
+      success: true;
+    }): void;
     /**
      * 接口调用失败的回调函数
      */
@@ -8181,6 +8536,9 @@ declare namespace my {
     complete?(
       arg:
         | {
+            /**
+             * 是否成功
+             */
             success: true;
           }
         | {
@@ -8189,6 +8547,9 @@ declare namespace my {
           }
     ): void;
   }): Promise<{
+    /**
+     * 是否成功
+     */
     success: true;
   }>;
   /**
@@ -8196,12 +8557,24 @@ declare namespace my {
    * @see https://opendocs.alipay.com/mini/api/media/video/my.savevideotophotosalbum
    */
   export function saveVideoToPhotosAlbum(r?: {
+    /**
+     * 视频地址
+     */
     src?: string;
+    /**
+     * 视频文件路径，支持网络地址、本地临时文件、本地缓存文件、本地用户文件
+     * @description 注意：客户端 10.2.70 开始支持本地缓存文件、本地用户文件
+     */
     filePath?: string;
     /**
      * 接口调用成功的回调函数
      */
-    success?(data: { success: true }): void;
+    success?(data: {
+      /**
+       * 是否成功
+       */
+      success: true;
+    }): void;
     /**
      * 接口调用失败的回调函数
      */
@@ -8212,6 +8585,9 @@ declare namespace my {
     complete?(
       arg:
         | {
+            /**
+             * 是否成功
+             */
             success: true;
           }
         | {
@@ -8220,6 +8596,9 @@ declare namespace my {
           }
     ): void;
   }): Promise<{
+    /**
+     * 是否成功
+     */
     success: true;
   }>;
   /**
@@ -8230,25 +8609,28 @@ declare namespace my {
   export function scan(r?: {
     /**
      * 扫码识别类型
-     * @sdk2 2.6.0
      * @default "['qrCode', 'barCode']"
      */
-    scanType?: EScanScanType[];
+    scanType?: (
+      | 'qrCode'
+      | 'barCode'
+      | 'dmCode'
+      | 'pdf417Code'
+      | 'narrowCode'
+      | 'hmCode'
+    )[];
     /**
      * 不允许从相册选择图片，只能从相机扫码
-     * @sdk2 2.3.1
      * @default false
      */
     hideAlbum?: boolean;
     /**
      * 不允许从相册选择图片，只能从相机扫码
-     * @sdk2 2.6.0
      * @default false
      */
     onlyFromCamera?: boolean;
     /**
      * 扫码动作
-     * @sdk2 2.4.4
      */
     actionType?: 'scan' | 'route' | 'scanAndRoute' | 'scanAndRpc';
     /**
@@ -8264,33 +8646,29 @@ declare namespace my {
        */
       code: string;
       /**
-       * 扫描二维码时返回的结果
        * @deprecated 请使用 code 字段
+       * 扫描二维码时返回的结果
        */
       barCode?: string;
       /**
-       * 扫描条形码时返回的结果
        * @deprecated 请使用 code 字段
+       * 扫描条形码时返回的结果
        */
       qrCode?: string;
       /**
        * base64 编码的结果
-       * @sdk2 2.6.0
        */
       rawData: string;
       /**
        * 来源
-       * @sdk2 2.6.0
        */
       imageChannel: string;
       /**
        * 码内容
-       * @sdk2 2.6.0
        */
       result: string;
       /**
        * 码类型
-       * @sdk2 2.6.0
        */
       scanType: string;
     }): void;
@@ -8309,33 +8687,29 @@ declare namespace my {
              */
             code: string;
             /**
-             * 扫描二维码时返回的结果
              * @deprecated 请使用 code 字段
+             * 扫描二维码时返回的结果
              */
             barCode?: string;
             /**
-             * 扫描条形码时返回的结果
              * @deprecated 请使用 code 字段
+             * 扫描条形码时返回的结果
              */
             qrCode?: string;
             /**
              * base64 编码的结果
-             * @sdk2 2.6.0
              */
             rawData: string;
             /**
              * 来源
-             * @sdk2 2.6.0
              */
             imageChannel: string;
             /**
              * 码内容
-             * @sdk2 2.6.0
              */
             result: string;
             /**
              * 码类型
-             * @sdk2 2.6.0
              */
             scanType: string;
           }
@@ -8350,33 +8724,29 @@ declare namespace my {
      */
     code: string;
     /**
-     * 扫描二维码时返回的结果
      * @deprecated 请使用 code 字段
+     * 扫描二维码时返回的结果
      */
     barCode?: string;
     /**
-     * 扫描条形码时返回的结果
      * @deprecated 请使用 code 字段
+     * 扫描条形码时返回的结果
      */
     qrCode?: string;
     /**
      * base64 编码的结果
-     * @sdk2 2.6.0
      */
     rawData: string;
     /**
      * 来源
-     * @sdk2 2.6.0
      */
     imageChannel: string;
     /**
      * 码内容
-     * @sdk2 2.6.0
      */
     result: string;
     /**
      * 码类型
-     * @sdk2 2.6.0
      */
     scanType: string;
   }>;
@@ -8400,7 +8770,12 @@ declare namespace my {
     /**
      * 接口调用成功的回调函数
      */
-    success?(data: { success: boolean }): void;
+    success?(data: {
+      /**
+       * 是否成功
+       */
+      success: boolean;
+    }): void;
     /**
      * 接口调用失败的回调函数
      */
@@ -8411,6 +8786,9 @@ declare namespace my {
     complete?(
       arg:
         | {
+            /**
+             * 是否成功
+             */
             success: boolean;
           }
         | {
@@ -8419,20 +8797,37 @@ declare namespace my {
           }
     ): void;
   }): Promise<{
+    /**
+     * 是否成功
+     */
     success: boolean;
   }>;
   /**
-   * 设置窗口背景颜色
+   * 动态设置窗口的背景色
    * @see https://opendocs.alipay.com/mini/api/set-background
    */
   export function setBackgroundColor(r?: {
+    /**
+     * 窗口的背景色
+     */
     backgroundColor?: string;
+    /**
+     * 顶部窗口的背景色，仅 iOS 支持
+     */
     backgroundColorTop?: string;
+    /**
+     * 底部窗口的背景色，仅 iOS 支持
+     */
     backgroundColorBottom?: string;
     /**
      * 接口调用成功的回调函数
      */
-    success?(data: { success: true }): void;
+    success?(data: {
+      /**
+       * 是否成功
+       */
+      success: true;
+    }): void;
     /**
      * 接口调用失败的回调函数
      */
@@ -8443,6 +8838,9 @@ declare namespace my {
     complete?(
       arg:
         | {
+            /**
+             * 是否成功
+             */
             success: true;
           }
         | {
@@ -8451,6 +8849,9 @@ declare namespace my {
           }
     ): void;
   }): Promise<{
+    /**
+     * 是否成功
+     */
     success: true;
   }>;
   /**
@@ -8465,7 +8866,12 @@ declare namespace my {
     /**
      * 接口调用成功的回调函数
      */
-    success?(data: { success: true }): void;
+    success?(data: {
+      /**
+       * 是否成功
+       */
+      success: true;
+    }): void;
     /**
      * 接口调用失败的回调函数
      */
@@ -8476,6 +8882,9 @@ declare namespace my {
     complete?(
       arg:
         | {
+            /**
+             * 是否成功
+             */
             success: true;
           }
         | {
@@ -8484,6 +8893,9 @@ declare namespace my {
           }
     ): void;
   }): Promise<{
+    /**
+     * 是否成功
+     */
     success: true;
   }>;
   /**
@@ -8503,9 +8915,12 @@ declare namespace my {
      * 接口调用成功的回调函数
      */
     success?(data: {
+      /**
+       * 是否成功
+       */
       success: true;
       /**
-       * 协商后的mtu值
+       * 协商后的 mtu 值
        */
       mtu: number;
     }): void;
@@ -8519,9 +8934,12 @@ declare namespace my {
     complete?(
       arg:
         | {
+            /**
+             * 是否成功
+             */
             success: true;
             /**
-             * 协商后的mtu值
+             * 协商后的 mtu 值
              */
             mtu: number;
           }
@@ -8531,9 +8949,12 @@ declare namespace my {
           }
     ): void;
   }): Promise<{
+    /**
+     * 是否成功
+     */
     success: true;
     /**
-     * 协商后的mtu值
+     * 协商后的 mtu 值
      */
     mtu: number;
   }>;
@@ -8572,7 +8993,12 @@ declare namespace my {
     /**
      * 接口调用成功的回调函数
      */
-    success?(data: { success: true }): void;
+    success?(data: {
+      /**
+       * 是否成功
+       */
+      success: true;
+    }): void;
     /**
      * 接口调用失败的回调函数
      */
@@ -8583,6 +9009,9 @@ declare namespace my {
     complete?(
       arg:
         | {
+            /**
+             * 是否成功
+             */
             success: true;
           }
         | {
@@ -8591,6 +9020,9 @@ declare namespace my {
           }
     ): void;
   }): Promise<{
+    /**
+     * 是否成功
+     */
     success: true;
   }>;
   /**
@@ -8599,11 +9031,20 @@ declare namespace my {
    * @see https://opendocs.alipay.com/mini/api/qx0sap
    */
   export function setKeepScreenOn(r?: {
+    /**
+     * 是否保持屏幕长亮状态
+     * @default false
+     */
     keepScreenOn?: boolean;
     /**
      * 接口调用成功的回调函数
      */
-    success?(data: { success: true }): void;
+    success?(data: {
+      /**
+       * 是否成功
+       */
+      success: true;
+    }): void;
     /**
      * 接口调用失败的回调函数
      */
@@ -8614,6 +9055,9 @@ declare namespace my {
     complete?(
       arg:
         | {
+            /**
+             * 是否成功
+             */
             success: true;
           }
         | {
@@ -8622,6 +9066,9 @@ declare namespace my {
           }
     ): void;
   }): Promise<{
+    /**
+     * 是否成功
+     */
     success: true;
   }>;
   /**
@@ -8688,7 +9135,8 @@ declare namespace my {
    */
   export function setNavigationBar(r?: {
     /**
-     * 导航栏标题。
+     * 导航栏标题
+     * @example "文字标题"
      */
     title?: string;
     /**
@@ -8702,11 +9150,13 @@ declare namespace my {
     /**
      * 导航栏背景色，支持十六进制颜色值。
      * @description 导航栏背景色不支持渐变色
+     * @example "#FF0000"
      */
     backgroundColor?: string;
     /**
      * 导航栏底部边框颜色，支持十六进制颜色值。
      * @description 若设置了 backgroundColor，则 borderBottomColor 不会生效，默认会和 backgroundColor 颜色一样。
+     * @example "#00FF00"
      */
     borderBottomColor?: string;
     /**
@@ -8715,8 +9165,9 @@ declare namespace my {
      */
     reset?: boolean;
     /**
-     * 前景颜色值
-     * @description 包括按钮、标题、状态栏的颜色，仅支持 #ffffff 和 #000000
+     * 导航栏前景颜色值
+     * @description 包括返回键、标题、收藏、右上角胶囊按钮的颜色，仅支持 #ffffff 和 #000000。
+     * @example "#FFFFFF"
      */
     frontColor?: string;
     /**
@@ -8738,13 +9189,18 @@ declare namespace my {
    */
   export function setScreenBrightness(r: {
     /**
-     * 需要设置的屏幕亮度，取值范围 `0-1`。
+     * 需要设置的屏幕亮度，取值范围 （0-1）。
      */
     brightness: number;
     /**
      * 接口调用成功的回调函数
      */
-    success?(data: {}): void;
+    success?(data: {
+      /**
+       * 是否成功
+       */
+      success: boolean;
+    }): void;
     /**
      * 接口调用失败的回调函数
      */
@@ -8752,8 +9208,25 @@ declare namespace my {
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
-    complete?(arg: { error?: number; errorMessage?: string }): void;
-  }): Promise<void>;
+    complete?(
+      arg:
+        | {
+            /**
+             * 是否成功
+             */
+            success: boolean;
+          }
+        | {
+            error?: number;
+            errorMessage?: string;
+          }
+    ): void;
+  }): Promise<{
+    /**
+     * 是否成功
+     */
+    success: boolean;
+  }>;
   /**
    * 将数据存储在本地缓存的指定的 key 中
    * @see https://opendocs.alipay.com/mini/api/eocm6v
@@ -8766,6 +9239,9 @@ declare namespace my {
      * - 所有数据存储上限为 10MB。
      */
     data: unknown;
+    /**
+     * 存储的 key
+     */
     key: string;
     /**
      * 接口调用成功的回调函数
@@ -8784,7 +9260,16 @@ declare namespace my {
    * 同步将数据存储在本地缓存的指定的 key 中
    * @see https://opendocs.alipay.com/mini/api/cog0du
    */
-  export function setStorageSync(r: { data: unknown; key: string }): void;
+  export function setStorageSync(r: {
+    /**
+     * 需要存储的内容
+     */
+    data: unknown;
+    /**
+     * 本地缓存中指定的 key
+     */
+    key: string;
+  }): void;
   /**
    * 动态设置 TabBar 某一项右上角的文本
    * @see https://opendocs.alipay.com/mini/api/qm7t3v
@@ -8795,7 +9280,8 @@ declare namespace my {
      */
     index: number;
     /**
-     * 显示的文本，超过三个字符则显示 前两个字符 + “…”。例如：“支付宝” 显示 “支付宝”，“蚂蚁金服” 显示 “蚂蚁…”。
+     * 显示的文本，超过三个字符则显示 前两个字符 + “…”。
+     * @description 例如：“支付宝” 显示 “支付宝”，“蚂蚁集团” 显示 “蚂蚁…”。
      */
     text: string;
     /**
@@ -8940,7 +9426,12 @@ declare namespace my {
     /**
      * 接口调用成功的回调函数
      */
-    success?(data: { success: true }): void;
+    success?(data: {
+      /**
+       * 是否成功
+       */
+      success: true;
+    }): void;
     /**
      * 接口调用失败的回调函数
      */
@@ -8951,6 +9442,9 @@ declare namespace my {
     complete?(
       arg:
         | {
+            /**
+             * 是否成功
+             */
             success: true;
           }
         | {
@@ -8959,6 +9453,9 @@ declare namespace my {
           }
     ): void;
   }): Promise<{
+    /**
+     * 是否成功
+     */
     success: true;
   }>;
   /**
@@ -8976,9 +9473,8 @@ declare namespace my {
     destructiveBtnIndex?: number;
     /**
      * 需飘红选项的数组
-     * @sdk2 2.3.1
      */
-    badges?: IActionSheetBadges[];
+    badges?: IMyShowActionSheetBadges[];
     /**
      * 菜单按钮文字数组
      */
@@ -8996,6 +9492,9 @@ declare namespace my {
        * 返回用户传入的 `items` 内被选中的索引，从 `0` 开始, 取消选择时，返回 `-1`
        */
       index: number;
+      /**
+       * 是否成功
+       */
       success: true;
     }): void;
     /**
@@ -9012,6 +9511,9 @@ declare namespace my {
              * 返回用户传入的 `items` 内被选中的索引，从 `0` 开始, 取消选择时，返回 `-1`
              */
             index: number;
+            /**
+             * 是否成功
+             */
             success: true;
           }
         | {
@@ -9024,6 +9526,9 @@ declare namespace my {
      * 返回用户传入的 `items` 内被选中的索引，从 `0` 开始, 取消选择时，返回 `-1`
      */
     index: number;
+    /**
+     * 是否成功
+     */
     success: true;
   }>;
   /**
@@ -9041,7 +9546,12 @@ declare namespace my {
     /**
      * 接口调用成功的回调函数
      */
-    success?(data: { shown: boolean }): void;
+    success?(data: {
+      /**
+       * 是否成功显示
+       */
+      shown: boolean;
+    }): void;
     /**
      * 接口调用失败的回调函数
      */
@@ -9052,6 +9562,9 @@ declare namespace my {
     complete?(
       arg:
         | {
+            /**
+             * 是否成功显示
+             */
             shown: boolean;
           }
         | {
@@ -9060,6 +9573,9 @@ declare namespace my {
           }
     ): void;
   }): Promise<{
+    /**
+     * 是否成功显示
+     */
     shown: boolean;
   }>;
   /**
@@ -9283,12 +9799,10 @@ declare namespace my {
     delay?: number;
     /**
      * 弱提示弹出时的 X 轴偏移
-     * @native 10.0.15
      */
     xOffset?: number;
     /**
      * 弱提示弹出时的 Y 轴偏移
-     * @native 10.0.15
      */
     yOffset?: number;
     /**
@@ -9310,13 +9824,19 @@ declare namespace my {
    */
   export function startAccelerometer(r?: {
     /**
+     * 间隔
      * @default "normal"
      */
     interval?: 'game' | 'ui' | 'normal';
     /**
      * 接口调用成功的回调函数
      */
-    success?(data: { success: true }): void;
+    success?(data: {
+      /**
+       * 表示摇一摇有效或传感器监听调用成功
+       */
+      success: boolean;
+    }): void;
     /**
      * 接口调用失败的回调函数
      */
@@ -9327,7 +9847,10 @@ declare namespace my {
     complete?(
       arg:
         | {
-            success: true;
+            /**
+             * 表示摇一摇有效或传感器监听调用成功
+             */
+            success: boolean;
           }
         | {
             error?: number;
@@ -9335,7 +9858,10 @@ declare namespace my {
           }
     ): void;
   }): Promise<{
-    success: true;
+    /**
+     * 表示摇一摇有效或传感器监听调用成功
+     */
+    success: boolean;
   }>;
   /**
    * 唤起身份验证页面
@@ -9357,16 +9883,7 @@ declare namespace my {
        * 认证流程结果状态码
        */
       resultStatus: string;
-      result?: {
-        /**
-         * 业务错误码
-         */
-        errorCode: string;
-        /**
-         * 本次认证流水号
-         */
-        certifyId: string;
-      };
+      result: IMyApStartAPVerifyResult;
     }): void;
     /**
      * 接口调用失败的回调函数
@@ -9382,16 +9899,7 @@ declare namespace my {
              * 认证流程结果状态码
              */
             resultStatus: string;
-            result?: {
-              /**
-               * 业务错误码
-               */
-              errorCode: string;
-              /**
-               * 本次认证流水号
-               */
-              certifyId: string;
-            };
+            result: IMyApStartAPVerifyResult;
           }
         | {
             error?: number;
@@ -9403,16 +9911,7 @@ declare namespace my {
      * 认证流程结果状态码
      */
     resultStatus: string;
-    result?: {
-      /**
-       * 业务错误码
-       */
-      errorCode: string;
-      /**
-       * 本次认证流水号
-       */
-      certifyId: string;
-    };
+    result: IMyApStartAPVerifyResult;
   }>;
   /**
    * 开始搜索附近的 iBeacon 设备
@@ -9445,18 +9944,28 @@ declare namespace my {
    * - 该操作比较耗费系统资源，请在搜索并连接到设备后调用 stop 方法停止搜索。
    * @see https://opendocs.alipay.com/mini/api/ksew43
    */
-  export function startBluetoothDevicesDiscovery(r?: {
+  export function startBluetoothDevicesDiscovery(r: {
     includeClassic?: boolean;
+    /**
+     * 设备id
+     */
     deviceIds?: string[];
+    /**
+     * 设备名
+     */
     deviceNames?: string[];
     /**
-     * @native 10.0.20
+     * 是否允许重复上报同一设备， 如果允许重复上报，则onBluetoothDeviceFound 方法会多次上报同一设备，但是 RSSI 值会有不同。
      */
     allowDuplicatesKey?: boolean;
     /**
-     * @native 10.0.20
+     * 上报设备的间隔，默认为0，意思是找到新设备立即上报，否则根据传入的间隔上报。
      */
     interval?: number;
+    /**
+     * 蓝牙设备主 service 的 uuid 列表。
+     */
+    services: string[];
     /**
      * 接口调用成功的回调函数
      */
@@ -9476,13 +9985,19 @@ declare namespace my {
    */
   export function startCompass(r?: {
     /**
+     * 间隔
      * @default "normal"
      */
     interval?: 'game' | 'ui' | 'normal';
     /**
      * 接口调用成功的回调函数
      */
-    success?(data: { success: true }): void;
+    success?(data: {
+      /**
+       * 表示摇一摇有效或传感器监听调用成功
+       */
+      success: boolean;
+    }): void;
     /**
      * 接口调用失败的回调函数
      */
@@ -9493,7 +10008,10 @@ declare namespace my {
     complete?(
       arg:
         | {
-            success: true;
+            /**
+             * 表示摇一摇有效或传感器监听调用成功
+             */
+            success: boolean;
           }
         | {
             error?: number;
@@ -9501,7 +10019,10 @@ declare namespace my {
           }
     ): void;
   }): Promise<{
-    success: true;
+    /**
+     * 表示摇一摇有效或传感器监听调用成功
+     */
+    success: boolean;
   }>;
   /**
    * 开始监听陀螺仪数据
@@ -9509,13 +10030,19 @@ declare namespace my {
    */
   export function startGyroscope(r?: {
     /**
+     * 间隔
      * @default "normal"
      */
     interval?: 'game' | 'ui' | 'normal';
     /**
      * 接口调用成功的回调函数
      */
-    success?(data: { success: true }): void;
+    success?(data: {
+      /**
+       * 表示摇一摇有效或传感器监听调用成功
+       */
+      success: boolean;
+    }): void;
     /**
      * 接口调用失败的回调函数
      */
@@ -9526,7 +10053,10 @@ declare namespace my {
     complete?(
       arg:
         | {
-            success: true;
+            /**
+             * 表示摇一摇有效或传感器监听调用成功
+             */
+            success: boolean;
           }
         | {
             error?: number;
@@ -9534,16 +10064,20 @@ declare namespace my {
           }
     ): void;
   }): Promise<{
-    success: true;
+    /**
+     * 表示摇一摇有效或传感器监听调用成功
+     */
+    success: boolean;
   }>;
   /**
    * 开始 IFAA 生物认证
+   * @see https://opendocs.alipay.com/mini/05vid9
    */
   export function startIfaaAuthentication(r: {
     /**
      * 请求使用的可接受的生物认证方式
      */
-    requestAuthModes: Array<'fingerPrint' | 'facial'>;
+    requestAuthModes: ('fingerPrint' | 'facial')[];
     /**
      * 挑战因子
      * @description 挑战因子为调用者为此次核身准备的关键识别信息，供调用者识别本次请求。例如：如果场景为请求用户对某订单进行授权确认，则可以将订单号填入此参数
@@ -9552,8 +10086,30 @@ declare namespace my {
     /**
      * 接口调用成功的回调函数
      */
-    success?(
-      data:
+    success?(data: {
+      code: string;
+      message?: string;
+      srcCode?: string;
+      token?: string;
+      verifyCode?: string;
+      /**
+       * 核身校验唯一标识
+       * @description 业务服务端二次校验时对应的入参verify_id
+       */
+      verifyId: string;
+      nextIsCasherPament2?: boolean;
+      subCode?: string;
+      bizResponseData?: string;
+    }): void;
+    /**
+     * 接口调用失败的回调函数
+     */
+    fail?(err: { error?: number; errorMessage?: string }): void;
+    /**
+     * 接口调用结束的回调函数（调用成功、失败都会执行）
+     */
+    complete?(
+      arg:
         | {
             code: string;
             message?: string;
@@ -9570,69 +10126,25 @@ declare namespace my {
             bizResponseData?: string;
           }
         | {
-            error: number;
-            errorMessage: string;
-            verifyId?: string;
-          }
-    ): void;
-    /**
-     * 接口调用失败的回调函数
-     */
-    fail?(err: { error?: number; errorMessage?: string }): void;
-    /**
-     * 接口调用结束的回调函数（调用成功、失败都会执行）
-     */
-    complete?(
-      arg:
-        | (
-            | {
-                code: string;
-                message?: string;
-                srcCode?: string;
-                token?: string;
-                verifyCode?: string;
-                /**
-                 * 核身校验唯一标识
-                 * @description 业务服务端二次校验时对应的入参verify_id
-                 */
-                verifyId: string;
-                nextIsCasherPament2?: boolean;
-                subCode?: string;
-                bizResponseData?: string;
-              }
-            | {
-                error: number;
-                errorMessage: string;
-                verifyId?: string;
-              }
-          )
-        | {
             error?: number;
             errorMessage?: string;
           }
     ): void;
-  }): Promise<
-    | {
-        code: string;
-        message?: string;
-        srcCode?: string;
-        token?: string;
-        verifyCode?: string;
-        /**
-         * 核身校验唯一标识
-         * @description 业务服务端二次校验时对应的入参verify_id
-         */
-        verifyId: string;
-        nextIsCasherPament2?: boolean;
-        subCode?: string;
-        bizResponseData?: string;
-      }
-    | {
-        error: number;
-        errorMessage: string;
-        verifyId?: string;
-      }
-  >;
+  }): Promise<{
+    code: string;
+    message?: string;
+    srcCode?: string;
+    token?: string;
+    verifyCode?: string;
+    /**
+     * 核身校验唯一标识
+     * @description 业务服务端二次校验时对应的入参verify_id
+     */
+    verifyId: string;
+    nextIsCasherPament2?: boolean;
+    subCode?: string;
+    bizResponseData?: string;
+  }>;
   /**
    * 触发页面下拉刷新
    * @description
@@ -9644,7 +10156,12 @@ declare namespace my {
     /**
      * 接口调用成功的回调函数
      */
-    success?(data: { success: true }): void;
+    success?(data: {
+      /**
+       * 是否成功
+       */
+      success: true;
+    }): void;
     /**
      * 接口调用失败的回调函数
      */
@@ -9655,6 +10172,9 @@ declare namespace my {
     complete?(
       arg:
         | {
+            /**
+             * 是否成功
+             */
             success: true;
           }
         | {
@@ -9663,6 +10183,9 @@ declare namespace my {
           }
     ): void;
   }): Promise<{
+    /**
+     * 是否成功
+     */
     success: true;
   }>;
   /**
@@ -9673,7 +10196,12 @@ declare namespace my {
     /**
      * 接口调用成功的回调函数
      */
-    success?(data: { success: true }): void;
+    success?(data: {
+      /**
+       * 是否成功
+       */
+      success: true;
+    }): void;
     /**
      * 接口调用失败的回调函数
      */
@@ -9684,6 +10212,9 @@ declare namespace my {
     complete?(
       arg:
         | {
+            /**
+             * 是否成功
+             */
             success: true;
           }
         | {
@@ -9692,6 +10223,9 @@ declare namespace my {
           }
     ): void;
   }): Promise<{
+    /**
+     * 是否成功
+     */
     success: true;
   }>;
   /**
@@ -9702,7 +10236,12 @@ declare namespace my {
     /**
      * 接口调用成功的回调函数
      */
-    success?(data: { success: true }): void;
+    success?(data: {
+      /**
+       * 表示摇一摇有效或传感器监听调用成功
+       */
+      success: boolean;
+    }): void;
     /**
      * 接口调用失败的回调函数
      */
@@ -9713,7 +10252,10 @@ declare namespace my {
     complete?(
       arg:
         | {
-            success: true;
+            /**
+             * 表示摇一摇有效或传感器监听调用成功
+             */
+            success: boolean;
           }
         | {
             error?: number;
@@ -9721,7 +10263,10 @@ declare namespace my {
           }
     ): void;
   }): Promise<{
-    success: true;
+    /**
+     * 表示摇一摇有效或传感器监听调用成功
+     */
+    success: boolean;
   }>;
   /**
    * 停止搜索附近的 iBeacon 设备
@@ -9749,25 +10294,12 @@ declare namespace my {
     /**
      * 接口调用成功的回调函数
      */
-    success?(data: {}): void;
-    /**
-     * 接口调用失败的回调函数
-     */
-    fail?(err: { error?: number; errorMessage?: string }): void;
-    /**
-     * 接口调用结束的回调函数（调用成功、失败都会执行）
-     */
-    complete?(arg: { error?: number; errorMessage?: string }): void;
-  }): Promise<void>;
-  /**
-   * 停止监听罗盘数据
-   * @see https://opendocs.alipay.com/mini/022kkl
-   */
-  export function stopCompass(r?: {
-    /**
-     * 接口调用成功的回调函数
-     */
-    success?(data: { success: true }): void;
+    success?(data: {
+      /**
+       * 是否成功
+       */
+      success: boolean;
+    }): void;
     /**
      * 接口调用失败的回调函数
      */
@@ -9778,7 +10310,10 @@ declare namespace my {
     complete?(
       arg:
         | {
-            success: true;
+            /**
+             * 是否成功
+             */
+            success: boolean;
           }
         | {
             error?: number;
@@ -9786,7 +10321,50 @@ declare namespace my {
           }
     ): void;
   }): Promise<{
-    success: true;
+    /**
+     * 是否成功
+     */
+    success: boolean;
+  }>;
+  /**
+   * 停止监听罗盘数据
+   * @see https://opendocs.alipay.com/mini/022kkl
+   */
+  export function stopCompass(r?: {
+    /**
+     * 接口调用成功的回调函数
+     */
+    success?(data: {
+      /**
+       * 表示摇一摇有效或传感器监听调用成功
+       */
+      success: boolean;
+    }): void;
+    /**
+     * 接口调用失败的回调函数
+     */
+    fail?(err: { error?: number; errorMessage?: string }): void;
+    /**
+     * 接口调用结束的回调函数（调用成功、失败都会执行）
+     */
+    complete?(
+      arg:
+        | {
+            /**
+             * 表示摇一摇有效或传感器监听调用成功
+             */
+            success: boolean;
+          }
+        | {
+            error?: number;
+            errorMessage?: string;
+          }
+    ): void;
+  }): Promise<{
+    /**
+     * 表示摇一摇有效或传感器监听调用成功
+     */
+    success: boolean;
   }>;
   /**
    * 停止监听陀螺仪数据
@@ -9796,7 +10374,12 @@ declare namespace my {
     /**
      * 接口调用成功的回调函数
      */
-    success?(data: { success: true }): void;
+    success?(data: {
+      /**
+       * 表示摇一摇有效或传感器监听调用成功
+       */
+      success: boolean;
+    }): void;
     /**
      * 接口调用失败的回调函数
      */
@@ -9807,7 +10390,10 @@ declare namespace my {
     complete?(
       arg:
         | {
-            success: true;
+            /**
+             * 表示摇一摇有效或传感器监听调用成功
+             */
+            success: boolean;
           }
         | {
             error?: number;
@@ -9815,7 +10401,10 @@ declare namespace my {
           }
     ): void;
   }): Promise<{
-    success: true;
+    /**
+     * 表示摇一摇有效或传感器监听调用成功
+     */
+    success: boolean;
   }>;
   /**
    * 结束当前页面下拉刷新
@@ -9846,7 +10435,12 @@ declare namespace my {
     /**
      * 接口调用成功的回调函数
      */
-    success?(data: { success: true }): void;
+    success?(data: {
+      /**
+       * 是否成功
+       */
+      success: true;
+    }): void;
     /**
      * 接口调用失败的回调函数
      */
@@ -9857,6 +10451,9 @@ declare namespace my {
     complete?(
       arg:
         | {
+            /**
+             * 是否成功
+             */
             success: true;
           }
         | {
@@ -9865,6 +10462,9 @@ declare namespace my {
           }
     ): void;
   }): Promise<{
+    /**
+     * 是否成功
+     */
     success: true;
   }>;
   /**
@@ -9988,10 +10588,6 @@ declare namespace my {
      */
     name: string;
     /**
-     * 文件名，会转换成 name 字段
-     */
-    fileName?: string;
-    /**
      * 文件类型支持图片、视频、音频（image / video / audio）。
      */
     fileType: string;
@@ -10004,11 +10600,18 @@ declare namespace my {
      * HTTP 请求 Header。
      */
     header?: Record<string, unknown>;
+    /**
+     * 请求头
+     */
     headers?: Record<string, unknown>;
     /**
      * HTTP 请求中其他额外的 form 数据。
      */
     formData?: Record<string, unknown>;
+    /**
+     * 文件名，会转换成 name 字段
+     */
+    fileName?: string;
     /**
      * 接口调用成功的回调函数
      */
@@ -10093,7 +10696,12 @@ declare namespace my {
     /**
      * 接口调用成功的回调函数
      */
-    success?(data: { success: 1 }): void;
+    success?(data: {
+      /**
+       * 是否成功
+       */
+      success: boolean;
+    }): void;
     /**
      * 接口调用失败的回调函数
      */
@@ -10104,7 +10712,10 @@ declare namespace my {
     complete?(
       arg:
         | {
-            success: 1;
+            /**
+             * 是否成功
+             */
+            success: boolean;
           }
         | {
             error?: number;
@@ -10112,7 +10723,10 @@ declare namespace my {
           }
     ): void;
   }): Promise<{
-    success: 1;
+    /**
+     * 是否成功
+     */
+    success: boolean;
   }>;
   /**
    * 触发设备长时间震动
@@ -10123,7 +10737,12 @@ declare namespace my {
     /**
      * 接口调用成功的回调函数
      */
-    success?(data: { success: 1 }): void;
+    success?(data: {
+      /**
+       * 是否成功
+       */
+      success: boolean;
+    }): void;
     /**
      * 接口调用失败的回调函数
      */
@@ -10134,7 +10753,10 @@ declare namespace my {
     complete?(
       arg:
         | {
-            success: 1;
+            /**
+             * 是否成功
+             */
+            success: boolean;
           }
         | {
             error?: number;
@@ -10142,7 +10764,10 @@ declare namespace my {
           }
     ): void;
   }): Promise<{
-    success: 1;
+    /**
+     * 是否成功
+     */
+    success: boolean;
   }>;
   /**
    * 触发设备短时间震动
@@ -10152,7 +10777,12 @@ declare namespace my {
     /**
      * 接口调用成功的回调函数
      */
-    success?(data: { success: 1 }): void;
+    success?(data: {
+      /**
+       * 是否成功
+       */
+      success: boolean;
+    }): void;
     /**
      * 接口调用失败的回调函数
      */
@@ -10163,7 +10793,10 @@ declare namespace my {
     complete?(
       arg:
         | {
-            success: 1;
+            /**
+             * 是否成功
+             */
+            success: boolean;
           }
         | {
             error?: number;
@@ -10171,7 +10804,10 @@ declare namespace my {
           }
     ): void;
   }): Promise<{
-    success: 1;
+    /**
+     * 是否成功
+     */
+    success: boolean;
   }>;
   /**
    * 摇一摇功能
@@ -10179,14 +10815,31 @@ declare namespace my {
    * @see https://opendocs.alipay.com/mini/api/shake
    */
   export function watchShake(r?: {
+    /**
+     * 值为true时，表示开启加速度传感器监听功能，会不断的收到accelerometerChange事件回调。
+     */
     monitorAccelerometer?: boolean;
+    /**
+     * 值为true时，表示开启压力传感器监听功能，会不断的收到compassChange事件回调。
+     */
     monitorCompass?: boolean;
+    /**
+     * 值为true时，表示开启陀螺仪传感器监听功能，会不断的收到gyroscopeChange事件回调。
+     */
     monitorGyroscope?: boolean;
+    /**
+     * 传感器采样回调间隔，单位 秒
+     */
     interval?: number;
     /**
      * 接口调用成功的回调函数
      */
-    success?(data: { success: true }): void;
+    success?(data: {
+      /**
+       * 表示摇一摇有效或传感器监听调用成功
+       */
+      success: boolean;
+    }): void;
     /**
      * 接口调用失败的回调函数
      */
@@ -10197,7 +10850,10 @@ declare namespace my {
     complete?(
       arg:
         | {
-            success: true;
+            /**
+             * 表示摇一摇有效或传感器监听调用成功
+             */
+            success: boolean;
           }
         | {
             error?: number;
@@ -10205,7 +10861,10 @@ declare namespace my {
           }
     ): void;
   }): Promise<{
-    success: true;
+    /**
+     * 表示摇一摇有效或传感器监听调用成功
+     */
+    success: boolean;
   }>;
   /**
    * 向蓝牙低功耗设备特征值中写入数据
@@ -10275,6 +10934,218 @@ declare namespace my {
      */
     errorMessage: string;
   }>;
+  export interface CloudContext {
+    /**
+     * 云托管服务调用
+     */
+    callContainer(r: {
+      /**
+       * 云环境服务路径
+       */
+      path: string;
+      /**
+       * 云环境配置
+       */
+      config: Record<string, string>;
+      /**
+       * 云环境服务配置
+       */
+      header: Record<string, string>;
+      /**
+       * 云服务器请求类型
+       */
+      method?: string;
+      /**
+       * 请求数据
+       */
+      data?: unknown;
+      /**
+       * 超时时间
+       */
+      timeout?: number;
+      /**
+       * 返回的resultData字段数据格式
+       */
+      dataType?: string;
+      /**
+       * 返回的resultData字段数据流类型
+       */
+      responseType?: string;
+      /**
+       * 接口调用成功的回调函数
+       */
+      success?(data: {
+        /**
+         * 响应结果码，正常返回为200
+         */
+        resultCode?: number;
+        /**
+         * 响应数据
+         */
+        resultData: Record<string, unknown>;
+      }): void;
+      /**
+       * 接口调用失败的回调函数
+       */
+      fail?(
+        err:
+          | {
+              error?: number;
+              errorMessage?: string;
+            }
+          | {
+              error: 60001;
+              errorMessage: '非法入参，非法入参，请在config字段中传入云环境ID参数env';
+            }
+          | {
+              error: 60002;
+              errorMessage: '调用前，请先初始化云环境';
+            }
+          | {
+              error: 60005;
+              errorMessage: '云调用失败';
+            }
+      ): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              /**
+               * 响应结果码，正常返回为200
+               */
+              resultCode?: number;
+              /**
+               * 响应数据
+               */
+              resultData: Record<string, unknown>;
+            }
+          | (
+              | {
+                  error?: number;
+                  errorMessage?: string;
+                }
+              | {
+                  error: 60001;
+                  errorMessage: '非法入参，非法入参，请在config字段中传入云环境ID参数env';
+                }
+              | {
+                  error: 60002;
+                  errorMessage: '调用前，请先初始化云环境';
+                }
+              | {
+                  error: 60005;
+                  errorMessage: '云调用失败';
+                }
+            )
+      ): void;
+    }): Promise<{
+      /**
+       * 响应结果码，正常返回为200
+       */
+      resultCode?: number;
+      /**
+       * 响应数据
+       */
+      resultData: Record<string, unknown>;
+    }>;
+    /**
+     * 云托管初始化
+     */
+    init(r?: {
+      /**
+       * 接口调用成功的回调函数
+       */
+      success?(data: {
+        /**
+         * 是否成功
+         */
+        success: boolean;
+      }): void;
+      /**
+       * 接口调用失败的回调函数
+       */
+      fail?(
+        err:
+          | {
+              error?: number;
+              errorMessage?: string;
+            }
+          | {
+              error: 60001;
+              errorMessage: '系统错误';
+            }
+          | {
+              error: 60002;
+              errorMessage: '小程序不存在';
+            }
+          | {
+              error: 60003;
+              errorMessage: '小程序云环境不存在';
+            }
+          | {
+              error: 60004;
+              errorMessage: '无权限调用';
+            }
+          | {
+              error: 60005;
+              errorMessage: '网络异常';
+            }
+          | {
+              error: 2;
+              errorMessage: '接口参数无效';
+            }
+      ): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              /**
+               * 是否成功
+               */
+              success: boolean;
+            }
+          | (
+              | {
+                  error?: number;
+                  errorMessage?: string;
+                }
+              | {
+                  error: 60001;
+                  errorMessage: '系统错误';
+                }
+              | {
+                  error: 60002;
+                  errorMessage: '小程序不存在';
+                }
+              | {
+                  error: 60003;
+                  errorMessage: '小程序云环境不存在';
+                }
+              | {
+                  error: 60004;
+                  errorMessage: '无权限调用';
+                }
+              | {
+                  error: 60005;
+                  errorMessage: '网络异常';
+                }
+              | {
+                  error: 2;
+                  errorMessage: '接口参数无效';
+                }
+            )
+      ): void;
+    }): Promise<{
+      /**
+       * 是否成功
+       */
+      success: boolean;
+    }>;
+  }
   export interface FileSystemManager {
     /**
      * 判断文件、目录是否存在
@@ -10285,7 +11156,12 @@ declare namespace my {
         /**
          * 接口调用成功的回调函数
          */
-        success?(data: { success: true }): void;
+        success?(data: {
+          /**
+           * 是否成功
+           */
+          success: true;
+        }): void;
         /**
          * 接口调用失败的回调函数
          */
@@ -10314,6 +11190,9 @@ declare namespace my {
         complete?(
           arg:
             | {
+                /**
+                 * 是否成功
+                 */
                 success: true;
               }
             | (
@@ -10337,12 +11216,14 @@ declare namespace my {
         ): void;
       }
     ): Promise<{
+      /**
+       * 是否成功
+       */
       success: true;
     }>;
     /**
      * 同步判断文件、目录是否存在
      * @see https://opendocs.alipay.com/mini/api/025027
-     * @sdk2 2.7.4
      */
     accessSync(request: IAccessRequest): {
       success: true;
@@ -10350,7 +11231,6 @@ declare namespace my {
     /**
      * 同步判断文件、目录是否存在
      * @see https://opendocs.alipay.com/mini/api/025027
-     * @sdk2 2.7.4
      */
     accessSync(path: string): {
       success: true;
@@ -10364,7 +11244,12 @@ declare namespace my {
         /**
          * 接口调用成功的回调函数
          */
-        success?(data: { success: true }): void;
+        success?(data: {
+          /**
+           * 是否成功
+           */
+          success: true;
+        }): void;
         /**
          * 接口调用失败的回调函数
          */
@@ -10401,6 +11286,9 @@ declare namespace my {
         complete?(
           arg:
             | {
+                /**
+                 * 是否成功
+                 */
                 success: true;
               }
             | (
@@ -10432,12 +11320,14 @@ declare namespace my {
         ): void;
       }
     ): Promise<{
+      /**
+       * 是否成功
+       */
       success: true;
     }>;
     /**
      * 同步在文件结尾追加内容
      * @see https://opendocs.alipay.com/mini/api/025028
-     * @sdk2 2.7.4
      */
     appendFileSync(request: IAppendFileRequest): {
       success: true;
@@ -10445,7 +11335,6 @@ declare namespace my {
     /**
      * 同步在文件结尾追加内容
      * @see https://opendocs.alipay.com/mini/api/025028
-     * @sdk2 2.7.4
      */
     appendFileSync(
       filePath: string,
@@ -10464,7 +11353,12 @@ declare namespace my {
         /**
          * 接口调用成功的回调函数
          */
-        success?(data: { success: true }): void;
+        success?(data: {
+          /**
+           * 是否成功
+           */
+          success: true;
+        }): void;
         /**
          * 接口调用失败的回调函数
          */
@@ -10501,6 +11395,9 @@ declare namespace my {
         complete?(
           arg:
             | {
+                /**
+                 * 是否成功
+                 */
                 success: true;
               }
             | (
@@ -10532,12 +11429,14 @@ declare namespace my {
         ): void;
       }
     ): Promise<{
+      /**
+       * 是否成功
+       */
       success: true;
     }>;
     /**
      * 同步复制文件
      * @see https://opendocs.alipay.com/mini/api/024ytt
-     * @sdk2 2.7.4
      */
     copyFileSync(request: ICopyFileRequest): {
       success: true;
@@ -10545,7 +11444,6 @@ declare namespace my {
     /**
      * 同步复制文件
      * @see https://opendocs.alipay.com/mini/api/024ytt
-     * @sdk2 2.7.4
      */
     copyFileSync(
       srcPath: string,
@@ -10631,13 +11529,11 @@ declare namespace my {
     /**
      * 同步获取该小程序下的本地临时文件或本地缓存文件信息
      * @see https://opendocs.alipay.com/mini/api/0226og
-     * @sdk2 2.7.4
      */
     getFileInfoSync(request: IGetFileInfoRequest): IGetFileInfoResponse;
     /**
      * 同步获取该小程序下的本地临时文件或本地缓存文件信息
      * @see https://opendocs.alipay.com/mini/api/0226og
-     * @sdk2 2.7.4
      */
     getFileInfoSync(
       filePath: string,
@@ -10671,7 +11567,6 @@ declare namespace my {
     /**
      * 同步获取该小程序下已保存的本地缓存文件列表
      * @see https://opendocs.alipay.com/mini/api/0228qj
-     * @sdk2 2.7.4
      */
     getSavedFileListSync(): IGetSavedFileListResponse;
     /**
@@ -10741,7 +11636,6 @@ declare namespace my {
     /**
      * 同步创建文件系统目录
      * @see https://opendocs.alipay.com/mini/api/024ytu
-     * @sdk2 2.7.4
      */
     mkdirSync(request: IMkdirRequest): {
       success: true;
@@ -10749,7 +11643,6 @@ declare namespace my {
     /**
      * 同步创建文件系统目录
      * @see https://opendocs.alipay.com/mini/api/024ytu
-     * @sdk2 2.7.4
      */
     mkdirSync(
       dirPath: string,
@@ -10827,13 +11720,11 @@ declare namespace my {
     /**
      * 同步读取目录内文件列表
      * @see https://opendocs.alipay.com/mini/api/024ytv
-     * @sdk2 2.7.4
      */
     readdirSync(request: IReaddirRequest): IReaddirResponse;
     /**
      * 同步读取目录内文件列表
      * @see https://opendocs.alipay.com/mini/api/024ytv
-     * @sdk2 2.7.4
      */
     readdirSync(dirPath: string): IReaddirResponse;
     /**
@@ -10906,13 +11797,11 @@ declare namespace my {
     /**
      * 同步读取本地文件内容
      * @see https://opendocs.alipay.com/mini/api/025029
-     * @sdk2 2.7.4
      */
     readFileSync(request: IReadFileRequest): IReadFileResponse;
     /**
      * 同步读取本地文件内容
      * @see https://opendocs.alipay.com/mini/api/025029
-     * @sdk2 2.7.4
      */
     readFileSync(
       filePath: string,
@@ -10927,7 +11816,12 @@ declare namespace my {
         /**
          * 接口调用成功的回调函数
          */
-        success?(data: { success: true }): void;
+        success?(data: {
+          /**
+           * 是否成功
+           */
+          success: true;
+        }): void;
         /**
          * 接口调用失败的回调函数
          */
@@ -10960,6 +11854,9 @@ declare namespace my {
         complete?(
           arg:
             | {
+                /**
+                 * 是否成功
+                 */
                 success: true;
               }
             | (
@@ -10987,12 +11884,14 @@ declare namespace my {
         ): void;
       }
     ): Promise<{
+      /**
+       * 是否成功
+       */
       success: true;
     }>;
     /**
      * 同步删除该小程序下已保存的本地缓存文件
      * @see https://opendocs.alipay.com/mini/api/0229pv
-     * @sdk2 2.7.4
      */
     removeSavedFileSync(request: IRemoveSavedFileRequest): {
       success: true;
@@ -11000,7 +11899,6 @@ declare namespace my {
     /**
      * 同步删除该小程序下已保存的本地缓存文件
      * @see https://opendocs.alipay.com/mini/api/0229pv
-     * @sdk2 2.7.4
      */
     removeSavedFileSync(filePath: string): {
       success: true;
@@ -11015,7 +11913,12 @@ declare namespace my {
         /**
          * 接口调用成功的回调函数
          */
-        success?(data: { success: true }): void;
+        success?(data: {
+          /**
+           * 是否成功
+           */
+          success: true;
+        }): void;
         /**
          * 接口调用失败的回调函数
          */
@@ -11048,6 +11951,9 @@ declare namespace my {
         complete?(
           arg:
             | {
+                /**
+                 * 是否成功
+                 */
                 success: true;
               }
             | (
@@ -11075,13 +11981,15 @@ declare namespace my {
         ): void;
       }
     ): Promise<{
+      /**
+       * 是否成功
+       */
       success: true;
     }>;
     /**
      * 同步重命名文件
      * @description 可以把文件从 oldPath 移动到 newPath。
      * @see https://opendocs.alipay.com/mini/api/024ytw
-     * @sdk2 2.7.4
      */
     renameSync(request: IRenameRequest): {
       success: true;
@@ -11090,7 +11998,6 @@ declare namespace my {
      * 同步重命名文件
      * @description 可以把文件从 oldPath 移动到 newPath。
      * @see https://opendocs.alipay.com/mini/api/024ytw
-     * @sdk2 2.7.4
      */
     renameSync(
       oldPath: string,
@@ -11107,7 +12014,12 @@ declare namespace my {
         /**
          * 接口调用成功的回调函数
          */
-        success?(data: { success: true }): void;
+        success?(data: {
+          /**
+           * 是否成功
+           */
+          success: true;
+        }): void;
         /**
          * 接口调用失败的回调函数
          */
@@ -11144,6 +12056,9 @@ declare namespace my {
         complete?(
           arg:
             | {
+                /**
+                 * 是否成功
+                 */
                 success: true;
               }
             | (
@@ -11175,12 +12090,14 @@ declare namespace my {
         ): void;
       }
     ): Promise<{
+      /**
+       * 是否成功
+       */
       success: true;
     }>;
     /**
      * 同步删除目录
      * @see https://opendocs.alipay.com/mini/api/024ytx
-     * @sdk2 2.7.4
      */
     rmdirSync(request: IRmdirRequest): {
       success: true;
@@ -11188,7 +12105,6 @@ declare namespace my {
     /**
      * 同步删除目录
      * @see https://opendocs.alipay.com/mini/api/024ytx
-     * @sdk2 2.7.4
      */
     rmdirSync(
       dirPath: string,
@@ -11268,14 +12184,12 @@ declare namespace my {
      * 同步保存临时文件到本地
      * @description 此接口会移动临时文件，因此调用成功后，tempFilePath 将不可用
      * @see https://opendocs.alipay.com/mini/api/02502a
-     * @sdk2 2.7.4
      */
     saveFileSync(request: ISaveFileRequest): ISaveFileResponse;
     /**
      * 同步保存临时文件到本地
      * @description 此接口会移动临时文件，因此调用成功后，tempFilePath 将不可用
      * @see https://opendocs.alipay.com/mini/api/02502a
-     * @sdk2 2.7.4
      */
     saveFileSync(tempFilePath: string, filePath?: string): ISaveFileResponse;
     /**
@@ -11340,13 +12254,11 @@ declare namespace my {
     /**
      * 同步获取文件信息
      * @see https://opendocs.alipay.com/mini/api/024whe
-     * @sdk2 2.7.4
      */
     statSync(request: IStatRequest): IStatResponse;
     /**
      * 同步获取文件信息
      * @see https://opendocs.alipay.com/mini/api/024whe
-     * @sdk2 2.7.4
      */
     statSync(path: string, recursive?: boolean): IStatResponse;
     /**
@@ -11358,7 +12270,12 @@ declare namespace my {
         /**
          * 接口调用成功的回调函数
          */
-        success?(data: { success: true }): void;
+        success?(data: {
+          /**
+           * 是否成功
+           */
+          success: true;
+        }): void;
         /**
          * 接口调用失败的回调函数
          */
@@ -11391,6 +12308,9 @@ declare namespace my {
         complete?(
           arg:
             | {
+                /**
+                 * 是否成功
+                 */
                 success: true;
               }
             | (
@@ -11418,12 +12338,14 @@ declare namespace my {
         ): void;
       }
     ): Promise<{
+      /**
+       * 是否成功
+       */
       success: true;
     }>;
     /**
      * 同步删除文件
      * @see https://opendocs.alipay.com/mini/api/024whc
-     * @sdk2 2.7.4
      */
     unlinkSync(request: IUnlinkRequest): {
       success: true;
@@ -11431,7 +12353,6 @@ declare namespace my {
     /**
      * 同步删除文件
      * @see https://opendocs.alipay.com/mini/api/024whc
-     * @sdk2 2.7.4
      */
     unlinkSync(filePath: string): {
       success: true;
@@ -11445,7 +12366,12 @@ declare namespace my {
         /**
          * 接口调用成功的回调函数
          */
-        success?(data: { success: true }): void;
+        success?(data: {
+          /**
+           * 是否成功
+           */
+          success: true;
+        }): void;
         /**
          * 接口调用失败的回调函数
          */
@@ -11494,6 +12420,9 @@ declare namespace my {
         complete?(
           arg:
             | {
+                /**
+                 * 是否成功
+                 */
                 success: true;
               }
             | (
@@ -11537,6 +12466,9 @@ declare namespace my {
         ): void;
       }
     ): Promise<{
+      /**
+       * 是否成功
+       */
       success: true;
     }>;
     /**
@@ -11548,7 +12480,12 @@ declare namespace my {
         /**
          * 接口调用成功的回调函数
          */
-        success?(data: { success: true }): void;
+        success?(data: {
+          /**
+           * 是否成功
+           */
+          success: true;
+        }): void;
         /**
          * 接口调用失败的回调函数
          */
@@ -11589,6 +12526,9 @@ declare namespace my {
         complete?(
           arg:
             | {
+                /**
+                 * 是否成功
+                 */
                 success: true;
               }
             | (
@@ -11624,12 +12564,14 @@ declare namespace my {
         ): void;
       }
     ): Promise<{
+      /**
+       * 是否成功
+       */
       success: true;
     }>;
     /**
      * 同步用于写文件
      * @see https://opendocs.alipay.com/mini/api/024whd
-     * @sdk2 2.7.4
      */
     writeFileSync(request: IWriteFileRequest): {
       success: true;
@@ -11637,7 +12579,6 @@ declare namespace my {
     /**
      * 同步用于写文件
      * @see https://opendocs.alipay.com/mini/api/024whd
-     * @sdk2 2.7.4
      */
     writeFileSync(
       filePath: string,
@@ -11648,8 +12589,6 @@ declare namespace my {
     };
     /**
      * 压缩文件
-     * @sdk2 2.6.7
-     * @native 10.2.10
      */
     zip(r: {
       /**
@@ -11663,7 +12602,12 @@ declare namespace my {
       /**
        * 接口调用成功的回调函数
        */
-      success?(data: { success: true }): void;
+      success?(data: {
+        /**
+         * 是否成功
+         */
+        success: true;
+      }): void;
       /**
        * 接口调用失败的回调函数
        */
@@ -11712,6 +12656,9 @@ declare namespace my {
       complete?(
         arg:
           | {
+              /**
+               * 是否成功
+               */
               success: true;
             }
           | (
@@ -11754,391 +12701,9 @@ declare namespace my {
             )
       ): void;
     }): Promise<{
-      success: true;
-    }>;
-  }
-  export interface NFCAdapter {
-    /**
-     * 标准
-     */
-    readonly tech: {
-      ndef: 'NDEF';
-      nfcA: 'NFC-A';
-      nfcB: 'NFC-B';
-      isoDep: 'ISO-DEP';
-      nfcF: 'NFC-F';
-      nfcV: 'NFC-V';
-      mifareClassic: 'MIFARE Classic';
-      mifareUltralight: 'MIFARE Ultralight';
-    };
-    /**
-     * 获取 IsoDep 实例
-     * @description 实例支持ISO-DEP (ISO 14443-4)标准的读写
-     */
-    getIsoDep(): NFCAdapter.IsoDep;
-    /**
-     * 获取 MifareClassic 实例
-     * @description 实例支持 MIFARE Classic 标签的读写
-     */
-    getMifareClassic(): NFCAdapter.MifareClassic;
-    /**
-     * 获取 MifareUltralight 实例
-     * @description 实例支持 MIFARE Ultralight 标签的读写
-     */
-    getMifareUltralight(): NFCAdapter.MifareUltralight;
-    getNdef(): NFCAdapter.Ndef;
-    /**
-     * 获取 NfcA 实例
-     * @description 实例支持NFC-A (ISO 14443-3A)标准的读写
-     */
-    getNfcA(): NFCAdapter.NfcA;
-    /**
-     * 获取 NfcB 实例
-     * @description 实例支持 NFC-B (ISO 14443-3B)标准的读写
-     */
-    getNfcB(): NFCAdapter.NfcB;
-    /**
-     * 获取 NfcF 实例
-     * @description 实例支持 NFC-F (JIS 6319-4)标准的读写
-     */
-    getNfcF(): NFCAdapter.NfcF;
-    /**
-     * 获取 NfcV 实例
-     * @description 实例支持 NFC-V (ISO 15693)标准的读写
-     */
-    getNfcV(): NFCAdapter.NfcV;
-    /**
-     * 取消监听 NFC Tag
-     */
-    offDiscovered(
-      cb?: (arg: {
-        data: {
-          techs?: string[];
-          messages?: string[];
-        };
-      }) => void
-    ): void;
-    /**
-     * 监听 NFC Tag
-     */
-    onDiscovered(
-      cb: (arg: {
-        data: {
-          techs?: string[];
-          messages?: string[];
-        };
-      }) => void
-    ): void;
-    /**
-     * 开始扫描 NFC
-     */
-    startDiscovery(r?: {
       /**
-       * 接口调用成功的回调函数
+       * 是否成功
        */
-      success?(data: { success: true }): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(
-        err:
-          | {
-              error?: number;
-              errorMessage?: string;
-            }
-          | {
-              error: 61000;
-              errorMessage: 'nfc not supported';
-            }
-          | {
-              error: 61001;
-              errorMessage: 'nfc is closed';
-            }
-          | {
-              error: 61002;
-              errorMessage: 'Tech already connected';
-            }
-          | {
-              error: 61003;
-              errorMessage: 'Tech has not connected';
-            }
-          | {
-              error: 61004;
-              errorMessage: 'NFC discovery already started';
-            }
-          | {
-              error: 61005;
-              errorMessage: 'NFC discovery has not started';
-            }
-          | {
-              error: 61006;
-              errorMessage: 'invalid tech';
-            }
-          | {
-              error: 61007;
-              errorMessage: 'system internal error';
-            }
-          | {
-              error: 61008;
-              errorMessage: 'connect fail';
-            }
-          | {
-              error: 61009;
-              errorMessage: 'unavailable tech';
-            }
-          | {
-              error: 61010;
-              errorMessage: 'function not support';
-            }
-          | {
-              error: 61011;
-              errorMessage: 'NFC tag has not been discovered';
-            }
-          | {
-              error: 61012;
-              errorMessage: 'parse NdefMessage failed';
-            }
-          | {
-              error: 61013;
-              errorMessage: 'transceive timeout';
-            }
-          | {
-              error: 61014;
-              errorMessage: 'Invalid param';
-            }
-      ): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(
-        arg:
-          | {
-              success: true;
-            }
-          | (
-              | {
-                  error?: number;
-                  errorMessage?: string;
-                }
-              | {
-                  error: 61000;
-                  errorMessage: 'nfc not supported';
-                }
-              | {
-                  error: 61001;
-                  errorMessage: 'nfc is closed';
-                }
-              | {
-                  error: 61002;
-                  errorMessage: 'Tech already connected';
-                }
-              | {
-                  error: 61003;
-                  errorMessage: 'Tech has not connected';
-                }
-              | {
-                  error: 61004;
-                  errorMessage: 'NFC discovery already started';
-                }
-              | {
-                  error: 61005;
-                  errorMessage: 'NFC discovery has not started';
-                }
-              | {
-                  error: 61006;
-                  errorMessage: 'invalid tech';
-                }
-              | {
-                  error: 61007;
-                  errorMessage: 'system internal error';
-                }
-              | {
-                  error: 61008;
-                  errorMessage: 'connect fail';
-                }
-              | {
-                  error: 61009;
-                  errorMessage: 'unavailable tech';
-                }
-              | {
-                  error: 61010;
-                  errorMessage: 'function not support';
-                }
-              | {
-                  error: 61011;
-                  errorMessage: 'NFC tag has not been discovered';
-                }
-              | {
-                  error: 61012;
-                  errorMessage: 'parse NdefMessage failed';
-                }
-              | {
-                  error: 61013;
-                  errorMessage: 'transceive timeout';
-                }
-              | {
-                  error: 61014;
-                  errorMessage: 'Invalid param';
-                }
-            )
-      ): void;
-    }): Promise<{
-      success: true;
-    }>;
-    /**
-     * 停止扫描 NFC
-     */
-    stopDiscovery(r?: {
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: { success: true }): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(
-        err:
-          | {
-              error?: number;
-              errorMessage?: string;
-            }
-          | {
-              error: 61000;
-              errorMessage: 'nfc not supported';
-            }
-          | {
-              error: 61001;
-              errorMessage: 'nfc is closed';
-            }
-          | {
-              error: 61002;
-              errorMessage: 'Tech already connected';
-            }
-          | {
-              error: 61003;
-              errorMessage: 'Tech has not connected';
-            }
-          | {
-              error: 61004;
-              errorMessage: 'NFC discovery already started';
-            }
-          | {
-              error: 61005;
-              errorMessage: 'NFC discovery has not started';
-            }
-          | {
-              error: 61006;
-              errorMessage: 'invalid tech';
-            }
-          | {
-              error: 61007;
-              errorMessage: 'system internal error';
-            }
-          | {
-              error: 61008;
-              errorMessage: 'connect fail';
-            }
-          | {
-              error: 61009;
-              errorMessage: 'unavailable tech';
-            }
-          | {
-              error: 61010;
-              errorMessage: 'function not support';
-            }
-          | {
-              error: 61011;
-              errorMessage: 'NFC tag has not been discovered';
-            }
-          | {
-              error: 61012;
-              errorMessage: 'parse NdefMessage failed';
-            }
-          | {
-              error: 61013;
-              errorMessage: 'transceive timeout';
-            }
-          | {
-              error: 61014;
-              errorMessage: 'Invalid param';
-            }
-      ): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(
-        arg:
-          | {
-              success: true;
-            }
-          | (
-              | {
-                  error?: number;
-                  errorMessage?: string;
-                }
-              | {
-                  error: 61000;
-                  errorMessage: 'nfc not supported';
-                }
-              | {
-                  error: 61001;
-                  errorMessage: 'nfc is closed';
-                }
-              | {
-                  error: 61002;
-                  errorMessage: 'Tech already connected';
-                }
-              | {
-                  error: 61003;
-                  errorMessage: 'Tech has not connected';
-                }
-              | {
-                  error: 61004;
-                  errorMessage: 'NFC discovery already started';
-                }
-              | {
-                  error: 61005;
-                  errorMessage: 'NFC discovery has not started';
-                }
-              | {
-                  error: 61006;
-                  errorMessage: 'invalid tech';
-                }
-              | {
-                  error: 61007;
-                  errorMessage: 'system internal error';
-                }
-              | {
-                  error: 61008;
-                  errorMessage: 'connect fail';
-                }
-              | {
-                  error: 61009;
-                  errorMessage: 'unavailable tech';
-                }
-              | {
-                  error: 61010;
-                  errorMessage: 'function not support';
-                }
-              | {
-                  error: 61011;
-                  errorMessage: 'NFC tag has not been discovered';
-                }
-              | {
-                  error: 61012;
-                  errorMessage: 'parse NdefMessage failed';
-                }
-              | {
-                  error: 61013;
-                  errorMessage: 'transceive timeout';
-                }
-              | {
-                  error: 61014;
-                  errorMessage: 'Invalid param';
-                }
-            )
-      ): void;
-    }): Promise<{
       success: true;
     }>;
   }
@@ -12303,18 +12868,17 @@ declare namespace my {
      * 将当前选择节点的位置信息放入查询结果
      * @see https://opendocs.alipay.com/mini/api/na4yun
      */
-    boundingClientRect(callback?: (res: unknown) => void): this;
+    boundingClientRect(callback: (res: unknown) => void): this;
     /**
      * 添加节点 Context 实例查询请求
      * @see https://opendocs.alipay.com/mini/api/021yfe
-     * @sdk2 2.7.3
      */
     context(callback: (res: unknown) => void): this;
     /**
      * 将查询结果放入 Callback 回调中
      * @see https://opendocs.alipay.com/mini/api/baz2hg
      */
-    exec(callback?: (res: ArrayLike<any>) => void): void;
+    exec(callback: (res: ArrayLike<any>) => void): void;
     /**
      * 获取节点的指定字段信息
      * @see https://opendocs.alipay.com/mini/api/021zn2
@@ -12325,20 +12889,19 @@ declare namespace my {
     ): this;
     /**
      * 将选择器的选取范围更改为自定义组件内
-     * @sdk2 2.6.7
      */
     in(component: unknown): this;
     /**
      * 获取 Node 节点实例
+     * @description 目前仅支持 [Canvas](miniapi:Canvas) 节点的获取
      * @see https://opendocs.alipay.com/mini/api/node
-     * @sdk2 2.7.0
      */
     node(callback: (res: unknown) => void): this;
     /**
      * 将当前选择节点的滚动信息放入查询结果
      * @see https://opendocs.alipay.com/mini/api/euyxnr
      */
-    scrollOffset(callback?: (res: unknown) => void): this;
+    scrollOffset(callback: (res: unknown) => void): this;
     /**
      * 选择当前第一个匹配选择器的节点
      * @see https://opendocs.alipay.com/mini/api/mwo97h
@@ -12359,8 +12922,6 @@ declare namespace my {
     /**
      * 创建自定义图片图层
      * @description 图片会随着地图缩放而缩放
-     * @sdk2 2.7.2
-     * @native 10.2.20
      */
     addGroundOverlay(r: {
       /**
@@ -12406,8 +12967,6 @@ declare namespace my {
     }): Promise<void>;
     /**
      * 添加 marker
-     * @sdk2 2.7.2
-     * @native 10.2.20
      */
     addMarkers(r: {
       /**
@@ -12436,7 +12995,6 @@ declare namespace my {
      * 通过给定坐标点序列计算路径长度及特定距离坐标点
      * @description 计算由一系列坐标点所定义的路径的长度，并可计算出该路径上距起始点指定距离的点的坐标。
      * @see https://opendocs.alipay.com/mini/00nfnc
-     * @sdk2 2.4.4
      */
     calculateDistance(r: {
       /**
@@ -12502,8 +13060,6 @@ declare namespace my {
     /**
      * 添加、删除、更新指定的 marker
      * @see https://opendocs.alipay.com/mini/00k9uj
-     * @native 10.1.80
-     * @sdk2 2.6.0
      */
     changeMarkers(r: {
       /**
@@ -12534,11 +13090,19 @@ declare namespace my {
     /**
      * 清除地图上的步行导航路线
      * @see https://opendocs.alipay.com/mini/api/qb6sf9
-     * @sdk2 2.4.4
      */
     clearRoute(r: {
+      /**
+       * 组件 id
+       */
       element: string;
+      /**
+       * 操作类型
+       */
       actionType: string;
+      /**
+       * 数据
+       */
       data: Record<string, unknown>;
       /**
        * 接口调用成功的回调函数
@@ -12556,7 +13120,6 @@ declare namespace my {
     /**
      * 设置所有手势是否可用
      * @see https://opendocs.alipay.com/mini/api/sgwf36
-     * @sdk2 2.4.4
      */
     gestureEnable(r: {
       /**
@@ -12581,8 +13144,17 @@ declare namespace my {
      * @see https://opendocs.alipay.com/mini/api/vc2gdt
      */
     getCenterLocation(r: {
+      /**
+       * 组件 id
+       */
       element: string;
+      /**
+       * 操作类型
+       */
       actionType: string;
+      /**
+       * 数据
+       */
       data: Record<string, unknown>;
       /**
        * 接口调用成功的回调函数
@@ -12634,7 +13206,6 @@ declare namespace my {
     /**
      * 获取地图的属性信息
      * @see https://opendocs.alipay.com/mini/00nfn7
-     * @sdk2 2.4.4
      */
     getMapProperties(r?: {
       /**
@@ -12735,7 +13306,6 @@ declare namespace my {
     /**
      * 获取地图的属性信息
      * @see https://opendocs.alipay.com/mini/00nbqs
-     * @sdk2 2.6.0
      */
     getRegion(r?: {
       /**
@@ -12788,8 +13358,6 @@ declare namespace my {
     /**
      * 获取当前地图的旋转角
      * @see https://opendocs.alipay.com/mini/api/getrotate
-     * @sdk2 2.6.2
-     * @native 10.2.0
      */
     getRotate(r?: {
       /**
@@ -12830,8 +13398,6 @@ declare namespace my {
     /**
      * 获取地图的缩放级别
      * @see https://opendocs.alipay.com/mini/api/getScale
-     * @native 10.1.92
-     * @sdk2 2.6.0
      */
     getScale(r?: {
       /**
@@ -12878,8 +13444,6 @@ declare namespace my {
     /**
      * 获取当前地图的倾斜角
      * @see https://opendocs.alipay.com/mini/api/getskew
-     * @sdk2 2.6.2
-     * @native 10.2.0
      */
     getSkew(r?: {
       /**
@@ -12923,8 +13487,6 @@ declare namespace my {
     /**
      * 缩放视野到指定可视区域
      * @see https://opendocs.alipay.com/mini/api/includepoints
-     * @sdk2 2.6.2
-     * @native 10.2.0
      */
     includePoints(r: {
       /**
@@ -12952,8 +13514,6 @@ declare namespace my {
     /**
      * 初始化点聚合的配置
      * @description 未调用时采用默认配置
-     * @sdk2 2.7.2
-     * @native 10.2.20
      */
     initMarkerCluster(r: {
       /**
@@ -13064,8 +13624,6 @@ declare namespace my {
     /**
      * 判断矩形区域是否包含传入的经纬度点
      * @see https://opendocs.alipay.com/mini/api/polygonContainsPoint
-     * @sdk2 2.7.9
-     * @native 10.2.33
      */
     polygonContainsPoint(r: {
       /**
@@ -13113,8 +13671,6 @@ declare namespace my {
     }>;
     /**
      * 移除自定义图片图层
-     * @sdk2 2.7.2
-     * @native 10.2.20
      */
     removeGroundOverlay(r: {
       /**
@@ -13136,8 +13692,6 @@ declare namespace my {
     }): Promise<void>;
     /**
      * 移除 marker
-     * @sdk2 2.7.2
-     * @native 10.2.20
      */
     removeMarkers(r: {
       /**
@@ -13193,8 +13747,6 @@ declare namespace my {
      * 设置地图中心点偏移
      * @description 向后向下为增长，屏幕比例范围为 (0~1)，默认偏移为 [0.5, 0.5]。
      * @see https://opendocs.alipay.com/mini/api/setcenteroffset
-     * @sdk2 2.6.2
-     * @native 10.2.0
      */
     setCenterOffset(r: {
       /**
@@ -13217,8 +13769,6 @@ declare namespace my {
     /**
      * 设置地图主题类型
      * @see https://opendocs.alipay.com/mini/api/setmaptype
-     * @native 10.1.92
-     * @sdk2 2.6.0
      */
     setMapType(r: {
       /**
@@ -13260,7 +13810,6 @@ declare namespace my {
      * 默认规划步行路线
      * @description 只能显示一条。
      * @see https://opendocs.alipay.com/mini/api/uwffxx
-     * @sdk2 2.4.4
      */
     showRoute(r: {
       /**
@@ -13384,7 +13933,6 @@ declare namespace my {
     /**
      * 指定 marker 动画
      * @see https://opendocs.alipay.com/mini/00nedv
-     * @sdk2 2.4.4
      */
     smoothMoveMarker(r: {
       /**
@@ -13430,7 +13978,6 @@ declare namespace my {
     /**
      * 指定轨迹动画
      * @see https://opendocs.alipay.com/mini/00nd0e
-     * @sdk2 2.4.4
      */
     smoothMovePolyline(r: {
       /**
@@ -13496,7 +14043,6 @@ declare namespace my {
     /**
      * 平移 marker
      * @see https://opendocs.alipay.com/mini/api/sg7chr
-     * @sdk2 2.4.4
      */
     translateMarker(r: {
       /**
@@ -13541,7 +14087,6 @@ declare namespace my {
     /**
      * 增量更新地图的接口
      * @see https://opendocs.alipay.com/mini/api/bph944
-     * @sdk2 2.4.4
      */
     updateComponents(r?: {
       /**
@@ -13600,8 +14145,6 @@ declare namespace my {
     }): Promise<void>;
     /**
      * 增量更新地图的接口
-     * @sdk2 2.7.2
-     * @native 10.2.20
      */
     updateGroundOverlay(r: {
       /**
@@ -13657,7 +14200,12 @@ declare namespace my {
       /**
        * 接口调用成功的回调函数
        */
-      success?(data: { success: true }): void;
+      success?(data: {
+        /**
+         * 是否成功
+         */
+        success: true;
+      }): void;
       /**
        * 接口调用失败的回调函数
        */
@@ -13668,6 +14216,9 @@ declare namespace my {
       complete?(
         arg:
           | {
+              /**
+               * 是否成功
+               */
               success: true;
             }
           | {
@@ -13676,15 +14227,45 @@ declare namespace my {
             }
       ): void;
     }): Promise<{
+      /**
+       * 是否成功
+       */
       success: true;
     }>;
+    /**
+     * 取消监听向支付宝后台请求检查更新结果事件。
+     */
+    offCheckForUpdate(cb?: () => void): void;
+    /**
+     * 取消监听小程序更新失败事件
+     */
+    offUpdateFailed(cb?: () => void): void;
+    /**
+     * 取消监听小程序有版本更新事件
+     */
+    offUpdateReady(cb?: () => void): void;
+    /**
+     * 监听向支付宝后台请求检查更新结果事件。
+     * @see https://opendocs.alipay.com/mini/api/nm7dtb
+     */
+    onCheckForUpdate(cb: (param: { hasUpdate: boolean }) => void): void;
+    /**
+     * 用于监听小程序更新失败事件。
+     * @see https://opendocs.alipay.com/mini/api/sy1k0e
+     */
+    onUpdateFailed(cb: (param: { success: false }) => void): void;
+    /**
+     * 监听小程序有版本更新事件。
+     * @see https://opendocs.alipay.com/mini/api/gfz316
+     */
+    onUpdateReady(cb: (param: { success: true }) => void): void;
   }
   export interface EventChannel {
     /**
      * 在页面间通信中触发一个事件
      * @see https://opendocs.alipay.com/mini/api/eventchannel.emit
      */
-    emit(eventName: string, args?: unknown): void;
+    emit(eventName: string, ...args: unknown[]): void;
     /**
      * 在页面间通信中停止监听一个事件
      * @see https://opendocs.alipay.com/mini/api/eventchannel.off
@@ -13702,7 +14283,18 @@ declare namespace my {
      */
     once(eventName: string, callback: (...args: unknown[]) => void): void;
   }
-  export interface Worker {}
+  export interface Worker {
+    /**
+     * 向 Worker 线程发送消息
+     * @see https://opendocs.alipay.com/mini/api/workerpostmessage
+     */
+    postMessage(message: Record<string, unknown>): void;
+    /**
+     * 在小程序中结束 Worker 线程
+     * @see https://opendocs.alipay.com/mini/api/workerterminate
+     */
+    terminate(): void;
+  }
   export interface IntersectionObserver {
     /**
      * 停止监听。回调函数将不再触发
@@ -13710,7 +14302,7 @@ declare namespace my {
      */
     disconnect(): void;
     /**
-     * @sdk2 2.6.7
+     * 指定查询的自定义组件范围
      */
     in(component: unknown): this;
     /**
@@ -13755,7 +14347,6 @@ declare namespace my {
   export interface MediaQueryObserver {
     /**
      * 停止监听。回调函数将不再触发
-     * @see https://opendocs.alipay.com/mini/05bb9o
      */
     disconnect(): void;
   }
@@ -13763,10 +14354,15 @@ declare namespace my {
     /**
      * 停止监听声音的分贝变化回调事件
      * @see https://opendocs.alipay.com/mini/03hbnp
-     * @sdk2 2.6.2
-     * @native 10.2.0
      */
-    offDecibelChange(cb?: (arg: { decibel: number }) => void): void;
+    offDecibelChange(
+      cb?: (arg: {
+        /**
+         * 分贝
+         */
+        decibel: number;
+      }) => void
+    ): void;
     /**
      * 取消监听录音错误事件
      * @see https://opendocs.alipay.com/mini/api/recordermanager/offerror
@@ -13775,37 +14371,39 @@ declare namespace my {
       cb?: (
         arg:
           | {
-              error: '10';
+              error: 10;
               errorMessage: '获取权限失败';
             }
           | {
-              error: '1001';
+              error: 1001;
               errorMessage: 'Record canceled by page pause.';
-            }
-          | {
-              error: number;
-              errorMessage: string;
             }
       ) => void
     ): void;
     /**
      * 取消监听已录制完制定帧大小的文件事件
      * @see https://opendocs.alipay.com/mini/api/recordermanager/offframerecorded
-     * @sdk2 2.7.4
      */
     offFrameRecorded(
-      cb?: (arg: { frameBuffer: ArrayBuffer; isLastFrame: boolean }) => void
+      cb?: (arg: {
+        /**
+         * 录音分片数据
+         */
+        frameBuffer: ArrayBuffer;
+        /**
+         * 当前帧是否正常录音结束前的最后一帧
+         */
+        isLastFrame: boolean;
+      }) => void
     ): void;
     /**
      * 取消监听录音暂停事件
      * @see https://opendocs.alipay.com/mini/api/recordermanager/offpause
-     * @sdk2 2.4.4
      */
     offPause(cb?: () => void): void;
     /**
      * 取消监听录音继续事件
      * @see https://opendocs.alipay.com/mini/api/recordermanager/offresume
-     * @sdk2 2.4.4
      */
     offResume(cb?: () => void): void;
     /**
@@ -13819,14 +14417,20 @@ declare namespace my {
      */
     offStop(
       cb?: (arg: {
+        /**
+         * 标识
+         */
         identifier: string;
+        /**
+         * 录音文件的临时路径
+         */
         tempFilePath: string;
         /**
-         * @native 10.2.90
+         * 录音总时长
          */
         duration: number;
         /**
-         * @native 10.2.90
+         * 文件大小
          */
         fileSize: number;
       }) => void
@@ -13834,10 +14438,15 @@ declare namespace my {
     /**
      * 监听声音的分贝变化回调事件
      * @see https://opendocs.alipay.com/mini/01acgm
-     * @sdk2 2.6.2
-     * @native 10.2.0
      */
-    onDecibelChange(cb: (arg: { decibel: number }) => void): void;
+    onDecibelChange(
+      cb: (arg: {
+        /**
+         * 分贝
+         */
+        decibel: number;
+      }) => void
+    ): void;
     /**
      * 监听录音错误事件
      * @see https://opendocs.alipay.com/mini/api/recordermanager/onerror
@@ -13846,37 +14455,39 @@ declare namespace my {
       cb: (
         arg:
           | {
-              error: '10';
+              error: 10;
               errorMessage: '获取权限失败';
             }
           | {
-              error: '1001';
+              error: 1001;
               errorMessage: 'Record canceled by page pause.';
-            }
-          | {
-              error: number;
-              errorMessage: string;
             }
       ) => void
     ): void;
     /**
      * 监听已录制完制定帧大小的文件事件。如果设置了 frameSize，则会回调此事件
      * @see https://opendocs.alipay.com/mini/api/recordermanager/onframerecorded
-     * @sdk2 2.7.4
      */
     onFrameRecorded(
-      cb: (arg: { frameBuffer: ArrayBuffer; isLastFrame: boolean }) => void
+      cb: (arg: {
+        /**
+         * 录音分片数据
+         */
+        frameBuffer: ArrayBuffer;
+        /**
+         * 当前帧是否正常录音结束前的最后一帧
+         */
+        isLastFrame: boolean;
+      }) => void
     ): void;
     /**
      * 监听录音暂停事件
      * @see https://opendocs.alipay.com/mini/api/recordermanager/onpause
-     * @sdk2 2.4.4
      */
     onPause(cb: () => void): void;
     /**
      * 监听录音继续事件
      * @see https://opendocs.alipay.com/mini/api/recordermanager/onresume
-     * @sdk2 2.4.4
      */
     onResume(cb: () => void): void;
     /**
@@ -13890,14 +14501,20 @@ declare namespace my {
      */
     onStop(
       cb: (arg: {
+        /**
+         * 标识
+         */
         identifier: string;
+        /**
+         * 录音文件的临时路径
+         */
         tempFilePath: string;
         /**
-         * @native 10.2.90
+         * 录音总时长
          */
         duration: number;
         /**
-         * @native 10.2.90
+         * 文件大小
          */
         fileSize: number;
       }) => void
@@ -13905,13 +14522,11 @@ declare namespace my {
     /**
      * 暂停录音
      * @see https://opendocs.alipay.com/mini/api/recordermanager/pause
-     * @sdk2 2.4.4
      */
     pause(): void;
     /**
      * 继续录音
      * @see https://opendocs.alipay.com/mini/api/recordermanager/resume
-     * @sdk2 2.4.4
      */
     resume(): void;
     /**
@@ -13953,7 +14568,7 @@ declare namespace my {
        */
       audioSource?: string;
       /**
-       * 音频格式,支持格式：aac、mp3
+       * 音频格式，支持格式：aac、mp3
        * @default "aac"
        */
       format?: string;
@@ -13970,49 +14585,201 @@ declare namespace my {
   }
   export interface WebSocketTask {
     /**
-     * 取消监听 WebSocket 关闭消息
-     * @sdk2 2.3.1
+     * 关闭 WebSocket 连接
+     * @see https://opendocs.alipay.com/mini/api/vx19c3#SocketTask
      */
-    offClose(cb?: (arg: { data: IOnSocketTaskCloseData }) => void): void;
+    close(r?: {
+      /**
+       * 关闭连接的状态号
+       * @default 1000
+       */
+      code?: number;
+      /**
+       * 连接被关闭的原因
+       * @description 这个字符串必须是不长于 123 字节的 UTF-8 文本（不是字符）
+       */
+      reason?: string;
+      /**
+       * 接口调用成功的回调函数
+       */
+      success?(data: {
+        /**
+         * 消息内容
+         */
+        message: string;
+      }): void;
+      /**
+       * 接口调用失败的回调函数
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              /**
+               * 消息内容
+               */
+              message: string;
+            }
+          | {
+              error?: number;
+              errorMessage?: string;
+            }
+      ): void;
+    }): Promise<{
+      /**
+       * 消息内容
+       */
+      message: string;
+    }>;
+    /**
+     * 取消监听 WebSocket 关闭消息
+     */
+    offClose(
+      cb?: (arg: {
+        /**
+         * 数据
+         */
+        data: IOnSocketTaskCloseData;
+      }) => void
+    ): void;
     /**
      * 取消监听 WebSocket 错误消息
-     * @sdk2 2.3.1
      */
     offError(
-      cb?: (arg: { data: IOnSocketTaskErrorData; error: number }) => void
+      cb?: (arg: {
+        /**
+         * 数据
+         */
+        data: IOnSocketTaskErrorData;
+        /**
+         * 错误码
+         */
+        error: number;
+      }) => void
     ): void;
     /**
      * 取消监听 WebSocket 消息
-     * @sdk2 2.3.1
+     * @see https://opendocs.alipay.com/mini/api/vx19c3#SocketTask
      */
-    offMessage(cb?: (arg: { data: IOnSocketTaskMessageData }) => void): void;
+    offMessage(
+      cb?: (arg: {
+        /**
+         * 数据
+         */
+        data: IOnSocketTaskMessageData;
+      }) => void
+    ): void;
     /**
      * 取消监听 WebSocket open 事件
-     * @sdk2 2.3.1
+     * @see https://opendocs.alipay.com/mini/api/vx19c3#SocketTask
      */
-    offOpen(cb?: (arg: { data: IOnSocketTaskOpenData }) => void): void;
+    offOpen(
+      cb?: (arg: {
+        /**
+         * 数据
+         */
+        data: IOnSocketTaskOpenData;
+      }) => void
+    ): void;
     /**
      * 监听 WebSocket 关闭消息
-     * @sdk2 2.3.1
+     * @see https://opendocs.alipay.com/mini/api/vx19c3#SocketTask
      */
-    onClose(cb: (arg: { data: IOnSocketTaskCloseData }) => void): void;
+    onClose(
+      cb: (arg: {
+        /**
+         * 数据
+         */
+        data: IOnSocketTaskCloseData;
+      }) => void
+    ): void;
     /**
      * 监听 WebSocket 错误消息
-     * @sdk2 2.3.1
+     * @see https://opendocs.alipay.com/mini/api/vx19c3#SocketTask
      */
     onError(
-      cb: (arg: { data: IOnSocketTaskErrorData; error: number }) => void
+      cb: (arg: {
+        /**
+         * 数据
+         */
+        data: IOnSocketTaskErrorData;
+        /**
+         * 错误码
+         */
+        error: number;
+      }) => void
     ): void;
     /**
      * 监听 WebSocket 消息
-     * @sdk2 2.3.1
+     * @see https://opendocs.alipay.com/mini/api/vx19c3#SocketTask
      */
-    onMessage(cb: (arg: { data: IOnSocketTaskMessageData }) => void): void;
+    onMessage(
+      cb: (arg: {
+        /**
+         * 数据
+         */
+        data: IOnSocketTaskMessageData;
+      }) => void
+    ): void;
     /**
      * 监听 WebSocket open 事件
-     * @sdk2 2.3.1
+     * @see https://opendocs.alipay.com/mini/api/vx19c3#SocketTask
      */
-    onOpen(cb: (arg: { data: IOnSocketTaskOpenData }) => void): void;
+    onOpen(
+      cb: (arg: {
+        /**
+         * 数据
+         */
+        data: IOnSocketTaskOpenData;
+      }) => void
+    ): void;
+    /**
+     * 通过 WebSocket 连接发送数据
+     * @see https://opendocs.alipay.com/mini/api/vx19c3#SocketTask
+     */
+    send(r: {
+      /**
+       * 需要发送的内容：普通的文本内容 string 或者经 Base64 编码后的 string。
+       */
+      data: string;
+      /**
+       * 接口调用成功的回调函数
+       */
+      success?(data: {
+        /**
+         * 是否成功
+         */
+        success: boolean;
+      }): void;
+      /**
+       * 接口调用失败的回调函数
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              /**
+               * 是否成功
+               */
+              success: boolean;
+            }
+          | {
+              error?: number;
+              errorMessage?: string;
+            }
+      ): void;
+    }): Promise<{
+      /**
+       * 是否成功
+       */
+      success: boolean;
+    }>;
   }
   export interface InnerAudioContext {
     /**
@@ -14040,7 +14807,6 @@ declare namespace my {
     readonly duration: number;
     /**
      * 是否支持断点续播
-     * @sdk2 2.4.4
      */
     isRecordAudioPlayState: boolean;
     /**
@@ -14049,22 +14815,20 @@ declare namespace my {
     loop: boolean;
     /**
      * 是否遵循系统静音开关
-     * @description 默认为 true。当此参数为 false 时，即使用户打开了静音开关，也能继续发出声音。
+     * @description 默认为 true。当此参数为 false 时，即使用户打开了静音开关，也能继续发出声音
      */
     obeyMuteSwitch: boolean;
     /**
-     * 当前是是否暂停或停止状态（只读）
+     * 当前是否暂停或停止状态（只读）
      */
-    readonly paused: number;
+    readonly paused: boolean;
     /**
      * 播放速度
      * @description 范围 0.5-2.0，默认为 1
-     * @sdk2 2.6.0
-     * @native 10.1.99
      */
     playbackRate: number;
     /**
-     * 音频资源的地址。
+     * 音频资源的地址
      */
     src: string;
     /**
@@ -14074,8 +14838,6 @@ declare namespace my {
     startTime: number;
     /**
      * 是否支持后台播放
-     * @sdk2 2.7.2
-     * @native 10.2.20
      */
     supportBackgroundPlay: boolean;
     /**
@@ -14095,7 +14857,7 @@ declare namespace my {
      */
     offEnded(cb?: (arg: {}) => void): void;
     /**
-     * 取消监听 onError 事件
+     * 取消监听音频异常事件
      */
     offError(
       cb?: (
@@ -14108,16 +14870,12 @@ declare namespace my {
               errCode: 10006;
               errMessage: 'Audio illegal';
             }
-          | {
-              errCode: number;
-              errMessage: string;
-            }
       ) => void
     ): void;
     /**
      * 停止监听播放下一首的事件
      */
-    offNext(cb?: (arg: {}) => void): void;
+    offNext(cb?: () => void): void;
     /**
      * 停止监听播放暂停的事件
      */
@@ -14129,7 +14887,7 @@ declare namespace my {
     /**
      * 停止监听播放上一首的事件
      */
-    offPrev(cb?: (arg: {}) => void): void;
+    offPrev(cb?: () => void): void;
     /**
      * 停止监听跳转到进度的事件
      */
@@ -14152,7 +14910,6 @@ declare namespace my {
     offWaiting(cb?: (arg: {}) => void): void;
     /**
      * 监听可以开始播放的事件，缓冲完成可以开始播放，但不保证后面可以流畅播放。
-     * @sdk2 2.4.4
      */
     onCanPlay(cb: (arg: {}) => void): void;
     /**
@@ -14160,7 +14917,7 @@ declare namespace my {
      */
     onEnded(cb: (arg: {}) => void): void;
     /**
-     * 监听前景音频播放错误事件
+     * 监听音频异常事件
      */
     onError(
       cb: (
@@ -14173,16 +14930,12 @@ declare namespace my {
               errCode: 10006;
               errMessage: 'Audio illegal';
             }
-          | {
-              errCode: number;
-              errMessage: string;
-            }
       ) => void
     ): void;
     /**
      * 监听播放下一首的事件
      */
-    onNext(cb: (arg: {}) => void): void;
+    onNext(cb: () => void): void;
     /**
      * 监听播放暂停的事件
      */
@@ -14194,7 +14947,7 @@ declare namespace my {
     /**
      * 监听播放上一首的事件
      */
-    onPrev(cb: (arg: {}) => void): void;
+    onPrev(cb: () => void): void;
     /**
      * 监听跳转到进度的事件
      */
@@ -14235,22 +14988,26 @@ declare namespace my {
   export interface LottieContext {
     /**
      * 当前 Lottie 视图指定降级为展示 placeholder
-     * @sdk2 2.6.0
      */
     downgradeToPlaceholder(): void;
     /**
      * 填充 Lottie 参数
-     * @sdk2 2.6.0
      */
     fillVariableValue(param: { [key: string]: any }): void;
     /**
-     * 获取当前播放进度
+     * 返回一次完整的 lottie 动画时间
      */
     getDuration(r?: {
       /**
        * 接口调用成功的回调函数
        */
-      success?(data: { duration: number; version?: string }): void;
+      success?(data: {
+        /**
+         * 总时长
+         */
+        duration: number;
+        version?: string;
+      }): void;
       /**
        * 接口调用失败的回调函数
        */
@@ -14261,6 +15018,9 @@ declare namespace my {
       complete?(
         arg:
           | {
+              /**
+               * 总时长
+               */
               duration: number;
               version?: string;
             }
@@ -14270,13 +15030,14 @@ declare namespace my {
             }
       ): void;
     }): Promise<{
+      /**
+       * 总时长
+       */
       duration: number;
       version?: string;
     }>;
     /**
      * 获取 Lottie 渲染信息
-     * @sdk2 2.6.0
-     * @native 10.1.80
      */
     getLottieInfo(r?: {
       /**
@@ -14302,6 +15063,9 @@ declare namespace my {
          * 渲染方式
          */
         renderType?: 'lottie' | 'skottie' | 'antmation' | 'mars' | 'video';
+        /**
+         * 小程序 View 是否使用同步接口创建
+         */
         syncCreateView?: 'true' | 'false';
       }): void;
       /**
@@ -14338,6 +15102,9 @@ declare namespace my {
                 | 'antmation'
                 | 'mars'
                 | 'video';
+              /**
+               * 小程序 View 是否使用同步接口创建
+               */
               syncCreateView?: 'true' | 'false';
             }
           | {
@@ -14365,6 +15132,9 @@ declare namespace my {
        * 渲染方式
        */
       renderType?: 'lottie' | 'skottie' | 'antmation' | 'mars' | 'video';
+      /**
+       * 小程序 View 是否使用同步接口创建
+       */
       syncCreateView?: 'true' | 'false';
     }>;
     /**
@@ -14435,163 +15205,166 @@ declare namespace my {
   }
   export interface BackgroundAudioManager {
     /**
-     * 音频缓冲的时间点，仅保证当前播放时间点到此时间点内容已缓冲（只读）
+     * 获取背景音频的音频缓冲时间点
+     * @description 仅保证当前播放时间点到此时间点内容已缓冲（只读）
      */
     readonly buffered: number;
     /**
-     * 优酷 ccode
+     * 获取/更新背景音频的播放渠道标识
+     * @description 用于优酷
      */
     ccode: string;
     /**
-     * 封面图 URL
+     * 获取/更新背景音频的封面图
      * @description 用做原生音频播放器背景图。原生音频播放器中的分享功能，分享的卡片配图及背景也将使用该图。
      */
-    coverImgUrl: number;
+    coverImgUrl: string;
     /**
-     * 音频当前播放的位置长度，单位 s。只有在当前有合法的 src 时返回。（只读）
+     * 获取背景音频当前播放位置
+     * @description 单位 s。只有在当前有合法的 src 时返回。（只读）
      */
     readonly currentTime: number;
     /**
-     * 音频的长度，单位 s。只有在当前有合法的 src 时返回（只读）
+     * 获取背景音频的长度
+     * @description 单位 s。只有在当前有合法的 src 时返回（只读）
      */
     readonly duration: number;
     /**
-     * 专辑名
+     * 获取/更新背景音频的专辑名
      * @description 原生音频播放器中的分享功能，分享出去的卡片简介，也将使用该值。
      */
-    epname: number;
+    epname: string;
     /**
      * 是否支持断点续播
-     * @sdk2 2.4.4
      */
     isRecordAudioPlayState: boolean;
     /**
-     * 当前是是否暂停或停止状态（只读）
+     * 获取/更新背景音频的暂停状态
      */
-    readonly paused: number;
+    readonly paused: boolean;
     /**
      * 获取/更新背景音频的播放速度
      * @description 范围 0.5-2.0，默认为 1。
-     * @sdk2 2.6.0
-     * @native 10.1.99
      */
     playbackRate: number;
     /**
-     * 歌手名
+     * 获取/更新背景音频的歌手名
      */
-    singer: number;
+    singer: string;
     /**
-     * 音频资源的地址。
+     * 获取/更新背景音频的资源地址
      */
     src: string;
     /**
-     * 开始播放的位置（单位：s），默认为 0
+     * 获取/更新背景音频的开始播放位置
+     * @description （单位：s），默认为 0
      */
     startTime: number;
     /**
-     * 音频标题
+     * 获取/更新背景音频的音频标题
      * @description 用于做原生音频播放器音频标题。原生音频播放器中的分享功能，分享的卡片标题，也将使用该值。
      */
-    title: number;
+    title: string;
     /**
-     * 当前音量。范围 0~1。默认为 1
+     * 获取/更新背景音频的音量
+     * @description 范围 0~1。默认为 1
      */
     volume: number;
     /**
-     * 页面链接
+     * 获取/更新背景音频的页面链接
      * @description 原生音频播放器中的分享功能、分享出去的卡片简介将使用该值。
      */
     webUrl: string;
     /**
      * 停止监听可以开始播放的事件
      */
-    offCanPlay(cb?: (arg: {}) => void): void;
+    offCanPlay(cb?: () => void): void;
     /**
      * 停止监听播放完成的事件
      */
-    offEnded(cb?: (arg: {}) => void): void;
+    offEnded(cb?: () => void): void;
     /**
      * 停止监听播放下一首的事件
      */
-    offNext(cb?: (arg: {}) => void): void;
+    offNext(cb?: () => void): void;
     /**
      * 停止监听播放暂停的事件
      */
-    offPause(cb?: (arg: {}) => void): void;
+    offPause(cb?: () => void): void;
     /**
      * 停止监听播放开始事件
      */
-    offPlay(cb?: (arg: {}) => void): void;
+    offPlay(cb?: () => void): void;
     /**
      * 停止监听播放上一首的事件
      */
-    offPrev(cb?: (arg: {}) => void): void;
+    offPrev(cb?: () => void): void;
     /**
      * 停止监听跳转到进度的事件
      */
-    offSeeked(cb?: (arg: {}) => void): void;
+    offSeeked(cb?: () => void): void;
     /**
      * 停止监听开始跳转到进度的事件
      */
-    offSeeking(cb?: (arg: {}) => void): void;
+    offSeeking(cb?: () => void): void;
     /**
      * 停止监听播放停止的事件
      */
-    offStop(cb?: (arg: {}) => void): void;
+    offStop(cb?: () => void): void;
     /**
      * 停止监听时间更新事件
      */
-    offTimeUpdate(cb?: (arg: {}) => void): void;
+    offTimeUpdate(cb?: () => void): void;
     /**
      * 停止监听音频还在准备中的事件
      */
-    offWaiting(cb?: (arg: {}) => void): void;
+    offWaiting(cb?: () => void): void;
     /**
      * 监听可以开始播放的事件
      * @description ，缓冲完成可以开始播放，但不保证后面可以流畅播放。
-     * @sdk2 2.4.4
      */
-    onCanPlay(cb: (arg: {}) => void): void;
+    onCanPlay(cb: () => void): void;
     /**
      * 监听播放完成的事件
      */
-    onEnded(cb: (arg: {}) => void): void;
+    onEnded(cb: () => void): void;
     /**
      * 监听播放下一首的事件
      */
-    onNext(cb: (arg: {}) => void): void;
+    onNext(cb: () => void): void;
     /**
      * 监听播放暂停的事件
      */
-    onPause(cb: (arg: {}) => void): void;
+    onPause(cb: () => void): void;
     /**
-     * 监听播放开始事件，播放过程中缓存不会再次触发
+     * 监听播放开始事件
+     * @description 播放过程中缓存不会再次触发
      */
-    onPlay(cb: (arg: {}) => void): void;
+    onPlay(cb: () => void): void;
     /**
      * 监听播放上一首的事件
      */
-    onPrev(cb: (arg: {}) => void): void;
+    onPrev(cb: () => void): void;
     /**
      * 监听跳转到进度的事件
      */
-    onSeeked(cb: (arg: {}) => void): void;
+    onSeeked(cb: () => void): void;
     /**
      * 监听开始跳转到进度的事件
      */
-    onSeeking(cb: (arg: {}) => void): void;
+    onSeeking(cb: () => void): void;
     /**
      * 监听播放停止的事件
      */
-    onStop(cb: (arg: {}) => void): void;
+    onStop(cb: () => void): void;
     /**
      * 监听时间更新事件
      */
-    onTimeUpdate(cb: (arg: {}) => void): void;
+    onTimeUpdate(cb: () => void): void;
     /**
      * 监听音频还在准备中的事件，在缓冲期间会被触发多次
      */
-    onWaiting(cb: (arg: {}) => void): void;
+    onWaiting(cb: () => void): void;
     /**
      * 暂停音频，再次播放会从暂停处播放
      */
@@ -14632,7 +15405,7 @@ declare namespace my {
      */
     globalCompositeOperation: 'source-over';
     /**
-     * 设置绘制每一条线段末端的属性
+     * 设置线条的端点样式
      */
     lineCap: 'butt';
     /**
@@ -14675,7 +15448,7 @@ declare namespace my {
       radius: number,
       startAngle: number,
       endAngle: number,
-      anticlockwise?: boolean
+      anticlockwise: boolean
     ): void;
     /**
      * 在 Canvas 上绘制圆弧路径
@@ -14709,19 +15482,50 @@ declare namespace my {
      */
     clearRect(x: number, y: number, width: number, height: number): void;
     /**
+     * 从 Canvas 中剪切任意形状和尺寸
+     * @see https://opendocs.alipay.com/mini/api/rgl453
+     */
+    clip(): void;
+    /**
      * 将笔点返回到当前子路径起始点的方法
      * @description 它尝试从当前点到起始点绘制一条直线。 如果图形已经是封闭的或者只有一个点，那么此方法不会做任何操作。
      * @see https://opendocs.alipay.com/mini/api/fg8c9b
      */
     closePath(): void;
     /**
+     * 创建一个圆形的渐变色
+     * @description 起点在圆心，终点在圆环。需要使用 addColorStop() 来指定渐变点，至少需要两个渐变点。
+     * @see https://opendocs.alipay.com/mini/api/ix6opq
+     */
+    createCircularGradient(x: number, y: number, r: number): CanvasGradient;
+    /**
+     * 创建一个沿参数坐标指定的直线的渐变
+     * @see https://opendocs.alipay.com/mini/api/qgb1mf
+     */
+    createLinearGradient(
+      x0: number,
+      y0: number,
+      x1: number,
+      y1: number
+    ): CanvasGradient;
+    /**
      * 使用指定的图像创建模式的方法
      * @see https://opendocs.alipay.com/mini/api/pattern
      */
-    createPattern(
-      image: string | CanvasContextImageSource,
-      repetition: string | null
-    ): CanvasPattern;
+    createPattern(image: string, repetition: string | null): CanvasPattern;
+    /**
+     * 绘制放射性渐变的方法
+     * @description 根据参数确定两个圆的坐标，绘制放射性渐变的方法
+     * @see https://opendocs.alipay.com/mini/api/radialgradient
+     */
+    createRadialGradient(
+      x0: number,
+      y0: number,
+      r0: number,
+      x1: number,
+      y1: number,
+      r1: number
+    ): CanvasGradient;
     /**
      * 提交 Canvas 绘制指令
      * @description 用于将之前在绘图上下文中的描述（路径、变形、样式）画到 canvas 中
@@ -14734,7 +15538,7 @@ declare namespace my {
      * @see https://opendocs.alipay.com/mini/api/pzmtqk
      */
     drawImage(
-      image: string | ICanvasContext,
+      image: string,
       sx: number,
       sy: number,
       sWidth: number,
@@ -14745,6 +15549,11 @@ declare namespace my {
       dHeight: number
     ): void;
     /**
+     * 根据当前的填充样式填充当前或已存在的路径的方法
+     * @see https://opendocs.alipay.com/mini/api/yywmib
+     */
+    fill(): void;
+    /**
      * 绘制填充矩形的方法
      * @see https://opendocs.alipay.com/mini/api/vfpyra
      */
@@ -14753,12 +15562,11 @@ declare namespace my {
      * 填充文本的方法
      * @see https://opendocs.alipay.com/mini/api/saf43s
      */
-    fillText(text: string, x: number, y: number, maxWidth?: number): void;
+    fillText(text: string, x: number, y: number, maxWidth: number): void;
     /**
      * 异步返回 Canvas 指定区域像素数据
      * @description 返回一个 ImageData 对象，用来描述canvas区域隐含的像素数据
      * @see https://opendocs.alipay.com/mini/api/bukvhw
-     * @sdk2 2.4.4
      */
     getImageData(r: {
       x: number;
@@ -14813,7 +15621,6 @@ declare namespace my {
     /**
      * 返回一个文本包含的信息
      * @see https://opendocs.alipay.com/mini/api/rn2r7f
-     * @sdk2 2.4.4
      */
     measureText(text: string): {
       /**
@@ -14830,7 +15637,6 @@ declare namespace my {
     /**
      * 更新 Canvas 指定区域像素数据
      * @see https://opendocs.alipay.com/mini/api/pusaxg
-     * @sdk2 2.4.4
      */
     putImageData(r: {
       data: Uint8ClampedArray;
@@ -14889,7 +15695,7 @@ declare namespace my {
      * 设置 Canvas 填充色
      * @see https://opendocs.alipay.com/mini/api/vyfyp2
      */
-    setFillStyle(color: string): void;
+    setFillStyle(color: string | CanvasGradient | CanvasPattern): void;
     /**
      * 设置 Canvas 字体大小
      * @see https://opendocs.alipay.com/mini/api/mg4uir
@@ -14941,7 +15747,7 @@ declare namespace my {
      * @description 若没有设置，则默认颜色为 black。
      * @see https://opendocs.alipay.com/mini/api/lqmreg
      */
-    setStrokeStyle(color: string): void;
+    setStrokeStyle(color: string | CanvasGradient | CanvasPattern): void;
     /**
      * 设置 Canvas 文本的对齐方式
      * @see https://opendocs.alipay.com/mini/api/rf1uma
@@ -14976,6 +15782,11 @@ declare namespace my {
       f: number
     ): void;
     /**
+     * 用于画出当前路径的边框
+     * @see https://opendocs.alipay.com/mini/api/pgahxv
+     */
+    stroke(): void;
+    /**
      * 描绘一个的矩形的方法
      * @see https://opendocs.alipay.com/mini/api/vz04q8
      */
@@ -14988,7 +15799,6 @@ declare namespace my {
     /**
      * 画布上的绘制内容以 data URI 的格式返回
      * @see https://opendocs.alipay.com/mini/api/vemgc6
-     * @sdk2 2.4.4
      */
     toDataURL(r: {
       x: number;
@@ -15144,8 +15954,6 @@ declare namespace my {
     ): WebGLRenderingContext;
     /**
      * 录制视频
-     * @native 10.2.26
-     * @sdk 2.7.4
      */
     getVideoRecorder(): CanvasVideoRecorder;
     /**
@@ -15158,8 +15966,6 @@ declare namespace my {
     toDataURL(type: 'image/png' | ' image/jpeg', quality: number): string;
     /**
      * 画布导出生成图片的方法
-     * @native 10.2.35
-     * @sdk 2.7.15
      */
     toTempFilePath(r?: {
       /**
@@ -15284,8 +16090,6 @@ declare namespace my {
     toDataURL(type: 'image/png' | ' image/jpeg', quality: number): string;
     /**
      * 画布导出生成图片的方法
-     * @native 10.2.35
-     * @sdk 2.7.15
      */
     toTempFilePath(r?: {
       /**
@@ -17285,224 +18089,22 @@ declare namespace my {
     matrixTransform(matrix?: TypeDOMMatrixInit): DOMPoint;
     toJSON(): unknown;
   }
-  export interface Tracert {
-    readonly apFrameworkScheme: string;
-    readonly appId: string;
-    readonly appVersion: string;
-    /**
-     * 自动上报 PV
-     */
-    readonly autoLogPv: boolean;
-    /**
-     * 业务类型
-     */
-    readonly bizType: string;
-    /**
-     * 渠道
-     */
-    readonly chInfo: string;
-    /**
-     * console 打印埋点
-     */
-    readonly debug: boolean;
-    /**
-     * 是否执行过全引导参数透传
-     */
-    readonly isTraced: boolean;
-    /**
-     * 日志等级
-     */
-    readonly logLevel: number;
-    /**
-     * 通用的数据
-     * @description 可不传，传了所有的埋点均会带该额外参数
-     */
-    readonly mdata: object;
-    readonly query: string;
-    readonly ready: boolean;
-    /**
-     * 投放信息
-     */
-    readonly scm: string;
-    /**
-     * 埋点 a 位
-     */
-    readonly spmAPos: string;
-    /**
-     * 埋点 b 位
-     */
-    readonly spmBPos: string;
-    readonly trace: boolean;
-    readonly uepCombineMode: boolean;
-    /**
-     * 上报的 url
-     */
-    readonly url: string;
-    /**
-     * 缓存当前渠道信息
-     */
-    appendChinfo(params?: object): void;
-    checkFullLinkParams(): void;
-    /**
-     * 发送点击埋点
-     */
-    click(spmId: string, options: void | object, extraParams?: object): void;
-    /**
-     * 内容点击接口
-     */
-    clickContent(
-      spmId?: string,
-      scm?: string,
-      newChinfo?: string,
-      params?: object,
-      newScm?: string
-    ): void;
-    /**
-     * 发送曝光埋点
-     */
-    expo(spmId: string, options: void | object, extraParams?: object): void;
-    /**
-     * 内容曝光接口
-     */
-    expoContent(
-      spmId?: string,
-      scm?: string,
-      newChinfo?: string,
-      params?: object,
-      newScm?: string
-    ): void;
-    /**
-     * 获取 Tracert 的属性或者方法
-     */
-    get(key: TTracert): unknown;
-    /**
-     * 获取渠道信息
-     */
-    getChinfoChain(
-      callback: () => void,
-      options?:
-        | boolean
-        | {
-            /**
-             * 是否去重
-             */
-            isFiltered?: boolean;
-            /**
-             * 是否只取第一个
-             */
-            isFirst?: boolean;
-          }
-    ): void;
-    /**
-     * 获取渠道链 UUID 并生成一条事件埋点上报渠道
-     */
-    getChinfoChainUUID(
-      callback: () => void,
-      option: {
-        /**
-         * 是否去重
-         */
-        isFiltered?: string | boolean;
-        bizName?: string;
-      }
-    ): void;
-    /**
-     * 获取当前页面参数
-     */
-    getCurrentPageParams(callback: () => void): void;
-    /**
-     * 解析 URL
-     */
-    getValueOfUrl(name: string, url: string): string;
-    handleUEPEvent(options: {
-      type: string;
-      logLevel?: number;
-      actionId: string;
-      param4?: object;
-      param1?: string;
-      param5?: string;
-      eventTime?: number;
-      spmId: string;
-      newScm?: string;
-      scm?: object;
-      bizType: string;
-    }): void;
-    /**
-     * 发送页面埋点
-     */
-    logPv(opt?: object): void;
-    reportUEPData(options: {
-      spm: {
-        url: string;
-        chInfo: string;
-        isSPM: boolean;
-        spmId: string;
-        bizType: string;
-      };
-      spmDetail: {
-        url?: string;
-        chInfo: string;
-      };
-    }): void;
-    send(fn: 'reportData', getOption: () => ITracertReportUEPDataOptions): void;
-    send(): ITracertReportUEPDataOptions;
-    send(fn: 'remoteLog', getOption: () => ITracertHandleUEPDataOptions): void;
-    send(): ITracertHandleUEPDataOptions;
-    /**
-     * 配置 Tracert 的属性或者方法
-     */
-    set(
-      opt?: Partial<{
-        getChinfoChain: unknown;
-        start: unknown;
-        send: unknown;
-        getValueOfUrl: unknown;
-        logPv: unknown;
-        click: unknown;
-        expo: unknown;
-        checkFullLinkParams: unknown;
-        expoContent: unknown;
-        clickContent: unknown;
-        setPageParams: unknown;
-        setNextPageParams: unknown;
-        appendChinfo: unknown;
-        updateChinfo: unknown;
-        getChinfoChainUUID: unknown;
-        getCurrentPageParams: unknown;
-        setCurrentPageNewChinfo: unknown;
-        setNextPageNewChinfo: unknown;
-        handleUEPEvent: unknown;
-        reportUEPData: unknown;
-      }>
-    ): void;
-    setCurrentPageNewChinfo(param?: object): void;
-    setNextPageNewChinfo(param?: object): void;
-    /**
-     * 设置下一个页面的透传参数
-     */
-    setNextPageParams(params: ITracertPageParams): void;
-    /**
-     * 设置当前页面的透传参数
-     * @param scm
-     */
-    setPageParams(params: ITracertPageParams, scm: string): void;
-    /**
-     * 配置 Tracert 的属性并开始运行
-     */
-    start(opt?: object): void;
-    /**
-     * 更新当前渠道信息
-     */
-    updateChinfo(params?: object): void;
-  }
   export interface VideoContext {
     /**
      * 退出全屏
-     * @sdk2 2.4.4
      */
     exitFullScreen(r: {
+      /**
+       * 组件 id
+       */
       element: string;
+      /**
+       * 操作类型
+       */
       actionType: string;
+      /**
+       * 数据
+       */
       data: Record<string, unknown>;
       /**
        * 接口调用成功的回调函数
@@ -17519,8 +18121,6 @@ declare namespace my {
     }): Promise<void>;
     /**
      * 退出画中画
-     * @sdk2 2.8.2
-     * @native 10.1.92
      */
     exitPictureInPicture(r?: {
       /**
@@ -17555,8 +18155,6 @@ declare namespace my {
     }): Promise<void>;
     /**
      * 隐藏控制控件
-     * @sdk2 2.7.4
-     * @native 10.2.23
      */
     hideControl(r: {
       /**
@@ -17579,7 +18177,6 @@ declare namespace my {
     /**
      * 隐藏状态栏
      * @description 仅在 iOS 全屏下有效
-     * @sdk2 2.4.4
      */
     hideStatusBar(r?: {
       /**
@@ -17597,11 +18194,10 @@ declare namespace my {
     }): Promise<void>;
     /**
      * 切换静音状态
-     * @sdk2 2.4.4
      */
     mute(enable: boolean): void;
     /**
-     * 暂停
+     * 暂停视频播放
      */
     pause(r?: {
       /**
@@ -17618,7 +18214,7 @@ declare namespace my {
       complete?(arg: { error?: number; errorMessage?: string }): void;
     }): Promise<void>;
     /**
-     * 播放
+     * 播放视频
      */
     play(r?: {
       /**
@@ -17636,12 +18232,10 @@ declare namespace my {
     }): Promise<void>;
     /**
      * 设置倍速播放（0.5 <= rate <= 2.0）
-     * @sdk2 2.4.4
      */
     playbackRate(rate: number): void;
     /**
      * 进入全屏
-     * @sdk2 2.4.4
      */
     requestFullScreen(r: {
       /**
@@ -17667,14 +18261,15 @@ declare namespace my {
     seek(time: number): void;
     /**
      * 显示控制控件
-     * @sdk2 2.7.4
-     * @native 10.2.23
      */
     showControl(r: {
       /**
        * 控件名称
        */
       controlName: string;
+      /**
+       * 自动隐藏
+       */
       autoHide: boolean;
       /**
        * 接口调用成功的回调函数
@@ -17691,17 +18286,23 @@ declare namespace my {
     }): Promise<void>;
     /**
      * 显示/隐藏浮窗
-     * @sdk2 2.6.0
-     * @native 10.1.92
      */
     showFloatingWindow(isShow: boolean): void;
     /**
      * 显示状态栏，仅在 iOS 全屏下有效。
-     * @sdk2 2.4.4
      */
     showStatusBar(r: {
+      /**
+       * 组件 id
+       */
       element: string;
+      /**
+       * 操作类型
+       */
       actionType: string;
+      /**
+       * 数据
+       */
       data: Record<string, unknown>;
       /**
        * 接口调用成功的回调函数
@@ -17718,12 +18319,19 @@ declare namespace my {
     }): Promise<void>;
     /**
      * 开启互动能力
-     * @sdk2 2.7.10
-     * @native 10.2.36
      */
     startInteractions(r: {
+      /**
+       * 组件 id
+       */
       element: string;
+      /**
+       * 操作类型
+       */
       actionType: string;
+      /**
+       * 数据
+       */
       data: Record<string, unknown>;
       /**
        * 接口调用成功的回调函数
@@ -17740,11 +18348,19 @@ declare namespace my {
     }): Promise<void>;
     /**
      * 停止
-     * @sdk2 2.4.4
      */
     stop(r: {
+      /**
+       * 组件 id
+       */
       element: string;
+      /**
+       * 操作类型
+       */
       actionType: string;
+      /**
+       * 数据
+       */
       data: Record<string, unknown>;
       /**
        * 接口调用成功的回调函数
@@ -17761,12 +18377,19 @@ declare namespace my {
     }): Promise<void>;
     /**
      * 停止互动能力，并清理所有的互动组件
-     * @sdk2 2.7.10
-     * @native 10.2.36
      */
     stopInteractions(r: {
+      /**
+       * 组件 id
+       */
       element: string;
+      /**
+       * 操作类型
+       */
       actionType: string;
+      /**
+       * 数据
+       */
       data: Record<string, unknown>;
       /**
        * 接口调用成功的回调函数
@@ -17783,8 +18406,6 @@ declare namespace my {
     }): Promise<void>;
     /**
      * 切换清晰度
-     * @sdk2 2.4.8
-     * @native 10.1.82
      */
     switchQuality(r: {
       /**
@@ -17806,8 +18427,6 @@ declare namespace my {
     }): Promise<void>;
     /**
      * 更新清晰度列表
-     * @sdk2 2.4.8
-     * @native 10.1.82
      */
     updateQualityList(r: {
       /**
@@ -17836,105 +18455,54 @@ declare namespace my {
       complete?(arg: { error?: number; errorMessage?: string }): void;
     }): Promise<void>;
   }
-  export interface ARSessionManager {
-    /**
-     * 配置探测
-     */
-    configDetecting(type: DetectType, param: string): boolean;
-    /**
-     * 创建 Session
-     */
-    createSession(params: {
-      mode: TrackMode;
-      success: (entity: IARSession) => void;
-      fail: () => void;
-      complete: () => void;
-    }): boolean;
-    /**
-     * 获取探测结果
-     */
-    getDetectingResult(type: DetectType, param: string): string;
-    /**
-     * 获取探测分数
-     */
-    getDetectingScore(type: DetectType, param: string): number;
-    /**
-     * 获取探测状态
-     */
-    getDetectingStatus(type: DetectType, param: string): string;
-    /**
-     * @summary
-     */
-    hitTest(
-      point: {
-        x: number;
-        y: number;
-      },
-      callback: (result: {
-        type: number;
-        transform: Float32Array;
-        anchor: {
-          type: number;
-          transform: Float32Array;
-        };
-      }) => void
-    ): void;
-    /**
-     * 检查是否支持某个模式
-     */
-    isSupported(params: {
-      mode: TrackMode;
-      success: () => void;
-      fail: () => void;
-      complete: () => void;
-    }): boolean;
-    /**
-     * @summary
-     */
-    pauseARSession(): boolean;
-    /**
-     * @summary
-     */
-    removeSession(): boolean;
-    /**
-     * @summary
-     */
-    resumeARSession(): boolean;
-    /**
-     * 开始探测
-     */
-    startDetecting(type: DetectType, param: string): boolean;
-    /**
-     * 开始追踪
-     */
-    startTracking(param: string): boolean;
-    /**
-     * 停止探测
-     */
-    stopDetecting(type: DetectType, param: string): boolean;
-    /**
-     * 停止追踪
-     */
-    stopTracking(): boolean;
-  }
   export interface Geocoder {
     /**
      * 逆地理编码
      */
     reverseGeocoding(r: {
+      /**
+       * 纬度
+       */
       latitude: string;
+      /**
+       * 精度
+       */
       longitude: string;
       /**
        * 接口调用成功的回调函数
        */
       success?(data: {
+        /**
+         * 国家
+         */
         country: string;
+        /**
+         * 国家编号
+         */
         countryCode: string;
+        /**
+         * 省份
+         */
         province: string;
+        /**
+         * 省份的地区代码
+         */
         provinceAdcode: string;
+        /**
+         * 城市
+         */
         city: string;
+        /**
+         * 城市的地区代码
+         */
         cityAdcode: string;
+        /**
+         * 区县
+         */
         district: string;
+        /**
+         * 区县的地区代码
+         */
         districtAdcode: string;
       }): void;
       /**
@@ -17965,13 +18533,37 @@ declare namespace my {
       complete?(
         arg:
           | {
+              /**
+               * 国家
+               */
               country: string;
+              /**
+               * 国家编号
+               */
               countryCode: string;
+              /**
+               * 省份
+               */
               province: string;
+              /**
+               * 省份的地区代码
+               */
               provinceAdcode: string;
+              /**
+               * 城市
+               */
               city: string;
+              /**
+               * 城市的地区代码
+               */
               cityAdcode: string;
+              /**
+               * 区县
+               */
               district: string;
+              /**
+               * 区县的地区代码
+               */
               districtAdcode: string;
             }
           | (
@@ -17994,20 +18586,44 @@ declare namespace my {
             )
       ): void;
     }): Promise<{
+      /**
+       * 国家
+       */
       country: string;
+      /**
+       * 国家编号
+       */
       countryCode: string;
+      /**
+       * 省份
+       */
       province: string;
+      /**
+       * 省份的地区代码
+       */
       provinceAdcode: string;
+      /**
+       * 城市
+       */
       city: string;
+      /**
+       * 城市的地区代码
+       */
       cityAdcode: string;
+      /**
+       * 区县
+       */
       district: string;
+      /**
+       * 区县的地区代码
+       */
       districtAdcode: string;
     }>;
   }
   export interface UploadTask {
     /**
      * 取消本次任务
-     * @sdk2 2.3.1
+     * @see https://opendocs.alipay.com/mini/api/kmq4hc#UploadTask
      */
     abort(r: {
       uploadTaskId: number;
@@ -18038,14 +18654,23 @@ declare namespace my {
     }>;
     /**
      * 移除 HTTP Response Header 事件的监听函数
-     * @sdk2 2.8.2
-     * @native 10.2.90
+     * @see https://opendocs.alipay.com/mini/api/kmq4hc#UploadTask
      */
-    offHeadersReceived(cb?: (arg: {}) => void): void;
+    offHeadersReceived(
+      cb?: (arg: {
+        /**
+         * 开发者服务器返回的 HTTP Response Header
+         */
+        header: IUploadTaskOffHeadersReceivedHeader;
+      }) => void
+    ): void;
+    /**
+     * 监听上传进度变化事件
+     */
+    offProgressUpdate(cb?: (arg: {}) => void): void;
     /**
      * 监听 HTTP Response Header 事件。会比请求完成事件更早
-     * @sdk2 2.8.2
-     * @native 10.2.90
+     * @see https://opendocs.alipay.com/mini/api/kmq4hc#UploadTask
      */
     onHeadersReceived(
       cb: (arg: {
@@ -18057,7 +18682,7 @@ declare namespace my {
     ): void;
     /**
      * 监听上传进度变化事件
-     * @sdk2 2.4.4
+     * @see https://opendocs.alipay.com/mini/api/kmq4hc#UploadTask
      */
     onProgressUpdate(
       cb: (arg: {
@@ -18065,7 +18690,13 @@ declare namespace my {
          * 上传进度百分比
          */
         progress: number;
+        /**
+         * 已经上传的数据长度
+         */
         totalBytesWritten: number;
+        /**
+         * 预期需要上传的数据总长度
+         */
         totalBytesExpectedToWrite: number;
       }) => void
     ): void;
@@ -18073,7 +18704,6 @@ declare namespace my {
   export interface DownloadTask {
     /**
      * 取消本次任务
-     * @sdk2 2.3.1
      */
     abort(r: {
       downloadTaskId: number;
@@ -18103,20 +18733,47 @@ declare namespace my {
       success: true;
     }>;
     /**
+     * 移除 HTTP Response Header 事件的监听函数
+     */
+    offHeadersReceived(cb?: (arg: {}) => void): void;
+    /**
+     * 取消监听下载进度变化
+     */
+    offProgressUpdate(cb?: (arg: {}) => void): void;
+    /**
+     * 监听 HTTP Response Header 事件。会比请求完成事件更早
+     */
+    onHeadersReceived(
+      cb: (arg: {
+        /**
+         * 开发者服务器返回的 HTTP Response Header
+         */
+        headers: IDownloadTaskOnHeadersReceivedHeader;
+      }) => void
+    ): void;
+    /**
      * 监听下载进度变化事件
-     * @sdk2 2.4.4
      */
     onProgressUpdate(
       cb: (arg: {
+        /**
+         * 下载进度
+         */
         progress: number;
+        /**
+         * 已经下载的数据长度
+         */
         totalBytesWritten: number;
+        /**
+         * 预期需要下载的数据总长度
+         */
         totalBytesExpectedToWrite: number;
       }) => void
     ): void;
   }
   export interface RPCTask {
     /**
-     * 取消本次任务
+     * 取消发送 RPC 请求
      */
     abort(): void;
   }
@@ -18151,6 +18808,21 @@ declare namespace my {
     }): Promise<{
       success: true;
     }>;
+    /**
+     * 移除 HTTP Response Header 事件的监听函数
+     */
+    offHeadersReceived(cb?: (arg: {}) => void): void;
+    /**
+     * 监听 HTTP Response Header 事件。会比请求完成事件更早
+     */
+    onHeadersReceived(
+      cb: (arg: {
+        /**
+         * 开发者服务器返回的 HTTP Response Header
+         */
+        headers: IRequestTaskOnHeadersReceivedHeader;
+      }) => void
+    ): void;
   }
   export interface HTTPRequestTask {
     /**
@@ -18198,7 +18870,13 @@ declare namespace my {
          * 上传进度百分比
          */
         progress: number;
+        /**
+         * 已经上传的数据长度
+         */
         totalBytesWritten: number;
+        /**
+         * 预期需要上传的数据总长度
+         */
         totalBytesExpectedToWrite: number;
       }) => void
     ): void;
@@ -18206,8 +18884,6 @@ declare namespace my {
   export interface AccessibilityManager {
     /**
      * 无障碍模式下语音播报
-     * @sdk2 2.7.23
-     * @native 10.2.0
      */
     announce(r: {
       text: string;
@@ -18260,9 +18936,8 @@ declare namespace my {
       success: boolean;
     }>;
     /**
-     * 是否开启无障碍语音播报 (iOS 旁白、Android talkBack)
-     * @sdk2 2.7.23
-     * @native 10.1.87
+     * 是否开启无障碍语音播报
+     * @description 在 iOS 系统中，对应功能为 “旁白”，在 Android 系统中，对应功能为 “talkBack”
      */
     isScreenReaderEnabled(r?: {
       /**
@@ -18294,8 +18969,7 @@ declare namespace my {
     /**
      * 取消监听地理位置定位完成事件
      * @description 只针对 `chooseCity` 中属性 `setLocatedCity` 为 `true` 的情况
-     * @sdk2 2.8.0
-     * @native 10.2.70
+     * @see https://opendocs.alipay.com/mini/04naqz
      */
     offLocatedComplete(
       cb?: (arg: {
@@ -18312,8 +18986,7 @@ declare namespace my {
     /**
      * 监听该页面地理位置定位完成的事件
      * @description 只针对 `chooseCity` 中属性 `setLocatedCity` 为 `true` 的情况。
-     * @sdk2 2.8.0
-     * @native 10.2.70
+     * @see https://opendocs.alipay.com/mini/04naqz
      */
     onLocatedComplete(
       cb: (arg: {
@@ -18330,8 +19003,7 @@ declare namespace my {
     /**
      * 修改定位城市名称
      * @description 用于在调用 [my.chooseCity]() 后修改当次定位城市名称
-     * @sdk2 2.8.0
-     * @native 10.2.70
+     * @see https://opendocs.alipay.com/mini/04naqz
      */
     setLocatedCity(r: {
       /**
@@ -18422,7 +19094,6 @@ declare namespace my {
       locatedCityName: string;
     }>;
   }
-  export interface ICanvasContext {}
   export interface IARSession {}
   interface DOMPointInit {
     w?: number;
@@ -18431,175 +19102,11 @@ declare namespace my {
     z?: number;
   }
   type DetectType = 'smile' | string;
-  /**
-   * 基金下单页
-   */
-  interface IAP$NavigateToFinanceOptionsFundBuy {
-    /**
-     * 跳转类型，固定为 fundBuy
-     */
-    type: 'fundBuy';
-    /**
-     * 基金代码
-     */
-    fundCode: string;
-    /**
-     * 下单金额
-     */
-    amount: string | number;
-  }
-  /**
-   * 基金详情页
-   */
-  interface IAP$NavigateToFinanceOptionsFundDetail {
-    /**
-     * 跳转类型，固定为 fundDetail
-     */
-    type: 'fundDetail';
-    /**
-     * 基金代码
-     */
-    fundCode: string;
-  }
-  /**
-   * 基金定投设置页
-   */
-  interface IAP$NavigateToFinanceOptionsFundSign {
-    /**
-     * 跳转类型，固定为 fundSign
-     */
-    type: 'fundSign';
-    /**
-     * 基金代码
-     */
-    fundCode: string;
-    /**
-     * 定投金额
-     */
-    amount: string | number;
-    /**
-     * 定投周期 E:每日, W:每周, D:每两周, M:每月,
-     */
-    period: string;
-    /**
-     * 定投日期 周维度:1-5,月维度1-28
-     */
-    day: string | number;
-  }
-  /**
-   * 黄金下单页
-   */
-  interface IAP$NavigateToFinanceOptionsGoldBuy {
-    /**
-     * 跳转类型，固定为 goldBuy
-     */
-    type: 'goldBuy';
-    /**
-     * 黄金对应的基金代码
-     */
-    fundCode: string;
-  }
-  /**
-   * 基金定投设置页
-   */
-  interface IAP$NavigateToFinanceOptionsGoldSign {
-    /**
-     * 跳转类型，固定为 goldSign
-     */
-    type: 'goldSign';
-    /**
-     * 黄金对应的基金代码
-     */
-    funcCode: string;
-    /**
-     * 定投金额
-     */
-    amount: string | number;
-    /**
-     * 定投周期 E:每日, W:每周, D:每两周, M:每月,
-     */
-    period: string;
-    /**
-     * 定投日期 周维度:1-5,月维度1-28
-     */
-    day: string | number;
-  }
-  /**
-   * 跳转 H5页面
-   */
-  interface IAP$NavigateToFinanceOptionsH5Page {
-    /**
-     * 跳转类型，固定为 h5Page
-     */
-    type: 'h5Page';
-    /**
-     * H5 页面链接
-     */
-    url: string;
-  }
-  /**
-   * 基金组合下单页
-   */
-  interface IAP$NavigateToFinanceOptionsPortfolioBuy {
-    /**
-     * 跳转类型，固定为 portfolioBuy
-     */
-    type: 'portfolioBuy';
-    /**
-     * 基金组合代码
-     */
-    fundCode: string;
-    /**
-     * 下单金额
-     */
-    amount: string | number;
-  }
-  /**
-   * 组合基金详情页
-   */
-  interface IAP$NavigateToFinanceOptionsPortfolioDetail {
-    /**
-     * 跳转类型，固定为 portfolioDetail
-     */
-    type: 'portfolioDetail';
-    /**
-     * 基金组合代码
-     */
-    fundCode: string;
-  }
-  /**
-   * 财富号首页
-   */
-  interface IAP$NavigateToFinanceOptionsWealthShop {
-    /**
-     * 跳转类型，固定为 wealthShop
-     */
-    type: 'wealthShop';
-    /**
-     * 机构 pid
-     */
-    pid: string;
-  }
   interface IAccessRequest {
     /**
      * 文件夹或者文件路径
      */
     path: string;
-  }
-  interface IActionSheetBadges {
-    /**
-     * 需要飘红的选项的索引，从 0 开始
-     */
-    index: number;
-    /**
-     * 飘红类型
-     * @default "none"
-     */
-    type: `${EActionSheetBadgesType}`;
-    /**
-     * type 为 'text', 'num' 时的内容
-     */
-    text: string;
   }
   interface IAppendFileRequest {
     /**
@@ -18653,6 +19160,9 @@ declare namespace my {
     subList?: IBeehiveMultilevelSelectList[];
   }
   interface IBeehiveMultilevelSelectResult {
+    /**
+     * 选项的名称
+     */
     name: string;
   }
   interface ICalculateRouteThroughPoints {
@@ -18665,56 +19175,83 @@ declare namespace my {
      */
     lng: number;
   }
-  interface IChooseDistrictHeadItem {
+  interface ICameraContextOnCameraFrameCallback {
+    /**
+     * 图像数据矩形的宽度
+     */
+    width: number;
+    /**
+     * 图像数据矩形的高度
+     */
+    height: number;
+    /**
+     * 图像像素点数据，一维数组，每四项表示一个像素点的 rgba
+     */
+    data: ArrayBuffer;
+    /**
+     * 时间戳
+     */
+    timestamp: number;
+  }
+  interface IChooseDistrictHeadModel {
     /**
      * 区块名，如“热门城市”。
      */
     title: string;
     /**
      * 模块类型。枚举如下：
-     *  0：常规城市，用户需要提供城市列表
-     *  1：定位模块，支付宝自动获取用户当前城市
-     *  2：展示支付宝提供的热门城市模块
+     * 0：常规城市；
+     * 1：定位模块；
+     * 2：展示支付宝提供的热门城市模块。
      */
-    type: EChooseDistrictHeadItemType;
+    type?: number;
     /**
-     * type 设置为 0 时需要提供的区块城市列表
+     * 区块城市列表，不支持嵌套
      */
-    list?: IChooseDistrictListItem[];
+    list: IChooseDistrictItemModel[];
   }
-  interface IChooseDistrictListItem {
+  interface IChooseDistrictItemModel {
     /**
-     * 城市名
+     * 城市名。
      */
     name: string;
     /**
-     * 行政区划代码。不同行政区域对应的代码可参考 [2017年12月中华人民共和国县以上行政区划代码](http://www.mca.gov.cn/article/sj/xzqh/1980/201803/201803131454.html)
+     * 行政区划代码。不同行政区域对应的代码可查看 中华人民共和国县以上行政区划代码。
      */
     adCode: string;
     /**
-     * 城市名对应拼音拼写，方便用户检索
+     * 城市名对应拼音拼写，方便用户检索。
      */
     spell?: string;
     /**
-     * 子标题
+     * 子标题。
      */
     appendName?: string;
     /**
-     * 额外信息
+     * 额外信息。
      */
     ext?: string;
     /**
-     * 支持级联，自定义次级城市列表
+     * 支持级联，自定义次级城市列表，列表内对象字段可查看 mainHeadList的单元素类型。
      */
-    subList?: IChooseDistrictListItem[];
+    subList?: IChooseDistrictItemModel[];
   }
-  interface IChooseDistrictSeniorPageList {
+  interface IChooseDistrictMainMergeOptions {
+    [key: string]: string;
+  }
+  interface IChooseDistrictPageModel {
     /**
-     * 境外左侧 tab 名称，不带左侧 tab 时可不填
+     * 境外左侧 tab 名称，不带左侧 tab 时可不填。
      */
     title: string;
-    headList?: IChooseDistrictHeadItem[];
-    normalList?: IChooseDistrictListItem[];
+    /**
+     * 头部对象集合，不支持嵌套，对象值可参考 mainHeadList 单元素类型。
+     */
+    headList?: IChooseDistrictHeadModel[];
+    /**
+     * 城市列表，对象值可查看 mainNormalList 单元素类型。
+     */
+    normalList?: IChooseDistrictItemModel[];
   }
   interface ICopyFileRequest {
     /**
@@ -18726,6 +19263,9 @@ declare namespace my {
      * 目标文件路径
      */
     destPath: string;
+  }
+  interface IDownloadTaskOnHeadersReceivedHeader {
+    [key: string]: string;
   }
   interface IGetBLEDeviceServicesServices {
     /**
@@ -18807,8 +19347,17 @@ declare namespace my {
     size: number;
   }
   interface IGetSavedFileListFileList {
+    /**
+     * 大小
+     */
     size: number;
+    /**
+     * 本地路径
+     */
     apFilePath: string;
+    /**
+     * 创建时间
+     */
     createTime: number;
   }
   interface IGetSavedFileListResponse {
@@ -18834,33 +19383,37 @@ declare namespace my {
   }
   interface IGetSettingAuthSetting {
     /**
-     * 地理位置。
+     * 地理位置，对应接口 [my.getLocation]()
      */
     location?: boolean;
     /**
-     * 保存到相册。
+     * 访问相册，对应接口 [my.chooseImage]()
      */
     album?: boolean;
     /**
-     * 摄像头。
+     * 摄像头，对应接口 [my.scan]()
      */
     camera?: boolean;
     /**
-     * 唤起授权界面，用户可以授权小程序获取支付宝会员的基础信息。
+     * 支付宝会员的基础信息，对应接口 [my.getOpenUserInfo]()
      */
     userInfo?: boolean;
     /**
-     * 运动数据
+     * 运动数据，对应接口 [my.getRunData]()
      */
     alipaysports?: boolean;
     /**
-     * 手机号码
+     * 手机号码，对应接口 [my.getPhoneNumber]()
      */
     phoneNumber?: boolean;
     /**
-     * 收货地址
+     * 收货地址，对应接口 [my.getAddress]()
      */
     aliaddress?: boolean;
+    /**
+     * 保存到相册，对应接口 [my.saveImageToPhotosAlbum]()
+     */
+    writePhotosAlbum?: boolean;
   }
   interface IGetWifiListWifiList {
     /**
@@ -19006,6 +19559,7 @@ declare namespace my {
      */
     left?: number;
   }
+  interface IJSONString<T> {}
   interface IMapContextAddGroundOverlayIncludePoints {
     /**
      * 纬度
@@ -20636,11 +21190,112 @@ declare namespace my {
      */
     recursive?: boolean;
   }
+  interface IMyApCreateTracertOption {
+    /**
+     * 埋点 a 位
+     */
+    spmAPos: string;
+    /**
+     * 埋点 b 位
+     */
+    spmBPos: string;
+    /**
+     * 业务类型
+     */
+    bizType?: string;
+    /**
+     * 日志等级
+     */
+    logLevel?: number;
+    /**
+     * 渠道
+     */
+    chInfo?: string;
+    /**
+     * 投放信息
+     */
+    scm?: string;
+    /**
+     * 上报的 url
+     */
+    url?: string;
+    /**
+     * 通用的数据
+     * @description 可不传，传了所有的埋点均会带该额外参数
+     */
+    mdata?: unknown;
+    /**
+     * console 打印埋点
+     */
+    debug?: boolean;
+    /**
+     * 是否执行过全引导参数透传
+     */
+    isTraced?: boolean;
+    /**
+     * 自动上报 PV
+     */
+    autoLogPv?: boolean;
+  }
+  interface IMyApGetAddressResult {
+    /**
+     * 详细地址
+     */
+    address: string;
+    /**
+     * 国家名称
+     */
+    country: string;
+    /**
+     * 省
+     */
+    prov: string;
+    /**
+     * 市
+     */
+    city: string;
+    /**
+     * 区
+     */
+    area: string;
+    /**
+     * 街道
+     */
+    street: string;
+    /**
+     * 姓名
+     */
+    fullname: string;
+    /**
+     * 手机号
+     */
+    mobilePhone: string;
+  }
   interface IMyApGetAuthCodeAuthErrorScopes {
     /**
      * key 是授权失败的 scope，value 是对应的错误码
      */
     [scope: string]: string;
+  }
+  interface IMyApImgRiskBizContext {
+    /**
+     * 风险类型
+     */
+    risk_type: string;
+    /**
+     * 需要查询图片的任务 ID
+     */
+    apply_id: string;
+  }
+  interface IMyApImgRiskCallbackBizContext {
+    /**
+     * 风险类型
+     */
+    risk_type: string;
+    /**
+     * 需要查询图片的任务 ID
+     */
+    apply_id: string;
   }
   interface IMyApNsfBizContext {
     /**
@@ -20797,6 +21452,16 @@ declare namespace my {
      */
     uniqueId: string;
   }
+  interface IMyApStartAPVerifyResult {
+    /**
+     * 业务错误码
+     */
+    errorCode: string;
+    /**
+     * 本次认证流水号
+     */
+    certifyId: string;
+  }
   interface IMyChooseAlipayContactContacts {
     /**
      * 账号的真实姓名。
@@ -20859,22 +21524,65 @@ declare namespace my {
      */
     size: number;
   }
-  interface IMyCreateIntersectionObserverOption {
-    thresholds?: number[];
-    initialRatio?: number;
-    selectAll?: boolean;
-    dataset?: boolean;
-    strict?: boolean;
+  interface IMyCreateAnimationParam {
+    /**
+     * 动画持续时间，单位 ms
+     * @default 400
+     */
+    duration?: number;
+    /**
+     * 动画的效果
+     * @default "linear"
+     */
+    timeFunction?: string;
+    /**
+     * 动画延迟时间，单位 ms
+     */
+    delay?: number;
+    /**
+     * 动画变形的原点
+     * @default "50% 50% 0"
+     */
+    transformOrigin?: string;
+  }
+  interface IMyCreateInsuranceXReplaySessionOption {
+    /**
+     * 保险单号
+     */
+    prodNo: string;
   }
   interface IMyCreateRDSContextOption {
+    /**
+     * 应用  id
+     */
     appId: string;
   }
   interface IMyCreateSelectorQueryOption {
     /**
      * 是否开启选择器严格模式
-     * @sdk 2.7.3
      */
     strict?: boolean;
+  }
+  interface IMyCreateTCPSocketOption {
+    /**
+     * 绑定到当前 WiFi
+     * @description 用于 WiFi 无法上网，仍需要与 WiFi 通信的场景
+     */
+    bindToWifi?: boolean;
+  }
+  interface IMyCreateUDPSocketOption {
+    /**
+     * 是否开启广播
+     */
+    broadcast?: boolean;
+    /**
+     * 是否开启组播
+     */
+    multicast?: boolean;
+    /**
+     * 绑定到当前 WiFi; 用于 WiFi 无法上网，仍需要与 WiFi 通信的场景
+     */
+    bindToWifi?: boolean;
   }
   interface IMyGetAccountInfoSyncMiniProgram {
     /**
@@ -20900,15 +21608,6 @@ declare namespace my {
      */
     version: string;
   }
-  interface IMyGetAppBaseInfoHost {
-    /**
-     * 宿主 app 对应的 appId。
-     */
-    appId: string;
-  }
-  interface IMyGetIDNumberProtocols {
-    [key: string]: unknown;
-  }
   interface IMyGetLocationPois {
     /**
      * poi名称。
@@ -20931,6 +21630,27 @@ declare namespace my {
   }
   interface IMyGetOpenUserInfoProtocols {
     [key: string]: unknown;
+  }
+  interface IMyGetOpenUserInfoResponse {
+    response: IMyGetOpenUserInfoResponseResponse;
+  }
+  interface IMyGetOpenUserInfoResponseResponse {
+    /**
+     * 头像图片地址
+     */
+    avatar: string;
+    /**
+     * 结果码。10000 为成功，其他情况为失败。40003 和 40006 是较为常见的报错
+     */
+    code: string;
+    /**
+     * 昵称
+     */
+    nickName: string;
+    /**
+     * 结果消息
+     */
+    subMsg: string;
   }
   interface IMyGetPhoneNumberProtocols {
     [key: string]: unknown;
@@ -21007,38 +21727,72 @@ declare namespace my {
      */
     entityList?: string[];
   }
+  interface IMyShowActionSheetBadges {
+    /**
+     * 需要飘红的选项的索引，从 0 开始
+     */
+    index: number;
+    /**
+     * 飘红类型
+     * @default "none"
+     */
+    type: `${EActionSheetBadgesType}`;
+    /**
+     * type 为 'text', 'num' 时的内容
+     */
+    text: string;
+  }
+  interface INFCDiscoveredData {
+    techs?: string[];
+    messages?: string[];
+  }
   interface IOnSocketTaskCloseData {
+    /**
+     * 唯一标识
+     */
     socketTaskID: string;
   }
   interface IOnSocketTaskErrorData {
+    /**
+     * 唯一标识
+     */
     socketTaskID: string;
   }
   interface IOnSocketTaskMessageData {
+    /**
+     * 唯一标识
+     */
     socketTaskID: string;
+    /**
+     * 消息
+     */
     data: string | ArrayBuffer;
+    /**
+     * 是否 Buffer 类型
+     */
     isBuffer: boolean;
   }
   interface IOnSocketTaskOpenData {
+    /**
+     * 唯一标识
+     */
     socketTaskID: string;
-  }
-  interface IOpenEmbeddedMiniProgramParam {
-    [key: string]: unknown;
   }
   interface IOpenSettingAuthSetting {
     /**
-     * 地理位置。
+     * 地理位置
      */
     location?: boolean;
     /**
-     * 保存到相册。
+     * 保存到相册
      */
     album?: boolean;
     /**
-     * 摄像头。
+     * 摄像头
      */
     camera?: boolean;
     /**
-     * 唤起授权界面，用户可以授权小程序获取支付宝会员的基础信息。
+     * 唤起授权界面，用户可以授权小程序获取支付宝会员的基础信息
      */
     userInfo?: boolean;
     /**
@@ -21088,15 +21842,15 @@ declare namespace my {
     /**
      * 删除城市信息。
      */
-    remove: IRegionPickerMergeOptionsRemove[];
+    remove?: IRegionPickerMergeOptionsRemove[];
     /**
      * 添加城市信息。
      */
-    add: IRegionPickerMergeOptionsAdd[];
+    add?: IRegionPickerMergeOptionsAdd[];
     /**
      * 更新城市信息。
      */
-    update: IRegionPickerMergeOptionsUpdate[];
+    update?: IRegionPickerMergeOptionsUpdate[];
   }
   interface IRegionPickerMergeOptionsAdd {
     /**
@@ -21116,7 +21870,10 @@ declare namespace my {
      */
     name: string;
     /**
-     * 省内完整的市和区信息。示例：`"subList": [{ "name": "北京市", "id": "110100", "subList": [{ "name": "东城区", "id": "110101" }]`。
+     * 省内完整的市和区信息
+     * @description
+     * 示例：`"subList": [{
+     * "name": "北京市", "id": "110100", "subList": [{ "name": "东城区", "id": "110101" }]`
      */
     subList: IRegionPickerMergeOptionsAddSubList[];
   }
@@ -21146,7 +21903,8 @@ declare namespace my {
      */
     name: string;
     /**
-     * 省内完整的市和区信息。示例：`"subList": [{ "name": "北京市", "id": "110100", "subList": [{ "name": "东城区", "id": "110101" }]`。
+     * 省内完整的市和区信息
+     * @description 示例：`"subList": [{ "name": "北京市", "id": "110100", "subList": [{ "name": "东城区", "id": "110101" }]`
      */
     subList: IRegionPickerMergeOptionsUpdateSubList[];
   }
@@ -21176,6 +21934,9 @@ declare namespace my {
      * 新文件路径
      */
     newPath: string;
+  }
+  interface IRequestTaskOnHeadersReceivedHeader {
+    [key: string]: string;
   }
   interface IRmdirRequest {
     /**
@@ -21208,7 +21969,6 @@ declare namespace my {
   interface ISelectorQueryFieldsOption {
     /**
      * 是否返回节点 id
-     * @sdk2 2.7.4
      */
     id?: boolean;
     /**
@@ -21308,53 +22068,6 @@ declare namespace my {
     scm?: object;
     bizType: string;
   }
-  interface ITracertOptions {
-    /**
-     * 埋点 a 位
-     */
-    spmAPos: string;
-    /**
-     * 埋点 b 位
-     */
-    spmBPos: string;
-    /**
-     * 业务类型
-     */
-    bizType: string;
-    /**
-     * 日志等级
-     */
-    logLevel: number;
-    /**
-     * 渠道
-     */
-    chInfo: string;
-    /**
-     * 投放信息
-     */
-    scm: string;
-    /**
-     * 上报的 url
-     */
-    url: string;
-    /**
-     * 通用的数据
-     * @description 可不传，传了所有的埋点均会带该额外参数
-     */
-    mdata: object;
-    /**
-     * console 打印埋点
-     */
-    debug: boolean;
-    /**
-     * 是否执行过全引导参数透传
-     */
-    isTraced: boolean;
-    /**
-     * 自动上报 PV
-     */
-    autoLogPv: boolean;
-  }
   interface ITracertPageParams {
     newChinfo?: string;
     chInfo?: string;
@@ -21413,335 +22126,7 @@ declare namespace my {
      */
     indicate: boolean;
   }
-  interface ITypeCityInfo {
-    /**
-     * 城市名。
-     */
-    name?: string;
-    /**
-     * 行政区划代码。不同行政区域对应的代码可参见 中华人民共和国县以上行政区划代码。
-     */
-    adcode?: string;
-    /**
-     * 城市名对应拼音拼写，方便用户搜索。
-     */
-    pinyin?: string;
-    /**
-     * 城市名。
-     */
-    city: string;
-    /**
-     * 行政区划代码。不同行政区域对应的代码可参见 中华人民共和国县以上行政区划代码。
-     */
-    adCode: string;
-    /**
-     * 城市名对应拼音拼写，方便用户搜索。
-     */
-    spell: string;
-  }
-  interface ITypeReferrerInfo {
-    /**
-     * 来源小程序。
-     */
-    appId: string;
-    /**
-     * 以小服务模式启动的来源信息，目前已废弃
-     */
-    sourceServiceId?: string;
-    /**
-     * 来源小程序传过来的数据。
-     */
-    extraData: Record<string, unknown>;
-  }
-  interface IUnlinkRequest {
-    /**
-     * 文件路径
-     */
-    filePath: string;
-  }
-  interface IUnzipRequest {
-    /**
-     * 源文件路径
-     * @description 只可以是 zip 压缩文件
-     */
-    zipFilePath: string;
-    /**
-     * 目标路径
-     */
-    targetPath: string;
-  }
-  interface IUploadTaskOnHeadersReceivedHeader {
-    [key: string]: string;
-  }
-  interface IWIdAuthResultData {
-    /**
-     * @example "MGVsbAo="
-     */
-    certPwdData: string;
-    /**
-     * @example "MGVsbAo="
-     */
-    idCardAuthData: string;
-  }
-  interface IWifiConnectedWifi {
-    /**
-     * Wifi 的 SSID
-     */
-    SSID: string;
-    /**
-     * Wifi 的 BSSID
-     */
-    BSSID: string;
-    /**
-     * Wifi 是否安全
-     */
-    secure: boolean;
-    /**
-     * Wifi 信号强度
-     */
-    signalStrength: number;
-  }
-  interface IWriteFileRequest {
-    /**
-     * 要写入的文件路径
-     */
-    filePath: string;
-    /**
-     * 要写入的文本或二进制数据
-     */
-    data: string | ArrayBuffer;
-    /**
-     * 指定写入文件的字符编码
-     * @default utf8
-     */
-    encoding?: `${EFileSystemEncoding}`;
-  }
-  /**
-   * 附加信息
-   */
-  interface IZimIdentityResponseExtInfo {
-    /**
-     * 人脸源自产品
-     */
-    zimAction: number;
-    /**
-     * 入参是verifyId时，返回刷脸认证结果
-     * @description
-     * - 'NOT_SAME_PERSON': 比对非同人
-     * - 'UNABLE_GET_IMAGE': 人脸无法获取图片
-     */
-    verifyCode: string;
-  }
-  /**
-   * 含有 verifyId 的返回值
-   */
-  interface IZimIdentityResponseWithVerifyId {
-    /**
-     * 入参为空时返回的metaInfo中的一项
-     */
-    apdidToken: string;
-    /**
-     * 入参为空时返回的metaInfo中的一项
-     */
-    appName: string;
-    /**
-     * 入参为空时返回的metaInfo中的一项
-     */
-    appVersion: string;
-    /**
-     * 入参为空时返回的metaInfo中的一项
-     */
-    bioMetaInfo: string;
-    /**
-     * 入参为空时返回的metaInfo中的一项
-     */
-    deviceModel: string;
-    /**
-     * 入参为空时返回的metaInfo中的一项
-     */
-    deviceType: string;
-    /**
-     * 入参为空时返回的metaInfo中的一项
-     */
-    osVersion: string;
-    /**
-     * 入参为空时返回的metaInfo中的一项
-     */
-    zimVer: string;
-  }
-  /**
-   * 不含有 verifyId 的返回值
-   */
-  interface IZimIdentityResponseWithoutVerifyId {
-    /**
-     * 状态码。
-     * - `1003` 用户取消刷脸
-     * - `2006` 比对失败，可能是非本人或服务端异常
-     * - `1000` 比对成功，核身通过
-     */
-    code: string;
-    /**
-     * 入参是verifyId时，返回刷脸认证结果
-     */
-    extInfo: IZimIdentityResponseExtInfo;
-    /**
-     * 入参是verifyId时，返回刷脸认证结果
-     */
-    verifyCode: string;
-  }
-  /**
-   * 跳转到地图页面。
-   */
-  interface IZmCreditBorrowRequest4OpenZMCreditBorrowMapPage {
-    /**
-     * 仅跳转到地图页面时才存在该属性，值必须为 'map'。
-     */
-    borrowPage: string;
-    /**
-     * 仅跳转到地图页面时存在该属性。要展示的类目。
-     */
-    spuName: `${ESpuName}`;
-  }
-  /**
-   * 唤起芝麻信用页面参数。
-   */
-  interface IZmCreditBorrowRequest4OpenZMCreditBorrowPage {
-    /**
-     * 外部订单号，需要唯一，由商户传入，芝麻内部会做幂等控制，格式为：yyyyMMddHHmmss+随机数
-     */
-    out_order_no: string;
-    /**
-     * 信用借还的产品码，传入固定值：w1010100000000002858
-     */
-    product_code: string;
-    /**
-     * 物品名称，最长不能超过14个汉字。
-     */
-    goods_name: string;
-    /**
-     * 租金单位，租金+租金单位组合才具备实际的租金意义。
-     */
-    rent_unit: `${ERentUnit}`;
-    /**
-     * 租金，租金+租金单位组合才具备实际的租金意义。 >0.00元，代表有租金 =0.00元，代表无租金，免费借用 注：参数传值必须>=0，传入其他值会报错参数非法
-     */
-    rent_amount: string;
-    /**
-     * 押金，金额单位：元。 注：不允许免押金的用户按此金额支付押金；当物品丢失时，赔偿金额不得高于该金额。
-     */
-    deposit_amount: string;
-    /**
-     * 是否支持当借用用户信用不够（不准入）时，可让用户支付押金借用，该字段目前默认传 Y，注：支付押金的金额等同于 `deposit_amount`。
-     */
-    deposit_state: `${EDepositState}`;
-    /**
-     * 回调到商户的小程序schema地址。说明：商户的回调地址可以在商户后台里进行配置，服务端回调时，首先根据参数：invoke_type 查询是否有对应的配置地址，如果有，则使用已定义的地址，否则，使用该字段定义的地址执行回调。
-     */
-    invoke_return_url: string;
-    /**
-     * 商户访问蚂蚁的对接模式，默认传 TINYAPP。
-     * - TINYAPP：回跳至小程序地址
-     * - WINDOWS：支付宝服务窗
-     */
-    invoke_type: `${EInvokeType}`;
-    /**
-     * 信用业务服务，注意：该字段不能为空，且必须根据说明的指引配置商户专属的场景ID，商户自助接入时，登录后台可配置场景ID，将后台配置的场景ID作为该字段的输入； 参考说明一自助进行配置；
-     */
-    credit_biz: string;
-    /**
-     * 商户订单创建的起始借用时间，格式：`YYYY-MM-DD HH:MM:SS`。如果不传入或者为空，则认为订单创建起始时间为调用此接口时的时间。
-     */
-    borrow_time?: string;
-    /**
-     * 到期时间，不允许为空，请根据实际业务合理设置该值，格式：`YYYY-MM-DD HH:MM:SS`，是指最晚归还时间，表示借用用户如果超过此时间还未完结订单（未归还物品或者未支付租金）将会进入逾期状态，芝麻会给借用用户发送催收提醒；需要晚于 `borrow_time`。
-     */
-    expiry_time: string;
-    /**
-     * 借用用户的手机号码。推荐商户传入此值，会将此手机号码与用户身份信息进行匹配验证，防范欺诈风险。
-     */
-    mobile_no?: string;
-    /**
-     * 物品借用地点的描述，便于用户知道物品是在哪里借的。
-     */
-    borrow_shop_name?: string;
-    /**
-     * 租金的结算方式，非必填字段，默认是支付宝租金结算支付。
-     * - merchant：表示商户自行结算，信用借还不提供租金支付能力
-     * - alipay：表示使用支付宝支付功能，给用户提供租金代扣及赔偿金支付能力；
-     * @default 'alipay'
-     */
-    rent_settle_type?: `${ERentSettleType}`;
-    /**
-     * 商户请求状态上下文。商户发起借用服务时，需要在借用结束后返回给商户的参数，格式：json； 如果json的某一项值包含中文，请使用 encodeURIComponent 对该值进行编码。
-     * - 例如：`var ext = { name: encodeURIComponent('名字') }; var obj = { invoke_state: JSON.stringify(ext) }`
-     */
-    invoke_state?: string;
-    /**
-     * 租金信息描述，长度不超过14个汉字，只用于页面展示给C端用户，除此之外无其他意义。
-     */
-    rent_info?: string;
-    /**
-     * 借用用户的真实姓名，非必填字段。但 `name` 和 `cert_no` 必须同时非空，或者同时为空，一旦传入会对用户身份进行校验。
-     */
-    name?: string;
-    /**
-     * 借用用户的真实身份证号，非必填字段。但 `name` 和 `cert_no` 必须同时非空，或者同时为空，一旦传入会对用户身份进行校验。
-     */
-    cert_no?: string;
-    /**
-     * 借用用户的收货地址，可选字段，最大长度128。推荐商户传入此值，会将此手机号码与用户身份信息进行匹配验证，防范欺诈风险。
-     */
-    address?: string;
-  }
-  type TMYBufferSource = ArrayBufferView | ArrayBuffer;
-  type TMYCanvasFillRule = 'evenodd' | 'nonzero';
-  type TMYCanvasImageSource = Canvas | CanvasImage;
-  type TMYFloat32List = Float32Array | TMYGLfloat[];
-  type TMYGLbitfield = number;
-  type TMYGLboolean = boolean;
-  type TMYGLclampf = number;
-  type TMYGLenum = number;
-  type TMYGLfloat = number;
-  type TMYGLint = number;
-  type TMYGLintptr = number;
-  type TMYGLsizei = number;
-  type TMYGLsizeiptr = number;
-  type TMYGLuint = number;
-  type TMYInt32List = Int32Array | TMYGLint[];
-  type TTracert =
-    | 'getValueOfUrl'
-    | 'start'
-    | 'logPv'
-    | 'click'
-    | 'expo'
-    | 'send'
-    | 'checkFullLinkParams'
-    | 'expoContent'
-    | 'clickContent'
-    | 'setPageParams'
-    | 'setNextPageParams'
-    | 'appendChinfo'
-    | 'updateChinfo'
-    | 'getChinfoChain'
-    | 'getChinfoChainUUID'
-    | 'getCurrentPageParams'
-    | 'setCurrentPageNewChinfo'
-    | 'setNextPageNewChinfo'
-    | 'handleUEPEvent'
-    | 'reportUEPData'
-    | 'url'
-    | 'chInfo'
-    | 'chinfo'
-    | 'scm'
-    | 'trace'
-    | 'uepCombineMode'
-    | 'appVersion'
-    | 'version'
-    | 'appId'
-    | 'ap_framework_scheme'
-    | 'query';
-  type TrackMode = 'camera' | string;
-  interface TypeBluetoothDevice {
+  interface ITypeBluetoothDevice {
     /**
      * 蓝牙设备名称（某些设备可能没有）。
      */
@@ -21771,46 +22156,57 @@ declare namespace my {
      */
     manufacturerData: string;
   }
-  interface TypeDOMMatrix2DInit {
-    a?: number;
-    b?: number;
-    c?: number;
-    d?: number;
-    e?: number;
-    f?: number;
-    m11?: number;
-    m12?: number;
-    m21?: number;
-    m22?: number;
-    m41?: number;
-    m42?: number;
+  interface ITypeCityInfo {
+    /**
+     * 城市名。
+     */
+    city: string;
+    /**
+     * 行政区划代码。不同行政区域对应的代码可参见 中华人民共和国县以上行政区划代码。
+     */
+    adCode: string;
+    /**
+     * 城市名对应拼音拼写，方便用户搜索。
+     */
+    spell: string;
   }
-  interface TypeDOMMatrixInit {
-    a?: number;
-    b?: number;
-    c?: number;
-    d?: number;
-    e?: number;
-    f?: number;
-    m11?: number;
-    m12?: number;
-    m21?: number;
-    m22?: number;
-    m41?: number;
-    m42?: number;
-    is2D?: boolean;
-    m13?: number;
-    m14?: number;
-    m23?: number;
-    m24?: number;
-    m31?: number;
-    m32?: number;
-    m33?: number;
-    m34?: number;
-    m43?: number;
-    m44?: number;
+  interface ITypeIntersectionObserverOption {
+    /**
+     * 一个数值数组，包含所有阈值
+     */
+    thresholds?: number[];
+    /**
+     * 初始的相交比例，如果调用时检测到的相交比例与这个值不相等且达到阈值，则会触发一次监听器的回调函数
+     */
+    initialRatio?: number;
+    /**
+     * 是否全选
+     */
+    selectAll?: boolean;
+    /**
+     * 是否返回节点上的 dataset
+     */
+    dataset?: boolean;
+    /**
+     * 是否严格模式
+     */
+    strict?: boolean;
   }
-  interface TypeSystemInfo {
+  interface ITypeReferrerInfo {
+    /**
+     * 来源小程序。
+     */
+    appId: string;
+    /**
+     * 以小服务模式启动的来源信息，目前已废弃
+     */
+    sourceServiceId?: string;
+    /**
+     * 来源小程序传过来的数据。
+     */
+    extraData: Record<string, unknown>;
+  }
+  interface ITypeSystemInfo {
     /**
      * 当前运行的客户端
      * @example "alipay"
@@ -21863,22 +22259,19 @@ declare namespace my {
     /**
      * 用来区分显示企业商家服务/个人等界面信息
      */
-    appMode?: `${TypeSystemInfo$AppMode}`;
+    appMode?: `${ETypeSystemInfo$AppMode}`;
     /**
      * 手机品牌
-     * @sdk2 2.3.1
      * @example "HUAWEI"
      */
     brand: string;
     /**
      * 当前电池电量
-     * @sdk2 2.3.1
      * @example "79%"
      */
     currentBattery: string;
     /**
      * 用户设置字体大小
-     * @sdk2 2.3.1
      * @example 1
      */
     fontSizeSetting: number;
@@ -21889,11 +22282,9 @@ declare namespace my {
     model: string;
     /**
      * 设备性能分级
-     * @native 10.1.62
-     * @ios false
      */
-    performance: `${TypeSystemInfo$Performance}`;
-    screen: TypeSystemInfo$Screen;
+    performance: `${ETypeSystemInfo$Performance}`;
+    screen: ITypeSystemInfo$Screen;
     /**
      * 屏幕高度
      * @example 2259
@@ -21906,7 +22297,6 @@ declare namespace my {
     statusBarHeight: number;
     /**
      * 设备磁盘容量
-     * @sdk2 2.3.1
      * @example "118 GB"
      */
     storage: string;
@@ -21917,7 +22307,6 @@ declare namespace my {
     system: string;
     /**
      * 透明状态栏
-     * @native 10.2.58
      */
     transparentTitle: boolean;
     /**
@@ -21926,88 +22315,66 @@ declare namespace my {
      */
     windowHeight: number;
     /**
-     * @android false
-     * @sdk2 2.6.0
      */
     isIphoneXSeries: boolean;
     /**
      * 在竖屏正方向下的安全区域
-     * @native 10.2.20
-     * @sdk2 2.7.14
-     * @android false
      */
-    safeArea?: TypeSystemInfo$SafeArea;
+    safeArea?: ITypeSystemInfo$SafeArea;
     /**
      * 允许支付宝使用相册的开关
-     * @native 10.2.0
-     * @android false
      */
     albumAuthorized: boolean;
     /**
      * 允许支付宝使用摄像头的开关
-     * @native 10.2.0
      */
     cameraAuthorized: boolean;
     /**
      * 允许支付宝使用定位的开关
-     * @native 10.2.0
      */
     locationAuthorized: boolean;
     /**
      * 允许支付宝使用麦克风的开关
-     * @native 10.2.0
      */
     microphoneAuthorized: boolean;
     /**
      * 定位的系统开关
-     * @native 10.2.0
      */
     locationEnabled: boolean;
     /**
      * Wi-Fi 的系统开关
-     * @native 10.2.0
      */
     wifiEnabled: boolean;
     /**
      * 蓝牙的系统开关
-     * @native 10.2.0
      */
     bluetoothEnabled: boolean;
     /**
      * 允许支付宝使用蓝牙的开关
-     * @native 10.2.0
      */
     bluetoothAuthorized: boolean;
     /**
      * 允许支付宝通知的开关
-     * @native 10.2.0
      */
     notificationAuthorized: boolean;
     /**
      * 允许支付宝通知带有提醒的开关
-     * @native 10.2.0
-     * @android false
      */
     notificationAlertAuthorized: boolean;
     /**
      * 允许支付宝通知带有标记的开关
-     * @native 10.2.0
-     * @android false
      */
     notificationBadgeAuthorized: boolean;
     /**
      * 允许支付宝啊通知带有声音的开关
-     * @native 10.2.0
-     * @android false
      */
     notificationSoundAuthorized: boolean;
     /**
      * 悬浮窗权限
-     * @ios false
      */
     overlayAuthorized: boolean;
   }
-  interface TypeSystemInfo$SafeArea {
+  interface ITypeSystemInfo$SafeArea {
     left: number;
     right: number;
     top: number;
@@ -22015,7 +22382,7 @@ declare namespace my {
     width: number;
     height: number;
   }
-  interface TypeSystemInfo$Screen {
+  interface ITypeSystemInfo$Screen {
     /**
      * 屏幕宽度
      */
@@ -22025,6 +22392,155 @@ declare namespace my {
      */
     height: number;
   }
+  interface IUnlinkRequest {
+    /**
+     * 文件路径
+     */
+    filePath: string;
+  }
+  interface IUnzipRequest {
+    /**
+     * 源文件路径
+     * @description 只可以是 zip 压缩文件
+     */
+    zipFilePath: string;
+    /**
+     * 目标路径
+     */
+    targetPath: string;
+  }
+  interface IUploadTaskOffHeadersReceivedHeader {
+    /**
+     * HTTP Header
+     */
+    [key: string]: string;
+  }
+  interface IUploadTaskOnHeadersReceivedHeader {
+    /**
+     * HTTP Header
+     */
+    [key: string]: string;
+  }
+  interface IWifiConnectedWifi {
+    /**
+     * Wifi 的 SSID
+     */
+    SSID: string;
+    /**
+     * Wifi 的 BSSID
+     */
+    BSSID: string;
+    /**
+     * Wifi 是否安全
+     */
+    secure: boolean;
+    /**
+     * Wifi 信号强度
+     */
+    signalStrength: number;
+  }
+  interface IWriteFileRequest {
+    /**
+     * 要写入的文件路径
+     */
+    filePath: string;
+    /**
+     * 要写入的文本或二进制数据
+     */
+    data: string | ArrayBuffer;
+    /**
+     * 指定写入文件的字符编码
+     * @default utf8
+     */
+    encoding?: `${EFileSystemEncoding}`;
+  }
+  type TMYBufferSource = ArrayBufferView | ArrayBuffer;
+  type TMYCanvasFillRule = 'evenodd' | 'nonzero';
+  type TMYCanvasImageSource = Canvas | CanvasImage;
+  type TMYFloat32List = Float32Array | TMYGLfloat[];
+  type TMYGLbitfield = number;
+  type TMYGLboolean = boolean;
+  type TMYGLclampf = number;
+  type TMYGLenum = number;
+  type TMYGLfloat = number;
+  type TMYGLint = number;
+  type TMYGLintptr = number;
+  type TMYGLsizei = number;
+  type TMYGLsizeiptr = number;
+  type TMYGLuint = number;
+  type TMYInt32List = Int32Array | TMYGLint[];
+  type TTracert =
+    | 'getValueOfUrl'
+    | 'start'
+    | 'logPv'
+    | 'click'
+    | 'expo'
+    | 'send'
+    | 'checkFullLinkParams'
+    | 'expoContent'
+    | 'clickContent'
+    | 'setPageParams'
+    | 'setNextPageParams'
+    | 'appendChinfo'
+    | 'updateChinfo'
+    | 'getChinfoChain'
+    | 'getChinfoChainUUID'
+    | 'getCurrentPageParams'
+    | 'setCurrentPageNewChinfo'
+    | 'setNextPageNewChinfo'
+    | 'handleUEPEvent'
+    | 'reportUEPData'
+    | 'url'
+    | 'chInfo'
+    | 'chinfo'
+    | 'scm'
+    | 'trace'
+    | 'uepCombineMode'
+    | 'appVersion'
+    | 'version'
+    | 'appId'
+    | 'ap_framework_scheme'
+    | 'query';
+  type TrackMode = 'camera' | string;
+  interface TypeDOMMatrix2DInit {
+    a?: number;
+    b?: number;
+    c?: number;
+    d?: number;
+    e?: number;
+    f?: number;
+    m11?: number;
+    m12?: number;
+    m21?: number;
+    m22?: number;
+    m41?: number;
+    m42?: number;
+  }
+  interface TypeDOMMatrixInit {
+    a?: number;
+    b?: number;
+    c?: number;
+    d?: number;
+    e?: number;
+    f?: number;
+    m11?: number;
+    m12?: number;
+    m21?: number;
+    m22?: number;
+    m41?: number;
+    m42?: number;
+    is2D?: boolean;
+    m13?: number;
+    m14?: number;
+    m23?: number;
+    m24?: number;
+    m31?: number;
+    m32?: number;
+    m33?: number;
+    m34?: number;
+    m43?: number;
+    m44?: number;
+  }
   /**
    * WebGLContextAttributes 对象
    * @description 一个包含实际上下文参数的 WebGLContextAttributes 的对象，如果上下文丢失，可能返回 null。
@@ -22032,251 +22548,12 @@ declare namespace my {
   interface WebGLContextAttributes {
     /**
      * 是否开启抗锯齿。
-     * @android false
      */
     antialias?: boolean;
   }
 }
 
 declare namespace my.ap {
-  export function __openLifePayment(r: {
-    instId: string;
-    addressCode: string;
-    cityName: string;
-    /**
-     * 接口调用成功的回调函数
-     */
-    success?(data: {}): void;
-    /**
-     * 接口调用失败的回调函数
-     */
-    fail?(
-      err:
-        | {
-            error?: number;
-            errorMessage?: string;
-          }
-        | {
-            error: 2;
-            errorMessage: 'addressCode and instId is required';
-          }
-        | {
-            error: 2;
-            errorMessage: "addressCode and instId is 'String' type";
-          }
-        | {
-            error: 2;
-            errorMessage: 'addressCode is required';
-          }
-    ): void;
-    /**
-     * 接口调用结束的回调函数（调用成功、失败都会执行）
-     */
-    complete?(
-      arg:
-        | {
-            error?: number;
-            errorMessage?: string;
-          }
-        | {
-            error: 2;
-            errorMessage: 'addressCode and instId is required';
-          }
-        | {
-            error: 2;
-            errorMessage: "addressCode and instId is 'String' type";
-          }
-        | {
-            error: 2;
-            errorMessage: 'addressCode is required';
-          }
-    ): void;
-  }): Promise<void>;
-  /**
-   * 小程序内唤起开卡页面。
-   * - 有关商户会员卡详细功能，详见 [商户会员卡产品介绍](https://opendocs.alipay.com/mini/introduce/card)。
-   */
-  export function addCardAuth(r: {
-    /**
-     * 开卡授权的页面地址，从接口获取。
-     */
-    url: string;
-    /**
-     * 接口调用成功的回调函数
-     */
-    success?(
-      data:
-        | {
-            success: true;
-            resultStatus: '9000';
-            result: {
-              /**
-               * 应用 ID。
-               */
-              app_id: string;
-              /**
-               * 授权码，用于换取 authtoken。
-               */
-              auth_code: string;
-              /**
-               * 授权的 state。
-               */
-              state: string;
-              /**
-               * 授权 scope。
-               */
-              scope: string;
-              /**
-               * 会员卡模板 ID。
-               */
-              template_id: string;
-              /**
-               * 会员卡表单信息请求 ID。
-               */
-              request_id: string;
-              /**
-               * 会员卡领卡链接透传参数。
-               */
-              out_string: string;
-            };
-          }
-        | {
-            success: false;
-            code:
-              | 'JSAPI_SERVICE_TERMINATED'
-              | 'JSAPI_PARAM_INVALID'
-              | 'JSAPI_SYSTEM_ERROR'
-              | 'ILLEGAL_NULL_ARGUMENT'
-              | 'INVALID_APPLY_CARD_LINK'
-              | 'OPEN_FORM_TEMPLATE_NOT_EXIST'
-              | 'ALREADY_ACTIVE_CARD'
-              | 'OPEN_FORM_FIELD_NOT_PERMITTED'
-              | 'OPEN_FORM_USER_LACK_INFO'
-              | 'SYSTEM_ERROR';
-          }
-    ): void;
-    /**
-     * 接口调用失败的回调函数
-     */
-    fail?(err: { error?: number; errorMessage?: string }): void;
-    /**
-     * 接口调用结束的回调函数（调用成功、失败都会执行）
-     */
-    complete?(
-      arg:
-        | (
-            | {
-                success: true;
-                resultStatus: '9000';
-                result: {
-                  /**
-                   * 应用 ID。
-                   */
-                  app_id: string;
-                  /**
-                   * 授权码，用于换取 authtoken。
-                   */
-                  auth_code: string;
-                  /**
-                   * 授权的 state。
-                   */
-                  state: string;
-                  /**
-                   * 授权 scope。
-                   */
-                  scope: string;
-                  /**
-                   * 会员卡模板 ID。
-                   */
-                  template_id: string;
-                  /**
-                   * 会员卡表单信息请求 ID。
-                   */
-                  request_id: string;
-                  /**
-                   * 会员卡领卡链接透传参数。
-                   */
-                  out_string: string;
-                };
-              }
-            | {
-                success: false;
-                code:
-                  | 'JSAPI_SERVICE_TERMINATED'
-                  | 'JSAPI_PARAM_INVALID'
-                  | 'JSAPI_SYSTEM_ERROR'
-                  | 'ILLEGAL_NULL_ARGUMENT'
-                  | 'INVALID_APPLY_CARD_LINK'
-                  | 'OPEN_FORM_TEMPLATE_NOT_EXIST'
-                  | 'ALREADY_ACTIVE_CARD'
-                  | 'OPEN_FORM_FIELD_NOT_PERMITTED'
-                  | 'OPEN_FORM_USER_LACK_INFO'
-                  | 'SYSTEM_ERROR';
-              }
-          )
-        | {
-            error?: number;
-            errorMessage?: string;
-          }
-    ): void;
-  }): Promise<
-    | {
-        success: true;
-        resultStatus: '9000';
-        result: {
-          /**
-           * 应用 ID。
-           */
-          app_id: string;
-          /**
-           * 授权码，用于换取 authtoken。
-           */
-          auth_code: string;
-          /**
-           * 授权的 state。
-           */
-          state: string;
-          /**
-           * 授权 scope。
-           */
-          scope: string;
-          /**
-           * 会员卡模板 ID。
-           */
-          template_id: string;
-          /**
-           * 会员卡表单信息请求 ID。
-           */
-          request_id: string;
-          /**
-           * 会员卡领卡链接透传参数。
-           */
-          out_string: string;
-        };
-      }
-    | {
-        success: false;
-        code:
-          | 'JSAPI_SERVICE_TERMINATED'
-          | 'JSAPI_PARAM_INVALID'
-          | 'JSAPI_SYSTEM_ERROR'
-          | 'ILLEGAL_NULL_ARGUMENT'
-          | 'INVALID_APPLY_CARD_LINK'
-          | 'OPEN_FORM_TEMPLATE_NOT_EXIST'
-          | 'ALREADY_ACTIVE_CARD'
-          | 'OPEN_FORM_FIELD_NOT_PERMITTED'
-          | 'OPEN_FORM_USER_LACK_INFO'
-          | 'SYSTEM_ERROR';
-      }
-  >;
-  /**
-   * 创建 tracert 对象
-   */
-  export function createTracert(option: ITracertOptions): Tracert;
-  export function getAdTrackClues(): {
-    scm: string;
-    cid: string;
-  };
   /**
    * 获取支付宝首页左上角的城市选择信息
    * @see https://opendocs.alipay.com/mini/api/getMainSelectedCity
@@ -22299,12 +22576,10 @@ declare namespace my.ap {
       fullName?: string;
       /**
        * 城市英文名称
-       * @native 10.2.18
        */
       enName?: string;
       /**
        * 区县英文名称
-       * @native 10.2.18
        */
       enDistrictName?: string;
       /**
@@ -22329,12 +22604,10 @@ declare namespace my.ap {
       settingTime: number;
       /**
        * 区县名
-       * @native 10.1.99
        */
       districtName?: string;
       /**
        * 区县编码
-       * @native 10.1.99
        */
       districtCode?: string;
     }): void;
@@ -22354,12 +22627,10 @@ declare namespace my.ap {
             fullName?: string;
             /**
              * 城市英文名称
-             * @native 10.2.18
              */
             enName?: string;
             /**
              * 区县英文名称
-             * @native 10.2.18
              */
             enDistrictName?: string;
             /**
@@ -22384,12 +22655,10 @@ declare namespace my.ap {
             settingTime: number;
             /**
              * 区县名
-             * @native 10.1.99
              */
             districtName?: string;
             /**
              * 区县编码
-             * @native 10.1.99
              */
             districtCode?: string;
           }
@@ -22405,12 +22674,10 @@ declare namespace my.ap {
     fullName?: string;
     /**
      * 城市英文名称
-     * @native 10.2.18
      */
     enName?: string;
     /**
      * 区县英文名称
-     * @native 10.2.18
      */
     enDistrictName?: string;
     /**
@@ -22435,18 +22702,16 @@ declare namespace my.ap {
     settingTime: number;
     /**
      * 区县名
-     * @native 10.1.99
      */
     districtName?: string;
     /**
      * 区县编码
-     * @native 10.1.99
      */
     districtCode?: string;
   }>;
   /**
    * 图片风险任务提交接口
-   * @description 用于识别图片是否有色情、违禁违法等内容。
+   * @description 用于识别图片是否有色情、违禁违法等内容
    * @see https://opendocs.alipay.com/mini/api/img_risk
    */
   export function imgRisk(r: {
@@ -22461,16 +22726,7 @@ declare namespace my.ap {
     /**
      * 需要识别的业务参数
      */
-    bizContext: {
-      /**
-       * 风险类型
-       */
-      risk_type: string;
-      /**
-       * 需要验证的图片 URL
-       */
-      content: string;
-    };
+    bizContext: IMyApImgRiskBizContext;
     /**
      * 接口调用成功的回调函数
      */
@@ -22552,18 +22808,13 @@ declare namespace my.ap {
      */
     pid: string;
     /**
+     * 小程序对应的 APPID
+     */
+    appId: string;
+    /**
      * 需要识别的业务参数
      */
-    bizContext: {
-      /**
-       * 风险类型
-       */
-      risk_type: string;
-      /**
-       * 需要查询图片的任务 ID
-       */
-      apply_id: string;
-    };
+    bizContext: IMyApImgRiskCallbackBizContext;
     /**
      * 接口调用成功的回调函数
      */
@@ -22612,7 +22863,7 @@ declare namespace my.ap {
           }
         | {
             error: 'param error';
-            errorMesage: '参数错误';
+            errorMessage: '参数错误';
           }
         | {
             error: 'SYSTEM_OUT_ERROR';
@@ -22673,7 +22924,7 @@ declare namespace my.ap {
               }
             | {
                 error: 'param error';
-                errorMesage: '参数错误';
+                errorMessage: '参数错误';
               }
             | {
                 error: 'SYSTEM_OUT_ERROR';
@@ -22736,6 +22987,9 @@ declare namespace my.ap {
        * 跳转成功
        */
       success: true;
+      /**
+       * 错误消息（新版本无此字段）
+       */
       errorMsg?: never;
     }): void;
     /**
@@ -22752,6 +23006,9 @@ declare namespace my.ap {
              * 跳转成功
              */
             success: true;
+            /**
+             * 错误消息（新版本无此字段）
+             */
             errorMsg?: never;
           }
         | {
@@ -22764,6 +23021,9 @@ declare namespace my.ap {
      * 跳转成功
      */
     success: true;
+    /**
+     * 错误消息（新版本无此字段）
+     */
     errorMsg?: never;
   }>;
   /**
@@ -22786,6 +23046,9 @@ declare namespace my.ap {
        * 跳转成功
        */
       success: true;
+      /**
+       * 错误消息（新版本无此字段）
+       */
       errorMsg?: never;
     }): void;
     /**
@@ -22802,6 +23065,9 @@ declare namespace my.ap {
              * 跳转成功
              */
             success: true;
+            /**
+             * 错误消息（新版本无此字段）
+             */
             errorMsg?: never;
           }
         | {
@@ -22814,152 +23080,268 @@ declare namespace my.ap {
      * 跳转成功
      */
     success: true;
+    /**
+     * 错误消息（新版本无此字段）
+     */
     errorMsg?: never;
   }>;
-  export function navigateToFinance(
-    r: IAP$NavigateToFinanceOptionsFundDetail & {
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: {}): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(arg: { error?: number; errorMessage?: string }): void;
-    }
-  ): Promise<void>;
-  export function navigateToFinance(
-    r: IAP$NavigateToFinanceOptionsPortfolioDetail & {
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: {}): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(arg: { error?: number; errorMessage?: string }): void;
-    }
-  ): Promise<void>;
-  export function navigateToFinance(
-    r: IAP$NavigateToFinanceOptionsFundBuy & {
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: {}): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(arg: { error?: number; errorMessage?: string }): void;
-    }
-  ): Promise<void>;
-  export function navigateToFinance(
-    r: IAP$NavigateToFinanceOptionsGoldBuy & {
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: {}): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(arg: { error?: number; errorMessage?: string }): void;
-    }
-  ): Promise<void>;
-  export function navigateToFinance(
-    r: IAP$NavigateToFinanceOptionsPortfolioBuy & {
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: {}): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(arg: { error?: number; errorMessage?: string }): void;
-    }
-  ): Promise<void>;
-  export function navigateToFinance(
-    r: IAP$NavigateToFinanceOptionsFundSign & {
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: {}): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(arg: { error?: number; errorMessage?: string }): void;
-    }
-  ): Promise<void>;
-  export function navigateToFinance(
-    r: IAP$NavigateToFinanceOptionsGoldSign & {
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: {}): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(arg: { error?: number; errorMessage?: string }): void;
-    }
-  ): Promise<void>;
-  export function navigateToFinance(
-    r: IAP$NavigateToFinanceOptionsWealthShop & {
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: {}): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(arg: { error?: number; errorMessage?: string }): void;
-    }
-  ): Promise<void>;
-  export function navigateToFinance(
-    r: IAP$NavigateToFinanceOptionsH5Page & {
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: {}): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(arg: { error?: number; errorMessage?: string }): void;
-    }
-  ): Promise<void>;
+  /**
+   * 跳转到财富页面
+   */
+  export function navigateToFinance(r: {
+    /**
+     * 跳转类型，固定为 fundDetail
+     */
+    type: 'fundDetail';
+    /**
+     * 基金代码
+     */
+    fundCode: string;
+    /**
+     * 接口调用成功的回调函数
+     */
+    success?(data: {}): void;
+    /**
+     * 接口调用失败的回调函数
+     */
+    fail?(err: { error?: number; errorMessage?: string }): void;
+    /**
+     * 接口调用结束的回调函数（调用成功、失败都会执行）
+     */
+    complete?(arg: { error?: number; errorMessage?: string }): void;
+  }): Promise<void>;
+  /**
+   * 跳转到财富页面
+   */
+  export function navigateToFinance(r: {
+    /**
+     * 跳转类型，固定为 portfolioDetail
+     */
+    type: 'portfolioDetail';
+    /**
+     * 基金组合代码
+     */
+    fundCode: string;
+    /**
+     * 接口调用成功的回调函数
+     */
+    success?(data: {}): void;
+    /**
+     * 接口调用失败的回调函数
+     */
+    fail?(err: { error?: number; errorMessage?: string }): void;
+    /**
+     * 接口调用结束的回调函数（调用成功、失败都会执行）
+     */
+    complete?(arg: { error?: number; errorMessage?: string }): void;
+  }): Promise<void>;
+  /**
+   * 跳转到财富页面
+   */
+  export function navigateToFinance(r: {
+    /**
+     * 跳转类型，固定为 fundBuy
+     */
+    type: 'fundBuy';
+    /**
+     * 基金代码
+     */
+    fundCode: string;
+    /**
+     * 下单金额
+     */
+    amount: string | number;
+    /**
+     * 接口调用成功的回调函数
+     */
+    success?(data: {}): void;
+    /**
+     * 接口调用失败的回调函数
+     */
+    fail?(err: { error?: number; errorMessage?: string }): void;
+    /**
+     * 接口调用结束的回调函数（调用成功、失败都会执行）
+     */
+    complete?(arg: { error?: number; errorMessage?: string }): void;
+  }): Promise<void>;
+  /**
+   * 跳转到财富页面
+   */
+  export function navigateToFinance(r: {
+    /**
+     * 跳转类型，固定为 goldBuy
+     */
+    type: 'goldBuy';
+    /**
+     * 黄金对应的基金代码
+     */
+    fundCode: string;
+    /**
+     * 接口调用成功的回调函数
+     */
+    success?(data: {}): void;
+    /**
+     * 接口调用失败的回调函数
+     */
+    fail?(err: { error?: number; errorMessage?: string }): void;
+    /**
+     * 接口调用结束的回调函数（调用成功、失败都会执行）
+     */
+    complete?(arg: { error?: number; errorMessage?: string }): void;
+  }): Promise<void>;
+  /**
+   * 跳转到财富页面
+   */
+  export function navigateToFinance(r: {
+    /**
+     * 跳转类型，固定为 portfolioBuy
+     */
+    type: 'portfolioBuy';
+    /**
+     * 基金组合代码
+     */
+    fundCode: string;
+    /**
+     * 下单金额
+     */
+    amount: string | number;
+    /**
+     * 接口调用成功的回调函数
+     */
+    success?(data: {}): void;
+    /**
+     * 接口调用失败的回调函数
+     */
+    fail?(err: { error?: number; errorMessage?: string }): void;
+    /**
+     * 接口调用结束的回调函数（调用成功、失败都会执行）
+     */
+    complete?(arg: { error?: number; errorMessage?: string }): void;
+  }): Promise<void>;
+  /**
+   * 跳转到财富页面
+   */
+  export function navigateToFinance(r: {
+    /**
+     * 跳转类型，固定为 fundSign
+     */
+    type: 'fundSign';
+    /**
+     * 基金代码
+     */
+    fundCode: string;
+    /**
+     * 定投金额
+     */
+    amount: string | number;
+    /**
+     * 定投周期 E:每日, W:每周, D:每两周, M:每月,
+     */
+    period: string;
+    /**
+     * 定投日期 周维度:1-5,月维度1-28
+     */
+    day: string | number;
+    /**
+     * 接口调用成功的回调函数
+     */
+    success?(data: {}): void;
+    /**
+     * 接口调用失败的回调函数
+     */
+    fail?(err: { error?: number; errorMessage?: string }): void;
+    /**
+     * 接口调用结束的回调函数（调用成功、失败都会执行）
+     */
+    complete?(arg: { error?: number; errorMessage?: string }): void;
+  }): Promise<void>;
+  /**
+   * 跳转到财富页面
+   */
+  export function navigateToFinance(r: {
+    /**
+     * 跳转类型，固定为 goldSign
+     */
+    type: 'goldSign';
+    /**
+     * 黄金对应的基金代码
+     */
+    funcCode: string;
+    /**
+     * 定投金额
+     */
+    amount: string | number;
+    /**
+     * 定投周期 E:每日, W:每周, D:每两周, M:每月,
+     */
+    period: string;
+    /**
+     * 定投日期 周维度:1-5,月维度1-28
+     */
+    day: string | number;
+    /**
+     * 接口调用成功的回调函数
+     */
+    success?(data: {}): void;
+    /**
+     * 接口调用失败的回调函数
+     */
+    fail?(err: { error?: number; errorMessage?: string }): void;
+    /**
+     * 接口调用结束的回调函数（调用成功、失败都会执行）
+     */
+    complete?(arg: { error?: number; errorMessage?: string }): void;
+  }): Promise<void>;
+  /**
+   * 跳转到财富页面
+   */
+  export function navigateToFinance(r: {
+    /**
+     * 跳转类型，固定为 wealthShop
+     */
+    type: 'wealthShop';
+    /**
+     * 机构 pid
+     */
+    pid: string;
+    /**
+     * 接口调用成功的回调函数
+     */
+    success?(data: {}): void;
+    /**
+     * 接口调用失败的回调函数
+     */
+    fail?(err: { error?: number; errorMessage?: string }): void;
+    /**
+     * 接口调用结束的回调函数（调用成功、失败都会执行）
+     */
+    complete?(arg: { error?: number; errorMessage?: string }): void;
+  }): Promise<void>;
+  /**
+   * 跳转到财富页面
+   */
+  export function navigateToFinance(r: {
+    /**
+     * 跳转类型，固定为 h5Page
+     */
+    type: 'h5Page';
+    /**
+     * H5 页面链接
+     */
+    url: string;
+    /**
+     * 接口调用成功的回调函数
+     */
+    success?(data: {}): void;
+    /**
+     * 接口调用失败的回调函数
+     */
+    fail?(err: { error?: number; errorMessage?: string }): void;
+    /**
+     * 接口调用结束的回调函数（调用成功、失败都会执行）
+     */
+    complete?(arg: { error?: number; errorMessage?: string }): void;
+  }): Promise<void>;
   /**
    * 判断用户在先享后付场景下是否有风险的 API
    * @see https://opendocs.alipay.com/mini/api/nsf
@@ -23031,12 +23413,12 @@ declare namespace my.ap {
     fail?(
       err:
         | {
-            error: 2;
-            errorMessage: '参数无效';
+            error?: number;
+            errorMessage?: string;
           }
         | {
-            error: number;
-            errorMessage: string;
+            error: 2;
+            errorMessage: '参数无效';
           }
     ): void;
     /**
@@ -23045,17 +23427,18 @@ declare namespace my.ap {
     complete?(
       arg:
         | {
-            error: 2;
-            errorMessage: '参数无效';
+            error?: number;
+            errorMessage?: string;
           }
         | {
-            error: number;
-            errorMessage: string;
+            error: 2;
+            errorMessage: '参数无效';
           }
     ): void;
   }): Promise<void>;
   /**
    * 跳转到支付宝卡列表界面
+   * @see https://opendocs.alipay.com/mini/api/qxxpsh
    */
   export function openCardList(r?: {
     /**
@@ -23071,6 +23454,9 @@ declare namespace my.ap {
      */
     complete?(arg: { error?: number; errorMessage?: string }): void;
   }): Promise<void>;
+  /**
+   * 跳转到当前用户的某张券的（口碑）详情页
+   */
   export function openKBVoucherDetail(r: {
     /**
      * 卡实例 ID，调用 [券发放接口](https://docs.open.alipay.com/api_24/alipay.pass.instance.add) 可以获取该参数。
@@ -23089,6 +23475,9 @@ declare namespace my.ap {
      */
     complete?(arg: { error?: number; errorMessage?: string }): void;
   }): Promise<void>;
+  /**
+   * 跳转到当前用户的某张券的（口碑）详情页
+   */
   export function openKBVoucherDetail(r: {
     /**
      * 商户编号。
@@ -23113,6 +23502,7 @@ declare namespace my.ap {
   }): Promise<void>;
   /**
    * 跳转到指定商户的卡列表界面
+   * @see https://opendocs.alipay.com/mini/api/axfplw
    */
   export function openMerchantCardList(r: {
     /**
@@ -23134,6 +23524,7 @@ declare namespace my.ap {
   }): Promise<void>;
   /**
    * 跳转到当前用户在指定商户的已领取票列表界面
+   * @see https://opendocs.alipay.com/mini/api/yee76y
    */
   export function openMerchantTicketList(r: {
     /**
@@ -23155,6 +23546,7 @@ declare namespace my.ap {
   }): Promise<void>;
   /**
    * 跳转到当前用户在指定商户的已领取券列表界面
+   * @see https://opendocs.alipay.com/mini/api/sgvgu6
    */
   export function openMerchantVoucherList(r: {
     /**
@@ -23174,6 +23566,10 @@ declare namespace my.ap {
      */
     complete?(arg: { error?: number; errorMessage?: string }): void;
   }): Promise<void>;
+  /**
+   * 跳转到当前用户领取某张票的详情界面
+   * @see https://opendocs.alipay.com/mini/api/ry7ftz
+   */
   export function openTicketDetail(r: {
     /**
      * 卡实例 ID，调用 [券发放接口](https://docs.open.alipay.com/api_24/alipay.pass.instance.add) 可以获取该参数。
@@ -23192,6 +23588,10 @@ declare namespace my.ap {
      */
     complete?(arg: { error?: number; errorMessage?: string }): void;
   }): Promise<void>;
+  /**
+   * 跳转到当前用户领取某张票的详情界面
+   * @see https://opendocs.alipay.com/mini/api/ry7ftz
+   */
   export function openTicketDetail(r: {
     /**
      * 商户编号。
@@ -23216,6 +23616,7 @@ declare namespace my.ap {
   }): Promise<void>;
   /**
    * 跳转到支付宝票列表界面
+   * @see https://opendocs.alipay.com/mini/api/ezt6u3
    */
   export function openTicketList(r?: {
     /**
@@ -23232,7 +23633,8 @@ declare namespace my.ap {
     complete?(arg: { error?: number; errorMessage?: string }): void;
   }): Promise<void>;
   /**
-   * 打开 URL
+   * 通用跳转接口
+   * @see https://opendocs.alipay.com/mini/04iy2y
    */
   export function openURL(r: {
     /**
@@ -23249,16 +23651,16 @@ declare namespace my.ap {
     fail?(
       err:
         | {
+            error?: number;
+            errorMessage?: string;
+          }
+        | {
             error: 2;
             errorMessage: '参数无效';
           }
         | {
             error: 60002;
             errorMessage: '目标地址不在白名单';
-          }
-        | {
-            error: number;
-            errorMessage: string;
           }
     ): void;
     /**
@@ -23267,6 +23669,10 @@ declare namespace my.ap {
     complete?(
       arg:
         | {
+            error?: number;
+            errorMessage?: string;
+          }
+        | {
             error: 2;
             errorMessage: '参数无效';
           }
@@ -23274,12 +23680,12 @@ declare namespace my.ap {
             error: 60002;
             errorMessage: '目标地址不在白名单';
           }
-        | {
-            error: number;
-            errorMessage: string;
-          }
     ): void;
   }): Promise<void>;
+  /**
+   * 跳转到当前用户领取某张券的详情页（非口碑券）
+   * @see https://opendocs.alipay.com/mini/api/ga4obi
+   */
   export function openVoucherDetail(r: {
     /**
      * 卡实例 ID，调用 [券发放接口](https://docs.open.alipay.com/api_24/alipay.pass.instance.add) 可以获取该参数。
@@ -23298,6 +23704,10 @@ declare namespace my.ap {
      */
     complete?(arg: { error?: number; errorMessage?: string }): void;
   }): Promise<void>;
+  /**
+   * 跳转到当前用户领取某张券的详情页（非口碑券）
+   * @see https://opendocs.alipay.com/mini/api/ga4obi
+   */
   export function openVoucherDetail(r: {
     /**
      * 商户编号。
@@ -23322,6 +23732,7 @@ declare namespace my.ap {
   }): Promise<void>;
   /**
    * 跳转到支付宝券列表界面
+   * @see https://opendocs.alipay.com/mini/api/vq3mgn
    */
   export function openVoucherList(r?: {
     /**
@@ -23386,70 +23797,6 @@ declare namespace my.ap {
     result: IMyApPreventCheatResult;
   }>;
   /**
-   * （已废弃）订阅服务提醒消息
-   * @deprecated
-   */
-  export function subscribeMsgbox(r: {
-    /**
-     *  服务码
-     */
-    serviceCode: string;
-    /**
-     * 在界面弹出前是否显示 loading
-     * @description 调用该jsapi时转loading，直到界面弹出。true时，调用jsapi时在对话框弹出来之前不转loading。 true只是为主动弹框设计的，用户操作场景不能设置true。
-     */
-    silent?: boolean;
-    /**
-     * 接口调用成功的回调函数
-     */
-    success?(data: {
-      /**
-       * 订阅成功,重复订阅也算成功。当订阅成功时，不会再弹窗。
-       */
-      success: true;
-    }): void;
-    /**
-     * 接口调用失败的回调函数
-     */
-    fail?(err: {
-      /**
-       * 错误码
-       */
-      error: number;
-      /**
-       * 错误信息
-       */
-      errorMessage: string;
-    }): void;
-    /**
-     * 接口调用结束的回调函数（调用成功、失败都会执行）
-     */
-    complete?(
-      arg:
-        | {
-            /**
-             * 订阅成功,重复订阅也算成功。当订阅成功时，不会再弹窗。
-             */
-            success: true;
-          }
-        | {
-            /**
-             * 错误码
-             */
-            error: number;
-            /**
-             * 错误信息
-             */
-            errorMessage: string;
-          }
-    ): void;
-  }): Promise<{
-    /**
-     * 订阅成功,重复订阅也算成功。当订阅成功时，不会再弹窗。
-     */
-    success: true;
-  }>;
-  /**
    * 跳转到支付宝客户端升级界面
    * @see https://opendocs.alipay.com/mini/api/updatealipayclient
    */
@@ -23488,353 +23835,6 @@ declare namespace my.ap {
      * 代表是否跳转成功
      */
     success: true;
-  }>;
-  /**
-   * 网络身份认证
-   */
-  export function wIdAuth(r: {
-    /**
-     * 机构 ID，业务接入申请时，w分配给机 构的唯一标识 8位
-     * @default ''
-     * @example 90000006
-     */
-    orgID: string;
-    /**
-     * 应用 ID，业务接入申请时，w分配给网 络应用 APP 的唯一标识 4位
-     * @default ''
-     * @example 0012
-     */
-    appID: string;
-    /**
-     * 调用方业务序列号 :
-     * 由调用方生成的具有唯一性的业务序 列号 32位
-     * @default ''
-     * @example 00520211229094537128225903984632
-     */
-    bizSeq: string;
-    /**
-     * 业务类型
-     * @default "0"
-     * @example "0"
-     */
-    type: '0' | '1' | '6';
-    /**
-     * 接口调用成功的回调函数
-     */
-    success?(data: {
-      /**
-       * 响应结果码
-       * 同 网络身份认证App （测试版）SDK接口说明书V2.0.pdf
-       * @example "C0000000"
-       */
-      resultCode: string;
-      /**
-       * 响应结果描述
-       * 同 网络身份认证App （测试版）SDK接口说明书V2.0.pdf
-       * @example "成功"
-       */
-      resultDesc: string;
-      /**
-             * resultData 数据结构说明
-             * 同 网络身份认证App （测试版）SDK接口说明书V2.0.pdf
-             
-             */
-      resultData: IWIdAuthResultData;
-    }): void;
-    /**
-     * 接口调用失败的回调函数
-     */
-    fail?(err: { error?: number; errorMessage?: string }): void;
-    /**
-     * 接口调用结束的回调函数（调用成功、失败都会执行）
-     */
-    complete?(
-      arg:
-        | {
-            /**
-             * 响应结果码
-             * 同 网络身份认证App （测试版）SDK接口说明书V2.0.pdf
-             * @example "C0000000"
-             */
-            resultCode: string;
-            /**
-             * 响应结果描述
-             * 同 网络身份认证App （测试版）SDK接口说明书V2.0.pdf
-             * @example "成功"
-             */
-            resultDesc: string;
-            /**
-             * resultData 数据结构说明
-             * 同 网络身份认证App （测试版）SDK接口说明书V2.0.pdf
-             
-             */
-            resultData: IWIdAuthResultData;
-          }
-        | {
-            error?: number;
-            errorMessage?: string;
-          }
-    ): void;
-  }): Promise<{
-    /**
-     * 响应结果码
-     * 同 网络身份认证App （测试版）SDK接口说明书V2.0.pdf
-     * @example "C0000000"
-     */
-    resultCode: string;
-    /**
-     * 响应结果描述
-     * 同 网络身份认证App （测试版）SDK接口说明书V2.0.pdf
-     * @example "成功"
-     */
-    resultDesc: string;
-    /**
-         * resultData 数据结构说明
-         * 同 网络身份认证App （测试版）SDK接口说明书V2.0.pdf
-         
-         */
-    resultData: IWIdAuthResultData;
-  }>;
-  /**
-   * 支付宝刷脸获取metaInfo和刷脸启动的JSAPI
-   */
-  export function zimIdentity(option: {
-    /**
-     * 通过服务端接口返回一次验证流程id；不填写时，返回设备的metaInfo
-     */
-    verifyId?: string;
-  }): IZimIdentityResponseWithVerifyId | IZimIdentityResponseWithoutVerifyId;
-  export function zmCreditBorrow(
-    r: IZmCreditBorrowRequest4OpenZMCreditBorrowPage & {
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: {
-        /**
-         * 商户发起借用服务时传入的参数，需要在借用结束后返回给商户的参数。
-         */
-        invoke_state: string;
-        /**
-         * 外部订单号，需要唯一，由商户传入，芝麻内部会做幂等控制，格式为：yyyyMMddHHmmss+4位随机数
-         */
-        out_order_no: string;
-        /**
-         * 芝麻信用借还订单号
-         */
-        order_no: string;
-        /**
-         * 是否准入，该字段目前无实际意义。
-         * - `Y` 准入
-         * - `N` 不准入
-         */
-        admit_state: 'Y' | 'N';
-        /**
-         * 物品借用/租赁者的用户id
-         */
-        user_id: string;
-        /**
-         * 状态码。
-         * - `'6001'` 用户取消了业务流程
-         * - `'6002'` 网络异常
-         * - `'9000'` 成功
-         * - `'4000'` 系统异常
-         */
-        resultStatus: string;
-      }): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(
-        arg:
-          | {
-              /**
-               * 商户发起借用服务时传入的参数，需要在借用结束后返回给商户的参数。
-               */
-              invoke_state: string;
-              /**
-               * 外部订单号，需要唯一，由商户传入，芝麻内部会做幂等控制，格式为：yyyyMMddHHmmss+4位随机数
-               */
-              out_order_no: string;
-              /**
-               * 芝麻信用借还订单号
-               */
-              order_no: string;
-              /**
-               * 是否准入，该字段目前无实际意义。
-               * - `Y` 准入
-               * - `N` 不准入
-               */
-              admit_state: 'Y' | 'N';
-              /**
-               * 物品借用/租赁者的用户id
-               */
-              user_id: string;
-              /**
-               * 状态码。
-               * - `'6001'` 用户取消了业务流程
-               * - `'6002'` 网络异常
-               * - `'9000'` 成功
-               * - `'4000'` 系统异常
-               */
-              resultStatus: string;
-            }
-          | {
-              error?: number;
-              errorMessage?: string;
-            }
-      ): void;
-    }
-  ): Promise<{
-    /**
-     * 商户发起借用服务时传入的参数，需要在借用结束后返回给商户的参数。
-     */
-    invoke_state: string;
-    /**
-     * 外部订单号，需要唯一，由商户传入，芝麻内部会做幂等控制，格式为：yyyyMMddHHmmss+4位随机数
-     */
-    out_order_no: string;
-    /**
-     * 芝麻信用借还订单号
-     */
-    order_no: string;
-    /**
-     * 是否准入，该字段目前无实际意义。
-     * - `Y` 准入
-     * - `N` 不准入
-     */
-    admit_state: 'Y' | 'N';
-    /**
-     * 物品借用/租赁者的用户id
-     */
-    user_id: string;
-    /**
-     * 状态码。
-     * - `'6001'` 用户取消了业务流程
-     * - `'6002'` 网络异常
-     * - `'9000'` 成功
-     * - `'4000'` 系统异常
-     */
-    resultStatus: string;
-  }>;
-  export function zmCreditBorrow(
-    r: IZmCreditBorrowRequest4OpenZMCreditBorrowMapPage & {
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: {
-        /**
-         * 商户发起借用服务时传入的参数，需要在借用结束后返回给商户的参数。
-         */
-        invoke_state: string;
-        /**
-         * 外部订单号，需要唯一，由商户传入，芝麻内部会做幂等控制，格式为：yyyyMMddHHmmss+4位随机数
-         */
-        out_order_no: string;
-        /**
-         * 芝麻信用借还订单号
-         */
-        order_no: string;
-        /**
-         * 是否准入，该字段目前无实际意义。
-         * - `Y` 准入
-         * - `N` 不准入
-         */
-        admit_state: 'Y' | 'N';
-        /**
-         * 物品借用/租赁者的用户id
-         */
-        user_id: string;
-        /**
-         * 状态码。
-         * - `'6001'` 用户取消了业务流程
-         * - `'6002'` 网络异常
-         * - `'9000'` 成功
-         * - `'4000'` 系统异常
-         */
-        resultStatus: string;
-      }): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(
-        arg:
-          | {
-              /**
-               * 商户发起借用服务时传入的参数，需要在借用结束后返回给商户的参数。
-               */
-              invoke_state: string;
-              /**
-               * 外部订单号，需要唯一，由商户传入，芝麻内部会做幂等控制，格式为：yyyyMMddHHmmss+4位随机数
-               */
-              out_order_no: string;
-              /**
-               * 芝麻信用借还订单号
-               */
-              order_no: string;
-              /**
-               * 是否准入，该字段目前无实际意义。
-               * - `Y` 准入
-               * - `N` 不准入
-               */
-              admit_state: 'Y' | 'N';
-              /**
-               * 物品借用/租赁者的用户id
-               */
-              user_id: string;
-              /**
-               * 状态码。
-               * - `'6001'` 用户取消了业务流程
-               * - `'6002'` 网络异常
-               * - `'9000'` 成功
-               * - `'4000'` 系统异常
-               */
-              resultStatus: string;
-            }
-          | {
-              error?: number;
-              errorMessage?: string;
-            }
-      ): void;
-    }
-  ): Promise<{
-    /**
-     * 商户发起借用服务时传入的参数，需要在借用结束后返回给商户的参数。
-     */
-    invoke_state: string;
-    /**
-     * 外部订单号，需要唯一，由商户传入，芝麻内部会做幂等控制，格式为：yyyyMMddHHmmss+4位随机数
-     */
-    out_order_no: string;
-    /**
-     * 芝麻信用借还订单号
-     */
-    order_no: string;
-    /**
-     * 是否准入，该字段目前无实际意义。
-     * - `Y` 准入
-     * - `N` 不准入
-     */
-    admit_state: 'Y' | 'N';
-    /**
-     * 物品借用/租赁者的用户id
-     */
-    user_id: string;
-    /**
-     * 状态码。
-     * - `'6001'` 用户取消了业务流程
-     * - `'6002'` 网络异常
-     * - `'9000'` 成功
-     * - `'4000'` 系统异常
-     */
-    resultStatus: string;
   }>;
 }
 
@@ -23923,21 +23923,6 @@ declare const enum ECalculateRouteMode {
   _9 = 9,
 }
 
-declare const enum EChooseDistrictHeadItemType {
-  /**
-   * 常规城市
-   */
-  _0 = 0,
-  /**
-   * 定位模块
-   */
-  _1 = 1,
-  /**
-   * 展示支付宝提供的热门城市模块
-   */
-  _2 = 2,
-}
-
 declare const enum EChooseDistrictMode {
   /**
    * 境内
@@ -24018,17 +24003,6 @@ declare const enum ECompressImageCompressLevel {
    * 根据网络适应
    */
   _4 = 4,
-}
-
-declare const enum EDepositState {
-  /**
-   * 支持
-   */
-  Y = 'Y',
-  /**
-   * 不支持
-   */
-  N = 'N',
 }
 
 declare const enum EFileSystemEncoding {
@@ -24138,17 +24112,6 @@ declare const enum EGetVideoInfoOrientation {
   _3 = 3,
 }
 
-declare const enum EInvokeType {
-  /**
-   * 回跳至小程序地址
-   */
-  TINYAPP = 'TINYAPP',
-  /**
-   * 支付宝服务窗
-   */
-  WINDOWS = 'WINDOWS',
-}
-
 declare const enum EMapContextShowRouteMode {
   /**
    * 公交 - 最快捷模式，驾车 - 速度优先（时间）
@@ -24224,80 +24187,17 @@ declare const enum EMyGetLocationType {
   _3 = 3,
 }
 
-declare const enum ERentSettleType {
-  /**
-   * 表示商户自行结算，信用借还不提供租金支付能力
-   */
-  merchant = 'merchant',
-  /**
-   * 表示使用支付宝支付功能，给用户提供租金代扣及赔偿金支付能力；
-   */
-  alipay = 'alipay',
-}
-
-declare const enum ERentUnit {
-  /**
-   * 元/天
-   */
-  'DAY_YUAN' = 'DAY_YUAN',
-  /**
-   * 元/小时
-   */
-  'HOUR_YUAN' = 'HOUR_YUAN',
-  /**
-   * 元
-   */
-  'YUAN' = 'YUAN',
-  /**
-   *  元/次
-   */
-  'YUAN_ONCE' = 'YUAN_ONCE',
-}
-
-declare const enum EScanScanType {
-  /**
-   * 二维码
-   */
-  qrCode = 'qrCode',
-  /**
-   * 条码
-   */
-  barCode = 'barCode',
-  /**
-   * DM码
-   */
-  dmCode = 'dmCode',
-  /**
-   * PDF417码
-   */
-  pdf417Code = 'pdf417Code',
-  /**
-   * 窄条二维码
-   */
-  narrowCode = 'narrowCode',
-  /**
-   * 异构码
-   */
-  hmCode = 'hmCode',
-}
-
 declare const enum EShowAuthGuideAuthType {
   /**
    * 蓝牙
-   * @native 10.2.33
-   * @sdk 2.7.10
    */
   BLUETOOTH = 'BLUETOOTH',
   /**
    * 后台保活权限
-   * @native 10.0.18
-   * @ios false
    */
   BACKGROUNDER = 'BACKGROUNDER',
   /**
    * 桌面快捷权限
-   * @native 10.0.18
-   * @ios false
    */
   SHORTCUT = 'SHORTCUT',
   /**
@@ -24306,14 +24206,10 @@ declare const enum EShowAuthGuideAuthType {
   NOTIFICATION = 'NOTIFICATION',
   /**
    * 自启动权限
-   * @native 10.0.18
-   * @ios false
    */
   SELFSTARTING = 'SELFSTARTING',
   /**
    * 存储权限
-   * @native 10.0.18
-   * @ios false
    */
   STORAGE = 'STORAGE',
   /**
@@ -24334,8 +24230,6 @@ declare const enum EShowAuthGuideAuthType {
   PHOTO = 'PHOTO',
   /**
    * 地理位置系统总开关
-   * @native 10.0.18
-   * @ios false
    */
   LBSSERVICE = 'LBSSERVICE',
   /**
@@ -24344,18 +24238,11 @@ declare const enum EShowAuthGuideAuthType {
   LBS = 'LBS',
   /**
    * 高精度地理位置开关
-   * @native 10.0.18
-   * @android false
    */
   LBSHIGHACCURACY = 'LBSHIGHACCURACY',
 }
 
-declare const enum ESpuName {
-  'power_bank' = 'power_bank',
-  'umbrella' = 'umbrella',
-}
-
-declare const enum TypeSystemInfo$AppMode {
+declare const enum ETypeSystemInfo$AppMode {
   /**
    * 标准版
    */
@@ -24382,7 +24269,7 @@ declare const enum TypeSystemInfo$AppMode {
   teenager = 'teenager',
 }
 
-declare const enum TypeSystemInfo$Performance {
+declare const enum ETypeSystemInfo$Performance {
   /**
    * 高性能
    * @description
@@ -24406,1661 +24293,4 @@ declare const enum TypeSystemInfo$Performance {
    * @description 设备运行内存无法识别
    */
   unknown = 'unknown',
-}
-
-declare namespace NFCAdapter {
-  export interface Ndef {
-    readonly techType:
-      | 'NDEF'
-      | 'NFC-A'
-      | 'NFC-B'
-      | 'ISO-DEP'
-      | 'NFC-F'
-      | 'NFC-V'
-      | 'MIFARE Classic'
-      | 'MIFARE Ultralight';
-    /**
-     * 断开连接
-     */
-    close(r?: {
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: { success: true }): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(
-        arg:
-          | {
-              success: true;
-            }
-          | {
-              error?: number;
-              errorMessage?: string;
-            }
-      ): void;
-    }): Promise<{
-      success: true;
-    }>;
-    /**
-     * 连接 NFC 标签
-     */
-    connect(r?: {
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: { success: true }): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(
-        arg:
-          | {
-              success: true;
-            }
-          | {
-              error?: number;
-              errorMessage?: string;
-            }
-      ): void;
-    }): Promise<{
-      success: true;
-    }>;
-    /**
-     * 获取最大传输长度
-     */
-    getMaxTransceiveLength(r?: {
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: {
-        /**
-         * 最大传输长度
-         */
-        length: number;
-      }): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(
-        arg:
-          | {
-              /**
-               * 最大传输长度
-               */
-              length: number;
-            }
-          | {
-              error?: number;
-              errorMessage?: string;
-            }
-      ): void;
-    }): Promise<{
-      /**
-       * 最大传输长度
-       */
-      length: number;
-    }>;
-    offNdefMessage(
-      cb?: (arg: {
-        message: Array<{
-          tnf: ArrayBuffer;
-          type: ArrayBuffer;
-          id: ArrayBuffer;
-          payload: ArrayBuffer;
-        }>;
-      }) => void
-    ): void;
-    onNdefMessage(
-      cb: (arg: {
-        message: Array<{
-          tnf: ArrayBuffer;
-          type: ArrayBuffer;
-          id: ArrayBuffer;
-          payload: ArrayBuffer;
-        }>;
-      }) => void
-    ): void;
-    readNdefMessage(r?: {
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: { data: IReadNdefMessageData }): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(
-        arg:
-          | {
-              data: IReadNdefMessageData;
-            }
-          | {
-              error?: number;
-              errorMessage?: string;
-            }
-      ): void;
-    }): Promise<{
-      data: IReadNdefMessageData;
-    }>;
-    /**
-     * 设置超时时间
-     */
-    setTimeout(r: {
-      /**
-       * 设置超时时间（ms）
-       */
-      timeout: number;
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: { success: true }): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(
-        arg:
-          | {
-              success: true;
-            }
-          | {
-              error?: number;
-              errorMessage?: string;
-            }
-      ): void;
-    }): Promise<{
-      success: true;
-    }>;
-    /**
-     * 传输数据
-     */
-    transceive(r: {
-      /**
-       * 需要传递的二进制数据
-       */
-      data: ArrayBuffer;
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: {
-        /**
-         * 芯片返回数据
-         */
-        data: ArrayBuffer;
-      }): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(
-        arg:
-          | {
-              /**
-               * 芯片返回数据
-               */
-              data: ArrayBuffer;
-            }
-          | {
-              error?: number;
-              errorMessage?: string;
-            }
-      ): void;
-    }): Promise<{
-      /**
-       * 芯片返回数据
-       */
-      data: ArrayBuffer;
-    }>;
-    writeNdefMessage(r: {
-      records: IWriteNdefMessageRecords[];
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: { success: true }): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(
-        arg:
-          | {
-              success: true;
-            }
-          | {
-              error?: number;
-              errorMessage?: string;
-            }
-      ): void;
-    }): Promise<{
-      success: true;
-    }>;
-  }
-  export interface NfcA {
-    readonly techType:
-      | 'NDEF'
-      | 'NFC-A'
-      | 'NFC-B'
-      | 'ISO-DEP'
-      | 'NFC-F'
-      | 'NFC-V'
-      | 'MIFARE Classic'
-      | 'MIFARE Ultralight';
-    /**
-     * 断开连接
-     */
-    close(r?: {
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: { success: true }): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(
-        arg:
-          | {
-              success: true;
-            }
-          | {
-              error?: number;
-              errorMessage?: string;
-            }
-      ): void;
-    }): Promise<{
-      success: true;
-    }>;
-    /**
-     * 连接 NFC 标签
-     */
-    connect(r?: {
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: { success: true }): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(
-        arg:
-          | {
-              success: true;
-            }
-          | {
-              error?: number;
-              errorMessage?: string;
-            }
-      ): void;
-    }): Promise<{
-      success: true;
-    }>;
-    /**
-     * 获取 ATQA 信息
-     */
-    getAtqa(r?: {
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: {
-        /**
-         * 返回 ATQA/SENS_RES 数据
-         */
-        atqa: ArrayBuffer;
-      }): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(
-        arg:
-          | {
-              /**
-               * 返回 ATQA/SENS_RES 数据
-               */
-              atqa: ArrayBuffer;
-            }
-          | {
-              error?: number;
-              errorMessage?: string;
-            }
-      ): void;
-    }): Promise<{
-      /**
-       * 返回 ATQA/SENS_RES 数据
-       */
-      atqa: ArrayBuffer;
-    }>;
-    /**
-     * 获取最大传输长度
-     */
-    getMaxTransceiveLength(r?: {
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: {
-        /**
-         * 最大传输长度
-         */
-        length: number;
-      }): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(
-        arg:
-          | {
-              /**
-               * 最大传输长度
-               */
-              length: number;
-            }
-          | {
-              error?: number;
-              errorMessage?: string;
-            }
-      ): void;
-    }): Promise<{
-      /**
-       * 最大传输长度
-       */
-      length: number;
-    }>;
-    /**
-     * 获取 SAK 信息
-     */
-    getSak(r?: {
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: {
-        /**
-         * 返回 SAK/SEL_RES 数据
-         */
-        sak: number;
-      }): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(
-        arg:
-          | {
-              /**
-               * 返回 SAK/SEL_RES 数据
-               */
-              sak: number;
-            }
-          | {
-              error?: number;
-              errorMessage?: string;
-            }
-      ): void;
-    }): Promise<{
-      /**
-       * 返回 SAK/SEL_RES 数据
-       */
-      sak: number;
-    }>;
-    /**
-     * 设置超时时间
-     */
-    setTimeout(r: {
-      /**
-       * 设置超时时间（ms）
-       */
-      timeout: number;
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: { success: true }): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(
-        arg:
-          | {
-              success: true;
-            }
-          | {
-              error?: number;
-              errorMessage?: string;
-            }
-      ): void;
-    }): Promise<{
-      success: true;
-    }>;
-    /**
-     * 传输数据
-     */
-    transceive(r: {
-      /**
-       * 需要传递的二进制数据
-       */
-      data: ArrayBuffer;
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: {
-        /**
-         * 芯片返回数据
-         */
-        data: ArrayBuffer;
-      }): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(
-        arg:
-          | {
-              /**
-               * 芯片返回数据
-               */
-              data: ArrayBuffer;
-            }
-          | {
-              error?: number;
-              errorMessage?: string;
-            }
-      ): void;
-    }): Promise<{
-      /**
-       * 芯片返回数据
-       */
-      data: ArrayBuffer;
-    }>;
-  }
-  export interface IsoDep {
-    readonly techType:
-      | 'NDEF'
-      | 'NFC-A'
-      | 'NFC-B'
-      | 'ISO-DEP'
-      | 'NFC-F'
-      | 'NFC-V'
-      | 'MIFARE Classic'
-      | 'MIFARE Ultralight';
-    /**
-     * 断开连接
-     */
-    close(r?: {
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: { success: true }): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(
-        arg:
-          | {
-              success: true;
-            }
-          | {
-              error?: number;
-              errorMessage?: string;
-            }
-      ): void;
-    }): Promise<{
-      success: true;
-    }>;
-    /**
-     * 连接 NFC 标签
-     */
-    connect(r?: {
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: { success: true }): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(
-        arg:
-          | {
-              success: true;
-            }
-          | {
-              error?: number;
-              errorMessage?: string;
-            }
-      ): void;
-    }): Promise<{
-      success: true;
-    }>;
-    /**
-     * 获取复位信息
-     */
-    getHistoricalBytes(r?: {
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: {
-        /**
-         * 返回历史二进制数据
-         */
-        histBytes: ArrayBuffer;
-      }): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(
-        arg:
-          | {
-              /**
-               * 返回历史二进制数据
-               */
-              histBytes: ArrayBuffer;
-            }
-          | {
-              error?: number;
-              errorMessage?: string;
-            }
-      ): void;
-    }): Promise<{
-      /**
-       * 返回历史二进制数据
-       */
-      histBytes: ArrayBuffer;
-    }>;
-    /**
-     * 获取最大传输长度
-     */
-    getMaxTransceiveLength(r?: {
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: {
-        /**
-         * 最大传输长度
-         */
-        length: number;
-      }): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(
-        arg:
-          | {
-              /**
-               * 最大传输长度
-               */
-              length: number;
-            }
-          | {
-              error?: number;
-              errorMessage?: string;
-            }
-      ): void;
-    }): Promise<{
-      /**
-       * 最大传输长度
-       */
-      length: number;
-    }>;
-    /**
-     * 设置超时时间
-     */
-    setTimeout(r: {
-      /**
-       * 设置超时时间（ms）
-       */
-      timeout: number;
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: { success: true }): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(
-        arg:
-          | {
-              success: true;
-            }
-          | {
-              error?: number;
-              errorMessage?: string;
-            }
-      ): void;
-    }): Promise<{
-      success: true;
-    }>;
-    /**
-     * 传输数据
-     */
-    transceive(r: {
-      /**
-       * 需要传递的二进制数据
-       */
-      data: ArrayBuffer;
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: {
-        /**
-         * 芯片返回数据
-         */
-        data: ArrayBuffer;
-      }): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(
-        arg:
-          | {
-              /**
-               * 芯片返回数据
-               */
-              data: ArrayBuffer;
-            }
-          | {
-              error?: number;
-              errorMessage?: string;
-            }
-      ): void;
-    }): Promise<{
-      /**
-       * 芯片返回数据
-       */
-      data: ArrayBuffer;
-    }>;
-  }
-  export interface NfcV {
-    readonly techType:
-      | 'NDEF'
-      | 'NFC-A'
-      | 'NFC-B'
-      | 'ISO-DEP'
-      | 'NFC-F'
-      | 'NFC-V'
-      | 'MIFARE Classic'
-      | 'MIFARE Ultralight';
-    /**
-     * 断开连接
-     */
-    close(r?: {
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: { success: true }): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(
-        arg:
-          | {
-              success: true;
-            }
-          | {
-              error?: number;
-              errorMessage?: string;
-            }
-      ): void;
-    }): Promise<{
-      success: true;
-    }>;
-    /**
-     * 连接 NFC 标签
-     */
-    connect(r?: {
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: { success: true }): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(
-        arg:
-          | {
-              success: true;
-            }
-          | {
-              error?: number;
-              errorMessage?: string;
-            }
-      ): void;
-    }): Promise<{
-      success: true;
-    }>;
-    /**
-     * 获取最大传输长度
-     */
-    getMaxTransceiveLength(r?: {
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: {
-        /**
-         * 最大传输长度
-         */
-        length: number;
-      }): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(
-        arg:
-          | {
-              /**
-               * 最大传输长度
-               */
-              length: number;
-            }
-          | {
-              error?: number;
-              errorMessage?: string;
-            }
-      ): void;
-    }): Promise<{
-      /**
-       * 最大传输长度
-       */
-      length: number;
-    }>;
-    /**
-     * 设置超时时间
-     */
-    setTimeout(r: {
-      /**
-       * 设置超时时间（ms）
-       */
-      timeout: number;
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: { success: true }): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(
-        arg:
-          | {
-              success: true;
-            }
-          | {
-              error?: number;
-              errorMessage?: string;
-            }
-      ): void;
-    }): Promise<{
-      success: true;
-    }>;
-    /**
-     * 传输数据
-     */
-    transceive(r: {
-      /**
-       * 需要传递的二进制数据
-       */
-      data: ArrayBuffer;
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: {
-        /**
-         * 芯片返回数据
-         */
-        data: ArrayBuffer;
-      }): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(
-        arg:
-          | {
-              /**
-               * 芯片返回数据
-               */
-              data: ArrayBuffer;
-            }
-          | {
-              error?: number;
-              errorMessage?: string;
-            }
-      ): void;
-    }): Promise<{
-      /**
-       * 芯片返回数据
-       */
-      data: ArrayBuffer;
-    }>;
-  }
-  export interface NfcB {
-    readonly techType:
-      | 'NDEF'
-      | 'NFC-A'
-      | 'NFC-B'
-      | 'ISO-DEP'
-      | 'NFC-F'
-      | 'NFC-V'
-      | 'MIFARE Classic'
-      | 'MIFARE Ultralight';
-    /**
-     * 断开连接
-     */
-    close(r?: {
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: { success: true }): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(
-        arg:
-          | {
-              success: true;
-            }
-          | {
-              error?: number;
-              errorMessage?: string;
-            }
-      ): void;
-    }): Promise<{
-      success: true;
-    }>;
-    /**
-     * 连接 NFC 标签
-     */
-    connect(r?: {
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: { success: true }): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(
-        arg:
-          | {
-              success: true;
-            }
-          | {
-              error?: number;
-              errorMessage?: string;
-            }
-      ): void;
-    }): Promise<{
-      success: true;
-    }>;
-    /**
-     * 获取最大传输长度
-     */
-    getMaxTransceiveLength(r?: {
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: {
-        /**
-         * 最大传输长度
-         */
-        length: number;
-      }): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(
-        arg:
-          | {
-              /**
-               * 最大传输长度
-               */
-              length: number;
-            }
-          | {
-              error?: number;
-              errorMessage?: string;
-            }
-      ): void;
-    }): Promise<{
-      /**
-       * 最大传输长度
-       */
-      length: number;
-    }>;
-    /**
-     * 设置超时时间
-     */
-    setTimeout(r: {
-      /**
-       * 设置超时时间（ms）
-       */
-      timeout: number;
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: { success: true }): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(
-        arg:
-          | {
-              success: true;
-            }
-          | {
-              error?: number;
-              errorMessage?: string;
-            }
-      ): void;
-    }): Promise<{
-      success: true;
-    }>;
-    /**
-     * 传输数据
-     */
-    transceive(r: {
-      /**
-       * 需要传递的二进制数据
-       */
-      data: ArrayBuffer;
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: {
-        /**
-         * 芯片返回数据
-         */
-        data: ArrayBuffer;
-      }): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(
-        arg:
-          | {
-              /**
-               * 芯片返回数据
-               */
-              data: ArrayBuffer;
-            }
-          | {
-              error?: number;
-              errorMessage?: string;
-            }
-      ): void;
-    }): Promise<{
-      /**
-       * 芯片返回数据
-       */
-      data: ArrayBuffer;
-    }>;
-  }
-  export interface NfcF {
-    readonly techType:
-      | 'NDEF'
-      | 'NFC-A'
-      | 'NFC-B'
-      | 'ISO-DEP'
-      | 'NFC-F'
-      | 'NFC-V'
-      | 'MIFARE Classic'
-      | 'MIFARE Ultralight';
-    /**
-     * 断开连接
-     */
-    close(r?: {
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: { success: true }): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(
-        arg:
-          | {
-              success: true;
-            }
-          | {
-              error?: number;
-              errorMessage?: string;
-            }
-      ): void;
-    }): Promise<{
-      success: true;
-    }>;
-    /**
-     * 连接 NFC 标签
-     */
-    connect(r?: {
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: { success: true }): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(
-        arg:
-          | {
-              success: true;
-            }
-          | {
-              error?: number;
-              errorMessage?: string;
-            }
-      ): void;
-    }): Promise<{
-      success: true;
-    }>;
-    /**
-     * 获取最大传输长度
-     */
-    getMaxTransceiveLength(r?: {
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: {
-        /**
-         * 最大传输长度
-         */
-        length: number;
-      }): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(
-        arg:
-          | {
-              /**
-               * 最大传输长度
-               */
-              length: number;
-            }
-          | {
-              error?: number;
-              errorMessage?: string;
-            }
-      ): void;
-    }): Promise<{
-      /**
-       * 最大传输长度
-       */
-      length: number;
-    }>;
-    /**
-     * 设置超时时间
-     */
-    setTimeout(r: {
-      /**
-       * 设置超时时间（ms）
-       */
-      timeout: number;
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: { success: true }): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(
-        arg:
-          | {
-              success: true;
-            }
-          | {
-              error?: number;
-              errorMessage?: string;
-            }
-      ): void;
-    }): Promise<{
-      success: true;
-    }>;
-    /**
-     * 传输数据
-     */
-    transceive(r: {
-      /**
-       * 需要传递的二进制数据
-       */
-      data: ArrayBuffer;
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: {
-        /**
-         * 芯片返回数据
-         */
-        data: ArrayBuffer;
-      }): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(
-        arg:
-          | {
-              /**
-               * 芯片返回数据
-               */
-              data: ArrayBuffer;
-            }
-          | {
-              error?: number;
-              errorMessage?: string;
-            }
-      ): void;
-    }): Promise<{
-      /**
-       * 芯片返回数据
-       */
-      data: ArrayBuffer;
-    }>;
-  }
-  export interface MifareClassic {
-    readonly techType:
-      | 'NDEF'
-      | 'NFC-A'
-      | 'NFC-B'
-      | 'ISO-DEP'
-      | 'NFC-F'
-      | 'NFC-V'
-      | 'MIFARE Classic'
-      | 'MIFARE Ultralight';
-    /**
-     * 断开连接
-     */
-    close(r?: {
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: { success: true }): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(
-        arg:
-          | {
-              success: true;
-            }
-          | {
-              error?: number;
-              errorMessage?: string;
-            }
-      ): void;
-    }): Promise<{
-      success: true;
-    }>;
-    /**
-     * 连接 NFC 标签
-     */
-    connect(r?: {
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: { success: true }): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(
-        arg:
-          | {
-              success: true;
-            }
-          | {
-              error?: number;
-              errorMessage?: string;
-            }
-      ): void;
-    }): Promise<{
-      success: true;
-    }>;
-    /**
-     * 获取最大传输长度
-     */
-    getMaxTransceiveLength(r?: {
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: {
-        /**
-         * 最大传输长度
-         */
-        length: number;
-      }): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(
-        arg:
-          | {
-              /**
-               * 最大传输长度
-               */
-              length: number;
-            }
-          | {
-              error?: number;
-              errorMessage?: string;
-            }
-      ): void;
-    }): Promise<{
-      /**
-       * 最大传输长度
-       */
-      length: number;
-    }>;
-    /**
-     * 设置超时时间
-     */
-    setTimeout(r: {
-      /**
-       * 设置超时时间（ms）
-       */
-      timeout: number;
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: { success: true }): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(
-        arg:
-          | {
-              success: true;
-            }
-          | {
-              error?: number;
-              errorMessage?: string;
-            }
-      ): void;
-    }): Promise<{
-      success: true;
-    }>;
-    /**
-     * 传输数据
-     */
-    transceive(r: {
-      /**
-       * 需要传递的二进制数据
-       */
-      data: ArrayBuffer;
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: {
-        /**
-         * 芯片返回数据
-         */
-        data: ArrayBuffer;
-      }): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(
-        arg:
-          | {
-              /**
-               * 芯片返回数据
-               */
-              data: ArrayBuffer;
-            }
-          | {
-              error?: number;
-              errorMessage?: string;
-            }
-      ): void;
-    }): Promise<{
-      /**
-       * 芯片返回数据
-       */
-      data: ArrayBuffer;
-    }>;
-  }
-  export interface MifareUltralight {
-    readonly techType:
-      | 'NDEF'
-      | 'NFC-A'
-      | 'NFC-B'
-      | 'ISO-DEP'
-      | 'NFC-F'
-      | 'NFC-V'
-      | 'MIFARE Classic'
-      | 'MIFARE Ultralight';
-    /**
-     * 断开连接
-     */
-    close(r?: {
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: { success: true }): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(
-        arg:
-          | {
-              success: true;
-            }
-          | {
-              error?: number;
-              errorMessage?: string;
-            }
-      ): void;
-    }): Promise<{
-      success: true;
-    }>;
-    /**
-     * 连接 NFC 标签
-     */
-    connect(r?: {
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: { success: true }): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(
-        arg:
-          | {
-              success: true;
-            }
-          | {
-              error?: number;
-              errorMessage?: string;
-            }
-      ): void;
-    }): Promise<{
-      success: true;
-    }>;
-    /**
-     * 获取最大传输长度
-     */
-    getMaxTransceiveLength(r?: {
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: {
-        /**
-         * 最大传输长度
-         */
-        length: number;
-      }): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(
-        arg:
-          | {
-              /**
-               * 最大传输长度
-               */
-              length: number;
-            }
-          | {
-              error?: number;
-              errorMessage?: string;
-            }
-      ): void;
-    }): Promise<{
-      /**
-       * 最大传输长度
-       */
-      length: number;
-    }>;
-    /**
-     * 设置超时时间
-     */
-    setTimeout(r: {
-      /**
-       * 设置超时时间（ms）
-       */
-      timeout: number;
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: { success: true }): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(
-        arg:
-          | {
-              success: true;
-            }
-          | {
-              error?: number;
-              errorMessage?: string;
-            }
-      ): void;
-    }): Promise<{
-      success: true;
-    }>;
-    /**
-     * 传输数据
-     */
-    transceive(r: {
-      /**
-       * 需要传递的二进制数据
-       */
-      data: ArrayBuffer;
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: {
-        /**
-         * 芯片返回数据
-         */
-        data: ArrayBuffer;
-      }): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(
-        arg:
-          | {
-              /**
-               * 芯片返回数据
-               */
-              data: ArrayBuffer;
-            }
-          | {
-              error?: number;
-              errorMessage?: string;
-            }
-      ): void;
-    }): Promise<{
-      /**
-       * 芯片返回数据
-       */
-      data: ArrayBuffer;
-    }>;
-  }
-  interface IReadNdefMessageData {
-    messages: IReadNdefMessageDataMessages[];
-  }
-  interface IReadNdefMessageDataMessages {
-    records: IReadNdefMessageDataMessagesRecords[];
-  }
-  interface IReadNdefMessageDataMessagesRecords {
-    tnf: string;
-    id: string;
-    type: string;
-    payload: string;
-  }
-  interface IWriteNdefMessageRecords {
-    tnf: string;
-    id: string;
-    type: string;
-    payload: string;
-  }
 }
