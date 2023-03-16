@@ -11146,6 +11146,9 @@ declare namespace my {
       success: boolean;
     }>;
   }
+  export interface ARSession {
+    stop(): boolean;
+  }
   export interface FileSystemManager {
     /**
      * 判断文件、目录是否存在
@@ -12868,7 +12871,7 @@ declare namespace my {
      * 将当前选择节点的位置信息放入查询结果
      * @see https://opendocs.alipay.com/mini/api/na4yun
      */
-    boundingClientRect(callback: (res: unknown) => void): this;
+    boundingClientRect(): this;
     /**
      * 添加节点 Context 实例查询请求
      * @see https://opendocs.alipay.com/mini/api/021yfe
@@ -12901,7 +12904,7 @@ declare namespace my {
      * 将当前选择节点的滚动信息放入查询结果
      * @see https://opendocs.alipay.com/mini/api/euyxnr
      */
-    scrollOffset(callback: (res: unknown) => void): this;
+    scrollOffset(): this;
     /**
      * 选择当前第一个匹配选择器的节点
      * @see https://opendocs.alipay.com/mini/api/mwo97h
