@@ -1,10 +1,18 @@
 export type IAppOnLaunchOptions<Query extends Record<string, string>> =
   MiniProgram.App.LaunchOptions<Query>;
+
+export interface IRequirePluginAsync<
+  Target extends Record<string, any> = Record<string, any>
+> {
+  <K extends keyof Target>(pluginName: K): Promise<Target[K]>;
+  <Result extends any>(pluginName: string): Promise<Result>;
+}
 export interface IRequirePlugin<
   Target extends Record<string, any> = Record<string, any>
 > {
   <K extends keyof Target>(pluginName: K): Target[K];
   <Result extends any>(pluginName: string): Result;
+  async: IRequirePluginAsync;
 }
 
 export type IMixin4Legacy<
