@@ -1,10 +1,18 @@
 export type IAppOnLaunchOptions<Query extends Record<string, string>> =
   MiniProgram.App.LaunchOptions<Query>;
+
+export interface IRequirePluginAsync<
+  Target extends Record<string, any> = Record<string, any>
+> {
+  <K extends keyof Target>(pluginName: K): Promise<Target[K]>;
+  <Result extends any>(pluginName: string): Promise<Result>;
+}
 export interface IRequirePlugin<
   Target extends Record<string, any> = Record<string, any>
 > {
   <K extends keyof Target>(pluginName: K): Target[K];
   <Result extends any>(pluginName: string): Result;
+  async: IRequirePluginAsync;
 }
 
 export type IMixin4Legacy<
@@ -20,6 +28,13 @@ export type IMixin4Legacy<
   ExtraThis,
   ExtraOptions
 >;
+
+export interface Require {
+  <T extends any>(path: string): T;
+  <T extends any>(path: string, cb?: (o: T) => void): void;
+
+  async<T extends any>(path: string): Promise<T>;
+}
 
 declare global {
   /**
@@ -41,6 +56,8 @@ declare global {
    * 使用插件提供的 JS 接口，函数返回值为 \`插件\` 通过 \`main\` 字段暴露的 JS 接口。
    */
   const requirePlugin: IRequirePlugin;
+
+  const require: Require;
 
   /**
    * App's constructor
