@@ -29,6 +29,13 @@ export type IMixin4Legacy<
   ExtraOptions
 >;
 
+export interface Require {
+  <T extends any>(path: string): T;
+  <T extends any>(path: string, cb?: (o: T) => void): void;
+
+  async<T extends any>(id: string): Promise<T>;
+}
+
 declare global {
   /**
    * Extra `this` for Component instance.
@@ -49,6 +56,8 @@ declare global {
    * 使用插件提供的 JS 接口，函数返回值为 \`插件\` 通过 \`main\` 字段暴露的 JS 接口。
    */
   const requirePlugin: IRequirePlugin;
+
+  const require: Require;
 
   /**
    * App's constructor
