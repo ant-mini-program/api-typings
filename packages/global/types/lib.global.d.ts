@@ -33,7 +33,7 @@ export interface Require {
   <T extends any>(path: string): T;
   <T extends any>(path: string, cb?: (o: T) => void): void;
 
-  async<T extends any>(id: string): Promise<T>;
+  async<T extends any>(path: string): Promise<T>;
 }
 
 declare global {
