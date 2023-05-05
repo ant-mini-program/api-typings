@@ -60,7 +60,7 @@ declare namespace my {
    * @description 用户可以选择将表单以“创建新联系人”或“添加到现有联系人”的方式，写入联系人资料到手机系统的通讯录
    * @see https://opendocs.alipay.com/mini/api/contact
    */
-  export function addPhoneContact(r?: {
+  export function addPhoneContact(object?: {
     /**
      * 姓氏
      */
@@ -229,7 +229,7 @@ declare namespace my {
    * @description 可以设置警告框的标题、内容、按钮文字等，暂不支持设置图片等样式
    * @see https://opendocs.alipay.com/mini/api/ui-feedback
    */
-  export function alert(r?: {
+  export function alert(object?: {
     /**
      * 警告框的标题
      * @example "亲"
@@ -280,7 +280,7 @@ declare namespace my {
    * - 默认规划步行路线，支持规划步行、公交、骑行和驾车四种路线
    * @see https://opendocs.alipay.com/mini/api/calculate-route
    */
-  export function calculateRoute(r: {
+  export function calculateRoute(object: {
     /**
      * 搜索类型。
      * @default "walk"
@@ -381,7 +381,7 @@ declare namespace my {
    * 取消蓝牙配对
    * @see https://opendocs.alipay.com/mini/01zarv
    */
-  export function cancelBluetoothPair(r: {
+  export function cancelBluetoothPair(object: {
     /**
      * 蓝牙设备 id
      */
@@ -403,7 +403,7 @@ declare namespace my {
    * 导出画布内容为图片
    * @see https://opendocs.alipay.com/mini/api/my.canvasToTempFilePath
    */
-  export function canvasToTempFilePath(r: {
+  export function canvasToTempFilePath(object: {
     /**
      * 画布标识，传入 canvas 组件的 id
      */
@@ -511,7 +511,7 @@ declare namespace my {
    * 获取本机支持的 IFAA 生物认证方式
    * @see https://opendocs.alipay.com/mini/05v8jv
    */
-  export function checkIsIfaaEnrolledInDevice(r: {
+  export function checkIsIfaaEnrolledInDevice(object: {
     /**
      * 认证方式
      */
@@ -567,7 +567,7 @@ declare namespace my {
    * 获取本机支持的 IFAA 生物认证方式
    * @see https://opendocs.alipay.com/mini/05vh0m
    */
-  export function checkIsSupportIfaaAuthentication(r?: {
+  export function checkIsSupportIfaaAuthentication(object?: {
     /**
      * 接口调用成功的回调函数
      */
@@ -620,7 +620,7 @@ declare namespace my {
    * @description 唤起支付宝通讯录，选择一个或者多个支付宝联系人
    * @see https://opendocs.alipay.com/mini/api/ui-contact
    */
-  export function chooseAlipayContact(r?: {
+  export function chooseAlipayContact(object?: {
     /**
      * 单次最多选择联系人个数
      * @description 默认值为 1，最大值为 10。
@@ -690,7 +690,7 @@ declare namespace my {
    * 打开城市选择列表
    * @see https://opendocs.alipay.com/mini/api/ui-city
    */
-  export function chooseCity(r?: {
+  export function chooseCity(object?: {
     /**
      * 是否显示当前定位城市
      * @default false
@@ -811,7 +811,7 @@ declare namespace my {
    * @description 默认只包含支付宝联系人，可通过修改参数选择手机通讯录联系人或者双向通讯录联系人。
    * @see https://opendocs.alipay.com/mini/api/eqx2u5
    */
-  export function chooseContact(r: {
+  export function chooseContact(object: {
     /**
      * 选择类型。
      */
@@ -877,7 +877,7 @@ declare namespace my {
    * 选择城市地区
    * @see https://opendocs.alipay.com/mini/api/choosedistrict
    */
-  export function chooseDistrict(r: {
+  export function chooseDistrict(object: {
     /**
      * 指定场景。
      * @default 0
@@ -891,12 +891,12 @@ declare namespace my {
     /**
      * 头部自定义对象数组。如定位区块、热门城市区块。
      */
-    mainHeadList?: IChooseDistrictHeadModel[];
+    mainHeadList?: IChooseDistrictMainHeadList[];
     /**
      * 底部城市列表。
      * 当对象为空时，默认使用内置的境内城市列表填充。
      */
-    mainNormalList?: IChooseDistrictItemModel[];
+    mainNormalList?: IChooseDistrictMainHeadListList[];
     /**
      * 境外 Tab 自定义标题。
      * @default "国际/港澳台"
@@ -906,7 +906,7 @@ declare namespace my {
      * 境外多 tab 数据集合。
      * 如果对象为空时，默认使用内置的境外城市列表填充。
      */
-    seniorPageList?: IChooseDistrictPageModel[];
+    seniorPageList?: IChooseDistrictSeniorPageList[];
     /**
      * 修改内置数据的参数接口。传值方式为 {“key”,"value"}。其中 key 是需要修改的城市的 adCode， value 是展示的城市名。
      * 仅在 mainNormalList 为空时生效，支持对默认境内数据差量更新:{"371200":"","542400":"","540600":"那曲","659010":"胡杨河市"}。
@@ -992,7 +992,7 @@ declare namespace my {
    * 拍照或从本地相册中选择图片
    * @see https://opendocs.alipay.com/mini/api/media/image/my.chooseimage
    */
-  export function chooseImage(r?: {
+  export function chooseImage(object?: {
     /**
      * 最大可选照片数，默认为 1 张
      * @default 1
@@ -1002,12 +1002,14 @@ declare namespace my {
      * 图片类型。
      * @default ["original","compressed"]
      */
-    sizeType?: `${EChooseImageSizeType}`[];
+    sizeType?: Array<`${EChooseImageSizeType}`>;
     /**
      * 图片类型。
      * @default ["camera","album"]
      */
-    sourceType?: `${EChooseImageSourceType}`[] | `${EChooseImageSourceType}`;
+    sourceType?:
+      | Array<`${EChooseImageSourceType}`>
+      | `${EChooseImageSourceType}`;
     /**
      * 选图过程中拍摄的照片是否落相册（默认不落相册）
      */
@@ -1102,7 +1104,7 @@ declare namespace my {
    * - 仅支持高德地图 style 与火星坐标系。
    * @see https://opendocs.alipay.com/mini/api/location
    */
-  export function chooseLocation(r?: {
+  export function chooseLocation(object?: {
     /**
      * 页面显示标题
      */
@@ -1218,7 +1220,7 @@ declare namespace my {
    * 选择设备通信录中联系人电话
    * @see https://opendocs.alipay.com/mini/api/blghgl
    */
-  export function choosePhoneContact(r?: {
+  export function choosePhoneContact(object?: {
     /**
      * 接口调用成功的回调函数
      */
@@ -1271,12 +1273,14 @@ declare namespace my {
    * @description 支持拍摄视频或从手机相册中选视频
    * @see https://opendocs.alipay.com/mini/api/media/video/my.choosevideo
    */
-  export function chooseVideo(r?: {
+  export function chooseVideo(object?: {
     /**
      * 视频选择的来源。
      * @default ['album','camera']
      */
-    sourceType?: `${EChooseVideoSourceType}`[] | `${EChooseVideoSourceType}`;
+    sourceType?:
+      | Array<`${EChooseVideoSourceType}`>
+      | `${EChooseVideoSourceType}`;
     /**
      * 是否压缩所选择的视频文件。对iOS总是有压缩的，只是压缩级别不同。
      * @default true
@@ -1291,7 +1295,7 @@ declare namespace my {
      * 默认拉起的是前置或者后置摄像头。部分 Android 手机下由于系统 ROM 不支持无法生效。
      * @default back
      */
-    camera?: `${EChooseVideoCamera}`[] | `${EChooseVideoCamera}`;
+    camera?: Array<`${EChooseVideoCamera}`> | `${EChooseVideoCamera}`;
     /**
      * 接口调用成功的回调函数
      */
@@ -1394,7 +1398,7 @@ declare namespace my {
    * - 支付宝设置中心清除缓存不会导致小程序缓存失效
    * @see https://opendocs.alipay.com/mini/api/storage
    */
-  export function clearStorage(r?: {
+  export function clearStorage(object?: {
     /**
      * 接口调用成功的回调函数
      */
@@ -1444,7 +1448,7 @@ declare namespace my {
    * 关闭本机蓝牙模块
    * @see https://opendocs.alipay.com/mini/api/wvko0w
    */
-  export function closeBluetoothAdapter(r?: {
+  export function closeBluetoothAdapter(object?: {
     /**
      * 接口调用成功的回调函数
      */
@@ -1463,7 +1467,7 @@ declare namespace my {
    * 关闭 WebSocket 连接
    * @see https://opendocs.alipay.com/mini/api/network
    */
-  export function closeSocket(r?: {
+  export function closeSocket(object?: {
     /**
      * 关闭连接的状态号
      * @default 1000
@@ -1512,7 +1516,7 @@ declare namespace my {
    * 压缩图片
    * @see https://opendocs.alipay.com/mini/api/media/image/my.compressimage
    */
-  export function compressImage(r: {
+  export function compressImage(object: {
     /**
      * 要压缩的图片路径数组。
      */
@@ -1578,7 +1582,7 @@ declare namespace my {
    * @description 可以配置确认框的标题、内容、确认或取消按钮的文字等
    * @see https://opendocs.alipay.com/mini/api/lt3uqc
    */
-  export function confirm(r?: {
+  export function confirm(object?: {
     /**
      * 确认框的标题
      */
@@ -1644,7 +1648,7 @@ declare namespace my {
    * 连接蓝牙低功耗设备
    * @see https://opendocs.alipay.com/mini/api/tmew6e
    */
-  export function connectBLEDevice(r: {
+  export function connectBLEDevice(object: {
     /**
      * 蓝牙设备 ID
      */
@@ -1734,7 +1738,7 @@ declare namespace my {
    * 连接 Wi-Fi
    * @see https://opendocs.alipay.com/mini/api/connectwifi
    */
-  export function connectWifi(r?: {
+  export function connectWifi(object?: {
     /**
      * Wi-Fi 设备 SSID
      */
@@ -1827,10 +1831,6 @@ declare namespace my {
    */
   export function createCanvasContext(canvasId: string): CanvasContext;
   /**
-   * 创建并返回云托管上下文
-   */
-  export function createCloudContext(env: string, appId: string): CloudContext;
-  /**
    * 创建并返回内部音频上下文
    * @see https://opendocs.alipay.com/mini/00bg4q
    */
@@ -1862,6 +1862,10 @@ declare namespace my {
     height?: number
   ): OffScreenCanvas;
   /**
+   * 创建并返回激励广告上下文
+   */
+  export function createRewardedAd(adUnitId: string): RewardedAd;
+  /**
    * 创建视图信息查询实例
    * @description 在 `自定义组件` 或包含 `自定义组件` 页面中，希望仅查询自身模板（不跨组件）的视图信息，应使用 [this.createSelectorQuery()](miniapi:Component.createSelectorQuery) 来代替
    * @see https://opendocs.alipay.com/mini/api/selector-query
@@ -1891,7 +1895,7 @@ declare namespace my {
    * 选择日期
    * @see https://opendocs.alipay.com/mini/api/ui-date
    */
-  export function datePicker(r?: {
+  export function datePicker(object?: {
     /**
      * 返回的日期格式。
      * @default "yyyy-MM-dd"
@@ -1957,10 +1961,73 @@ declare namespace my {
     date: string;
   }>;
   /**
+   * 文件类型检查
+   * @description 支持传入虚拟地址，检查文件类型
+   */
+  export function detectFileType(object: {
+    /**
+     * 本地路径。不支持包路径和网络路径
+     * @example 'https://resource/xxx', // or 'https://usr/xxx'
+     */
+    filePath: string;
+    /**
+     * 接口调用成功的回调函数
+     */
+    success?(data: {
+      /**
+       * 文件类型（mime）
+       * @example image/jpeg
+       */
+      type: string;
+      /**
+       * 文件扩展名
+       * @example .jpg
+       */
+      extension: string;
+    }): void;
+    /**
+     * 接口调用失败的回调函数
+     */
+    fail?(err: { error?: number; errorMessage?: string }): void;
+    /**
+     * 接口调用结束的回调函数（调用成功、失败都会执行）
+     */
+    complete?(
+      arg:
+        | {
+            /**
+             * 文件类型（mime）
+             * @example image/jpeg
+             */
+            type: string;
+            /**
+             * 文件扩展名
+             * @example .jpg
+             */
+            extension: string;
+          }
+        | {
+            error?: number;
+            errorMessage?: string;
+          }
+    ): void;
+  }): Promise<{
+    /**
+     * 文件类型（mime）
+     * @example image/jpeg
+     */
+    type: string;
+    /**
+     * 文件扩展名
+     * @example .jpg
+     */
+    extension: string;
+  }>;
+  /**
    * 关闭小程序页面返回询问对话框
    * @see https://opendocs.alipay.com/mini/api/my.disableAlertBeforeUnload
    */
-  export function disableAlertBeforeUnload(r?: {
+  export function disableAlertBeforeUnload(object?: {
     /**
      * 接口调用成功的回调函数
      */
@@ -2032,7 +2099,7 @@ declare namespace my {
    * 断开与蓝牙低功耗设备的连接
    * @see https://opendocs.alipay.com/mini/api/yqrmmk
    */
-  export function disconnectBLEDevice(r: {
+  export function disconnectBLEDevice(object: {
     /**
      * 蓝牙设备 ID
      */
@@ -2089,7 +2156,7 @@ declare namespace my {
    * @description 可下载任何格式的文件，不能被识别的文件将以 other 的方式存储起来
    * @see https://opendocs.alipay.com/mini/api/xr054r
    */
-  export function downloadFile(r: {
+  export function downloadFile(object: {
     /**
      * 下载文件地址
      */
@@ -2110,6 +2177,14 @@ declare namespace my {
        * 临时文件路径(本地临时文件)
        */
       tempFilePath: string;
+      /**
+       * HTTP 响应头。
+       */
+      headers: Record<string, string>;
+      /**
+       * HTTP 响应头。
+       */
+      header: Record<string, string>;
     }): void;
     /**
      * 接口调用失败的回调函数
@@ -2147,6 +2222,14 @@ declare namespace my {
              * 临时文件路径(本地临时文件)
              */
             tempFilePath: string;
+            /**
+             * HTTP 响应头。
+             */
+            headers: Record<string, string>;
+            /**
+             * HTTP 响应头。
+             */
+            header: Record<string, string>;
           }
         | (
             | {
@@ -2176,6 +2259,14 @@ declare namespace my {
      * 临时文件路径(本地临时文件)
      */
     tempFilePath: string;
+    /**
+     * HTTP 响应头。
+     */
+    headers: Record<string, string>;
+    /**
+     * HTTP 响应头。
+     */
+    header: Record<string, string>;
   }> &
     DownloadTask;
   /**
@@ -2185,7 +2276,7 @@ declare namespace my {
    * - 用户通过 Home 键或右上角胶囊按钮的“×”退出小程序时不会触发询问对话框
    * @see https://opendocs.alipay.com/mini/api/my.enableAlertBeforeUnload
    */
-  export function enableAlertBeforeUnload(r?: {
+  export function enableAlertBeforeUnload(object?: {
     /**
      * 询问对话框内容
      * @default "离开此页面?"
@@ -2263,7 +2354,7 @@ declare namespace my {
    * @description 该 API 仅在 "用户操作"(tap) 事件响应函数中生效
    * @see https://opendocs.alipay.com/mini/api/my.exitMiniProgram
    */
-  export function exitMiniProgram(r?: {
+  export function exitMiniProgram(object?: {
     /**
      * 接口调用成功的回调函数
      */
@@ -2302,7 +2393,7 @@ declare namespace my {
    * @description 不需要网络直接由设备端生成
    * @see https://opendocs.alipay.com/mini/api/media/image/my.generateimagefromcode
    */
-  export function generateImageFromCode(r: {
+  export function generateImageFromCode(object: {
     /**
      * 二维码内容
      * @example "hello"
@@ -2401,7 +2492,7 @@ declare namespace my {
    * @description 商户在寄送外卖、快递或其他场景需要用户填写地址信息时，可通过调用此 API 直接获取地址数据，无需用户手动填写
    * @see https://opendocs.alipay.com/mini/api/lymgfk
    */
-  export function getAddress(r?: {
+  export function getAddress(object?: {
     /**
      * 接口调用成功的回调函数
      */
@@ -2569,7 +2660,7 @@ declare namespace my {
    * 获取授权码 (AuthCode)
    * @see https://opendocs.alipay.com/mini/api/openapi-authorize
    */
-  export function getAuthCode(r?: {
+  export function getAuthCode(object?: {
     /**
      * 授权类型
      * @default auth_base
@@ -2638,7 +2729,7 @@ declare namespace my {
    * 获取支持的音频输入源
    * @see https://opendocs.alipay.com/mini/00bg4t
    */
-  export function getAvailableAudioSources(r?: {
+  export function getAvailableAudioSources(object?: {
     /**
      * 接口调用成功的回调函数
      */
@@ -2701,7 +2792,7 @@ declare namespace my {
    * 获取周期性更新数据
    * @see https://opendocs.alipay.com/mini/api/getBackgroundFetchData
    */
-  export function getBackgroundFetchData(r: {
+  export function getBackgroundFetchData(object: {
     /**
      * 预加载类型
      * @description 请求类型
@@ -2783,7 +2874,7 @@ declare namespace my {
    * 获取设备电量和充电状态
    * @see https://opendocs.alipay.com/mini/api/nrnziy
    */
-  export function getBatteryInfo(r?: {
+  export function getBatteryInfo(object?: {
     /**
      * 接口调用成功的回调函数
      */
@@ -2849,7 +2940,7 @@ declare namespace my {
    * 获取已经搜索到的iBeacon设备
    * @see https://opendocs.alipay.com/mini/api/yqleyc
    */
-  export function getBeacons(r?: {
+  export function getBeacons(object?: {
     /**
      * 接口调用成功的回调函数
      */
@@ -2913,7 +3004,7 @@ declare namespace my {
    * 获取蓝牙低功耗设备所有特征值  (characteristic)
    * @see https://opendocs.alipay.com/mini/api/fmg9gg
    */
-  export function getBLEDeviceCharacteristics(r: {
+  export function getBLEDeviceCharacteristics(object: {
     /**
      * 蓝牙设备 ID
      */
@@ -2961,7 +3052,7 @@ declare namespace my {
    * 获取蓝牙低功耗设备的信号强度 (RSSI)
    * @see https://opendocs.alipay.com/mini/api/my.getbledevicerssi
    */
-  export function getBLEDeviceRSSI(r: {
+  export function getBLEDeviceRSSI(object: {
     /**
      * 蓝牙设备 id
      */
@@ -3005,7 +3096,7 @@ declare namespace my {
    * 获取蓝牙低功耗设备所有服务 (service)
    * @see https://opendocs.alipay.com/mini/api/uzsg75
    */
-  export function getBLEDeviceServices(r: {
+  export function getBLEDeviceServices(object: {
     /**
      * 蓝牙设备 ID
      */
@@ -3049,7 +3140,7 @@ declare namespace my {
    * 获取蓝牙低功耗设备授权和开关状态
    * @see https://opendocs.alipay.com/mini/02pdp9
    */
-  export function getBLEDeviceStatus(r?: {
+  export function getBLEDeviceStatus(object?: {
     /**
      * 是否允许系统弹窗（仅iOS）
      * @default false
@@ -3118,7 +3209,7 @@ declare namespace my {
    * 获取蓝牙低功耗设备的最大传输单元 (MTU)
    * @see https://opendocs.alipay.com/mini/api/my.getblemtu
    */
-  export function getBLEMTU(r: {
+  export function getBLEMTU(object: {
     /**
      * 蓝牙设备ID
      */
@@ -3162,7 +3253,7 @@ declare namespace my {
    * 获取本机蓝牙适配器状态
    * @see https://opendocs.alipay.com/mini/api/eid4o6
    */
-  export function getBluetoothAdapterState(r?: {
+  export function getBluetoothAdapterState(object?: {
     /**
      * 接口调用成功的回调函数
      */
@@ -3215,7 +3306,7 @@ declare namespace my {
    * @description 包括已经和本机处于连接状态的设备
    * @see https://opendocs.alipay.com/mini/api/pelizr
    */
-  export function getBluetoothDevices(r?: {
+  export function getBluetoothDevices(object?: {
     /**
      * 接口调用成功的回调函数
      */
@@ -3255,7 +3346,7 @@ declare namespace my {
    * 获取已经配对的蓝牙设备
    * @see https://opendocs.alipay.com/mini/01zdnf
    */
-  export function getBluetoothPairs(r?: {
+  export function getBluetoothPairs(object?: {
     /**
      * 接口调用成功的回调函数
      */
@@ -3296,7 +3387,7 @@ declare namespace my {
    * 获取剪贴板数据
    * @see https://opendocs.alipay.com/mini/api/clipboard
    */
-  export function getClipboard(r?: {
+  export function getClipboard(object?: {
     /**
      * 接口调用成功的回调函数
      */
@@ -3339,7 +3430,7 @@ declare namespace my {
    * - 若指定的蓝牙设备已经连接，重复连接将直接返回 success
    * @see https://opendocs.alipay.com/mini/api/ge8nue
    */
-  export function getConnectedBluetoothDevices(r?: {
+  export function getConnectedBluetoothDevices(object?: {
     /**
      * 接口调用成功的回调函数
      */
@@ -3379,7 +3470,7 @@ declare namespace my {
    * 获取已连接的 Wi-Fi 信息
    * @see https://opendocs.alipay.com/mini/api/getconnectedwifi
    */
-  export function getConnectedWifi(r?: {
+  export function getConnectedWifi(object?: {
     /**
      * 接口调用成功的回调函数
      */
@@ -3459,7 +3550,7 @@ declare namespace my {
    * 获取模板小程序自定义数据字段
    * @see https://opendocs.alipay.com/mini/api/getExtConfig
    */
-  export function getExtConfig(r?: {
+  export function getExtConfig(object?: {
     /**
      * 接口调用成功的回调函数
      */
@@ -3519,7 +3610,7 @@ declare namespace my {
    * 获取文件信息
    * @see https://opendocs.alipay.com/mini/api/file
    */
-  export function getFileInfo(r: {
+  export function getFileInfo(object: {
     /**
      * 文件路径
      */
@@ -3597,7 +3688,7 @@ declare namespace my {
    * 获取图片信息
    * @see https://opendocs.alipay.com/mini/api/media/image/my.getimageinfo
    */
-  export function getImageInfo(r: {
+  export function getImageInfo(object: {
     /**
      * 图片路径，目前支持：
      * - 网络图片路径
@@ -3785,13 +3876,83 @@ declare namespace my {
     apiCategory?: 'default' | 'embedded';
   };
   /**
+   * 获取导航栏左侧按钮的布局位置信息
+   * @description 坐标信息以屏幕左上角为原点
+   * @see https://opendocs.alipay.com/mini/077kbe
+   */
+  export function getLeftButtonsBoundingClientRect(): {
+    /**
+     * 返回按钮图标的布局位置信息
+     */
+    backButtonIcon: IMyGetLeftButtonsBoundingClientRectRect;
+    /**
+     * 返回按钮点击响应区域的布局位置信息
+     */
+    backButtonInteractive: IMyGetLeftButtonsBoundingClientRectRect;
+    /**
+     * 首页按钮图标的布局位置信息
+     */
+    homeButtonIcon: IMyGetLeftButtonsBoundingClientRectRect;
+  };
+  /**
+   * 获取局域网IP地址
+   */
+  export function getLocalIPAddress(object?: {
+    /**
+     * 接口调用成功的回调函数
+     */
+    success?(data: {
+      /**
+       * 本机局域网IP地址
+       */
+      localip: string;
+      /**
+       * 本机局域网子网掩码
+       */
+      netmask: string;
+    }): void;
+    /**
+     * 接口调用失败的回调函数
+     */
+    fail?(err: { error?: number; errorMessage?: string }): void;
+    /**
+     * 接口调用结束的回调函数（调用成功、失败都会执行）
+     */
+    complete?(
+      arg:
+        | {
+            /**
+             * 本机局域网IP地址
+             */
+            localip: string;
+            /**
+             * 本机局域网子网掩码
+             */
+            netmask: string;
+          }
+        | {
+            error?: number;
+            errorMessage?: string;
+          }
+    ): void;
+  }): Promise<{
+    /**
+     * 本机局域网IP地址
+     */
+    localip: string;
+    /**
+     * 本机局域网子网掩码
+     */
+    netmask: string;
+  }>;
+  /**
    * 获取用户当前的地理位置信息
    * @description
    * - 地图相关接口使用的坐标格式为 GCJ-02（火星坐标系）
    * - 暂无境外地图数据，在中国内地（不含港澳台）以外的地区可能无法正常调用此 API
    * @see https://opendocs.alipay.com/mini/api/mkxuqd
    */
-  export function getLocation(r?: {
+  export function getLocation(object?: {
     /**
      * 支付宝客户端经纬度定位缓存过期时间，单位为秒
      * @description 使用缓存会加快定位速度，缓存过期会重新定位
@@ -4110,7 +4271,7 @@ declare namespace my {
    * 获取地图基础信息
    * @see https://opendocs.alipay.com/mini/api/getmapinfo
    */
-  export function getMapInfo(r?: {
+  export function getMapInfo(object?: {
     /**
      * 接口调用成功的回调函数
      */
@@ -4287,7 +4448,7 @@ declare namespace my {
    * @description 获取后续网络状态变化可以使用 [my.onNetworkStatusChange]() 进行持续监听
    * @see https://opendocs.alipay.com/mini/api/network-status
    */
-  export function getNetworkType(r?: {
+  export function getNetworkType(object?: {
     /**
      * 接口调用成功的回调函数
      */
@@ -4342,7 +4503,7 @@ declare namespace my {
    * - 如需获取支付宝会员标识 `user_id`，请调用 [my.getAuthCode]() 和 `alipay.system.oauth.token` 接口。
    * @see https://opendocs.alipay.com/mini/api/ch8chh
    */
-  export function getOpenUserInfo(r?: {
+  export function getOpenUserInfo(object?: {
     /**
      * 协议，支持插件自调用
      */
@@ -4404,7 +4565,7 @@ declare namespace my {
    * - 若用户未授权，直接调用 [my.getPhoneNumber]() 接口，则无法返回正确信息。
    * @see https://opendocs.alipay.com/mini/api/getphonenumber
    */
-  export function getPhoneNumber(r?: {
+  export function getPhoneNumber(object?: {
     /**
      * 协议，支持插件自调用
      */
@@ -4481,7 +4642,7 @@ declare namespace my {
    * 目前只支持查询最近 30 天内的运动数据，若超过 30 天，则返回的步数信息为 0。
    * @see https://opendocs.alipay.com/mini/api/gxuu7v
    */
-  export function getRunData(r: {
+  export function getRunData(object: {
     /**
      * 要查询的步数日期（`yyyy-mm-dd`）的字符串，例如：`'2018-12-19'`。
      */
@@ -4578,7 +4739,7 @@ declare namespace my {
    * 用于获取当前小程序的运行版本
    * @see https://opendocs.alipay.com/mini/api/runscene
    */
-  export function getRunScene(r?: {
+  export function getRunScene(object?: {
     /**
      * 接口调用成功的回调函数
      */
@@ -4618,7 +4779,7 @@ declare namespace my {
    * 获取保存的文件信息
    * @see https://opendocs.alipay.com/mini/api/qrx6ze
    */
-  export function getSavedFileInfo(r?: {
+  export function getSavedFileInfo(object?: {
     /**
      * 文件路径
      */
@@ -4690,7 +4851,7 @@ declare namespace my {
    * 获取保存的所有文件信息
    * @see https://opendocs.alipay.com/mini/api/cgohg1
    */
-  export function getSavedFileList(r?: {
+  export function getSavedFileList(object?: {
     /**
      * 接口调用成功的回调函数
      */
@@ -4742,7 +4903,7 @@ declare namespace my {
    * 获取屏幕亮度
    * @see https://opendocs.alipay.com/mini/api/screen-brightness
    */
-  export function getScreenBrightness(r?: {
+  export function getScreenBrightness(object?: {
     /**
      * 接口调用成功的回调函数
      */
@@ -4794,7 +4955,7 @@ declare namespace my {
    * 获取当前服务器时间
    * @see https://opendocs.alipay.com/mini/api/get-server-time
    */
-  export function getServerTime(r?: {
+  export function getServerTime(object?: {
     /**
      * 接口调用成功的回调函数
      */
@@ -4837,7 +4998,7 @@ declare namespace my {
    * 获取用户的当前设置
    * @see https://opendocs.alipay.com/mini/api/xmk3ml
    */
-  export function getSetting(r?: {
+  export function getSetting(object?: {
     /**
      * 接口调用成功的回调函数
      */
@@ -4877,7 +5038,7 @@ declare namespace my {
    * 获取缓存数据的异步接口
    * @see https://opendocs.alipay.com/mini/api/azfobl
    */
-  export function getStorage(r: {
+  export function getStorage(object: {
     /**
      * 本地缓存中指定的 key
      */
@@ -4921,7 +5082,7 @@ declare namespace my {
    * 获取缓存数据相关信息
    * @see https://opendocs.alipay.com/mini/api/zvmanq
    */
-  export function getStorageInfo(r?: {
+  export function getStorageInfo(object?: {
     /**
      * 接口调用成功的回调函数
      */
@@ -5003,7 +5164,7 @@ declare namespace my {
    * 同步获取缓存数据
    * @see https://opendocs.alipay.com/mini/api/ox0wna
    */
-  export function getStorageSync(r: {
+  export function getStorageSync(object: {
     /**
      * 本地缓存中指定的 key
      */
@@ -5018,7 +5179,7 @@ declare namespace my {
    * 获取手机系统信息
    * @see https://opendocs.alipay.com/mini/api/system-info
    */
-  export function getSystemInfo(r?: {
+  export function getSystemInfo(object?: {
     /**
      * 额外返回 `notification*Authorized` 相关字段
      */
@@ -5051,7 +5212,7 @@ declare namespace my {
    * 获取手机系统信息的同步接口
    * @see https://opendocs.alipay.com/mini/api/gawhvz
    */
-  export function getSystemInfoSync(r?: {
+  export function getSystemInfoSync(object?: {
     /**
      * 额外返回 `notification*Authorized` 相关字段
      */
@@ -5083,7 +5244,7 @@ declare namespace my {
    * @description 设置导航栏背景色 backgroundColor 和前景色 frontColor 可以使用 [my.setNavigationBar]()
    * @see https://opendocs.alipay.com/mini/api/dplf2s
    */
-  export function getTitleColor(r?: {
+  export function getTitleColor(object?: {
     /**
      * 接口调用成功的回调函数
      */
@@ -5131,7 +5292,7 @@ declare namespace my {
   /**
    * 获取视频信息
    */
-  export function getVideoInfo(r: {
+  export function getVideoInfo(object: {
     /**
      * 给定的媒体流地址
      * @example https://gw.alipayobjects.com/v/LIV/afts/video/A*hcLmS6rtkjwAAAAAAAAAAAAAAVx1AA/720P?t=1XVtu6jLPP4FMnSheZr1EwAAAABnA-hjJSws
@@ -5284,7 +5445,7 @@ declare namespace my {
    * 请求获取 Wi-Fi 列表
    * @see https://opendocs.alipay.com/mini/api/getwifilist
    */
-  export function getWifiList(r?: {
+  export function getWifiList(object?: {
     /**
      * 接口调用成功的回调函数
      */
@@ -5361,7 +5522,7 @@ declare namespace my {
    * 隐藏当前页面菜单中的添加到桌面功能
    * @see https://opendocs.alipay.com/mini/api/optionmenuitem
    */
-  export function hideAddToDesktopMenu(r?: {
+  export function hideAddToDesktopMenu(object?: {
     /**
      * 接口调用成功的回调函数
      */
@@ -5379,7 +5540,7 @@ declare namespace my {
    * 隐藏所有页面的菜单中的添加到桌面功能
    * @see https://opendocs.alipay.com/mini/api/fdaplu
    */
-  export function hideAllAddToDesktopMenu(r?: {
+  export function hideAllAddToDesktopMenu(object?: {
     /**
      * 接口调用成功的回调函数
      */
@@ -5400,7 +5561,7 @@ declare namespace my {
    * 如果 app.json 中配置了 tabbar 跳转 pages/index/index 时，则左上角不会出现 返回首页 icon 图标。
    * @see https://opendocs.alipay.com/mini/api/ui-navigate
    */
-  export function hideBackHome(r?: {
+  export function hideBackHome(object?: {
     /**
      * 接口调用成功的回调函数
      */
@@ -5418,7 +5579,7 @@ declare namespace my {
    * 隐藏键盘
    * @see https://opendocs.alipay.com/mini/api/ui-hidekeyboard
    */
-  export function hideKeyboard(r?: {
+  export function hideKeyboard(object?: {
     /**
      * 接口调用成功的回调函数
      */
@@ -5450,7 +5611,7 @@ declare namespace my {
    * @description 可与 [my.showLoading]() 配合使用
    * @see https://opendocs.alipay.com/mini/api/nzf540
    */
-  export function hideLoading(r?: {
+  export function hideLoading(object?: {
     /**
      * 指定效果操作的页面
      */
@@ -5472,7 +5633,7 @@ declare namespace my {
    * 在当前页面隐藏导航条的加载动画。
    * @see https://opendocs.alipay.com/mini/api/ncgsga
    */
-  export function hideNavigationBarLoading(r?: {
+  export function hideNavigationBarLoading(object?: {
     /**
      * 接口调用成功的回调函数
      */
@@ -5490,7 +5651,7 @@ declare namespace my {
    * 隐藏分享按钮
    * @see https://opendocs.alipay.com/mini/api/share_app
    */
-  export function hideShareMenu(r?: {
+  export function hideShareMenu(object?: {
     /**
      * 接口调用成功的回调函数
      */
@@ -5508,7 +5669,7 @@ declare namespace my {
    * 隐藏 TabBar
    * @see https://opendocs.alipay.com/mini/api/at18z8
    */
-  export function hideTabBar(r?: {
+  export function hideTabBar(object?: {
     /**
      * 是否需要动画效果，默认为无动画效果。
      * @default false
@@ -5531,7 +5692,7 @@ declare namespace my {
    * 隐藏 TabBar 某一项右上角的红点
    * @see https://opendocs.alipay.com/mini/api/mg428a
    */
-  export function hideTabBarRedDot(r: {
+  export function hideTabBarRedDot(object: {
     /**
      * 标签页的项数序号，从左边开始计数。
      */
@@ -5553,7 +5714,7 @@ declare namespace my {
    * 隐藏弱提示
    * @see https://opendocs.alipay.com/mini/api/iygd4e
    */
-  export function hideToast(r?: {
+  export function hideToast(object?: {
     /**
      * 接口调用成功的回调函数
      */
@@ -5571,7 +5732,7 @@ declare namespace my {
    * 判断设备无障碍模式是否开启
    * @see https://opendocs.alipay.com/mini/api/device/isscreenreaderenabled
    */
-  export function isScreenReaderEnabled(r?: {
+  export function isScreenReaderEnabled(object?: {
     /**
      * 接口调用成功的回调函数
      */
@@ -5612,7 +5773,7 @@ declare namespace my {
    * @description 支付宝小程序目前只支持 woff，otf，ttf，sfnt 字体，不支持 woff2 字体
    * @see https://opendocs.alipay.com/mini/api/ggawf0
    */
-  export function loadFontFace(r: {
+  export function loadFontFace(object: {
     /**
      * 是否同时加载 NativeCanvas 字体
      * @default true
@@ -5692,7 +5853,7 @@ declare namespace my {
    * 加载动态插件
    * @see https://opendocs.alipay.com/mini/plugin/plugin-usage
    */
-  export function loadPlugin(r: {
+  export function loadPlugin(object: {
     /**
      * 需要加载的插件 id。也可以指定要加载的插件id和版本号。
      * 例如：`2019235609092837@*`，为 `*` 时则距离上次拉包超过24小时会拉取最新版本。
@@ -5715,7 +5876,7 @@ declare namespace my {
    * 进行蓝牙配对
    * @see https://opendocs.alipay.com/mini/api/makebluetoothpair
    */
-  export function makeBluetoothPair(r: {
+  export function makeBluetoothPair(object: {
     /**
      * 蓝牙设备 id。
      */
@@ -5768,7 +5929,7 @@ declare namespace my {
    * 拨打电话
    * @see https://opendocs.alipay.com/mini/api/make-call
    */
-  export function makePhoneCall(r: {
+  export function makePhoneCall(object: {
     /**
      * 电话号码
      */
@@ -5813,7 +5974,7 @@ declare namespace my {
    * @description 主要用于选择多级关联数据，比如省市区的信息选择。
    * @see https://opendocs.alipay.com/mini/api/multi-level-select
    */
-  export function multiLevelSelect(r: {
+  export function multiLevelSelect(object: {
     /**
      * 标题
      */
@@ -5883,7 +6044,7 @@ declare namespace my {
    * 关闭当前页面，返回上一级或多级页面
    * @see https://opendocs.alipay.com/mini/api/kc5zbx
    */
-  export function navigateBack(r?: {
+  export function navigateBack(object?: {
     /**
      * 返回的页面数
      * @description 如果 delta 大于现有打开的页面数，则返回到首页
@@ -5908,7 +6069,7 @@ declare namespace my {
    * @description 只有当另一个小程序跳转到当前小程序时才会能调用成功。
    * @see https://opendocs.alipay.com/mini/api/open-miniprogram
    */
-  export function navigateBackMiniProgram(r?: {
+  export function navigateBackMiniProgram(object?: {
     /**
      * 需要传递给目标小程序的数据，目标小程序可在 App.onLaunch()，App.onShow() 中获取到这份数据。
      */
@@ -5934,7 +6095,7 @@ declare namespace my {
    * [my.navigateTo]() 和 [my.redirectTo]() 不允许跳转到 Tab 页面；若需跳转到 Tab 页面，请使用 [my.switchTab]()
    * @see https://opendocs.alipay.com/mini/api/zwi8gx
    */
-  export function navigateTo(r: {
+  export function navigateTo(object: {
     /**
      * 需要跳转的目标页面路径
      * @description 路径后可以带参数, 目标路径必须为应用内非 tabbar 的，路径与参数之间使用 ?分隔，参数键与参数值用=相连，不同参数必须用&分隔
@@ -5987,7 +6148,7 @@ declare namespace my {
    * 跳转到其他小程序
    * @see https://opendocs.alipay.com/mini/api/yz6gnx
    */
-  export function navigateToMiniProgram(r: {
+  export function navigateToMiniProgram(object: {
     /**
      * 要跳转的目标小程序appId。
      */
@@ -6029,7 +6190,7 @@ declare namespace my {
    * 启用蓝牙低功耗设备特征值变化时的 notify 功能
    * @see https://opendocs.alipay.com/mini/api/pdzk44
    */
-  export function notifyBLECharacteristicValueChange(r: {
+  export function notifyBLECharacteristicValueChange(object: {
     /**
      * 蓝牙设备 ID
      */
@@ -6902,7 +7063,7 @@ declare namespace my {
    * 初始化小程序蓝牙模块
    * @see https://opendocs.alipay.com/mini/api/kunuy4
    */
-  export function openBluetoothAdapter(r?: {
+  export function openBluetoothAdapter(object?: {
     /**
      * 表示是否在离开当前页面时自动断开蓝牙。
      * @default true
@@ -6948,7 +7109,7 @@ declare namespace my {
    * @description 暂时只支持预览 PDF 格式文件
    * @see https://opendocs.alipay.com/mini/api/mwpprc
    */
-  export function openDocument(r: {
+  export function openDocument(object: {
     /**
      * 文件路径，可通过 `downloadFile` 获得。
      */
@@ -6976,7 +7137,7 @@ declare namespace my {
    * 跳转到当前用户的某张券的（口碑）详情页
    * @see https://opendocs.alipay.com/mini/api/tfa5s0
    */
-  export function openKBVoucherDetail(r: {
+  export function openKBVoucherDetail(object: {
     /**
      * 卡实例 ID，调用 [券发放接口](https://docs.open.alipay.com/api_24/alipay.pass.instance.add) 可以获取该参数。
      */
@@ -6998,7 +7159,7 @@ declare namespace my {
    * 跳转到当前用户的某张券的（口碑）详情页
    * @see https://opendocs.alipay.com/mini/api/tfa5s0
    */
-  export function openKBVoucherDetail(r: {
+  export function openKBVoucherDetail(object: {
     /**
      * 商户编号。
      */
@@ -7027,7 +7188,7 @@ declare namespace my {
    * - 仅支持高德地图 style 与火星坐标系
    * @see https://opendocs.alipay.com/mini/api/as9kin
    */
-  export function openLocation(r: {
+  export function openLocation(object: {
     /**
      * 经度。
      */
@@ -7066,7 +7227,7 @@ declare namespace my {
    * 跳转到当前用户在指定商户的已领取票列表界面
    * @see https://opendocs.alipay.com/mini/api/yee76y
    */
-  export function openMerchantTicketList(r: {
+  export function openMerchantTicketList(object: {
     /**
      * 商户编号。
      */
@@ -7088,7 +7249,7 @@ declare namespace my {
    * 跳转到当前用户在指定商户的已领取券列表界面
    * @see https://opendocs.alipay.com/mini/api/sgvgu6
    */
-  export function openMerchantVoucherList(r: {
+  export function openMerchantVoucherList(object: {
     /**
      * 商户编号。
      */
@@ -7111,7 +7272,7 @@ declare namespace my {
    * @description 返回用户权限设置的结果，设置界面只会出现小程序已经向用户请求过的权限
    * @see https://opendocs.alipay.com/mini/api/qflu8f
    */
-  export function openSetting(r?: {
+  export function openSetting(object?: {
     /**
      * 接口调用成功的回调函数
      */
@@ -7154,7 +7315,7 @@ declare namespace my {
    * 跳转到当前用户领取某张票的详情界面
    * @see https://opendocs.alipay.com/mini/api/ry7ftz
    */
-  export function openTicketDetail(r: {
+  export function openTicketDetail(object: {
     /**
      * 卡实例 ID，调用 [券发放接口](https://docs.open.alipay.com/api_24/alipay.pass.instance.add) 可以获取该参数。
      */
@@ -7176,7 +7337,7 @@ declare namespace my {
    * 跳转到当前用户领取某张票的详情界面
    * @see https://opendocs.alipay.com/mini/api/ry7ftz
    */
-  export function openTicketDetail(r: {
+  export function openTicketDetail(object: {
     /**
      * 商户编号。
      */
@@ -7202,7 +7363,7 @@ declare namespace my {
    * 跳转到支付宝票列表界面
    * @see https://opendocs.alipay.com/mini/api/ezt6u3
    */
-  export function openTicketList(r?: {
+  export function openTicketList(object?: {
     /**
      * 接口调用成功的回调函数
      */
@@ -7220,7 +7381,7 @@ declare namespace my {
    * 跳转到当前用户领取某张券的详情页（非口碑券）
    * @see https://opendocs.alipay.com/mini/api/ga4obi
    */
-  export function openVoucherDetail(r: {
+  export function openVoucherDetail(object: {
     /**
      * 卡实例 ID，调用 [券发放接口](https://docs.open.alipay.com/api_24/alipay.pass.instance.add) 可以获取该参数。
      */
@@ -7242,7 +7403,7 @@ declare namespace my {
    * 跳转到当前用户领取某张券的详情页（非口碑券）
    * @see https://opendocs.alipay.com/mini/api/ga4obi
    */
-  export function openVoucherDetail(r: {
+  export function openVoucherDetail(object: {
     /**
      * 商户编号。
      */
@@ -7268,7 +7429,7 @@ declare namespace my {
    * 跳转到支付宝券列表界面
    * @see https://opendocs.alipay.com/mini/api/vq3mgn
    */
-  export function openVoucherList(r?: {
+  export function openVoucherList(object?: {
     /**
      * 接口调用成功的回调函数
      */
@@ -7287,7 +7448,7 @@ declare namespace my {
    * @description 一般用于 2 级数据的选择，但不支持 2 级数据之间的联动
    * @see https://opendocs.alipay.com/mini/api/options-select
    */
-  export function optionsSelect(r: {
+  export function optionsSelect(object: {
     /**
      * 头部标题信息
      */
@@ -7401,7 +7562,7 @@ declare namespace my {
    * 滚动到页面的目标位置
    * @see https://opendocs.alipay.com/mini/api/scroll
    */
-  export function pageScrollTo(r?: {
+  export function pageScrollTo(object?: {
     /**
      * 滚动到页面的目标位置，单位 px
      * @description scrollTop 的优先级比 selector 高
@@ -7457,7 +7618,7 @@ declare namespace my {
    * 发起签约代扣
    * @see https://opendocs.alipay.com/mini/006v6d
    */
-  export function paySignCenter(r: {
+  export function paySignCenter(object: {
     /**
      * 签约字符串。
      */
@@ -7525,7 +7686,7 @@ declare namespace my {
    * 预览图片
    * @see https://opendocs.alipay.com/mini/api/media/image/my.previewimage
    */
-  export function previewImage(r: {
+  export function previewImage(object: {
     /**
      * 照片支持长按下载。
      */
@@ -7560,7 +7721,7 @@ declare namespace my {
    * 显示输入对话框
    * @see https://opendocs.alipay.com/mini/api/vqpy01
    */
-  export function prompt(r: {
+  export function prompt(object: {
     /**
      * 提示框的标题
      */
@@ -7649,7 +7810,7 @@ declare namespace my {
    * @description 调用后在 [my.onBLECharacteristicValueChange]() 事件中接收数据返回。
    * @see https://opendocs.alipay.com/mini/api/zro0ka
    */
-  export function readBLECharacteristicValue(r: {
+  export function readBLECharacteristicValue(object: {
     /**
      * 蓝牙设备 ID
      */
@@ -7701,7 +7862,7 @@ declare namespace my {
    * 将当前页面重定向到指定页面
    * @see https://opendocs.alipay.com/mini/api/fh18ky
    */
-  export function redirectTo(r: {
+  export function redirectTo(object: {
     /**
      * 需要跳转的目标页面路径
      * 路径后可以带参数, 目标路径必须为应用内非 tabbar 的，路径与参数之间使用 ?分隔，参数键与参数值用=相连，不同参数必须用&分隔
@@ -7729,7 +7890,7 @@ declare namespace my {
    * @description 自带省市区数据源
    * @see https://opendocs.alipay.com/mini/00nd0d
    */
-  export function regionPicker(r?: {
+  export function regionPicker(object?: {
     /**
      * 标题。
      */
@@ -7810,7 +7971,7 @@ declare namespace my {
    * @description 对于需要 Portal 认证的 WIFI，不会弹出 portal 认证页面
    * @see https://opendocs.alipay.com/mini/api/register
    */
-  export function registerSSID(r: {
+  export function registerSSID(object: {
     /**
      * Wifi 设备 SSID。
      */
@@ -7832,7 +7993,7 @@ declare namespace my {
    * 关闭当前所有页面，并重新打开应用内的某个指定页面
    * @see https://opendocs.alipay.com/mini/api/hmn54z
    */
-  export function reLaunch(r: {
+  export function reLaunch(object: {
     /**
      * 需要跳转的目标页面路径
      * @description
@@ -7861,7 +8022,7 @@ declare namespace my {
    * 删除某个保存的文件
    * @see https://opendocs.alipay.com/mini/api/dgi1fr
    */
-  export function removeSavedFile(r?: {
+  export function removeSavedFile(object?: {
     /**
      * 文件路径。
      */
@@ -7887,7 +8048,7 @@ declare namespace my {
    * 删除缓存数据
    * @see https://opendocs.alipay.com/mini/api/of9hze
    */
-  export function removeStorage(r: {
+  export function removeStorage(object: {
     /**
      * 缓存数据的 key
      */
@@ -7931,7 +8092,7 @@ declare namespace my {
    * 同步删除缓存数据
    * @see https://opendocs.alipay.com/mini/api/ytfrk4
    */
-  export function removeStorageSync(r: {
+  export function removeStorageSync(object: {
     /**
      * 缓存数据的 key
      */
@@ -7946,7 +8107,7 @@ declare namespace my {
    * 移除 TabBar 某一项右上角的文本
    * @see https://opendocs.alipay.com/mini/api/lpbp5g
    */
-  export function removeTabBarBadge(r: {
+  export function removeTabBarBadge(object: {
     /**
      * 标签页的项数序号，从左边开始计数。
      */
@@ -7969,7 +8130,7 @@ declare namespace my {
    * @description [my.httpRequest]() 已不再维护，建议使用 [my.request]()
    * @see https://opendocs.alipay.com/mini/api/owycmh
    */
-  export function request(r: {
+  export function request(object: {
     /**
      * 目标服务器 URL
      * @description
@@ -8047,6 +8208,14 @@ declare namespace my {
        * HTTP 响应头。
        */
       headers: Record<string, string>;
+      /**
+       * HTTP 响应码。
+       */
+      statusCode: number;
+      /**
+       * HTTP 响应头。
+       */
+      header: Record<string, string>;
     }): void;
     /**
      * 接口调用失败的回调函数
@@ -8088,6 +8257,14 @@ declare namespace my {
              * HTTP 响应头。
              */
             headers: Record<string, string>;
+            /**
+             * HTTP 响应码。
+             */
+            statusCode: number;
+            /**
+             * HTTP 响应头。
+             */
+            header: Record<string, string>;
           }
         | (
             | {
@@ -8121,13 +8298,21 @@ declare namespace my {
      * HTTP 响应头。
      */
     headers: Record<string, string>;
+    /**
+     * HTTP 响应码。
+     */
+    statusCode: number;
+    /**
+     * HTTP 响应头。
+     */
+    header: Record<string, string>;
   }> &
     RequestTask;
   /**
    * 调起小程序订阅消息界面
    * @see https://opendocs.alipay.com/mini/api/requestSubscribeMessage
    */
-  export function requestSubscribeMessage(r: {
+  export function requestSubscribeMessage(object: {
     /**
      * 应用 id
      */
@@ -8262,7 +8447,7 @@ declare namespace my {
    * @description 加密与解密过程应分别放置在客户端与服务端，私钥也放在服务端（若私钥放在客户端，容易泄露而导致安全问题）。
    * @see https://opendocs.alipay.com/mini/api/data-safe
    */
-  export function rsa(r: {
+  export function rsa(object: {
     /**
      * 使用 RSA 加密还是 RSA 解密。
      */
@@ -8325,7 +8510,7 @@ declare namespace my {
    * @description 本地文件大小总容量限制：10 MB
    * @see https://opendocs.alipay.com/mini/api/xbll1q
    */
-  export function saveFile(r: {
+  export function saveFile(object: {
     /**
      * 本地文件路径
      */
@@ -8378,7 +8563,7 @@ declare namespace my {
    * 保存文件系统的文件到系统存储空间
    * @see https://opendocs.alipay.com/mini/05vtu2
    */
-  export function saveFileToDisk(r: {
+  export function saveFileToDisk(object: {
     /**
      * 本地文件路径
      */
@@ -8432,7 +8617,7 @@ declare namespace my {
    * @description 推荐使用 [my.saveImageToPhotosAlbum]()
    * @see https://opendocs.alipay.com/mini/api/media/image/my.saveimage
    */
-  export function saveImage(r: {
+  export function saveImage(object: {
     /**
      * 要保存的图片链接。
      */
@@ -8508,7 +8693,7 @@ declare namespace my {
    * 保存图片到本地相册
    * @see https://opendocs.alipay.com/mini/api/media/image/my.saveImagetophotosalbum
    */
-  export function saveImageToPhotosAlbum(r: {
+  export function saveImageToPhotosAlbum(object: {
     /**
      * 要保存的图片链接。
      */
@@ -8556,7 +8741,7 @@ declare namespace my {
    * 保存视频到系统相册
    * @see https://opendocs.alipay.com/mini/api/media/video/my.savevideotophotosalbum
    */
-  export function saveVideoToPhotosAlbum(r?: {
+  export function saveVideoToPhotosAlbum(object?: {
     /**
      * 视频地址
      */
@@ -8606,7 +8791,7 @@ declare namespace my {
    * @description 唤起扫一扫会触发以下生命周期: App.onHide → Page.onHide → App.onShow → Page.onShow
    * @see https://opendocs.alipay.com/mini/api/scan
    */
-  export function scan(r?: {
+  export function scan(object?: {
     /**
      * 扫码识别类型
      * @default "['qrCode', 'barCode']"
@@ -8754,7 +8939,7 @@ declare namespace my {
    * 通过socket发送数据
    * @see https://opendocs.alipay.com/mini/api/mr91d1
    */
-  export function sendSocketMessage(r: {
+  export function sendSocketMessage(object: {
     /**
      * 需要发送的内容：普通的文本内容 string 或者经 Base64 编码后的 string。
      */
@@ -8806,7 +8991,7 @@ declare namespace my {
    * 动态设置窗口的背景色
    * @see https://opendocs.alipay.com/mini/api/set-background
    */
-  export function setBackgroundColor(r?: {
+  export function setBackgroundColor(object?: {
     /**
      * 窗口的背景色
      */
@@ -8858,7 +9043,7 @@ declare namespace my {
    * 设置下拉背景文字样式
    * @see https://opendocs.alipay.com/mini/api/aamqae
    */
-  export function setBackgroundTextStyle(r: {
+  export function setBackgroundTextStyle(object: {
     /**
      * 下拉背景字体、loading 图的样式
      */
@@ -8902,7 +9087,7 @@ declare namespace my {
    * 设置蓝牙低功耗设备的最大传输单元 (MTU)
    * @see https://opendocs.alipay.com/mini/api/my.setblemtu
    */
-  export function setBLEMTU(r: {
+  export function setBLEMTU(object: {
     /**
      * 设备id
      */
@@ -8963,7 +9148,7 @@ declare namespace my {
    * @description 默认支持页面下拉，可通过此接口关闭下拉或重新开启下来
    * @see https://opendocs.alipay.com/mini/api/set-can-pull-down
    */
-  export function setCanPullDown(r: {
+  export function setCanPullDown(object: {
     /**
      * 是否支持下拉
      */
@@ -8985,7 +9170,7 @@ declare namespace my {
    * 设置剪贴板数据。
    * @see https://opendocs.alipay.com/mini/api/klbkbp
    */
-  export function setClipboard(r: {
+  export function setClipboard(object: {
     /**
      * 剪贴板数据。
      */
@@ -9030,7 +9215,7 @@ declare namespace my {
    * @description 仅在当前小程序生效，离开小程序后失效。
    * @see https://opendocs.alipay.com/mini/api/qx0sap
    */
-  export function setKeepScreenOn(r?: {
+  export function setKeepScreenOn(object?: {
     /**
      * 是否保持屏幕长亮状态
      * @default false
@@ -9076,7 +9261,7 @@ declare namespace my {
    * @description 针对 [my.chooseCity]() 接口
    * @see https://opendocs.alipay.com/mini/api/yw382g
    */
-  export function setLocatedCity(r: {
+  export function setLocatedCity(object: {
     /**
      * 当前定位城市的名称。
      */
@@ -9133,7 +9318,7 @@ declare namespace my {
    * @description 样式包括：导航栏标题、导航栏背景色、导航栏底部边框颜色、导航栏左上角 logo 图片
    * @see https://opendocs.alipay.com/mini/api/xwq8e6
    */
-  export function setNavigationBar(r?: {
+  export function setNavigationBar(object?: {
     /**
      * 导航栏标题
      * @example "文字标题"
@@ -9187,7 +9372,7 @@ declare namespace my {
    * 设置屏幕亮度
    * @see https://opendocs.alipay.com/mini/api/ccf32t
    */
-  export function setScreenBrightness(r: {
+  export function setScreenBrightness(object: {
     /**
      * 需要设置的屏幕亮度，取值范围 （0-1）。
      */
@@ -9231,7 +9416,7 @@ declare namespace my {
    * 将数据存储在本地缓存的指定的 key 中
    * @see https://opendocs.alipay.com/mini/api/eocm6v
    */
-  export function setStorage(r: {
+  export function setStorage(object: {
     /**
      * 存储的数据
      * @description
@@ -9260,7 +9445,7 @@ declare namespace my {
    * 同步将数据存储在本地缓存的指定的 key 中
    * @see https://opendocs.alipay.com/mini/api/cog0du
    */
-  export function setStorageSync(r: {
+  export function setStorageSync(object: {
     /**
      * 需要存储的内容
      */
@@ -9274,7 +9459,7 @@ declare namespace my {
    * 动态设置 TabBar 某一项右上角的文本
    * @see https://opendocs.alipay.com/mini/api/qm7t3v
    */
-  export function setTabBarBadge(r: {
+  export function setTabBarBadge(object: {
     /**
      * 标签页的项数序号，从左边开始计数。
      */
@@ -9301,7 +9486,7 @@ declare namespace my {
    * 动态设置 TabBar 某一项的内容
    * @see https://opendocs.alipay.com/mini/api/zu37bk
    */
-  export function setTabBarItem(r: {
+  export function setTabBarItem(object: {
     /**
      * 标签页的项数序号，从左边开始计数。
      */
@@ -9336,7 +9521,7 @@ declare namespace my {
    * @description 如文字颜色、标签背景色、标签边框颜色等
    * @see https://opendocs.alipay.com/mini/api/wcf0sv
    */
-  export function setTabBarStyle(r: {
+  export function setTabBarStyle(object: {
     /**
      * 标签（tab）上的文字默认颜色。HEXcolor 格式，如 `#FF0000`
      */
@@ -9374,7 +9559,7 @@ declare namespace my {
    * 设置截屏/录屏时的屏幕表现
    * @see https://opendocs.alipay.com/mini/api/setVisualEffectOnCapture
    */
-  export function setVisualEffectOnCapture(r: {
+  export function setVisualEffectOnCapture(object: {
     /**
      * 截屏/录屏的表现
      */
@@ -9418,7 +9603,7 @@ declare namespace my {
    * 接口设置 wifiList 中 AP 的相关信息
    * @see https://opendocs.alipay.com/mini/api/setwifilist
    */
-  export function setWifiList(r: {
+  export function setWifiList(object: {
     /**
      * 提供预设的 Wifi 信息列表
      */
@@ -9462,7 +9647,7 @@ declare namespace my {
    * 显示操作菜单
    * @see https://opendocs.alipay.com/mini/api/hr092g
    */
-  export function showActionSheet(r: {
+  export function showActionSheet(object: {
     /**
      * 菜单标题
      */
@@ -9538,7 +9723,7 @@ declare namespace my {
    * - 权限引导弹框受疲劳度等因素控制
    * @see https://opendocs.alipay.com/mini/api/show-auth-guide
    */
-  export function showAuthGuide(r: {
+  export function showAuthGuide(object: {
     /**
      * 引导的权限标识，用于标识该权限类型(如 地理位置信息)。
      */
@@ -9582,7 +9767,7 @@ declare namespace my {
    * 显示蓝牙统一授权/开关引导流程
    * @see https://opendocs.alipay.com/mini/02pexh
    */
-  export function showBLEPermissionGuide(r?: {
+  export function showBLEPermissionGuide(object?: {
     /**
      * 蓝牙首次使用，业务提示弹窗标题（仅iOS，不配置则不会弹窗）
      */
@@ -9679,7 +9864,7 @@ declare namespace my {
    * @description 可与 [my.hideLoading]() 配合使用
    * @see https://opendocs.alipay.com/mini/api/bm69kb
    */
-  export function showLoading(r?: {
+  export function showLoading(object?: {
     /**
      * 提示中的文字内容
      */
@@ -9707,7 +9892,7 @@ declare namespace my {
    * 在当前页面显示导航条的加载动画
    * @see https://opendocs.alipay.com/mini/api/lydg2a
    */
-  export function showNavigationBarLoading(r?: {
+  export function showNavigationBarLoading(object?: {
     /**
      * 接口调用成功的回调函数
      */
@@ -9731,7 +9916,7 @@ declare namespace my {
    * 显示 TabBar
    * @see https://opendocs.alipay.com/mini/api/dpq5dh
    */
-  export function showTabBar(r?: {
+  export function showTabBar(object?: {
     /**
      * 是否需要动画效果，默认为无动画效果。
      * @default false
@@ -9754,7 +9939,7 @@ declare namespace my {
    * 显示 TabBar 某一项的右上角的红点
    * @see https://opendocs.alipay.com/mini/api/dquxiq
    */
-  export function showTabBarRedDot(r: {
+  export function showTabBarRedDot(object: {
     /**
      * 标签页的项数序号，从左边开始计数。
      */
@@ -9777,7 +9962,7 @@ declare namespace my {
    * @description 在到达设定的显示时间后，会自动消失
    * @see https://opendocs.alipay.com/mini/api/fhur8f
    */
-  export function showToast(r?: {
+  export function showToast(object?: {
     /**
      * 文字内容
      */
@@ -9822,7 +10007,7 @@ declare namespace my {
    * 开始监听加速度数据
    * @see https://opendocs.alipay.com/mini/022hgl
    */
-  export function startAccelerometer(r?: {
+  export function startAccelerometer(object?: {
     /**
      * 间隔
      * @default "normal"
@@ -9866,13 +10051,13 @@ declare namespace my {
   /**
    * 唤起身份验证页面
    */
-  export function startAPVerify(r: {
+  export function startAPVerify(object: {
     /**
-     * 通过 `alipay.user.certify.open.initialize` 接口获取的 `url` 认证链接，需要服务端通过开放平台接口获取后，再给前端进行调用。
+     * 通过 `alipay.user.certify.open.certify` 接口获取的 `url`，需要服务端通过开放平台接口获取后，再给前端进行调用。
      */
     url: string;
     /**
-     * 通过 `alipay.user.certify.open.certify` 接口获取的 `certifyId`，需要服务端通过开放平台接口获取后，再给前端进行调用。
+     * 通过 `alipay.user.certify.open.initialize` 接口获取的 `certifyId` 认证链接，需要服务端通过开放平台接口获取后，再给前端进行调用。
      */
     certifyId: string;
     /**
@@ -9917,7 +10102,7 @@ declare namespace my {
    * 开始搜索附近的 iBeacon 设备
    * @see https://opendocs.alipay.com/mini/api/cy1g7k
    */
-  export function startBeaconDiscovery(r: {
+  export function startBeaconDiscovery(object: {
     /**
      * 目标 iBeacon 设备广播的 UUIDs。
      * uuids[0]、uuids[1] 为目标 iBeacon 的 UUID，可从硬件厂商获取，如果为空，无法搜索到 iBeacon。
@@ -9944,7 +10129,7 @@ declare namespace my {
    * - 该操作比较耗费系统资源，请在搜索并连接到设备后调用 stop 方法停止搜索。
    * @see https://opendocs.alipay.com/mini/api/ksew43
    */
-  export function startBluetoothDevicesDiscovery(r: {
+  export function startBluetoothDevicesDiscovery(object: {
     includeClassic?: boolean;
     /**
      * 设备id
@@ -9983,7 +10168,7 @@ declare namespace my {
    * 开始监听罗盘数据
    * @see https://opendocs.alipay.com/mini/022kkk
    */
-  export function startCompass(r?: {
+  export function startCompass(object?: {
     /**
      * 间隔
      * @default "normal"
@@ -10028,7 +10213,7 @@ declare namespace my {
    * 开始监听陀螺仪数据
    * @see https://opendocs.alipay.com/mini/022kkm
    */
-  export function startGyroscope(r?: {
+  export function startGyroscope(object?: {
     /**
      * 间隔
      * @default "normal"
@@ -10073,7 +10258,7 @@ declare namespace my {
    * 开始 IFAA 生物认证
    * @see https://opendocs.alipay.com/mini/05vid9
    */
-  export function startIfaaAuthentication(r: {
+  export function startIfaaAuthentication(object: {
     /**
      * 请求使用的可接受的生物认证方式
      */
@@ -10152,7 +10337,7 @@ declare namespace my {
    * 当处理完数据刷新后，[my.stopPullDownRefresh]() 可停止当前页面的下拉刷新
    * @see https://opendocs.alipay.com/mini/api/ui-pulldown
    */
-  export function startPullDownRefresh(r?: {
+  export function startPullDownRefresh(object?: {
     /**
      * 接口调用成功的回调函数
      */
@@ -10192,7 +10377,7 @@ declare namespace my {
    * 初始化 Wi-Fi 模块
    * @see https://opendocs.alipay.com/mini/api/startwifi
    */
-  export function startWifi(r?: {
+  export function startWifi(object?: {
     /**
      * 接口调用成功的回调函数
      */
@@ -10232,7 +10417,7 @@ declare namespace my {
    * 停止监听加速度数据
    * @see https://opendocs.alipay.com/mini/022hgm
    */
-  export function stopAccelerometer(r?: {
+  export function stopAccelerometer(object?: {
     /**
      * 接口调用成功的回调函数
      */
@@ -10272,7 +10457,7 @@ declare namespace my {
    * 停止搜索附近的 iBeacon 设备
    * @see https://opendocs.alipay.com/mini/api/yp5owa
    */
-  export function stopBeaconDiscovery(r?: {
+  export function stopBeaconDiscovery(object?: {
     /**
      * 接口调用成功的回调函数
      */
@@ -10290,7 +10475,7 @@ declare namespace my {
    * 停止搜寻附近的蓝牙外围设备
    * @see https://opendocs.alipay.com/mini/api/syb4mi
    */
-  export function stopBluetoothDevicesDiscovery(r?: {
+  export function stopBluetoothDevicesDiscovery(object?: {
     /**
      * 接口调用成功的回调函数
      */
@@ -10330,7 +10515,7 @@ declare namespace my {
    * 停止监听罗盘数据
    * @see https://opendocs.alipay.com/mini/022kkl
    */
-  export function stopCompass(r?: {
+  export function stopCompass(object?: {
     /**
      * 接口调用成功的回调函数
      */
@@ -10370,7 +10555,7 @@ declare namespace my {
    * 停止监听陀螺仪数据
    * @see https://opendocs.alipay.com/mini/022hgn
    */
-  export function stopGyroscope(r?: {
+  export function stopGyroscope(object?: {
     /**
      * 接口调用成功的回调函数
      */
@@ -10413,7 +10598,7 @@ declare namespace my {
    * 当处理完数据刷新后，my.stopPullDownRefresh 可停止当前页面的下拉刷新。
    * @see https://opendocs.alipay.com/mini/api/pmhkbb
    */
-  export function stopPullDownRefresh(r?: {
+  export function stopPullDownRefresh(object?: {
     /**
      * 接口调用成功的回调函数
      */
@@ -10431,7 +10616,7 @@ declare namespace my {
    * 关闭 Wi-Fi 模块
    * @see https://opendocs.alipay.com/mini/api/stopwifi
    */
-  export function stopWifi(r?: {
+  export function stopWifi(object?: {
     /**
      * 接口调用成功的回调函数
      */
@@ -10474,7 +10659,7 @@ declare namespace my {
    * 通过页面跳转 [my.navigateTo]() 或者页面重定向 [my.redirectTo]() 所到达的页面，即使是定义在标签页配置中的页面，也不会显示底部的标签栏。标签页的第一个页面必须是首页。
    * @see https://opendocs.alipay.com/mini/api/ui-tabbar
    */
-  export function switchTab(r: {
+  export function switchTab(object: {
     /**
      * 跳转的特定 tab 的路径
      * @description 目标路径必须为应用内 tabbar 的，且路径后不能带参数
@@ -10501,7 +10686,7 @@ declare namespace my {
    * 发起支付
    * @see https://opendocs.alipay.com/mini/api/openapi-pay
    */
-  export function tradePay(r?: {
+  export function tradePay(object?: {
     /**
      * 支付宝交易号，
      * @description 用于 [小程序支付](https://opendocs.alipay.com/mini/introduce/pay), 注意参数有大小写区分。
@@ -10552,7 +10737,7 @@ declare namespace my {
    * @description 对于需要 Portal 认证的 WIFI，继续弹出 portal 认证页面。
    * @see https://opendocs.alipay.com/mini/api/unregister
    */
-  export function unregisterSSID(r: {
+  export function unregisterSSID(object: {
     /**
      * Wifi 设备 SSID。
      */
@@ -10571,10 +10756,81 @@ declare namespace my {
     complete?(arg: { error?: number; errorMessage?: string }): void;
   }): Promise<void>;
   /**
+   * 取消小程序订阅的消息
+   * @see https://opendocs.alipay.com/mini/api/unsubscribeMessage
+   */
+  export function unsubscribeMessage(object: {
+    /**
+     * 订阅的消息模板 id 集合
+     */
+    entityIds: string[];
+    /**
+     * 接口调用成功的回调函数
+     */
+    success?(data: {
+      /**
+       * 是否取消成功
+       */
+      success?: boolean;
+      /**
+       * 错误码
+       * @description 可参考：[错误码](https://opendocs.alipay.com/mini/api/unsubscribeMessage#%E9%94%99%E8%AF%AF%E7%A0%81)
+       */
+      error?: number;
+      /**
+       * 错误信息
+       */
+      errorMessage?: string;
+    }): void;
+    /**
+     * 接口调用失败的回调函数
+     */
+    fail?(err: { error?: number; errorMessage?: string }): void;
+    /**
+     * 接口调用结束的回调函数（调用成功、失败都会执行）
+     */
+    complete?(
+      arg:
+        | {
+            /**
+             * 是否取消成功
+             */
+            success?: boolean;
+            /**
+             * 错误码
+             * @description 可参考：[错误码](https://opendocs.alipay.com/mini/api/unsubscribeMessage#%E9%94%99%E8%AF%AF%E7%A0%81)
+             */
+            error?: number;
+            /**
+             * 错误信息
+             */
+            errorMessage?: string;
+          }
+        | {
+            error?: number;
+            errorMessage?: string;
+          }
+    ): void;
+  }): Promise<{
+    /**
+     * 是否取消成功
+     */
+    success?: boolean;
+    /**
+     * 错误码
+     * @description 可参考：[错误码](https://opendocs.alipay.com/mini/api/unsubscribeMessage#%E9%94%99%E8%AF%AF%E7%A0%81)
+     */
+    error?: number;
+    /**
+     * 错误信息
+     */
+    errorMessage?: string;
+  }>;
+  /**
    * 上传本地资源到开发者服务器
    * @see https://opendocs.alipay.com/mini/api/kmq4hc
    */
-  export function uploadFile(r: {
+  export function uploadFile(object: {
     /**
      * 开发者服务器地址。
      */
@@ -10692,7 +10948,7 @@ declare namespace my {
    * 触发设备震动
    * @see https://opendocs.alipay.com/mini/api/vibrate
    */
-  export function vibrate(r?: {
+  export function vibrate(object?: {
     /**
      * 接口调用成功的回调函数
      */
@@ -10733,7 +10989,7 @@ declare namespace my {
    * @description 400ms
    * @see https://opendocs.alipay.com/mini/api/ucm2he
    */
-  export function vibrateLong(r?: {
+  export function vibrateLong(object?: {
     /**
      * 接口调用成功的回调函数
      */
@@ -10773,7 +11029,7 @@ declare namespace my {
    * 触发设备短时间震动
    * @see https://opendocs.alipay.com/mini/api/ad6c10
    */
-  export function vibrateShort(r?: {
+  export function vibrateShort(object?: {
     /**
      * 接口调用成功的回调函数
      */
@@ -10814,7 +11070,7 @@ declare namespace my {
    * @description 每次调用 API，在摇一摇手机后触发回调，如需再次监听需要再次调用这个 API
    * @see https://opendocs.alipay.com/mini/api/shake
    */
-  export function watchShake(r?: {
+  export function watchShake(object?: {
     /**
      * 值为true时，表示开启加速度传感器监听功能，会不断的收到accelerometerChange事件回调。
      */
@@ -10870,7 +11126,7 @@ declare namespace my {
    * 向蓝牙低功耗设备特征值中写入数据
    * @see https://opendocs.alipay.com/mini/api/vmp2r4
    */
-  export function writeBLECharacteristicValue(r: {
+  export function writeBLECharacteristicValue(object: {
     /**
      * 蓝牙设备 ID
      */
@@ -10934,11 +11190,235 @@ declare namespace my {
      */
     errorMessage: string;
   }>;
+  export interface RewardedAd {
+    /**
+     * 加载激励视频广告
+     */
+    load(object: {
+      /**
+       * 广告单元 ID
+       */
+      adUnitId: string;
+      /**
+       * 接口调用成功的回调函数
+       */
+      success?(data: {
+        /**
+         * 错误码
+         */
+        error?: number;
+        /**
+         * 错误信息
+         */
+        errorMessage?: string;
+      }): void;
+      /**
+       * 接口调用失败的回调函数
+       */
+      fail?(
+        err:
+          | {
+              error?: number;
+              errorMessage?: string;
+            }
+          | {
+              error: 61000;
+              errorMessage: '广告返回空';
+            }
+          | {
+              error: 61001;
+              errorMessage: '广告请求超时';
+            }
+          | {
+              error: 61002;
+              errorMessage: '广告请求错误';
+            }
+          | {
+              error: 61003;
+              errorMessage: '广告单元重复创建';
+            }
+          | {
+              error: 61004;
+              errorMessage: '广告视图创建失败';
+            }
+          | {
+              error: 2;
+              errorMessage: '参数类型错误';
+            }
+          | {
+              error: 3;
+              errorMessage: '未知错误';
+            }
+      ): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              /**
+               * 错误码
+               */
+              error?: number;
+              /**
+               * 错误信息
+               */
+              errorMessage?: string;
+            }
+          | (
+              | {
+                  error?: number;
+                  errorMessage?: string;
+                }
+              | {
+                  error: 61000;
+                  errorMessage: '广告返回空';
+                }
+              | {
+                  error: 61001;
+                  errorMessage: '广告请求超时';
+                }
+              | {
+                  error: 61002;
+                  errorMessage: '广告请求错误';
+                }
+              | {
+                  error: 61003;
+                  errorMessage: '广告单元重复创建';
+                }
+              | {
+                  error: 61004;
+                  errorMessage: '广告视图创建失败';
+                }
+              | {
+                  error: 2;
+                  errorMessage: '参数类型错误';
+                }
+              | {
+                  error: 3;
+                  errorMessage: '未知错误';
+                }
+            )
+      ): void;
+    }): Promise<{
+      /**
+       * 错误码
+       */
+      error?: number;
+      /**
+       * 错误信息
+       */
+      errorMessage?: string;
+    }>;
+    /**
+     * 取消监听激励视频广告关闭事件
+     */
+    offClose(callback: (res: any) => void): void;
+    /**
+     * 取消监听激励视频广告错误事件
+     */
+    offError(callback: (res: any) => void): void;
+    /**
+     * 取消监听激励视频广告加载事件
+     */
+    offLoad(callback: () => void): void;
+    /**
+     * 监听激励视频广告关闭事件
+     */
+    onClose(callback: (res: any) => void): void;
+    /**
+     * 监听激励视频广告错误事件
+     */
+    onError(callback: (res: any) => void): void;
+    /**
+     * 监听激励视频广告加载事件
+     */
+    onLoad(callback: () => void): void;
+    /**
+     * 显示激励视频广告
+     */
+    show(object: {
+      /**
+       * 广告单元 ID
+       */
+      adUnitId: string;
+      /**
+       * 接口调用成功的回调函数
+       */
+      success?(data: {
+        /**
+         * 错误码
+         */
+        error?: number;
+        /**
+         * 错误信息
+         */
+        errorMessage?: string;
+      }): void;
+      /**
+       * 接口调用失败的回调函数
+       */
+      fail?(
+        err:
+          | {
+              error?: number;
+              errorMessage?: string;
+            }
+          | {
+              error: 61101;
+              errorMessage: '广告状态异常';
+            }
+          | {
+              error: 2;
+              errorMessage: '参数类型错误';
+            }
+      ): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              /**
+               * 错误码
+               */
+              error?: number;
+              /**
+               * 错误信息
+               */
+              errorMessage?: string;
+            }
+          | (
+              | {
+                  error?: number;
+                  errorMessage?: string;
+                }
+              | {
+                  error: 61101;
+                  errorMessage: '广告状态异常';
+                }
+              | {
+                  error: 2;
+                  errorMessage: '参数类型错误';
+                }
+            )
+      ): void;
+    }): Promise<{
+      /**
+       * 错误码
+       */
+      error?: number;
+      /**
+       * 错误信息
+       */
+      errorMessage?: string;
+    }>;
+  }
   export interface CloudContext {
     /**
      * 云托管服务调用
      */
-    callContainer(r: {
+    callContainer(object: {
       /**
        * 云环境服务路径
        */
@@ -11051,9 +11531,556 @@ declare namespace my {
       resultData: Record<string, unknown>;
     }>;
     /**
+     * 云函数调用
+     */
+    callFunction(object: {
+      /**
+       * 云函数名
+       */
+      name: string;
+      /**
+       * 传递给云函数的参数，在云函数中可通过 event 参数获取
+       */
+      data?: any;
+      /**
+       * 接口调用成功的回调函数
+       */
+      success?(data: {
+        /**
+         * 云函数返回的结果
+         */
+        result: any;
+        /**
+         * 云函数执行 ID，用于排查问题
+         */
+        requestID: string;
+      }): void;
+      /**
+       * 接口调用失败的回调函数
+       */
+      fail?(
+        err:
+          | {
+              error?: number;
+              errorMessage?: string;
+            }
+          | {
+              error: 60001;
+              errorMessage: '无效入参，缺少参数 name';
+            }
+          | {
+              error: 60001;
+              errorMessage: '无效入参，缺少参数 env';
+            }
+          | {
+              error: 60002;
+              errorMessage: '调用前，请先初始化云环境';
+            }
+          | {
+              error: 60003;
+              errorMessage: '请求超时';
+            }
+          | {
+              error: 60004;
+              errorMessage: '网络异常';
+            }
+          | {
+              error: 60005;
+              errorMessage: '云调用失败';
+            }
+      ): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              /**
+               * 云函数返回的结果
+               */
+              result: any;
+              /**
+               * 云函数执行 ID，用于排查问题
+               */
+              requestID: string;
+            }
+          | (
+              | {
+                  error?: number;
+                  errorMessage?: string;
+                }
+              | {
+                  error: 60001;
+                  errorMessage: '无效入参，缺少参数 name';
+                }
+              | {
+                  error: 60001;
+                  errorMessage: '无效入参，缺少参数 env';
+                }
+              | {
+                  error: 60002;
+                  errorMessage: '调用前，请先初始化云环境';
+                }
+              | {
+                  error: 60003;
+                  errorMessage: '请求超时';
+                }
+              | {
+                  error: 60004;
+                  errorMessage: '网络异常';
+                }
+              | {
+                  error: 60005;
+                  errorMessage: '云调用失败';
+                }
+            )
+      ): void;
+    }): Promise<{
+      /**
+       * 云函数返回的结果
+       */
+      result: any;
+      /**
+       * 云函数执行 ID，用于排查问题
+       */
+      requestID: string;
+    }>;
+    /**
+     * 云存储文件删除
+     */
+    deleteFile(object: {
+      /**
+       * 要删除的云文件 ID 数组，一次最多限制 50 个
+       */
+      fileList: string[];
+      /**
+       * 超时时间，单位ms
+       * @default 60000
+       */
+      timeout?: number;
+      /**
+       * 接口调用成功的回调函数
+       */
+      success?(data: {
+        /**
+         * 删除结果数组
+         */
+        fileList: ICloudDeleteFileFileList[];
+        /**
+         * 业务结果信息
+         */
+        resultMessage: string;
+        /**
+         * 云存储执行 ID，用于排查问题
+         */
+        requestID: string;
+      }): void;
+      /**
+       * 接口调用失败的回调函数
+       */
+      fail?(
+        err:
+          | {
+              error?: number;
+              errorMessage?: string;
+            }
+          | {
+              error: 60001;
+              errorMessage: '无效入参，请传入合法的参数 fileList';
+            }
+          | {
+              error: 60001;
+              errorMessage: '无效入参，缺少参数 env';
+            }
+          | {
+              error: 60002;
+              errorMessage: '调用前，请先初始化云环境';
+            }
+          | {
+              error: 60003;
+              errorMessage: '请求超时';
+            }
+          | {
+              error: 60004;
+              errorMessage: '网络异常';
+            }
+          | {
+              error: 60005;
+              errorMessage: '云调用失败';
+            }
+          | {
+              error: 60006;
+              errorMessage: '请检查传入 fileList 项数量， 最大限制为 50';
+            }
+      ): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              /**
+               * 删除结果数组
+               */
+              fileList: ICloudDeleteFileFileList[];
+              /**
+               * 业务结果信息
+               */
+              resultMessage: string;
+              /**
+               * 云存储执行 ID，用于排查问题
+               */
+              requestID: string;
+            }
+          | (
+              | {
+                  error?: number;
+                  errorMessage?: string;
+                }
+              | {
+                  error: 60001;
+                  errorMessage: '无效入参，请传入合法的参数 fileList';
+                }
+              | {
+                  error: 60001;
+                  errorMessage: '无效入参，缺少参数 env';
+                }
+              | {
+                  error: 60002;
+                  errorMessage: '调用前，请先初始化云环境';
+                }
+              | {
+                  error: 60003;
+                  errorMessage: '请求超时';
+                }
+              | {
+                  error: 60004;
+                  errorMessage: '网络异常';
+                }
+              | {
+                  error: 60005;
+                  errorMessage: '云调用失败';
+                }
+              | {
+                  error: 60006;
+                  errorMessage: '请检查传入 fileList 项数量， 最大限制为 50';
+                }
+            )
+      ): void;
+    }): Promise<{
+      /**
+       * 删除结果数组
+       */
+      fileList: ICloudDeleteFileFileList[];
+      /**
+       * 业务结果信息
+       */
+      resultMessage: string;
+      /**
+       * 云存储执行 ID，用于排查问题
+       */
+      requestID: string;
+    }>;
+    /**
+     * 云存储文件下载
+     */
+    downloadFile(object: {
+      /**
+       * 云文件 id
+       */
+      fileID: string;
+      /**
+       * 指定文件下载后存储的路径，若不指定此参数，下载的文件会被存储为本地临时文件。目前只支持指定 https://usr 这种本地用户文件目录。
+       */
+      filePath?: string;
+      /**
+       * 超时时间，单位ms
+       * @default 60000
+       */
+      timeout?: number;
+      /**
+       * 接口调用成功的回调函数
+       */
+      success?(data: {
+        /**
+         * 临时文件路径，入参未指定 filePath 的情况下返回
+         */
+        tempFilePath: string;
+        /**
+         * 下载文件保存的路径，与入参指定的 filePath 相同
+         */
+        filePath: string;
+        /**
+         * 服务器返回的 HTTP 状态码
+         */
+        statusCode: number;
+        /**
+         * 云函数执行 ID，用于排查问题
+         */
+        requestID: string;
+      }): void;
+      /**
+       * 接口调用失败的回调函数
+       */
+      fail?(
+        err:
+          | {
+              error?: number;
+              errorMessage?: string;
+            }
+          | {
+              error: 60001;
+              errorMessage: '无效入参，请传入合法的参数 fileID';
+            }
+          | {
+              error: 60001;
+              errorMessage: '无效入参，请传入合法的参数 filePath';
+            }
+          | {
+              error: 60001;
+              errorMessage: '无效入参，缺少参数 env';
+            }
+          | {
+              error: 60002;
+              errorMessage: '调用前，请先初始化云环境';
+            }
+          | {
+              error: 60003;
+              errorMessage: '请求超时';
+            }
+          | {
+              error: 60004;
+              errorMessage: '网络异常';
+            }
+          | {
+              error: 60005;
+              errorMessage: '云调用失败';
+            }
+          | {
+              error: 60006;
+              errorMessage: '存储写文件失败';
+            }
+      ): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              /**
+               * 临时文件路径，入参未指定 filePath 的情况下返回
+               */
+              tempFilePath: string;
+              /**
+               * 下载文件保存的路径，与入参指定的 filePath 相同
+               */
+              filePath: string;
+              /**
+               * 服务器返回的 HTTP 状态码
+               */
+              statusCode: number;
+              /**
+               * 云函数执行 ID，用于排查问题
+               */
+              requestID: string;
+            }
+          | (
+              | {
+                  error?: number;
+                  errorMessage?: string;
+                }
+              | {
+                  error: 60001;
+                  errorMessage: '无效入参，请传入合法的参数 fileID';
+                }
+              | {
+                  error: 60001;
+                  errorMessage: '无效入参，请传入合法的参数 filePath';
+                }
+              | {
+                  error: 60001;
+                  errorMessage: '无效入参，缺少参数 env';
+                }
+              | {
+                  error: 60002;
+                  errorMessage: '调用前，请先初始化云环境';
+                }
+              | {
+                  error: 60003;
+                  errorMessage: '请求超时';
+                }
+              | {
+                  error: 60004;
+                  errorMessage: '网络异常';
+                }
+              | {
+                  error: 60005;
+                  errorMessage: '云调用失败';
+                }
+              | {
+                  error: 60006;
+                  errorMessage: '存储写文件失败';
+                }
+            )
+      ): void;
+    }): Promise<{
+      /**
+       * 临时文件路径，入参未指定 filePath 的情况下返回
+       */
+      tempFilePath: string;
+      /**
+       * 下载文件保存的路径，与入参指定的 filePath 相同
+       */
+      filePath: string;
+      /**
+       * 服务器返回的 HTTP 状态码
+       */
+      statusCode: number;
+      /**
+       * 云函数执行 ID，用于排查问题
+       */
+      requestID: string;
+    }>;
+    /**
+     * 云文件获取临时链接
+     */
+    getTempFileURL(object: {
+      /**
+       * 要换取临时链接的云文件 ID 数组，一次最多 50 个
+       */
+      fileList: ICloudContextGetTempFileURLFileList[];
+      /**
+       * 超时时间，单位ms
+       * @default 60000
+       */
+      timeout?: number;
+      /**
+       * 接口调用成功的回调函数
+       */
+      success?(data: {
+        /**
+         * 获取临时链接结果数组
+         */
+        fileList: ICloudContextGetTempFileURLFileList[];
+        /**
+         * 业务结果信息
+         */
+        resultMessage: string;
+        /**
+         * 云存储执行 ID，用于排查问题
+         */
+        requestID: string;
+      }): void;
+      /**
+       * 接口调用失败的回调函数
+       */
+      fail?(
+        err:
+          | {
+              error?: number;
+              errorMessage?: string;
+            }
+          | {
+              error: 60001;
+              errorMessage: '无效入参，请传入合法的参数 fileList';
+            }
+          | {
+              error: 60001;
+              errorMessage: '无效入参，缺少参数 env';
+            }
+          | {
+              error: 60002;
+              errorMessage: '调用前，请先初始化云环境';
+            }
+          | {
+              error: 60003;
+              errorMessage: '请求超时';
+            }
+          | {
+              error: 60004;
+              errorMessage: '网络异常';
+            }
+          | {
+              error: 60005;
+              errorMessage: '云调用失败';
+            }
+          | {
+              error: 60006;
+              errorMessage: '60006 请检查传入 fileList 项数量， 最大限制为 50';
+            }
+      ): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              /**
+               * 获取临时链接结果数组
+               */
+              fileList: ICloudContextGetTempFileURLFileList[];
+              /**
+               * 业务结果信息
+               */
+              resultMessage: string;
+              /**
+               * 云存储执行 ID，用于排查问题
+               */
+              requestID: string;
+            }
+          | (
+              | {
+                  error?: number;
+                  errorMessage?: string;
+                }
+              | {
+                  error: 60001;
+                  errorMessage: '无效入参，请传入合法的参数 fileList';
+                }
+              | {
+                  error: 60001;
+                  errorMessage: '无效入参，缺少参数 env';
+                }
+              | {
+                  error: 60002;
+                  errorMessage: '调用前，请先初始化云环境';
+                }
+              | {
+                  error: 60003;
+                  errorMessage: '请求超时';
+                }
+              | {
+                  error: 60004;
+                  errorMessage: '网络异常';
+                }
+              | {
+                  error: 60005;
+                  errorMessage: '云调用失败';
+                }
+              | {
+                  error: 60006;
+                  errorMessage: '60006 请检查传入 fileList 项数量， 最大限制为 50';
+                }
+            )
+      ): void;
+    }): Promise<{
+      /**
+       * 获取临时链接结果数组
+       */
+      fileList: ICloudContextGetTempFileURLFileList[];
+      /**
+       * 业务结果信息
+       */
+      resultMessage: string;
+      /**
+       * 云存储执行 ID，用于排查问题
+       */
+      requestID: string;
+    }>;
+    /**
      * 云托管初始化
      */
-    init(r?: {
+    init(object?: {
       /**
        * 接口调用成功的回调函数
        */
@@ -11145,80 +12172,235 @@ declare namespace my {
        */
       success: boolean;
     }>;
-  }
-  export interface ARSession {
-    stop(): boolean;
+    /**
+     * 云存储文件上传
+     */
+    uploadFile(object: {
+      /**
+       * 云存储路径
+       */
+      cloudPath: string;
+      /**
+       * 要上传文件资源的本地路径
+       */
+      filePath: string;
+      /**
+       * 超时时间，单位ms
+       * @default 60000
+       */
+      timeout?: number;
+      /**
+       * 接口调用成功的回调函数
+       */
+      success?(data: {
+        /**
+         * 云文件 ID
+         */
+        fileID: string;
+        /**
+         * 服务器返回的 HTTP 状态码
+         */
+        statusCode: number;
+        /**
+         * 云函数执行 ID，用于排查问题
+         */
+        requestID: string;
+      }): void;
+      /**
+       * 接口调用失败的回调函数
+       */
+      fail?(
+        err:
+          | {
+              error?: number;
+              errorMessage?: string;
+            }
+          | {
+              error: 60001;
+              errorMessage: '无效入参，请传入合法的参数 cloudPath';
+            }
+          | {
+              error: 60001;
+              errorMessage: '无效入参，请传入合法的参数 filePath';
+            }
+          | {
+              error: 60001;
+              errorMessage: '无效入参，缺少参数 env';
+            }
+          | {
+              error: 60002;
+              errorMessage: '调用前，请先初始化云环境';
+            }
+          | {
+              error: 60003;
+              errorMessage: '请求超时';
+            }
+          | {
+              error: 60004;
+              errorMessage: '网络异常';
+            }
+          | {
+              error: 60005;
+              errorMessage: '云调用失败';
+            }
+          | {
+              error: 60006;
+              errorMessage: '文件不存在';
+            }
+          | {
+              error: 60007;
+              errorMessage: '无权限读取 filePath';
+            }
+      ): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              /**
+               * 云文件 ID
+               */
+              fileID: string;
+              /**
+               * 服务器返回的 HTTP 状态码
+               */
+              statusCode: number;
+              /**
+               * 云函数执行 ID，用于排查问题
+               */
+              requestID: string;
+            }
+          | (
+              | {
+                  error?: number;
+                  errorMessage?: string;
+                }
+              | {
+                  error: 60001;
+                  errorMessage: '无效入参，请传入合法的参数 cloudPath';
+                }
+              | {
+                  error: 60001;
+                  errorMessage: '无效入参，请传入合法的参数 filePath';
+                }
+              | {
+                  error: 60001;
+                  errorMessage: '无效入参，缺少参数 env';
+                }
+              | {
+                  error: 60002;
+                  errorMessage: '调用前，请先初始化云环境';
+                }
+              | {
+                  error: 60003;
+                  errorMessage: '请求超时';
+                }
+              | {
+                  error: 60004;
+                  errorMessage: '网络异常';
+                }
+              | {
+                  error: 60005;
+                  errorMessage: '云调用失败';
+                }
+              | {
+                  error: 60006;
+                  errorMessage: '文件不存在';
+                }
+              | {
+                  error: 60007;
+                  errorMessage: '无权限读取 filePath';
+                }
+            )
+      ): void;
+    }): Promise<{
+      /**
+       * 云文件 ID
+       */
+      fileID: string;
+      /**
+       * 服务器返回的 HTTP 状态码
+       */
+      statusCode: number;
+      /**
+       * 云函数执行 ID，用于排查问题
+       */
+      requestID: string;
+    }>;
   }
   export interface FileSystemManager {
     /**
      * 判断文件、目录是否存在
      * @see https://opendocs.alipay.com/mini/api/0226oe
      */
-    access(
-      r: IAccessRequest & {
+    access(object: {
+      /**
+       * 文件夹或者文件路径
+       */
+      path: string;
+      /**
+       * 接口调用成功的回调函数
+       */
+      success?(data: {
         /**
-         * 接口调用成功的回调函数
+         * 是否成功
          */
-        success?(data: {
-          /**
-           * 是否成功
-           */
-          success: true;
-        }): void;
-        /**
-         * 接口调用失败的回调函数
-         */
-        fail?(
-          err:
-            | {
-                error?: number;
-                errorMessage?: string;
-              }
-            | {
-                error: 2;
-                errorMessage: '接口参数无效';
-              }
-            | {
-                error: 10024;
-                errorMessage: '指定的路径没有读权限';
-              }
-            | {
-                error: 10022;
-                errorMessage: '文件/目录不存在';
-              }
-        ): void;
-        /**
-         * 接口调用结束的回调函数（调用成功、失败都会执行）
-         */
-        complete?(
-          arg:
-            | {
-                /**
-                 * 是否成功
-                 */
-                success: true;
-              }
-            | (
-                | {
-                    error?: number;
-                    errorMessage?: string;
-                  }
-                | {
-                    error: 2;
-                    errorMessage: '接口参数无效';
-                  }
-                | {
-                    error: 10024;
-                    errorMessage: '指定的路径没有读权限';
-                  }
-                | {
-                    error: 10022;
-                    errorMessage: '文件/目录不存在';
-                  }
-              )
-        ): void;
-      }
-    ): Promise<{
+        success: true;
+      }): void;
+      /**
+       * 接口调用失败的回调函数
+       */
+      fail?(
+        err:
+          | {
+              error?: number;
+              errorMessage?: string;
+            }
+          | {
+              error: 2;
+              errorMessage: '接口参数无效';
+            }
+          | {
+              error: 10024;
+              errorMessage: '指定的路径没有读权限';
+            }
+          | {
+              error: 10022;
+              errorMessage: '文件/目录不存在';
+            }
+      ): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              /**
+               * 是否成功
+               */
+              success: true;
+            }
+          | (
+              | {
+                  error?: number;
+                  errorMessage?: string;
+                }
+              | {
+                  error: 2;
+                  errorMessage: '接口参数无效';
+                }
+              | {
+                  error: 10024;
+                  errorMessage: '指定的路径没有读权限';
+                }
+              | {
+                  error: 10022;
+                  errorMessage: '文件/目录不存在';
+                }
+            )
+      ): void;
+    }): Promise<{
       /**
        * 是否成功
        */
@@ -11228,7 +12410,12 @@ declare namespace my {
      * 同步判断文件、目录是否存在
      * @see https://opendocs.alipay.com/mini/api/025027
      */
-    accessSync(request: IAccessRequest): {
+    accessSync(param: {
+      /**
+       * 文件夹或者文件路径
+       */
+      path: string;
+    }): {
       success: true;
     };
     /**
@@ -11242,87 +12429,105 @@ declare namespace my {
      * 在文件结尾追加内容
      * @see https://opendocs.alipay.com/mini/api/0228qi
      */
-    appendFile(
-      r: IAppendFileRequest & {
+    appendFile(object: {
+      /**
+       * 要追加内容的文件路径
+       */
+      filePath: string;
+      /**
+       * 要追加的文本或二进制数据
+       */
+      data: string | ArrayBuffer;
+      /**
+       * 指定写入文件的字符编码
+       */
+      encoding?:
+        | 'ascii'
+        | 'base64'
+        | 'hex'
+        | 'binary'
+        | 'ucs2'
+        | 'ucs-2'
+        | 'utf16le'
+        | 'utf-16le';
+      /**
+       * 接口调用成功的回调函数
+       */
+      success?(data: {
         /**
-         * 接口调用成功的回调函数
+         * 是否成功
          */
-        success?(data: {
-          /**
-           * 是否成功
-           */
-          success: true;
-        }): void;
-        /**
-         * 接口调用失败的回调函数
-         */
-        fail?(
-          err:
-            | {
-                error?: number;
-                errorMessage?: string;
-              }
-            | {
-                error: 2;
-                errorMessage: '接口参数无效';
-              }
-            | {
-                error: 10022;
-                errorMessage: '指定文件不存在';
-              }
-            | {
-                error: 10024;
-                errorMessage: '指定的路径没有写权限';
-              }
-            | {
-                error: 10025;
-                errorMessage: '指定路径是一个已经存在的目录';
-              }
-            | {
-                error: 3;
-                errorMessage: '文件写入失败';
-              }
-        ): void;
-        /**
-         * 接口调用结束的回调函数（调用成功、失败都会执行）
-         */
-        complete?(
-          arg:
-            | {
-                /**
-                 * 是否成功
-                 */
-                success: true;
-              }
-            | (
-                | {
-                    error?: number;
-                    errorMessage?: string;
-                  }
-                | {
-                    error: 2;
-                    errorMessage: '接口参数无效';
-                  }
-                | {
-                    error: 10022;
-                    errorMessage: '指定文件不存在';
-                  }
-                | {
-                    error: 10024;
-                    errorMessage: '指定的路径没有写权限';
-                  }
-                | {
-                    error: 10025;
-                    errorMessage: '指定路径是一个已经存在的目录';
-                  }
-                | {
-                    error: 3;
-                    errorMessage: '文件写入失败';
-                  }
-              )
-        ): void;
-      }
-    ): Promise<{
+        success: true;
+      }): void;
+      /**
+       * 接口调用失败的回调函数
+       */
+      fail?(
+        err:
+          | {
+              error?: number;
+              errorMessage?: string;
+            }
+          | {
+              error: 2;
+              errorMessage: '接口参数无效';
+            }
+          | {
+              error: 10022;
+              errorMessage: '指定文件不存在';
+            }
+          | {
+              error: 10024;
+              errorMessage: '指定的路径没有写权限';
+            }
+          | {
+              error: 10025;
+              errorMessage: '指定路径是一个已经存在的目录';
+            }
+          | {
+              error: 3;
+              errorMessage: '文件写入失败';
+            }
+      ): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              /**
+               * 是否成功
+               */
+              success: true;
+            }
+          | (
+              | {
+                  error?: number;
+                  errorMessage?: string;
+                }
+              | {
+                  error: 2;
+                  errorMessage: '接口参数无效';
+                }
+              | {
+                  error: 10022;
+                  errorMessage: '指定文件不存在';
+                }
+              | {
+                  error: 10024;
+                  errorMessage: '指定的路径没有写权限';
+                }
+              | {
+                  error: 10025;
+                  errorMessage: '指定路径是一个已经存在的目录';
+                }
+              | {
+                  error: 3;
+                  errorMessage: '文件写入失败';
+                }
+            )
+      ): void;
+    }): Promise<{
       /**
        * 是否成功
        */
@@ -11332,7 +12537,28 @@ declare namespace my {
      * 同步在文件结尾追加内容
      * @see https://opendocs.alipay.com/mini/api/025028
      */
-    appendFileSync(request: IAppendFileRequest): {
+    appendFileSync(param: {
+      /**
+       * 要追加内容的文件路径
+       */
+      filePath: string;
+      /**
+       * 要追加的文本或二进制数据
+       */
+      data: string | ArrayBuffer;
+      /**
+       * 指定写入文件的字符编码
+       */
+      encoding?:
+        | 'ascii'
+        | 'base64'
+        | 'hex'
+        | 'binary'
+        | 'ucs2'
+        | 'ucs-2'
+        | 'utf16le'
+        | 'utf-16le';
+    }): {
       success: true;
     };
     /**
@@ -11342,7 +12568,15 @@ declare namespace my {
     appendFileSync(
       filePath: string,
       data: string | ArrayBuffer,
-      encoding?: `${EFileSystemEncoding}`
+      encoding:
+        | 'ascii'
+        | 'base64'
+        | 'hex'
+        | 'binary'
+        | 'ucs2'
+        | 'ucs-2'
+        | 'utf16le'
+        | 'utf-16le'
     ): {
       success: true;
     };
@@ -11351,87 +12585,94 @@ declare namespace my {
      * @description 支持复制临时文件、缓存文件、用户文件到本地用户文件位置
      * @see https://opendocs.alipay.com/mini/api/0226of
      */
-    copyFile(
-      r: ICopyFileRequest & {
+    copyFile(object: {
+      /**
+       * 源文件路径
+       * @description 只可以是普通文件
+       */
+      srcPath: string;
+      /**
+       * 目标文件路径
+       */
+      destPath: string;
+      /**
+       * 接口调用成功的回调函数
+       */
+      success?(data: {
         /**
-         * 接口调用成功的回调函数
+         * 是否成功
          */
-        success?(data: {
-          /**
-           * 是否成功
-           */
-          success: true;
-        }): void;
-        /**
-         * 接口调用失败的回调函数
-         */
-        fail?(
-          err:
-            | {
-                error?: number;
-                errorMessage?: string;
-              }
-            | {
-                error: 2;
-                errorMessage: '接口参数无效';
-              }
-            | {
-                error: 10024;
-                errorMessage: '指定的路径没有读权限';
-              }
-            | {
-                error: 10024;
-                errorMessage: '指定的路径没有写权限';
-              }
-            | {
-                error: 10022;
-                errorMessage: '源文件不存在';
-              }
-            | {
-                error: 10023;
-                errorMessage: '指定路径是一个已经存在的目录';
-              }
-        ): void;
-        /**
-         * 接口调用结束的回调函数（调用成功、失败都会执行）
-         */
-        complete?(
-          arg:
-            | {
-                /**
-                 * 是否成功
-                 */
-                success: true;
-              }
-            | (
-                | {
-                    error?: number;
-                    errorMessage?: string;
-                  }
-                | {
-                    error: 2;
-                    errorMessage: '接口参数无效';
-                  }
-                | {
-                    error: 10024;
-                    errorMessage: '指定的路径没有读权限';
-                  }
-                | {
-                    error: 10024;
-                    errorMessage: '指定的路径没有写权限';
-                  }
-                | {
-                    error: 10022;
-                    errorMessage: '源文件不存在';
-                  }
-                | {
-                    error: 10023;
-                    errorMessage: '指定路径是一个已经存在的目录';
-                  }
-              )
-        ): void;
-      }
-    ): Promise<{
+        success: true;
+      }): void;
+      /**
+       * 接口调用失败的回调函数
+       */
+      fail?(
+        err:
+          | {
+              error?: number;
+              errorMessage?: string;
+            }
+          | {
+              error: 2;
+              errorMessage: '接口参数无效';
+            }
+          | {
+              error: 10024;
+              errorMessage: '指定的路径没有读权限';
+            }
+          | {
+              error: 10024;
+              errorMessage: '指定的路径没有写权限';
+            }
+          | {
+              error: 10022;
+              errorMessage: '源文件不存在';
+            }
+          | {
+              error: 10023;
+              errorMessage: '指定路径是一个已经存在的目录';
+            }
+      ): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              /**
+               * 是否成功
+               */
+              success: true;
+            }
+          | (
+              | {
+                  error?: number;
+                  errorMessage?: string;
+                }
+              | {
+                  error: 2;
+                  errorMessage: '接口参数无效';
+                }
+              | {
+                  error: 10024;
+                  errorMessage: '指定的路径没有读权限';
+                }
+              | {
+                  error: 10024;
+                  errorMessage: '指定的路径没有写权限';
+                }
+              | {
+                  error: 10022;
+                  errorMessage: '源文件不存在';
+                }
+              | {
+                  error: 10023;
+                  errorMessage: '指定路径是一个已经存在的目录';
+                }
+            )
+      ): void;
+    }): Promise<{
       /**
        * 是否成功
        */
@@ -11441,7 +12682,17 @@ declare namespace my {
      * 同步复制文件
      * @see https://opendocs.alipay.com/mini/api/024ytt
      */
-    copyFileSync(request: ICopyFileRequest): {
+    copyFileSync(param: {
+      /**
+       * 源文件路径
+       * @description 只可以是普通文件
+       */
+      srcPath: string;
+      /**
+       * 目标文件路径
+       */
+      destPath: string;
+    }): {
       success: true;
     };
     /**
@@ -11458,99 +12709,137 @@ declare namespace my {
      * 获取该小程序下的本地临时文件或本地缓存文件信息
      * @see https://opendocs.alipay.com/mini/api/0226og
      */
-    getFileInfo(
-      r: IGetFileInfoRequest & {
+    getFileInfo(object: {
+      /**
+       * 文件路径
+       */
+      filePath: string;
+      /**
+       * 摘要算法
+       * @default md5
+       */
+      digestAlgorithm?: 'md5' | 'sha1';
+      /**
+       * 接口调用成功的回调函数
+       */
+      success?(data: {
         /**
-         * 接口调用成功的回调函数
+         * 文件大小
+         * @description 以字节为单位
          */
-        success?(data: IGetFileInfoResponse): void;
-        /**
-         * 接口调用失败的回调函数
-         */
-        fail?(
-          err:
-            | {
-                error?: number;
-                errorMessage?: string;
-              }
-            | {
-                error: 2;
-                errorMessage: '接口参数无效';
-              }
-            | {
-                error: 12;
-                errorMessage: '文件不存在';
-              }
-            | {
-                error: 16;
-                errorMessage: 'digestAlgorithm参数只支持MD5和sha1';
-              }
-            | {
-                error: 17;
-                errorMessage: '计算文件摘要信息错误';
-              }
-            | {
-                error: 10024;
-                errorMessage: '指定的路径没有读权限';
-              }
-        ): void;
-        /**
-         * 接口调用结束的回调函数（调用成功、失败都会执行）
-         */
-        complete?(
-          arg:
-            | IGetFileInfoResponse
-            | (
-                | {
-                    error?: number;
-                    errorMessage?: string;
-                  }
-                | {
-                    error: 2;
-                    errorMessage: '接口参数无效';
-                  }
-                | {
-                    error: 12;
-                    errorMessage: '文件不存在';
-                  }
-                | {
-                    error: 16;
-                    errorMessage: 'digestAlgorithm参数只支持MD5和sha1';
-                  }
-                | {
-                    error: 17;
-                    errorMessage: '计算文件摘要信息错误';
-                  }
-                | {
-                    error: 10024;
-                    errorMessage: '指定的路径没有读权限';
-                  }
-              )
-        ): void;
-      }
-    ): Promise<IGetFileInfoResponse>;
+        size: number;
+      }): void;
+      /**
+       * 接口调用失败的回调函数
+       */
+      fail?(
+        err:
+          | {
+              error?: number;
+              errorMessage?: string;
+            }
+          | {
+              error: 2;
+              errorMessage: '接口参数无效';
+            }
+          | {
+              error: 12;
+              errorMessage: '文件不存在';
+            }
+          | {
+              error: 16;
+              errorMessage: 'digestAlgorithm参数只支持MD5和sha1';
+            }
+          | {
+              error: 17;
+              errorMessage: '计算文件摘要信息错误';
+            }
+          | {
+              error: 10024;
+              errorMessage: '指定的路径没有读权限';
+            }
+      ): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              /**
+               * 文件大小
+               * @description 以字节为单位
+               */
+              size: number;
+            }
+          | (
+              | {
+                  error?: number;
+                  errorMessage?: string;
+                }
+              | {
+                  error: 2;
+                  errorMessage: '接口参数无效';
+                }
+              | {
+                  error: 12;
+                  errorMessage: '文件不存在';
+                }
+              | {
+                  error: 16;
+                  errorMessage: 'digestAlgorithm参数只支持MD5和sha1';
+                }
+              | {
+                  error: 17;
+                  errorMessage: '计算文件摘要信息错误';
+                }
+              | {
+                  error: 10024;
+                  errorMessage: '指定的路径没有读权限';
+                }
+            )
+      ): void;
+    }): Promise<{
+      /**
+       * 文件大小
+       * @description 以字节为单位
+       */
+      size: number;
+    }>;
     /**
      * 同步获取该小程序下的本地临时文件或本地缓存文件信息
-     * @see https://opendocs.alipay.com/mini/api/0226og
      */
-    getFileInfoSync(request: IGetFileInfoRequest): IGetFileInfoResponse;
+    getFileInfoSync(param: {
+      /**
+       * 文件路径
+       */
+      filePath: string;
+      /**
+       * 摘要算法
+       * @default md5
+       */
+      digestAlgorithm?: 'md5' | 'sha1';
+    }): IFileSystemManagerGetFileInfoSyncResponse;
     /**
      * 同步获取该小程序下的本地临时文件或本地缓存文件信息
-     * @see https://opendocs.alipay.com/mini/api/0226og
      */
     getFileInfoSync(
       filePath: string,
-      digestAlgorithm?: 'md5' | 'sha1'
-    ): IGetFileInfoResponse;
+      digestAlgorithm: 'md5' | 'sha1'
+    ): IFileSystemManagerGetFileInfoSyncResponse;
     /**
      * 获取该小程序下已保存的本地缓存文件列表
      * @see https://opendocs.alipay.com/mini/api/0228qj
      */
-    getSavedFileList(r?: {
+    getSavedFileList(object?: {
       /**
        * 接口调用成功的回调函数
        */
-      success?(data: IGetSavedFileListResponse): void;
+      success?(data: {
+        /**
+         * 文件数组
+         */
+        fileList: IFileSystemManagerGetSavedFileListFileList[];
+      }): void;
       /**
        * 接口调用失败的回调函数
        */
@@ -11560,87 +12849,138 @@ declare namespace my {
        */
       complete?(
         arg:
-          | IGetSavedFileListResponse
+          | {
+              /**
+               * 文件数组
+               */
+              fileList: IFileSystemManagerGetSavedFileListFileList[];
+            }
           | {
               error?: number;
               errorMessage?: string;
             }
       ): void;
-    }): Promise<IGetSavedFileListResponse>;
+    }): Promise<{
+      /**
+       * 文件数组
+       */
+      fileList: IFileSystemManagerGetSavedFileListFileList[];
+    }>;
     /**
      * 同步获取该小程序下已保存的本地缓存文件列表
-     * @see https://opendocs.alipay.com/mini/api/0228qj
      */
-    getSavedFileListSync(): IGetSavedFileListResponse;
+    getSavedFileListSync(): {
+      /**
+       * 文件数组
+       */
+      fileList: IFileSystemManagerGetSavedFileListSyncFileList[];
+    };
     /**
      * 创建文件系统目录
      * @see https://opendocs.alipay.com/mini/api/0226oh
      */
-    mkdir(
-      r: IMkdirRequest & {
+    mkdir(object: {
+      /**
+       * 创建的目录路径
+       */
+      dirPath: string;
+      /**
+       * 是否在递归创建该目录的上级目录后再创建该目录
+       * @description 如果对应的上级目录已经存在，则不创建该上级目录。如 dirPath 为 a/b/c/d 且 recursive 为 true，将创建 a 目录，再在 a 目录下创建 b 目录，以此类推直至创建 a/b/c 目录下的 d 目录。
+       * @default false
+       */
+      recursive?: boolean;
+      /**
+       * 接口调用成功的回调函数
+       */
+      success?(data: {
         /**
-         * 接口调用成功的回调函数
+         * 是否成功
          */
-        success?(data: {}): void;
-        /**
-         * 接口调用失败的回调函数
-         */
-        fail?(
-          err:
-            | {
-                error?: number;
-                errorMessage?: string;
-              }
-            | {
-                error: 2;
-                errorMessage: '接口参数无效';
-              }
-            | {
-                error: 10024;
-                errorMessage: '指定的路径没有写权限';
-              }
-            | {
-                error: 10025;
-                errorMessage: '有同名文件或目录';
-              }
-            | {
-                error: 10022;
-                errorMessage: '上级目录不存在';
-              }
-        ): void;
-        /**
-         * 接口调用结束的回调函数（调用成功、失败都会执行）
-         */
-        complete?(
-          arg:
-            | {
-                error?: number;
-                errorMessage?: string;
-              }
-            | {
-                error: 2;
-                errorMessage: '接口参数无效';
-              }
-            | {
-                error: 10024;
-                errorMessage: '指定的路径没有写权限';
-              }
-            | {
-                error: 10025;
-                errorMessage: '有同名文件或目录';
-              }
-            | {
-                error: 10022;
-                errorMessage: '上级目录不存在';
-              }
-        ): void;
-      }
-    ): Promise<void>;
+        success: true;
+      }): void;
+      /**
+       * 接口调用失败的回调函数
+       */
+      fail?(
+        err:
+          | {
+              error?: number;
+              errorMessage?: string;
+            }
+          | {
+              error: 2;
+              errorMessage: '无效参数';
+            }
+          | {
+              error: 10024;
+              errorMessage: '指定的路径没有写权限';
+            }
+          | {
+              error: 10025;
+              errorMessage: '有同名文件或目录';
+            }
+          | {
+              error: 10022;
+              errorMessage: '上级目录不存在';
+            }
+      ): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              /**
+               * 是否成功
+               */
+              success: true;
+            }
+          | (
+              | {
+                  error?: number;
+                  errorMessage?: string;
+                }
+              | {
+                  error: 2;
+                  errorMessage: '无效参数';
+                }
+              | {
+                  error: 10024;
+                  errorMessage: '指定的路径没有写权限';
+                }
+              | {
+                  error: 10025;
+                  errorMessage: '有同名文件或目录';
+                }
+              | {
+                  error: 10022;
+                  errorMessage: '上级目录不存在';
+                }
+            )
+      ): void;
+    }): Promise<{
+      /**
+       * 是否成功
+       */
+      success: true;
+    }>;
     /**
      * 同步创建文件系统目录
      * @see https://opendocs.alipay.com/mini/api/024ytu
      */
-    mkdirSync(request: IMkdirRequest): {
+    mkdirSync(param: {
+      /**
+       * 创建的目录路径
+       */
+      dirPath: string;
+      /**
+       * 是否在递归创建该目录的上级目录后再创建该目录
+       * @description 如果对应的上级目录已经存在，则不创建该上级目录。如 dirPath 为 a/b/c/d 且 recursive 为 true，将创建 a 目录，再在 a 目录下创建 b 目录，以此类推直至创建 a/b/c 目录下的 d 目录。
+       * @default false
+       */
+      recursive?: boolean;
+    }): {
       success: true;
     };
     /**
@@ -11649,7 +12989,7 @@ declare namespace my {
      */
     mkdirSync(
       dirPath: string,
-      recursive?: boolean
+      recursive: boolean
     ): {
       success: true;
     };
@@ -11657,236 +12997,326 @@ declare namespace my {
      * 读取目录内文件列表
      * @see https://opendocs.alipay.com/mini/api/0226oi
      */
-    readdir(
-      r: IReaddirRequest & {
+    readdir(object: {
+      /**
+       * 目录地址
+       */
+      dirPath: string;
+      /**
+       * 接口调用成功的回调函数
+       */
+      success?(data: {
         /**
-         * 接口调用成功的回调函数
+         * 文件列表
          */
-        success?(data: IReaddirResponse): void;
-        /**
-         * 接口调用失败的回调函数
-         */
-        fail?(
-          err:
-            | {
-                error?: number;
-                errorMessage?: string;
-              }
-            | {
-                error: 2;
-                errorMessage: '接口参数无效';
-              }
-            | {
-                error: 10024;
-                errorMessage: '指定的路径没有写权限';
-              }
-            | {
-                error: 10024;
-                errorMessage: '指定的路径没有读权限';
-              }
-            | {
-                error: 10022;
-                errorMessage: '目录不存在';
-              }
-        ): void;
-        /**
-         * 接口调用结束的回调函数（调用成功、失败都会执行）
-         */
-        complete?(
-          arg:
-            | IReaddirResponse
-            | (
-                | {
-                    error?: number;
-                    errorMessage?: string;
-                  }
-                | {
-                    error: 2;
-                    errorMessage: '接口参数无效';
-                  }
-                | {
-                    error: 10024;
-                    errorMessage: '指定的路径没有写权限';
-                  }
-                | {
-                    error: 10024;
-                    errorMessage: '指定的路径没有读权限';
-                  }
-                | {
-                    error: 10022;
-                    errorMessage: '目录不存在';
-                  }
-              )
-        ): void;
-      }
-    ): Promise<IReaddirResponse>;
+        files: string[];
+      }): void;
+      /**
+       * 接口调用失败的回调函数
+       */
+      fail?(
+        err:
+          | {
+              error?: number;
+              errorMessage?: string;
+            }
+          | {
+              error: 2;
+              errorMessage: '接口参数无效';
+            }
+          | {
+              error: 10024;
+              errorMessage: '指定的路径没有写权限';
+            }
+          | {
+              error: 10024;
+              errorMessage: '指定的路径没有读权限';
+            }
+          | {
+              error: 10022;
+              errorMessage: '目录不存在';
+            }
+      ): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              /**
+               * 文件列表
+               */
+              files: string[];
+            }
+          | (
+              | {
+                  error?: number;
+                  errorMessage?: string;
+                }
+              | {
+                  error: 2;
+                  errorMessage: '接口参数无效';
+                }
+              | {
+                  error: 10024;
+                  errorMessage: '指定的路径没有写权限';
+                }
+              | {
+                  error: 10024;
+                  errorMessage: '指定的路径没有读权限';
+                }
+              | {
+                  error: 10022;
+                  errorMessage: '目录不存在';
+                }
+            )
+      ): void;
+    }): Promise<{
+      /**
+       * 文件列表
+       */
+      files: string[];
+    }>;
     /**
      * 同步读取目录内文件列表
      * @see https://opendocs.alipay.com/mini/api/024ytv
      */
-    readdirSync(request: IReaddirRequest): IReaddirResponse;
+    readdirSync(param: {
+      /**
+       * 目录地址
+       */
+      dirPath: string;
+    }): IFileSystemManagerReaddirSyncResponse;
     /**
      * 同步读取目录内文件列表
      * @see https://opendocs.alipay.com/mini/api/024ytv
      */
-    readdirSync(dirPath: string): IReaddirResponse;
+    readdirSync(dirPath: string): IFileSystemManagerReaddirSyncResponse;
     /**
      * 读取本地文件内容
      * @see https://opendocs.alipay.com/mini/api/0226oj
      */
-    readFile(
-      r: IReadFileRequest & {
+    readFile(object: {
+      /**
+       * 文件路径
+       */
+      filePath: string;
+      /**
+       * 指定写入文件的字符编码
+       */
+      encoding?:
+        | 'ascii'
+        | 'base64'
+        | 'hex'
+        | 'binary'
+        | 'ucs2'
+        | 'ucs-2'
+        | 'utf16le'
+        | 'utf-16le';
+      /**
+       * 接口调用成功的回调函数
+       */
+      success?(data: {
         /**
-         * 接口调用成功的回调函数
+         * 文件内容
          */
-        success?(data: IReadFileResponse): void;
+        data: string | ArrayBuffer;
         /**
-         * 接口调用失败的回调函数
+         * 数据类型
          */
-        fail?(
-          err:
-            | {
-                error?: number;
-                errorMessage?: string;
-              }
-            | {
-                error: 2;
-                errorMessage: '接口参数无效';
-              }
-            | {
-                error: 10022;
-                errorMessage: '文件/目录不存在';
-              }
-            | {
-                error: 10024;
-                errorMessage: '指定的路径没有读权限';
-              }
-            | {
-                error: 3;
-                errorMessage: '未知错误';
-              }
-        ): void;
-        /**
-         * 接口调用结束的回调函数（调用成功、失败都会执行）
-         */
-        complete?(
-          arg:
-            | IReadFileResponse
-            | (
-                | {
-                    error?: number;
-                    errorMessage?: string;
-                  }
-                | {
-                    error: 2;
-                    errorMessage: '接口参数无效';
-                  }
-                | {
-                    error: 10022;
-                    errorMessage: '文件/目录不存在';
-                  }
-                | {
-                    error: 10024;
-                    errorMessage: '指定的路径没有读权限';
-                  }
-                | {
-                    error: 3;
-                    errorMessage: '未知错误';
-                  }
-              )
-        ): void;
-      }
-    ): Promise<IReadFileResponse>;
+        dataType: string;
+      }): void;
+      /**
+       * 接口调用失败的回调函数
+       */
+      fail?(
+        err:
+          | {
+              error?: number;
+              errorMessage?: string;
+            }
+          | {
+              error: 2;
+              errorMessage: '接口参数无效';
+            }
+          | {
+              error: 10022;
+              errorMessage: '文件/目录不存在';
+            }
+          | {
+              error: 10024;
+              errorMessage: '指定的路径没有读权限';
+            }
+          | {
+              error: 3;
+              errorMessage: '未知错误';
+            }
+      ): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              /**
+               * 文件内容
+               */
+              data: string | ArrayBuffer;
+              /**
+               * 数据类型
+               */
+              dataType: string;
+            }
+          | (
+              | {
+                  error?: number;
+                  errorMessage?: string;
+                }
+              | {
+                  error: 2;
+                  errorMessage: '接口参数无效';
+                }
+              | {
+                  error: 10022;
+                  errorMessage: '文件/目录不存在';
+                }
+              | {
+                  error: 10024;
+                  errorMessage: '指定的路径没有读权限';
+                }
+              | {
+                  error: 3;
+                  errorMessage: '未知错误';
+                }
+            )
+      ): void;
+    }): Promise<{
+      /**
+       * 文件内容
+       */
+      data: string | ArrayBuffer;
+      /**
+       * 数据类型
+       */
+      dataType: string;
+    }>;
     /**
      * 同步读取本地文件内容
      * @see https://opendocs.alipay.com/mini/api/025029
      */
-    readFileSync(request: IReadFileRequest): IReadFileResponse;
+    readFileSync(param: {
+      /**
+       * 文件路径
+       */
+      filePath: string;
+      /**
+       * 指定写入文件的字符编码
+       */
+      encoding?:
+        | 'ascii'
+        | 'base64'
+        | 'hex'
+        | 'binary'
+        | 'ucs2'
+        | 'ucs-2'
+        | 'utf16le'
+        | 'utf-16le';
+    }): IFileSystemManagerReadFileSyncResponse;
     /**
      * 同步读取本地文件内容
      * @see https://opendocs.alipay.com/mini/api/025029
      */
     readFileSync(
       filePath: string,
-      encoding?: `${EFileSystemEncoding}`
-    ): IReadFileResponse;
+      encoding:
+        | 'ascii'
+        | 'base64'
+        | 'hex'
+        | 'binary'
+        | 'ucs2'
+        | 'ucs-2'
+        | 'utf16le'
+        | 'utf-16le'
+    ): IFileSystemManagerReadFileSyncResponse;
     /**
      * 删除该小程序下已保存的本地缓存文件
      * @see https://opendocs.alipay.com/mini/api/0229pv
      */
-    removeSavedFile(
-      r: IRemoveSavedFileRequest & {
+    removeSavedFile(object: {
+      /**
+       * 需要删除的文件路径
+       */
+      filePath: string;
+      /**
+       * 接口调用成功的回调函数
+       */
+      success?(data: {
         /**
-         * 接口调用成功的回调函数
+         * 是否成功
          */
-        success?(data: {
-          /**
-           * 是否成功
-           */
-          success: true;
-        }): void;
-        /**
-         * 接口调用失败的回调函数
-         */
-        fail?(
-          err:
-            | {
-                error?: number;
-                errorMessage?: string;
-              }
-            | {
-                error: 2;
-                errorMessage: '无效入参';
-              }
-            | {
-                error: 10022;
-                errorMessage: '文件不存在';
-              }
-            | {
-                error: 10024;
-                errorMessage: '指定的路径没有写权限';
-              }
-            | {
-                error: 15;
-                errorMessage: '删除文件失败';
-              }
-        ): void;
-        /**
-         * 接口调用结束的回调函数（调用成功、失败都会执行）
-         */
-        complete?(
-          arg:
-            | {
-                /**
-                 * 是否成功
-                 */
-                success: true;
-              }
-            | (
-                | {
-                    error?: number;
-                    errorMessage?: string;
-                  }
-                | {
-                    error: 2;
-                    errorMessage: '无效入参';
-                  }
-                | {
-                    error: 10022;
-                    errorMessage: '文件不存在';
-                  }
-                | {
-                    error: 10024;
-                    errorMessage: '指定的路径没有写权限';
-                  }
-                | {
-                    error: 15;
-                    errorMessage: '删除文件失败';
-                  }
-              )
-        ): void;
-      }
-    ): Promise<{
+        success: true;
+      }): void;
+      /**
+       * 接口调用失败的回调函数
+       */
+      fail?(
+        err:
+          | {
+              error?: number;
+              errorMessage?: string;
+            }
+          | {
+              error: 2;
+              errorMessage: '无效入参';
+            }
+          | {
+              error: 10022;
+              errorMessage: '文件不存在';
+            }
+          | {
+              error: 10024;
+              errorMessage: '指定的路径没有写权限';
+            }
+          | {
+              error: 15;
+              errorMessage: '删除文件失败';
+            }
+      ): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              /**
+               * 是否成功
+               */
+              success: true;
+            }
+          | (
+              | {
+                  error?: number;
+                  errorMessage?: string;
+                }
+              | {
+                  error: 2;
+                  errorMessage: '无效入参';
+                }
+              | {
+                  error: 10022;
+                  errorMessage: '文件不存在';
+                }
+              | {
+                  error: 10024;
+                  errorMessage: '指定的路径没有写权限';
+                }
+              | {
+                  error: 15;
+                  errorMessage: '删除文件失败';
+                }
+            )
+      ): void;
+    }): Promise<{
       /**
        * 是否成功
        */
@@ -11894,14 +13324,17 @@ declare namespace my {
     }>;
     /**
      * 同步删除该小程序下已保存的本地缓存文件
-     * @see https://opendocs.alipay.com/mini/api/0229pv
      */
-    removeSavedFileSync(request: IRemoveSavedFileRequest): {
+    removeSavedFileSync(param: {
+      /**
+       * 需要删除的文件路径
+       */
+      filePath: string;
+    }): {
       success: true;
     };
     /**
      * 同步删除该小程序下已保存的本地缓存文件
-     * @see https://opendocs.alipay.com/mini/api/0229pv
      */
     removeSavedFileSync(filePath: string): {
       success: true;
@@ -11911,79 +13344,86 @@ declare namespace my {
      * @description 可以把文件从 oldPath 移动到 newPath。
      * @see https://opendocs.alipay.com/mini/api/0229pw
      */
-    rename(
-      r: IRenameRequest & {
+    rename(object: {
+      /**
+       * 源文件路径
+       * @description 可以是普通文件或目录
+       */
+      oldPath: string;
+      /**
+       * 新文件路径
+       */
+      newPath: string;
+      /**
+       * 接口调用成功的回调函数
+       */
+      success?(data: {
         /**
-         * 接口调用成功的回调函数
+         * 是否成功
          */
-        success?(data: {
-          /**
-           * 是否成功
-           */
-          success: true;
-        }): void;
-        /**
-         * 接口调用失败的回调函数
-         */
-        fail?(
-          err:
-            | {
-                error?: number;
-                errorMessage?: string;
-              }
-            | {
-                error: 2;
-                errorMessage: '接口参数无效';
-              }
-            | {
-                error: 10022;
-                errorMessage: '源文件不存在';
-              }
-            | {
-                error: 10024;
-                errorMessage: '指定源文件或目标文件没有写权限';
-              }
-            | {
-                error: 10025;
-                errorMessage: '文件或目录已存在';
-              }
-        ): void;
-        /**
-         * 接口调用结束的回调函数（调用成功、失败都会执行）
-         */
-        complete?(
-          arg:
-            | {
-                /**
-                 * 是否成功
-                 */
-                success: true;
-              }
-            | (
-                | {
-                    error?: number;
-                    errorMessage?: string;
-                  }
-                | {
-                    error: 2;
-                    errorMessage: '接口参数无效';
-                  }
-                | {
-                    error: 10022;
-                    errorMessage: '源文件不存在';
-                  }
-                | {
-                    error: 10024;
-                    errorMessage: '指定源文件或目标文件没有写权限';
-                  }
-                | {
-                    error: 10025;
-                    errorMessage: '文件或目录已存在';
-                  }
-              )
-        ): void;
-      }
-    ): Promise<{
+        success: true;
+      }): void;
+      /**
+       * 接口调用失败的回调函数
+       */
+      fail?(
+        err:
+          | {
+              error?: number;
+              errorMessage?: string;
+            }
+          | {
+              error: 2;
+              errorMessage: '接口参数无效';
+            }
+          | {
+              error: 10022;
+              errorMessage: '源文件不存在';
+            }
+          | {
+              error: 10024;
+              errorMessage: '指定源文件或目标文件没有写权限';
+            }
+          | {
+              error: 10025;
+              errorMessage: '文件或目录已存在';
+            }
+      ): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              /**
+               * 是否成功
+               */
+              success: true;
+            }
+          | (
+              | {
+                  error?: number;
+                  errorMessage?: string;
+                }
+              | {
+                  error: 2;
+                  errorMessage: '接口参数无效';
+                }
+              | {
+                  error: 10022;
+                  errorMessage: '源文件不存在';
+                }
+              | {
+                  error: 10024;
+                  errorMessage: '指定源文件或目标文件没有写权限';
+                }
+              | {
+                  error: 10025;
+                  errorMessage: '文件或目录已存在';
+                }
+            )
+      ): void;
+    }): Promise<{
       /**
        * 是否成功
        */
@@ -11994,7 +13434,17 @@ declare namespace my {
      * @description 可以把文件从 oldPath 移动到 newPath。
      * @see https://opendocs.alipay.com/mini/api/024ytw
      */
-    renameSync(request: IRenameRequest): {
+    renameSync(param: {
+      /**
+       * 源文件路径
+       * @description 可以是普通文件或目录
+       */
+      oldPath: string;
+      /**
+       * 新文件路径
+       */
+      newPath: string;
+    }): {
       success: true;
     };
     /**
@@ -12012,87 +13462,95 @@ declare namespace my {
      * 删除目录
      * @see https://opendocs.alipay.com/mini/api/0229px
      */
-    rmdir(
-      r: IRmdirRequest & {
+    rmdir(object: {
+      /**
+       * 删除的目录路径
+       */
+      dirPath: string;
+      /**
+       * 是否递归删除目录
+       * @description 如果为 true，则删除该目录和该目录下的所有子目录以及文件。
+       * @default false
+       */
+      recursive?: boolean;
+      /**
+       * 接口调用成功的回调函数
+       */
+      success?(data: {
         /**
-         * 接口调用成功的回调函数
+         * 是否成功
          */
-        success?(data: {
-          /**
-           * 是否成功
-           */
-          success: true;
-        }): void;
-        /**
-         * 接口调用失败的回调函数
-         */
-        fail?(
-          err:
-            | {
-                error?: number;
-                errorMessage?: string;
-              }
-            | {
-                error: 2;
-                errorMessage: '接口参数无效';
-              }
-            | {
-                error: 10024;
-                errorMessage: '指定的路径没有写权限';
-              }
-            | {
-                error: 10025;
-                errorMessage: '有同名文件或目录';
-              }
-            | {
-                error: 10022;
-                errorMessage: '目录不存在';
-              }
-            | {
-                error: 10027;
-                errorMessage: '目录不为空';
-              }
-        ): void;
-        /**
-         * 接口调用结束的回调函数（调用成功、失败都会执行）
-         */
-        complete?(
-          arg:
-            | {
-                /**
-                 * 是否成功
-                 */
-                success: true;
-              }
-            | (
-                | {
-                    error?: number;
-                    errorMessage?: string;
-                  }
-                | {
-                    error: 2;
-                    errorMessage: '接口参数无效';
-                  }
-                | {
-                    error: 10024;
-                    errorMessage: '指定的路径没有写权限';
-                  }
-                | {
-                    error: 10025;
-                    errorMessage: '有同名文件或目录';
-                  }
-                | {
-                    error: 10022;
-                    errorMessage: '目录不存在';
-                  }
-                | {
-                    error: 10027;
-                    errorMessage: '目录不为空';
-                  }
-              )
-        ): void;
-      }
-    ): Promise<{
+        success: true;
+      }): void;
+      /**
+       * 接口调用失败的回调函数
+       */
+      fail?(
+        err:
+          | {
+              error?: number;
+              errorMessage?: string;
+            }
+          | {
+              error: 2;
+              errorMessage: '接口参数无效';
+            }
+          | {
+              error: 10024;
+              errorMessage: '指定的路径没有写权限';
+            }
+          | {
+              error: 10025;
+              errorMessage: '有同名文件或目录';
+            }
+          | {
+              error: 10022;
+              errorMessage: '目录不存在';
+            }
+          | {
+              error: 10027;
+              errorMessage: '目录不为空';
+            }
+      ): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              /**
+               * 是否成功
+               */
+              success: true;
+            }
+          | (
+              | {
+                  error?: number;
+                  errorMessage?: string;
+                }
+              | {
+                  error: 2;
+                  errorMessage: '接口参数无效';
+                }
+              | {
+                  error: 10024;
+                  errorMessage: '指定的路径没有写权限';
+                }
+              | {
+                  error: 10025;
+                  errorMessage: '有同名文件或目录';
+                }
+              | {
+                  error: 10022;
+                  errorMessage: '目录不存在';
+                }
+              | {
+                  error: 10027;
+                  errorMessage: '目录不为空';
+                }
+            )
+      ): void;
+    }): Promise<{
       /**
        * 是否成功
        */
@@ -12102,7 +13560,18 @@ declare namespace my {
      * 同步删除目录
      * @see https://opendocs.alipay.com/mini/api/024ytx
      */
-    rmdirSync(request: IRmdirRequest): {
+    rmdirSync(param: {
+      /**
+       * 删除的目录路径
+       */
+      dirPath: string;
+      /**
+       * 是否递归删除目录
+       * @description 如果为 true，则删除该目录和该目录下的所有子目录以及文件。
+       * @default false
+       */
+      recursive?: boolean;
+    }): {
       success: true;
     };
     /**
@@ -12111,7 +13580,7 @@ declare namespace my {
      */
     rmdirSync(
       dirPath: string,
-      recursive?: boolean
+      recursive: boolean
     ): {
       success: true;
     };
@@ -12120,227 +13589,298 @@ declare namespace my {
      * @description 此接口会移动临时文件，因此调用成功后，tempFilePath 将不可用
      * @see https://opendocs.alipay.com/mini/api/022b6n
      */
-    saveFile(
-      r: ISaveFileRequest & {
+    saveFile(object: {
+      /**
+       * 临时存储文件路径
+       */
+      tempFilePath: string;
+      /**
+       * 要存储的文件路径
+       */
+      filePath?: boolean;
+      /**
+       * 接口调用成功的回调函数
+       */
+      success?(data: {
         /**
-         * 接口调用成功的回调函数
+         * 存储后的文件路径
          */
-        success?(data: ISaveFileResponse): void;
-        /**
-         * 接口调用失败的回调函数
-         */
-        fail?(
-          err:
-            | {
-                error?: number;
-                errorMessage?: string;
-              }
-            | {
-                error: 2;
-                errorMessage: '接口参数无效';
-              }
-            | {
-                error: 10022;
-                errorMessage: '指定的路径找不到文件';
-              }
-            | {
-                error: 10024;
-                errorMessage: '指定的路径没有写权限';
-              }
-            | {
-                error: 3;
-                errorMessage: '保存文件失败';
-              }
-        ): void;
-        /**
-         * 接口调用结束的回调函数（调用成功、失败都会执行）
-         */
-        complete?(
-          arg:
-            | ISaveFileResponse
-            | (
-                | {
-                    error?: number;
-                    errorMessage?: string;
-                  }
-                | {
-                    error: 2;
-                    errorMessage: '接口参数无效';
-                  }
-                | {
-                    error: 10022;
-                    errorMessage: '指定的路径找不到文件';
-                  }
-                | {
-                    error: 10024;
-                    errorMessage: '指定的路径没有写权限';
-                  }
-                | {
-                    error: 3;
-                    errorMessage: '保存文件失败';
-                  }
-              )
-        ): void;
-      }
-    ): Promise<ISaveFileResponse>;
+        savedFilePath: string;
+      }): void;
+      /**
+       * 接口调用失败的回调函数
+       */
+      fail?(
+        err:
+          | {
+              error?: number;
+              errorMessage?: string;
+            }
+          | {
+              error: 2;
+              errorMessage: '接口参数无效';
+            }
+          | {
+              error: 10022;
+              errorMessage: '指定的路径找不到文件';
+            }
+          | {
+              error: 10024;
+              errorMessage: '指定的路径没有写权限';
+            }
+          | {
+              error: 3;
+              errorMessage: '保存文件失败';
+            }
+      ): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              /**
+               * 存储后的文件路径
+               */
+              savedFilePath: string;
+            }
+          | (
+              | {
+                  error?: number;
+                  errorMessage?: string;
+                }
+              | {
+                  error: 2;
+                  errorMessage: '接口参数无效';
+                }
+              | {
+                  error: 10022;
+                  errorMessage: '指定的路径找不到文件';
+                }
+              | {
+                  error: 10024;
+                  errorMessage: '指定的路径没有写权限';
+                }
+              | {
+                  error: 3;
+                  errorMessage: '保存文件失败';
+                }
+            )
+      ): void;
+    }): Promise<{
+      /**
+       * 存储后的文件路径
+       */
+      savedFilePath: string;
+    }>;
     /**
      * 同步保存临时文件到本地
      * @description 此接口会移动临时文件，因此调用成功后，tempFilePath 将不可用
      * @see https://opendocs.alipay.com/mini/api/02502a
      */
-    saveFileSync(request: ISaveFileRequest): ISaveFileResponse;
+    saveFileSync(param: {
+      /**
+       * 临时存储文件路径
+       */
+      tempFilePath: string;
+      /**
+       * 要存储的文件路径
+       */
+      filePath?: string;
+    }): IFileSystemManagerSaveFileSyncResponse;
     /**
      * 同步保存临时文件到本地
      * @description 此接口会移动临时文件，因此调用成功后，tempFilePath 将不可用
      * @see https://opendocs.alipay.com/mini/api/02502a
      */
-    saveFileSync(tempFilePath: string, filePath?: string): ISaveFileResponse;
+    saveFileSync(
+      tempFilePath: string,
+      filePath: string
+    ): IFileSystemManagerSaveFileSyncResponse;
     /**
      * 获取文件信息
      * @see https://opendocs.alipay.com/mini/api/022b6o
      */
-    stat(
-      r: IStatRequest & {
+    stat(object: {
+      /**
+       * 文件、目录路径
+       */
+      path: string;
+      /**
+       * 是否递归获取目录下的每个文件的 Stats 信息
+       */
+      recursive?: boolean;
+      /**
+       * 接口调用成功的回调函数
+       */
+      success?(data: {
         /**
-         * 接口调用成功的回调函数
+         * 文件信息
+         * @description 当 recursive 为 false 时，res.stats 是一个 Stats 对象。当 recursive 为 true 且 path 是一个目录的路径时，res.stats 是一个 Object，key 以 path 为根路径的相对路径，value 是该路径对应的 Stats 对象。
          */
-        success?(data: IStatResponse): void;
-        /**
-         * 接口调用失败的回调函数
-         */
-        fail?(
-          err:
-            | {
-                error?: number;
-                errorMessage?: string;
-              }
-            | {
-                error: 10022;
-                errorMessage: '文件不存在';
-              }
-            | {
-                error: 10024;
-                errorMessage: '指定的路径没有读权限';
-              }
-            | {
-                error: 3;
-                errorMessage: '未知错误';
-              }
-        ): void;
-        /**
-         * 接口调用结束的回调函数（调用成功、失败都会执行）
-         */
-        complete?(
-          arg:
-            | IStatResponse
-            | (
-                | {
-                    error?: number;
-                    errorMessage?: string;
-                  }
-                | {
-                    error: 10022;
-                    errorMessage: '文件不存在';
-                  }
-                | {
-                    error: 10024;
-                    errorMessage: '指定的路径没有读权限';
-                  }
-                | {
-                    error: 3;
-                    errorMessage: '未知错误';
-                  }
-              )
-        ): void;
-      }
-    ): Promise<IStatResponse>;
+        stats: IFileSystemManagerStatStats;
+      }): void;
+      /**
+       * 接口调用失败的回调函数
+       */
+      fail?(
+        err:
+          | {
+              error?: number;
+              errorMessage?: string;
+            }
+          | {
+              error: 10022;
+              errorMessage: '文件不存在';
+            }
+          | {
+              error: 10024;
+              errorMessage: '指定的路径没有读权限';
+            }
+          | {
+              error: 3;
+              errorMessage: '未知错误';
+            }
+      ): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              /**
+               * 文件信息
+               * @description 当 recursive 为 false 时，res.stats 是一个 Stats 对象。当 recursive 为 true 且 path 是一个目录的路径时，res.stats 是一个 Object，key 以 path 为根路径的相对路径，value 是该路径对应的 Stats 对象。
+               */
+              stats: IFileSystemManagerStatStats;
+            }
+          | (
+              | {
+                  error?: number;
+                  errorMessage?: string;
+                }
+              | {
+                  error: 10022;
+                  errorMessage: '文件不存在';
+                }
+              | {
+                  error: 10024;
+                  errorMessage: '指定的路径没有读权限';
+                }
+              | {
+                  error: 3;
+                  errorMessage: '未知错误';
+                }
+            )
+      ): void;
+    }): Promise<{
+      /**
+       * 文件信息
+       * @description 当 recursive 为 false 时，res.stats 是一个 Stats 对象。当 recursive 为 true 且 path 是一个目录的路径时，res.stats 是一个 Object，key 以 path 为根路径的相对路径，value 是该路径对应的 Stats 对象。
+       */
+      stats: IFileSystemManagerStatStats;
+    }>;
     /**
      * 同步获取文件信息
      * @see https://opendocs.alipay.com/mini/api/024whe
      */
-    statSync(request: IStatRequest): IStatResponse;
+    statSync(param: {
+      /**
+       * 文件、目录路径
+       */
+      path: string;
+      /**
+       * 是否递归获取目录下的每个文件的 Stats 信息
+       */
+      recursive?: boolean;
+    }): IFileSystemManagerStatSyncResponse;
     /**
      * 同步获取文件信息
      * @see https://opendocs.alipay.com/mini/api/024whe
      */
-    statSync(path: string, recursive?: boolean): IStatResponse;
+    statSync(
+      path: string,
+      recursive: boolean
+    ): IFileSystemManagerStatSyncResponse;
     /**
      * 删除文件
      * @see https://opendocs.alipay.com/mini/api/022b6p
      */
-    unlink(
-      r: IUnlinkRequest & {
+    unlink(object: {
+      /**
+       * 文件路径
+       */
+      filePath: string;
+      /**
+       * 接口调用成功的回调函数
+       */
+      success?(data: {
         /**
-         * 接口调用成功的回调函数
+         * 是否成功
          */
-        success?(data: {
-          /**
-           * 是否成功
-           */
-          success: true;
-        }): void;
-        /**
-         * 接口调用失败的回调函数
-         */
-        fail?(
-          err:
-            | {
-                error?: number;
-                errorMessage?: string;
-              }
-            | {
-                error: 2;
-                errorMessage: '接口参数无效';
-              }
-            | {
-                error: 10022;
-                errorMessage: '文件不存在';
-              }
-            | {
-                error: 10023;
-                errorMessage: '传入的路径是一个目录';
-              }
-            | {
-                error: 10024;
-                errorMessage: '指定的路径没有删除权限';
-              }
-        ): void;
-        /**
-         * 接口调用结束的回调函数（调用成功、失败都会执行）
-         */
-        complete?(
-          arg:
-            | {
-                /**
-                 * 是否成功
-                 */
-                success: true;
-              }
-            | (
-                | {
-                    error?: number;
-                    errorMessage?: string;
-                  }
-                | {
-                    error: 2;
-                    errorMessage: '接口参数无效';
-                  }
-                | {
-                    error: 10022;
-                    errorMessage: '文件不存在';
-                  }
-                | {
-                    error: 10023;
-                    errorMessage: '传入的路径是一个目录';
-                  }
-                | {
-                    error: 10024;
-                    errorMessage: '指定的路径没有删除权限';
-                  }
-              )
-        ): void;
-      }
-    ): Promise<{
+        success: true;
+      }): void;
+      /**
+       * 接口调用失败的回调函数
+       */
+      fail?(
+        err:
+          | {
+              error?: number;
+              errorMessage?: string;
+            }
+          | {
+              error: 2;
+              errorMessage: '接口参数无效';
+            }
+          | {
+              error: 10022;
+              errorMessage: '文件不存在';
+            }
+          | {
+              error: 10023;
+              errorMessage: '传入的路径是一个目录';
+            }
+          | {
+              error: 10024;
+              errorMessage: '指定的路径没有删除权限';
+            }
+      ): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              /**
+               * 是否成功
+               */
+              success: true;
+            }
+          | (
+              | {
+                  error?: number;
+                  errorMessage?: string;
+                }
+              | {
+                  error: 2;
+                  errorMessage: '接口参数无效';
+                }
+              | {
+                  error: 10022;
+                  errorMessage: '文件不存在';
+                }
+              | {
+                  error: 10023;
+                  errorMessage: '传入的路径是一个目录';
+                }
+              | {
+                  error: 10024;
+                  errorMessage: '指定的路径没有删除权限';
+                }
+            )
+      ): void;
+    }): Promise<{
       /**
        * 是否成功
        */
@@ -12350,7 +13890,12 @@ declare namespace my {
      * 同步删除文件
      * @see https://opendocs.alipay.com/mini/api/024whc
      */
-    unlinkSync(request: IUnlinkRequest): {
+    unlinkSync(param: {
+      /**
+       * 文件路径
+       */
+      filePath: string;
+    }): {
       success: true;
     };
     /**
@@ -12364,111 +13909,118 @@ declare namespace my {
      * 解压文件
      * @see https://opendocs.alipay.com/mini/api/0229q3
      */
-    unzip(
-      r: IUnzipRequest & {
+    unzip(object: {
+      /**
+       * 源文件路径
+       * @description 只可以是 zip 压缩文件
+       */
+      zipFilePath: string;
+      /**
+       * 目标路径
+       */
+      targetPath: string;
+      /**
+       * 接口调用成功的回调函数
+       */
+      success?(data: {
         /**
-         * 接口调用成功的回调函数
+         * 是否成功
          */
-        success?(data: {
-          /**
-           * 是否成功
-           */
-          success: true;
-        }): void;
-        /**
-         * 接口调用失败的回调函数
-         */
-        fail?(
-          err:
-            | {
-                error?: number;
-                errorMessage?: string;
-              }
-            | {
-                error: 2;
-                errorMessage: '接口参数无效';
-              }
-            | {
-                error: 10022;
-                errorMessage: '源文件不存在';
-              }
-            | {
-                error: 10022;
-                errorMessage: '上层目录不存在';
-              }
-            | {
-                error: 10023;
-                errorMessage: '传入的路径是一个目录';
-              }
-            | {
-                error: 10024;
-                errorMessage: '指定的路径没有权限';
-              }
-            | {
-                error: 10024;
-                errorMessage: '指定的源文件路径没有读权限';
-              }
-            | {
-                error: 10024;
-                errorMessage: '指定的目标文件路径没有写权限';
-              }
-            | {
-                error: 3;
-                errorMessage: '解压失败';
-              }
-        ): void;
-        /**
-         * 接口调用结束的回调函数（调用成功、失败都会执行）
-         */
-        complete?(
-          arg:
-            | {
-                /**
-                 * 是否成功
-                 */
-                success: true;
-              }
-            | (
-                | {
-                    error?: number;
-                    errorMessage?: string;
-                  }
-                | {
-                    error: 2;
-                    errorMessage: '接口参数无效';
-                  }
-                | {
-                    error: 10022;
-                    errorMessage: '源文件不存在';
-                  }
-                | {
-                    error: 10022;
-                    errorMessage: '上层目录不存在';
-                  }
-                | {
-                    error: 10023;
-                    errorMessage: '传入的路径是一个目录';
-                  }
-                | {
-                    error: 10024;
-                    errorMessage: '指定的路径没有权限';
-                  }
-                | {
-                    error: 10024;
-                    errorMessage: '指定的源文件路径没有读权限';
-                  }
-                | {
-                    error: 10024;
-                    errorMessage: '指定的目标文件路径没有写权限';
-                  }
-                | {
-                    error: 3;
-                    errorMessage: '解压失败';
-                  }
-              )
-        ): void;
-      }
-    ): Promise<{
+        success: true;
+      }): void;
+      /**
+       * 接口调用失败的回调函数
+       */
+      fail?(
+        err:
+          | {
+              error?: number;
+              errorMessage?: string;
+            }
+          | {
+              error: 2;
+              errorMessage: '接口参数无效';
+            }
+          | {
+              error: 10022;
+              errorMessage: '源文件不存在';
+            }
+          | {
+              error: 10022;
+              errorMessage: '上层目录不存在';
+            }
+          | {
+              error: 10023;
+              errorMessage: '传入的路径是一个目录';
+            }
+          | {
+              error: 10024;
+              errorMessage: '指定的路径没有权限';
+            }
+          | {
+              error: 10024;
+              errorMessage: '指定的源文件路径没有读权限';
+            }
+          | {
+              error: 10024;
+              errorMessage: '指定的目标文件路径没有写权限';
+            }
+          | {
+              error: 3;
+              errorMessage: '解压失败';
+            }
+      ): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              /**
+               * 是否成功
+               */
+              success: true;
+            }
+          | (
+              | {
+                  error?: number;
+                  errorMessage?: string;
+                }
+              | {
+                  error: 2;
+                  errorMessage: '接口参数无效';
+                }
+              | {
+                  error: 10022;
+                  errorMessage: '源文件不存在';
+                }
+              | {
+                  error: 10022;
+                  errorMessage: '上层目录不存在';
+                }
+              | {
+                  error: 10023;
+                  errorMessage: '传入的路径是一个目录';
+                }
+              | {
+                  error: 10024;
+                  errorMessage: '指定的路径没有权限';
+                }
+              | {
+                  error: 10024;
+                  errorMessage: '指定的源文件路径没有读权限';
+                }
+              | {
+                  error: 10024;
+                  errorMessage: '指定的目标文件路径没有写权限';
+                }
+              | {
+                  error: 3;
+                  errorMessage: '解压失败';
+                }
+            )
+      ): void;
+    }): Promise<{
       /**
        * 是否成功
        */
@@ -12478,95 +14030,113 @@ declare namespace my {
      * 用于写文件
      * @see https://opendocs.alipay.com/mini/api/022b6s
      */
-    writeFile(
-      r: IWriteFileRequest & {
+    writeFile(object: {
+      /**
+       * 要写入的文件路径
+       */
+      filePath: string;
+      /**
+       * 要写入的文本或二进制数据
+       */
+      data: string | ArrayBuffer;
+      /**
+       * 指定写入文件的字符编码
+       */
+      encoding?:
+        | 'ascii'
+        | 'base64'
+        | 'hex'
+        | 'binary'
+        | 'ucs2'
+        | 'ucs-2'
+        | 'utf16le'
+        | 'utf-16le';
+      /**
+       * 接口调用成功的回调函数
+       */
+      success?(data: {
         /**
-         * 接口调用成功的回调函数
+         * 是否成功
          */
-        success?(data: {
-          /**
-           * 是否成功
-           */
-          success: true;
-        }): void;
-        /**
-         * 接口调用失败的回调函数
-         */
-        fail?(
-          err:
-            | {
-                error?: number;
-                errorMessage?: string;
-              }
-            | {
-                error: 2;
-                errorMessage: '接口参数无效';
-              }
-            | {
-                error: 10024;
-                errorMessage: '指定的路径没有写权限';
-              }
-            | {
-                error: 10024;
-                errorMessage: '指定的路径没有写权限';
-              }
-            | {
-                error: 3;
-                errorMessage: '文件写入失败';
-              }
-            | {
-                error: 10028;
-                errorMessage: '单个文件超过 10M';
-              }
-            | {
-                error: 10028;
-                errorMessage: '文件夹超过 50M';
-              }
-        ): void;
-        /**
-         * 接口调用结束的回调函数（调用成功、失败都会执行）
-         */
-        complete?(
-          arg:
-            | {
-                /**
-                 * 是否成功
-                 */
-                success: true;
-              }
-            | (
-                | {
-                    error?: number;
-                    errorMessage?: string;
-                  }
-                | {
-                    error: 2;
-                    errorMessage: '接口参数无效';
-                  }
-                | {
-                    error: 10024;
-                    errorMessage: '指定的路径没有写权限';
-                  }
-                | {
-                    error: 10024;
-                    errorMessage: '指定的路径没有写权限';
-                  }
-                | {
-                    error: 3;
-                    errorMessage: '文件写入失败';
-                  }
-                | {
-                    error: 10028;
-                    errorMessage: '单个文件超过 10M';
-                  }
-                | {
-                    error: 10028;
-                    errorMessage: '文件夹超过 50M';
-                  }
-              )
-        ): void;
-      }
-    ): Promise<{
+        success: true;
+      }): void;
+      /**
+       * 接口调用失败的回调函数
+       */
+      fail?(
+        err:
+          | {
+              error?: number;
+              errorMessage?: string;
+            }
+          | {
+              error: 2;
+              errorMessage: '接口参数无效';
+            }
+          | {
+              error: 10024;
+              errorMessage: '指定的路径没有写权限';
+            }
+          | {
+              error: 10024;
+              errorMessage: '指定的路径没有写权限';
+            }
+          | {
+              error: 3;
+              errorMessage: '文件写入失败';
+            }
+          | {
+              error: 10028;
+              errorMessage: '单个文件超过 10M';
+            }
+          | {
+              error: 10028;
+              errorMessage: '文件夹超过 50M';
+            }
+      ): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              /**
+               * 是否成功
+               */
+              success: true;
+            }
+          | (
+              | {
+                  error?: number;
+                  errorMessage?: string;
+                }
+              | {
+                  error: 2;
+                  errorMessage: '接口参数无效';
+                }
+              | {
+                  error: 10024;
+                  errorMessage: '指定的路径没有写权限';
+                }
+              | {
+                  error: 10024;
+                  errorMessage: '指定的路径没有写权限';
+                }
+              | {
+                  error: 3;
+                  errorMessage: '文件写入失败';
+                }
+              | {
+                  error: 10028;
+                  errorMessage: '单个文件超过 10M';
+                }
+              | {
+                  error: 10028;
+                  errorMessage: '文件夹超过 50M';
+                }
+            )
+      ): void;
+    }): Promise<{
       /**
        * 是否成功
        */
@@ -12576,7 +14146,28 @@ declare namespace my {
      * 同步用于写文件
      * @see https://opendocs.alipay.com/mini/api/024whd
      */
-    writeFileSync(request: IWriteFileRequest): {
+    writeFileSync(param: {
+      /**
+       * 要写入的文件路径
+       */
+      filePath: string;
+      /**
+       * 要写入的文本或二进制数据
+       */
+      data: string | ArrayBuffer;
+      /**
+       * 指定写入文件的字符编码
+       */
+      encoding?:
+        | 'ascii'
+        | 'base64'
+        | 'hex'
+        | 'binary'
+        | 'ucs2'
+        | 'ucs-2'
+        | 'utf16le'
+        | 'utf-16le';
+    }): {
       success: true;
     };
     /**
@@ -12586,14 +14177,22 @@ declare namespace my {
     writeFileSync(
       filePath: string,
       data: string | ArrayBuffer,
-      encoding?: `${EFileSystemEncoding}`
+      encoding:
+        | 'ascii'
+        | 'base64'
+        | 'hex'
+        | 'binary'
+        | 'ucs2'
+        | 'ucs-2'
+        | 'utf16le'
+        | 'utf-16le'
     ): {
       success: true;
     };
     /**
      * 压缩文件
      */
-    zip(r: {
+    zip(object: {
       /**
        * 源文件路径
        */
@@ -12904,7 +14503,7 @@ declare namespace my {
      * 将当前选择节点的滚动信息放入查询结果
      * @see https://opendocs.alipay.com/mini/api/euyxnr
      */
-    scrollOffset(): this;
+    scrollOffset(callback?: (res: unknown) => void): this;
     /**
      * 选择当前第一个匹配选择器的节点
      * @see https://opendocs.alipay.com/mini/api/mwo97h
@@ -12926,7 +14525,7 @@ declare namespace my {
      * 创建自定义图片图层
      * @description 图片会随着地图缩放而缩放
      */
-    addGroundOverlay(r: {
+    addGroundOverlay(object: {
       /**
        * 图片图层 id
        */
@@ -12971,7 +14570,7 @@ declare namespace my {
     /**
      * 添加 marker
      */
-    addMarkers(r: {
+    addMarkers(object: {
       /**
        * 要添加的 marker
        */
@@ -12999,7 +14598,7 @@ declare namespace my {
      * @description 计算由一系列坐标点所定义的路径的长度，并可计算出该路径上距起始点指定距离的点的坐标。
      * @see https://opendocs.alipay.com/mini/00nfnc
      */
-    calculateDistance(r: {
+    calculateDistance(object: {
       /**
        * 路线中点的经纬度数组。
        */
@@ -13064,7 +14663,7 @@ declare namespace my {
      * 添加、删除、更新指定的 marker
      * @see https://opendocs.alipay.com/mini/00k9uj
      */
-    changeMarkers(r: {
+    changeMarkers(object: {
       /**
        * 需要添加的 marker 数组
        */
@@ -13094,7 +14693,7 @@ declare namespace my {
      * 清除地图上的步行导航路线
      * @see https://opendocs.alipay.com/mini/api/qb6sf9
      */
-    clearRoute(r: {
+    clearRoute(object: {
       /**
        * 组件 id
        */
@@ -13124,7 +14723,7 @@ declare namespace my {
      * 设置所有手势是否可用
      * @see https://opendocs.alipay.com/mini/api/sgwf36
      */
-    gestureEnable(r: {
+    gestureEnable(object: {
       /**
        * 指定手势是否可用
        */
@@ -13146,7 +14745,7 @@ declare namespace my {
      * 获取当前地图中心位置
      * @see https://opendocs.alipay.com/mini/api/vc2gdt
      */
-    getCenterLocation(r: {
+    getCenterLocation(object: {
       /**
        * 组件 id
        */
@@ -13210,7 +14809,7 @@ declare namespace my {
      * 获取地图的属性信息
      * @see https://opendocs.alipay.com/mini/00nfn7
      */
-    getMapProperties(r?: {
+    getMapProperties(object?: {
       /**
        * 接口调用成功的回调函数
        */
@@ -13310,7 +14909,7 @@ declare namespace my {
      * 获取地图的属性信息
      * @see https://opendocs.alipay.com/mini/00nbqs
      */
-    getRegion(r?: {
+    getRegion(object?: {
       /**
        * 接口调用成功的回调函数
        */
@@ -13318,11 +14917,11 @@ declare namespace my {
         /**
          * 地图的西南角经纬度
          */
-        southwest: IMapContextPoint;
+        southwest: IMapContextGetRegionSouthwest;
         /**
          * 地图的东北角经纬度
          */
-        northeast: IMapContextPoint;
+        northeast: IMapContextGetRegionNortheast;
       }): void;
       /**
        * 接口调用失败的回调函数
@@ -13337,11 +14936,11 @@ declare namespace my {
               /**
                * 地图的西南角经纬度
                */
-              southwest: IMapContextPoint;
+              southwest: IMapContextGetRegionSouthwest;
               /**
                * 地图的东北角经纬度
                */
-              northeast: IMapContextPoint;
+              northeast: IMapContextGetRegionNortheast;
             }
           | {
               error?: number;
@@ -13352,17 +14951,17 @@ declare namespace my {
       /**
        * 地图的西南角经纬度
        */
-      southwest: IMapContextPoint;
+      southwest: IMapContextGetRegionSouthwest;
       /**
        * 地图的东北角经纬度
        */
-      northeast: IMapContextPoint;
+      northeast: IMapContextGetRegionNortheast;
     }>;
     /**
      * 获取当前地图的旋转角
      * @see https://opendocs.alipay.com/mini/api/getrotate
      */
-    getRotate(r?: {
+    getRotate(object?: {
       /**
        * 接口调用成功的回调函数
        */
@@ -13402,7 +15001,7 @@ declare namespace my {
      * 获取地图的缩放级别
      * @see https://opendocs.alipay.com/mini/api/getScale
      */
-    getScale(r?: {
+    getScale(object?: {
       /**
        * 接口调用成功的回调函数
        */
@@ -13448,7 +15047,7 @@ declare namespace my {
      * 获取当前地图的倾斜角
      * @see https://opendocs.alipay.com/mini/api/getskew
      */
-    getSkew(r?: {
+    getSkew(object?: {
       /**
        * 接口调用成功的回调函数
        */
@@ -13491,7 +15090,7 @@ declare namespace my {
      * 缩放视野到指定可视区域
      * @see https://opendocs.alipay.com/mini/api/includepoints
      */
-    includePoints(r: {
+    includePoints(object: {
       /**
        * 要显示在可视区域内的坐标点列表
        */
@@ -13518,7 +15117,7 @@ declare namespace my {
      * 初始化点聚合的配置
      * @description 未调用时采用默认配置
      */
-    initMarkerCluster(r: {
+    initMarkerCluster(object: {
       /**
        * 聚合算法可聚合的缩放级别
        */
@@ -13553,48 +15152,55 @@ declare namespace my {
     }): Promise<void>;
     /**
      * 将地图经纬度坐标系转换成屏幕坐标系
+     * @see https://opendocs.alipay.com/mini/api/mapToScreen
      */
-    mapToScreen(
-      r: IMapContextPoint & {
+    mapToScreen(object: {
+      /**
+       * 纬度
+       */
+      latitude: number;
+      /**
+       * 经度
+       */
+      longitude: number;
+      /**
+       * 接口调用成功的回调函数
+       */
+      success?(data: {
         /**
-         * 接口调用成功的回调函数
+         * 横坐标
          */
-        success?(data: {
-          /**
-           * 横坐标
-           */
-          x: number;
-          /**
-           * 纵坐标
-           */
-          y: number;
-        }): void;
+        x: number;
         /**
-         * 接口调用失败的回调函数
+         * 纵坐标
          */
-        fail?(err: { error?: number; errorMessage?: string }): void;
-        /**
-         * 接口调用结束的回调函数（调用成功、失败都会执行）
-         */
-        complete?(
-          arg:
-            | {
-                /**
-                 * 横坐标
-                 */
-                x: number;
-                /**
-                 * 纵坐标
-                 */
-                y: number;
-              }
-            | {
-                error?: number;
-                errorMessage?: string;
-              }
-        ): void;
-      }
-    ): Promise<{
+        y: number;
+      }): void;
+      /**
+       * 接口调用失败的回调函数
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              /**
+               * 横坐标
+               */
+              x: number;
+              /**
+               * 纵坐标
+               */
+              y: number;
+            }
+          | {
+              error?: number;
+              errorMessage?: string;
+            }
+      ): void;
+    }): Promise<{
       /**
        * 横坐标
        */
@@ -13607,28 +15213,35 @@ declare namespace my {
     /**
      * 移动视野到定位点并恢复到默认缩放级别
      * @description 需要配合 map 组件 的 show-location 使用。
+     * @see https://opendocs.alipay.com/mini/api/ans8wt
      */
-    moveToLocation(
-      r: IMapContextPoint & {
-        /**
-         * 接口调用成功的回调函数
-         */
-        success?(data: {}): void;
-        /**
-         * 接口调用失败的回调函数
-         */
-        fail?(err: { error?: number; errorMessage?: string }): void;
-        /**
-         * 接口调用结束的回调函数（调用成功、失败都会执行）
-         */
-        complete?(arg: { error?: number; errorMessage?: string }): void;
-      }
-    ): Promise<void>;
+    moveToLocation(object: {
+      /**
+       * 纬度
+       */
+      latitude: number;
+      /**
+       * 经度
+       */
+      longitude: number;
+      /**
+       * 接口调用成功的回调函数
+       */
+      success?(data: {}): void;
+      /**
+       * 接口调用失败的回调函数
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(arg: { error?: number; errorMessage?: string }): void;
+    }): Promise<void>;
     /**
      * 判断矩形区域是否包含传入的经纬度点
      * @see https://opendocs.alipay.com/mini/api/polygonContainsPoint
      */
-    polygonContainsPoint(r: {
+    polygonContainsPoint(object: {
       /**
        * 矩形区域的经纬度范围
        */
@@ -13675,7 +15288,7 @@ declare namespace my {
     /**
      * 移除自定义图片图层
      */
-    removeGroundOverlay(r: {
+    removeGroundOverlay(object: {
       /**
        * 图片图层 id
        */
@@ -13696,7 +15309,7 @@ declare namespace my {
     /**
      * 移除 marker
      */
-    removeMarkers(r: {
+    removeMarkers(object: {
       /**
        * marker 的 id 集合
        */
@@ -13716,8 +15329,9 @@ declare namespace my {
     }): Promise<void>;
     /**
      * 将屏幕坐标系转换成地图经纬度坐标系
+     * @see https://opendocs.alipay.com/mini/api/screenToMap
      */
-    screenToMap(r: {
+    screenToMap(object: {
       /**
        * 横坐标
        */
@@ -13729,7 +15343,16 @@ declare namespace my {
       /**
        * 接口调用成功的回调函数
        */
-      success?(data: IMapContextPoint): void;
+      success?(data: {
+        /**
+         * 纬度
+         */
+        latitude: number;
+        /**
+         * 经度
+         */
+        longitude: number;
+      }): void;
       /**
        * 接口调用失败的回调函数
        */
@@ -13739,19 +15362,37 @@ declare namespace my {
        */
       complete?(
         arg:
-          | IMapContextPoint
+          | {
+              /**
+               * 纬度
+               */
+              latitude: number;
+              /**
+               * 经度
+               */
+              longitude: number;
+            }
           | {
               error?: number;
               errorMessage?: string;
             }
       ): void;
-    }): Promise<IMapContextPoint>;
+    }): Promise<{
+      /**
+       * 纬度
+       */
+      latitude: number;
+      /**
+       * 经度
+       */
+      longitude: number;
+    }>;
     /**
      * 设置地图中心点偏移
      * @description 向后向下为增长，屏幕比例范围为 (0~1)，默认偏移为 [0.5, 0.5]。
      * @see https://opendocs.alipay.com/mini/api/setcenteroffset
      */
-    setCenterOffset(r: {
+    setCenterOffset(object: {
       /**
        * 偏移量
        */
@@ -13773,7 +15414,7 @@ declare namespace my {
      * 设置地图主题类型
      * @see https://opendocs.alipay.com/mini/api/setmaptype
      */
-    setMapType(r: {
+    setMapType(object: {
       /**
        * 地图主题类型
        * @description 支持类型如下：0：标准地图；1：卫星地图。
@@ -13795,7 +15436,7 @@ declare namespace my {
     /**
      * 设置地图属性
      */
-    setProps(r?: {
+    setProps(object?: {
       /**
        * 接口调用成功的回调函数
        */
@@ -13814,7 +15455,7 @@ declare namespace my {
      * @description 只能显示一条。
      * @see https://opendocs.alipay.com/mini/api/uwffxx
      */
-    showRoute(r: {
+    showRoute(object: {
       /**
        * 搜索类型
        * @default walk
@@ -13891,11 +15532,12 @@ declare namespace my {
     }): Promise<void>;
     /**
      * 设置指南针是否可见
+     * @see https://opendocs.alipay.com/mini/api/rcsrn9
      */
-    showsCompass(r: {
+    showsCompass(object: {
       /**
        * 指南针是否可见
-       * @description 1：可见 2：不可见
+       * @description 1：可见 0：不可见
        */
       isShowsCompass: 0 | 1;
       /**
@@ -13913,8 +15555,9 @@ declare namespace my {
     }): Promise<void>;
     /**
      * 设置比例尺控件是否可见
+     * @see https://opendocs.alipay.com/mini/api/gxk4r0
      */
-    showsScale(r: {
+    showsScale(object: {
       /**
        * 比例尺控件是否可见
        * @description 1：可见 0：不可见。
@@ -13937,7 +15580,7 @@ declare namespace my {
      * 指定 marker 动画
      * @see https://opendocs.alipay.com/mini/00nedv
      */
-    smoothMoveMarker(r: {
+    smoothMoveMarker(object: {
       /**
        * 执行动画的 markerId
        * @description 确保此时 marker 已经在地图上。
@@ -13946,14 +15589,13 @@ declare namespace my {
       /**
        * 传入 marker 对象
        */
-      markerData?: IMapContextMarker;
+      markerData?: IMapContextSmoothMoveMarkerMarkerData;
       /**
        * 动画路线的经纬度集合
        */
-      points: IMapContextPoint[];
+      points: IMapContextSmoothMoveMarkerPoints[];
       /**
        * 动画执行时间
-       * @desription 毫秒（ms）
        * @default 5000
        */
       duration?: number;
@@ -13982,7 +15624,7 @@ declare namespace my {
      * 指定轨迹动画
      * @see https://opendocs.alipay.com/mini/00nd0e
      */
-    smoothMovePolyline(r: {
+    smoothMovePolyline(object: {
       /**
        * 执行动画的路线 id。
        */
@@ -14047,7 +15689,7 @@ declare namespace my {
      * 平移 marker
      * @see https://opendocs.alipay.com/mini/api/sg7chr
      */
-    translateMarker(r: {
+    translateMarker(object: {
       /**
        * 指定 marker
        */
@@ -14055,7 +15697,7 @@ declare namespace my {
       /**
        * 指定 marker 移动到的目标点
        */
-      destination: IMapContextPoint;
+      destination: IMapContextTranslateMarkerDestination;
       /**
        * 移动过程中是否自动旋转 marker
        * @default true
@@ -14091,7 +15733,7 @@ declare namespace my {
      * 增量更新地图的接口
      * @see https://opendocs.alipay.com/mini/api/bph944
      */
-    updateComponents(r?: {
+    updateComponents(object?: {
       /**
        * 中心纬度
        */
@@ -14149,7 +15791,7 @@ declare namespace my {
     /**
      * 增量更新地图的接口
      */
-    updateGroundOverlay(r: {
+    updateGroundOverlay(object: {
       /**
        * 图片图层 id
        */
@@ -14199,7 +15841,7 @@ declare namespace my {
      * @description 建议在收到 onUpdateReady 回调（当小程序新版本下载完成后）
      * @see https://opendocs.alipay.com/mini/api/neau2a
      */
-    applyUpdate(r?: {
+    applyUpdate(object?: {
       /**
        * 接口调用成功的回调函数
        */
@@ -14591,7 +16233,7 @@ declare namespace my {
      * 关闭 WebSocket 连接
      * @see https://opendocs.alipay.com/mini/api/vx19c3#SocketTask
      */
-    close(r?: {
+    close(object?: {
       /**
        * 关闭连接的状态号
        * @default 1000
@@ -14743,7 +16385,7 @@ declare namespace my {
      * 通过 WebSocket 连接发送数据
      * @see https://opendocs.alipay.com/mini/api/vx19c3#SocketTask
      */
-    send(r: {
+    send(object: {
       /**
        * 需要发送的内容：普通的文本内容 string 或者经 Base64 编码后的 string。
        */
@@ -15000,7 +16642,7 @@ declare namespace my {
     /**
      * 返回一次完整的 lottie 动画时间
      */
-    getDuration(r?: {
+    getDuration(object?: {
       /**
        * 接口调用成功的回调函数
        */
@@ -15042,7 +16684,7 @@ declare namespace my {
     /**
      * 获取 Lottie 渲染信息
      */
-    getLottieInfo(r?: {
+    getLottieInfo(object?: {
       /**
        * 接口调用成功的回调函数
        */
@@ -15451,7 +17093,7 @@ declare namespace my {
       radius: number,
       startAngle: number,
       endAngle: number,
-      anticlockwise: boolean
+      anticlockwise?: boolean
     ): void;
     /**
      * 在 Canvas 上绘制圆弧路径
@@ -15571,7 +17213,7 @@ declare namespace my {
      * @description 返回一个 ImageData 对象，用来描述canvas区域隐含的像素数据
      * @see https://opendocs.alipay.com/mini/api/bukvhw
      */
-    getImageData(r: {
+    getImageData(object: {
       x: number;
       y: number;
       width: number;
@@ -15641,7 +17283,7 @@ declare namespace my {
      * 更新 Canvas 指定区域像素数据
      * @see https://opendocs.alipay.com/mini/api/pusaxg
      */
-    putImageData(r: {
+    putImageData(object: {
       data: Uint8ClampedArray;
       x: number;
       y: number;
@@ -15803,7 +17445,7 @@ declare namespace my {
      * 画布上的绘制内容以 data URI 的格式返回
      * @see https://opendocs.alipay.com/mini/api/vemgc6
      */
-    toDataURL(r: {
+    toDataURL(object: {
       x: number;
       y: number;
       width: number;
@@ -15829,7 +17471,7 @@ declare namespace my {
      * 画布指定区域导出图片的方法
      * @see https://opendocs.alipay.com/mini/api/rod3ti
      */
-    toTempFilePath(r?: {
+    toTempFilePath(object?: {
       /**
        * 画布区域的左上角横坐标
        */
@@ -15919,58 +17561,69 @@ declare namespace my {
   }
   export interface Canvas {
     /**
-     * 画布高度
+     * 获取 Canvas 元素高度
      */
     readonly height: number;
     /**
-     * 返回该元素的像素高度
+     * 获取 Canvas 布局高度
      * @description 高度包含该元素的垂直内边距和边框，且是一个整数。
      */
     readonly offsetHeight: number;
     /**
-     * 返回该元素的布局宽度
+     * 获取 Canvas 布局宽度
      * @description 是测量包含元素的边框(border)、水平线上的内边距(padding)、竖直方向滚动条(scrollbar)（如果存在的话）、以及CSS设置的宽度(width)的值。
      */
     readonly offsetWidth: number;
     /**
-     * 画布宽度
+     * 获取 Canvas 元素宽度
      */
     readonly width: number;
     /**
-     * 取消由 requestAnimationFrame 添加的动画帧请求的方法
+     * 取消由 [Canvas.requestAnimationFrame]() 添加的动画帧请求
+     * @see https://opendocs.alipay.com/mini/api/cancelAnimationFrame
      */
     cancelAnimationFrame(requestId: number): void;
     /**
-     * 创建一个图片对象的方法
+     * 创建 [Canvas]() 可用的图片对象
+     * @see https://opendocs.alipay.com/mini/api/createimage
      */
     createImage(): CanvasImage;
     /**
-     * 返回 canvas 的绘制上下文
+     * 返回 [Canvas]() 的绘图上下文
+     * @see https://opendocs.alipay.com/mini/api/getcontext
      */
-    getContext(contextId: '2d'): CanvasRenderingContext2D;
+    getContext(contextType: '2d'): CanvasRenderingContext2D;
     /**
-     * 返回 canvas 的绘制上下文
+     * 返回 [Canvas]() 的绘图上下文
+     * @see https://opendocs.alipay.com/mini/api/getcontext
      */
     getContext(
-      contextId: 'webgl',
-      options?: WebGLContextAttributes
+      contextType: 'webgl',
+      options?: {
+        /**
+         * 是否开启抗锯齿。
+         */
+        antialias?: boolean;
+      }
     ): WebGLRenderingContext;
     /**
      * 录制视频
      */
     getVideoRecorder(): CanvasVideoRecorder;
     /**
-     * 在下次重绘时执行的方法
+     * 请求在下次 Canvas 帧重绘时执行
+     * @see https://opendocs.alipay.com/mini/api/requestAnimationFrame
      */
     requestAnimationFrame(callback: (timestamp: number) => void): number;
     /**
-     * 把画布上的绘制内容以一个 data URI 的格式返回
+     * 将 Canvas 绘制内容导出为 data URI 格式
      */
     toDataURL(type: 'image/png' | ' image/jpeg', quality: number): string;
     /**
      * 画布导出生成图片的方法
+     * @see https://opendocs.alipay.com/mini/api/toTempFilePath
      */
-    toTempFilePath(r?: {
+    toTempFilePath(object?: {
       /**
        * 指定的画布区域的左上角横坐标
        */
@@ -16016,16 +17669,7 @@ declare namespace my {
       /**
        * 接口调用失败的回调函数
        */
-      fail?(err: {
-        /**
-         * 错误码
-         */
-        error: number;
-        /**
-         * 错误信息
-         */
-        errorMessage: string;
-      }): void;
+      fail?(err: { error?: number; errorMessage?: string }): void;
       /**
        * 接口调用结束的回调函数（调用成功、失败都会执行）
        */
@@ -16038,14 +17682,8 @@ declare namespace my {
               tempFilePath: string;
             }
           | {
-              /**
-               * 错误码
-               */
-              error: number;
-              /**
-               * 错误信息
-               */
-              errorMessage: string;
+              error?: number;
+              errorMessage?: string;
             }
       ): void;
     }): Promise<{
@@ -16073,17 +17711,6 @@ declare namespace my {
      */
     createImage(): CanvasImage;
     /**
-     * 返回 canvas 的绘制上下文
-     */
-    getContext(contextId: '2d'): CanvasRenderingContext2D;
-    /**
-     * 返回 canvas 的绘制上下文
-     */
-    getContext(
-      contextId: 'webgl',
-      options?: WebGLContextAttributes
-    ): WebGLRenderingContext;
-    /**
      * 在下次重绘时执行的方法
      */
     requestAnimationFrame(callback: (timestamp: number) => void): number;
@@ -16094,7 +17721,7 @@ declare namespace my {
     /**
      * 画布导出生成图片的方法
      */
-    toTempFilePath(r?: {
+    toTempFilePath(object?: {
       /**
        * 指定的画布区域的左上角横坐标
        */
@@ -16140,16 +17767,7 @@ declare namespace my {
       /**
        * 接口调用失败的回调函数
        */
-      fail?(err: {
-        /**
-         * 错误码
-         */
-        error: number;
-        /**
-         * 错误信息
-         */
-        errorMessage: string;
-      }): void;
+      fail?(err: { error?: number; errorMessage?: string }): void;
       /**
        * 接口调用结束的回调函数（调用成功、失败都会执行）
        */
@@ -16162,14 +17780,8 @@ declare namespace my {
               tempFilePath: string;
             }
           | {
-              /**
-               * 错误码
-               */
-              error: number;
-              /**
-               * 错误信息
-               */
-              errorMessage: string;
+              error?: number;
+              errorMessage?: string;
             }
       ): void;
     }): Promise<{
@@ -16320,11 +17932,11 @@ declare namespace my {
     /**
      * 将当前创建的路径设置为当前剪切路径的方法
      */
-    clip(fillRule?: TMYCanvasFillRule): void;
+    clip(fillRule?: 'evenodd' | 'nonzero'): void;
     /**
      * 将当前创建的路径设置为当前剪切路径的方法
      */
-    clip(path: Path2D, fillRule?: TMYCanvasFillRule): void;
+    clip(path: Path2D, fillRule?: 'evenodd' | 'nonzero'): void;
     /**
      * 将笔点返回到当前子路径起始点的方法
      * @description 它尝试从当前点到起始点绘制一条直线。 如果图形已经是封闭的或者只有一个点，那么此方法不会做任何操作。
@@ -16355,7 +17967,7 @@ declare namespace my {
      * 使用指定的图像创建模式的方法
      */
     createPattern(
-      image: TMYCanvasImageSource,
+      image: Canvas | CanvasImage,
       repetition: string | null
     ): CanvasPattern | null;
     /**
@@ -16379,13 +17991,13 @@ declare namespace my {
      * 绘制图像的方法
      * @description 用户绘制图像，图像保持原始尺寸
      */
-    drawImage(image: TMYCanvasImageSource, dx: number, dy: number): void;
+    drawImage(image: Canvas | CanvasImage, dx: number, dy: number): void;
     /**
      * 绘制图像的方法
      * @description 用户绘制图像，图像保持原始尺寸
      */
     drawImage(
-      image: TMYCanvasImageSource,
+      image: Canvas | CanvasImage,
       dx: number,
       dy: number,
       dWidth: number,
@@ -16396,7 +18008,7 @@ declare namespace my {
      * @description 用户绘制图像，图像保持原始尺寸
      */
     drawImage(
-      image: TMYCanvasImageSource,
+      image: Canvas | CanvasImage,
       sx: number,
       sy: number,
       sWidth: number,
@@ -16423,11 +18035,11 @@ declare namespace my {
     /**
      * 根据当前的填充样式填充当前或已存在的路径的方法
      */
-    fill(fillRule?: TMYCanvasFillRule): void;
+    fill(fillRule?: 'evenodd' | 'nonzero'): void;
     /**
      * 根据当前的填充样式填充当前或已存在的路径的方法
      */
-    fill(path: Path2D, fillRule?: TMYCanvasFillRule): void;
+    fill(path: Path2D, fillRule?: 'evenodd' | 'nonzero'): void;
     /**
      * 绘制填充矩形的方法
      */
@@ -16891,7 +18503,7 @@ declare namespace my {
     /**
      * 激活指定的纹理单元
      */
-    activeTexture(texture: TMYGLenum): void;
+    activeTexture(texture: number): void;
     /**
      * 往 WebGLProgram 添加一个片段或者顶点着色器
      */
@@ -16901,119 +18513,106 @@ declare namespace my {
      */
     bindAttribLocation(
       program: WebGLProgram,
-      index: TMYGLuint,
+      index: number,
       name: string
     ): void;
     /**
      * 将给定的 WebGLBuffer 绑定到目标
      */
-    bindBuffer(target: TMYGLenum, buffer: WebGLBuffer | null): void;
+    bindBuffer(target: number, buffer: WebGLBuffer | null): void;
     /**
      * 将给定的 WebGLFramebuffer 绑定到目标
      */
-    bindFramebuffer(
-      target: TMYGLenum,
-      framebuffer: WebGLFramebuffer | null
-    ): void;
+    bindFramebuffer(target: number, framebuffer: WebGLFramebuffer | null): void;
     /**
      * 将给定的 WebGLRenderbuffer 绑定到目标
      * @description 它必须是 gl.RENDERBUFFER
      */
     bindRenderbuffer(
-      target: TMYGLenum,
+      target: number,
       renderbuffer: WebGLRenderbuffer | null
     ): void;
     /**
      * 将给定的 WebGLTexture 绑定到目标
      */
-    bindTexture(target: TMYGLenum, texture: WebGLTexture | null): void;
+    bindTexture(target: number, texture: WebGLTexture | null): void;
     /**
      * 用于设置源和目标混合因子
      */
-    blendColor(
-      red: TMYGLclampf,
-      green: TMYGLclampf,
-      blue: TMYGLclampf,
-      alpha: TMYGLclampf
-    ): void;
+    blendColor(red: number, green: number, blue: number, alpha: number): void;
     /**
      * 将 RGB 混合方程和 alpha 混合方程设置为单个方程
      * @description 混合方程式确定新像素如何与 WebGLFramebuffer 中的像素组合
      */
-    blendEquation(mode: TMYGLenum): void;
+    blendEquation(mode: number): void;
     /**
      * 设置 RGB 混合方程和 alpha 混合方程
      * @description 混合方程决定了新像素如何与 WebGLFramebuffer 中已有的像素组合
      */
-    blendEquationSeparate(modeRGB: TMYGLenum, modeAlpha: TMYGLenum): void;
+    blendEquationSeparate(modeRGB: number, modeAlpha: number): void;
     /**
      * 定义混合像素算法的函数
      */
-    blendFunc(sfactor: TMYGLenum, dfactor: TMYGLenum): void;
+    blendFunc(sfactor: number, dfactor: number): void;
     /**
      * 定义混合 RGB 和 alpha 分量的像素算术的函数
      */
     blendFuncSeparate(
-      srcRGB: TMYGLenum,
-      dstRGB: TMYGLenum,
-      srcAlpha: TMYGLenum,
-      dstAlpha: TMYGLenum
+      srcRGB: number,
+      dstRGB: number,
+      srcAlpha: number,
+      dstAlpha: number
     ): void;
     /**
      * 创建并初始化 Buffer 对象的数据存储区
      */
-    bufferData(target: TMYGLenum, size: TMYGLsizeiptr, usage: TMYGLenum): void;
+    bufferData(target: number, size: number, usage: number): void;
     /**
      * 创建并初始化 Buffer 对象的数据存储区
      */
     bufferData(
-      target: TMYGLenum,
-      srcData: TMYBufferSource | null,
-      usage: TMYGLenum
+      target: number,
+      srcData: ArrayBufferView | ArrayBuffer | null,
+      usage: number
     ): void;
     /**
      * 更新缓冲区对象的数据存储的子集
      */
     bufferSubData(
-      target: TMYGLenum,
-      offset: TMYGLintptr,
-      srcData: TMYBufferSource
+      target: number,
+      offset: number,
+      srcData: ArrayBuffer | ArrayBufferView
     ): void;
     /**
      * 返回 WebGLFramebuffer 对象的完整性状态
      */
-    checkFramebufferStatus(target: TMYGLenum): TMYGLenum;
+    checkFramebufferStatus(target: number): number;
     /**
      * 使用预设值来清空缓冲区
      */
-    clear(mask: TMYGLbitfield): void;
+    clear(mask: number): void;
     /**
      * 用于设置清空颜色缓冲时的颜色值
      * @description 这指定调用 clear() 方法时使用的颜色值。这些值在 0 到 1 的范围间。
      */
-    clearColor(
-      red: TMYGLclampf,
-      green: TMYGLclampf,
-      blue: TMYGLclampf,
-      alpha: TMYGLclampf
-    ): void;
+    clearColor(red: number, green: number, blue: number, alpha: number): void;
     /**
      * 用于设置深度缓冲区的深度清除值
      * @description 这个深度清除值的设定，是为了调用clear() 的时候使用，这个值的范围是 0 到 1。
      */
-    clearDepth(depth: TMYGLclampf): void;
+    clearDepth(depth: number): void;
     /**
      * 指定模板缓冲区的清除值
      */
-    clearStencil(s: TMYGLint): void;
+    clearStencil(s: number): void;
     /**
      * 设置在绘制或渲染到 WebGLFramebuffer 时启用或禁用哪些颜色组件
      */
     colorMask(
-      red: TMYGLboolean,
-      green: TMYGLboolean,
-      blue: TMYGLboolean,
-      alpha: TMYGLboolean
+      red: boolean,
+      green: boolean,
+      blue: boolean,
+      alpha: boolean
     ): void;
     /**
      * 编译 GLSL 着色器
@@ -17024,12 +18623,12 @@ declare namespace my {
      * 压缩二维或三维纹理图像的格式
      */
     compressedTexImage2D(
-      target: TMYGLenum,
-      level: TMYGLint,
-      internalformat: TMYGLenum,
-      width: TMYGLsizei,
-      height: TMYGLsizei,
-      border: TMYGLint,
+      target: number,
+      level: number,
+      internalformat: number,
+      width: number,
+      height: number,
+      border: number,
       pixels: ArrayBufferView
     ): void;
     /**
@@ -17037,40 +18636,40 @@ declare namespace my {
      * @description 在使用此方法之前，必须通过 WebGL 扩展启用压缩图像格式。
      */
     compressedTexSubImage2D(
-      target: TMYGLenum,
-      level: TMYGLint,
-      xoffset: TMYGLint,
-      yoffset: TMYGLint,
-      width: TMYGLsizei,
-      height: TMYGLsizei,
-      format: TMYGLenum,
+      target: number,
+      level: number,
+      xoffset: number,
+      yoffset: number,
+      width: number,
+      height: number,
+      format: number,
       pixels: ArrayBufferView
     ): void;
     /**
      * 将像素从当前 WebGLFramebuffer 复制到 2D 纹理图像中
      */
     copyTexImage2D(
-      target: TMYGLenum,
-      level: TMYGLint,
-      internalformat: TMYGLenum,
-      x: TMYGLint,
-      y: TMYGLint,
-      width: TMYGLsizei,
-      height: TMYGLsizei,
-      border: TMYGLint
+      target: number,
+      level: number,
+      internalformat: number,
+      x: number,
+      y: number,
+      width: number,
+      height: number,
+      border: number
     ): void;
     /**
      * 将像素从当前 WebGLFramebuffer 复制到现有的 2D 纹理子图像中
      */
     copyTexSubImage2D(
-      target: TMYGLenum,
-      level: TMYGLint,
-      xoffset: TMYGLint,
-      yoffset: TMYGLint,
-      x: TMYGLint,
-      y: TMYGLint,
-      width: TMYGLsizei,
-      height: TMYGLsizei
+      target: number,
+      level: number,
+      xoffset: number,
+      yoffset: number,
+      x: number,
+      y: number,
+      width: number,
+      height: number
     ): void;
     /**
      * 创建并初始化一个用于储存顶点数据或着色数据的 WebGLBuffer 对象
@@ -17092,7 +18691,7 @@ declare namespace my {
      * 创建 WebGLShader 着色器对象
      * @description 该对象可以使用 WebGLRenderingContext.shaderSource() 和 WebGLRenderingContext.compileShader() 方法配置着色器代码。
      */
-    createShader(type: TMYGLenum): WebGLShader | null;
+    createShader(type: number): WebGLShader | null;
     /**
      * 创建并初始化 WebGLTexture 目标
      */
@@ -17100,7 +18699,7 @@ declare namespace my {
     /**
      * 指定正面或背面多边形是否可以剔除
      */
-    cullFace(mode: TMYGLenum): void;
+    cullFace(mode: number): void;
     /**
      * 删除给定的 WebGLBuffer 对象
      * @description 若给定的 WebGLBuffer 对象已经被删除了，调用该方法将不会产生任何效果。
@@ -17134,15 +18733,15 @@ declare namespace my {
     /**
      * 设置将输入像素深度与当前深度缓冲区值进行比较的函数
      */
-    depthFunc(func: TMYGLenum): void;
+    depthFunc(func: number): void;
     /**
      * 设置是否启用写入深度缓冲
      */
-    depthMask(flag: TMYGLboolean): void;
+    depthMask(flag: boolean): void;
     /**
      * 指定从标准化设备坐标到窗口或视口坐标的深度范围映射
      */
-    depthRange(zNear: TMYGLclampf, zFar: TMYGLclampf): void;
+    depthRange(zNear: number, zFar: number): void;
     /**
      * 从 WebGLProgram 中分离一个先前附加的片段或者顶点着色器
      */
@@ -17150,32 +18749,32 @@ declare namespace my {
     /**
      * 禁用此上下文的特定 WebGL 功能
      */
-    disable(cap: TMYGLenum): void;
+    disable(cap: number): void;
     /**
      * 在给定的索引位置关闭通用顶点属性数组
      */
-    disableVertexAttribArray(index: TMYGLuint): void;
+    disableVertexAttribArray(index: number): void;
     /**
      * 用于从向量数组中绘制图元
      */
-    drawArrays(mode: TMYGLenum, first: TMYGLint, count: TMYGLsizei): void;
+    drawArrays(mode: number, first: number, count: number): void;
     /**
      * 从数组数据渲染图元
      */
     drawElements(
-      mode: TMYGLenum,
-      count: TMYGLsizei,
-      type: TMYGLenum,
-      offset: TMYGLintptr
+      mode: number,
+      count: number,
+      type: number,
+      offset: number
     ): void;
     /**
      * 对该上下文开启某种特性
      */
-    enable(cap: TMYGLenum): void;
+    enable(cap: number): void;
     /**
      * 指定索引处的通用顶点属性数组
      */
-    enableVertexAttribArray(index: TMYGLuint): void;
+    enableVertexAttribArray(index: number): void;
     /**
      * 阻止执行
      * @description 阻止执行，直到所有先前调用的命令都完成
@@ -17190,69 +18789,62 @@ declare namespace my {
      * 将 WebGLRenderbuffer 对象附加到 WebGLFramebuffer 对象
      */
     framebufferRenderbuffer(
-      target: TMYGLenum,
-      attachment: TMYGLenum,
-      renderbuffertarget: TMYGLenum,
+      target: number,
+      attachment: number,
+      renderbuffertarget: number,
       renderbuffer: WebGLRenderbuffer | null
     ): void;
     /**
      * 将纹理附加到 WebGLFramebuffer
      */
     framebufferTexture2D(
-      target: TMYGLenum,
-      attachment: TMYGLenum,
-      textarget: TMYGLenum,
+      target: number,
+      attachment: number,
+      textarget: number,
       texture: WebGLTexture | null,
-      level: TMYGLint
+      level: number
     ): void;
     /**
      * 指定多边形是正面还是背面
      * @description 通过设置缠绕方向来指定多边形是正面还是背面
      */
-    frontFace(mode: TMYGLenum): void;
+    frontFace(mode: number): void;
     /**
      * 为 WebGLTexture 对象生成一组 mipmap
-     * @description Mipmaps 用于创建与对象的距离。
+     * @description
+     * Mipmaps 用于创建与对象的距离。
      * 较高分辨率的 mipmap 用于较近的对象，较低分辨率的 mipmap 用于较远的对象。
      * 它从纹理图像的分辨率开始，然后将分辨率减半，直到创建 1x1 尺寸的纹理图像。
      */
-    generateMipmap(target: TMYGLenum): void;
+    generateMipmap(target: number): void;
     /**
      * 返回 WebGLActiveInfo 对象
      * @description 返回一个包含大小、类型和顶点属性名称的 WebGLActiveInfo 对象，它通常在查询未知属性以进行调试或创建通用库时使用。
      */
     getActiveAttrib(
       program: WebGLProgram,
-      index: TMYGLuint
+      index: number
     ): WebGLActiveInfo | null;
     /**
-     * 返回 WebGLActiveInfo 对象
-     * @description 其中包含统一属性的大小、类型和名称。它通常在查询未知制服以进行调试或创建通用库时使用。
+     * 获取 WebGLActiveInfo 对象
+     * @description 其中包含 uniform 的大小、类型和名称。它通常在进行调试或创建通用库时查询未知 uniform。
      */
     getActiveUniform(
       program: WebGLProgram,
-      index: TMYGLuint
+      index: number
     ): WebGLActiveInfo | null;
     /**
      * 返回附加到 WebGLProgram 的 WebGLShader 对象列表
      */
-    getAttachedShaders(program: WebGLProgram): /**
-     * @summary 附加到给定 WebGLProgram 的 WebGLShader 对象数组
-     */ WebGLShader[] | null;
+    getAttachedShaders(program: WebGLProgram): Array<WebGLShader>;
     /**
      * 返回了给定 WebGLProgram 对象中某属性的下标指向位置
      */
-    getAttribLocation(program: WebGLProgram, name: string): TMYGLint;
+    getAttribLocation(program: WebGLProgram, name: string): number;
     /**
      * 返回缓冲区的信息
      */
-    getBufferParameter(
-      target: TMYGLenum,
-      pname: TMYGLenum
-    ): /**
-     * @summary 取决于请求的信息
-     * @description由 pname 指定
-     */ TMYGLint | TMYGLenum;
+    getBufferParameter(target: number, pname: number): number;
     /**
      * 返回 WebGLContextAttributes 对象
      * @description 返回一个包含实际上下文参数的 WebGLContextAttributes 对象，如果上下文丢失，可能返回 null。
@@ -17261,7 +18853,7 @@ declare namespace my {
     /**
      * 返回错误信息
      */
-    getError(): TMYGLenum;
+    getError(): number;
     /**
      * 启用一个 WebGL 扩展
      */
@@ -17270,85 +18862,66 @@ declare namespace my {
      * 返回有关帧缓冲区附件的信息
      */
     getFramebufferAttachmentParameter(
-      target: TMYGLenum,
-      attachment: TMYGLenum,
-      pname: TMYGLenum
+      target: number,
+      attachment: number,
+      pname: number
     ): /**
-     * @summary 取决于请求的信息
-     * @description 由 pname 指定，GLint、GLenum、WebGLRenderbuffer 或 WebGLTexture。
-     */ TMYGLint | TMYGLenum | WebGLRenderbuffer | WebGLTexture;
+     * @summary 取决于请求的信息， 由 pname 指定
+     */
+    number | WebGLRenderbuffer | WebGLTexture;
     /**
      * 为传入的参数名称返回一个值
      */
-    getParameter(pname: TMYGLenum): unknown;
+    getParameter(pname: number): unknown;
     /**
      * 返回参数中指定的 WebGLProgram 对象的信息
      * @description 这些信息包括在 linking 过程中的错误以及 WebGLProgram 对象合法性检查的错误
      */
-    getProgramInfoLog(program: WebGLProgram): /**
-     * @summary 返回的信息
-     * @description 这些信息包括在 linking 过程中的错误以及 WebGLProgram 对象合法性检查的错误
-     */ string | null;
+    getProgramInfoLog(program: WebGLProgram): string | null;
     /**
      * 返回 WebGLProgram 的信息
      */
-    getProgramParameter(program: WebGLProgram, pname: TMYGLenum): unknown;
+    getProgramParameter(program: WebGLProgram, pname: number): unknown;
     /**
      * 返回有关渲染缓冲区的信息
      */
-    getRenderbufferParameter(
-      target: TMYGLenum,
-      pname: TMYGLenum
-    ): /**
-     * @summary 取决于请求的信息
-     * @description 由 pname 指定
-     */ TMYGLint | TMYGLenum;
+    getRenderbufferParameter(target: number, pname: number): number;
     /**
      * 返回指定 WebGLShader 对象的信息日志
      * @description 它包含警告、调试和编译信息。
      */
-    getShaderInfoLog(shader: WebGLShader): /**
-     * @summary 返回的信息
-     * @description 其中包含有关上次编译操作的诊断消息、警告消息和其他信息。 最初创建 WebGLShader 对象时，其信息日志将是长度为 0 的字符串。
-     */ string | null;
+    getShaderInfoLog(shader: WebGLShader): string | null;
     /**
      * 返回给定的着色器信息
      */
-    getShaderParameter(shader: WebGLShader, pname: TMYGLenum): unknown;
+    getShaderParameter(shader: WebGLShader, pname: number): unknown;
     /**
      * 返回 WebGLShaderPrecisionFormat 对象
      * @description 返回一个新的 WebGLShaderPrecisionFormat 对象，描述指定着色器数字格式的范围和精度
      */
     getShaderPrecisionFormat(
-      shadertype: TMYGLenum,
-      precisiontype: TMYGLenum
+      shadertype: number,
+      precisiontype: number
     ): WebGLShaderPrecisionFormat | null;
     /**
      * 返回 WebGLShader 的源码
      */
-    getShaderSource(shader: WebGLShader): /**
-     * @summary 返回值
-     * @description 一个包含了指定着色器的源码的 DOMString
-     */ string | null;
+    getShaderSource(shader: WebGLShader): string | null;
     /**
      * 返回支持的 WebGL 扩展的列表
      */
-    getSupportedExtensions(): /**
-     * @summary 返回值
-     * @description 一个字符串 Array 数组，包含所有支持 WebGL 的扩展
-     */ string[] | null;
+    getSupportedExtensions(): string[] | null;
     /**
      * 返回特定的纹理信息
      */
-    getTexParameter(target: TMYGLenum, pname: TMYGLenum): unknown;
+    getTexParameter(target: number, pname: number): unknown;
     /**
-     * 返回指定位置的全局变量的值
+     * 获取指定位置 uniform 的值
      */
     getUniform(program: WebGLProgram, location: WebGLUniformLocation): unknown;
     /**
-     * 返回给定 WebGLProgram 统一变量的位置
-     * @description 统一变量作为 WebGLUniformLocation 对象返回，该对象是一个不透明的标识符，用于指定统一变量在 GPU 内存中的位置。
-     * 获得制服的位置后，您可以使用其他制服访问方法之一访问制服本身，将制服位置作为输入之一传入：
+     * 获取给定 WebGLProgram uniform 的位置
+     * @description uniform 作为 WebGLUniformLocation 对象返回，该对象是一个不透明的标识符，用于指定 uniform 在 GPU 内存中的位置。获得 uniform 的位置后，您可以使用其他 uniform 访问方法之一访问 uniform 本身，将 uniform 位置作为输入之一传入。
      */
     getUniformLocation(
       program: WebGLProgram,
@@ -17357,21 +18930,21 @@ declare namespace my {
     /**
      * 返回有关给定位置的顶点属性的信息
      */
-    getVertexAttrib(index: TMYGLuint, pname: TMYGLenum): unknown;
+    getVertexAttrib(index: number, pname: number): unknown;
     /**
      * 返回指定顶点属性的地址
      */
-    getVertexAttribOffset(index: TMYGLuint, pname: TMYGLenum): TMYGLintptr;
+    getVertexAttribOffset(index: number, pname: number): number;
     /**
      * 指定某些行为的提示
      * @description 这些提示的解释取决于实现。
      */
-    hint(target: TMYGLenum, mode: TMYGLenum): void;
+    hint(target: number, mode: number): void;
     /**
      * 传入的 WebGLBuffer 是否有效
      * @description 有效则返回 true，否则返回 false
      */
-    isBuffer(buffer: WebGLBuffer | null): TMYGLboolean;
+    isBuffer(buffer: WebGLBuffer | null): boolean;
     /**
      * 标记 WebGL 的上下文是否已经丢失
      */
@@ -17379,31 +18952,31 @@ declare namespace my {
     /**
      * 用来检测给定的 WebGL 功能项在当前上下文是否可用
      */
-    isEnabled(cap: TMYGLenum): TMYGLboolean;
+    isEnabled(cap: number): boolean;
     /**
      * 传入的 WebGLFramebuffer 是否有效
      */
-    isFramebuffer(framebuffer: WebGLFramebuffer | null): TMYGLboolean;
+    isFramebuffer(framebuffer: WebGLFramebuffer | null): boolean;
     /**
      * 传入的 WebGLProgram 是否是一个合法的着色器程序
      */
-    isProgram(program: WebGLProgram | null): TMYGLboolean;
+    isProgram(program: WebGLProgram | null): boolean;
     /**
      * 传入的 WebGLRenderbuffer 是否有效
      */
-    isRenderbuffer(renderbuffer: WebGLRenderbuffer | null): TMYGLboolean;
+    isRenderbuffer(renderbuffer: WebGLRenderbuffer | null): boolean;
     /**
      * 传入的 WebGLShader 是否有效
      */
-    isShader(shader: WebGLShader | null): TMYGLboolean;
+    isShader(shader: WebGLShader | null): boolean;
     /**
      * 传入的 WebGLTexture 是否有效
      */
-    isTexture(texture: WebGLTexture | null): TMYGLboolean;
+    isTexture(texture: WebGLTexture | null): boolean;
     /**
      * 设置光栅化线的线宽
      */
-    lineWidth(width: TMYGLfloat): void;
+    lineWidth(width: number): void;
     /**
      * 链接给定的 WebGLProgram
      * @description 链接给定的 WebGLProgram，从而完成为程序的片元和顶点着色器准备 GPU 代码的过程
@@ -17412,47 +18985,42 @@ declare namespace my {
     /**
      * 图像预处理的函数
      */
-    pixelStorei(pname: TMYGLenum, param: TMYGLint | TMYGLboolean): void;
+    pixelStorei(pname: number, param: number | boolean): void;
     /**
      * 指定计算深度值的比例因子和单位
      * @description 在执行深度测试之前和将值写入深度缓冲区之前添加偏移量。
      */
-    polygonOffset(factor: TMYGLfloat, units: TMYGLfloat): void;
+    polygonOffset(factor: number, units: number): void;
     /**
      * 从当前颜色帧缓冲区的指定矩形中读取一块像素到 ArrayBufferView 对象中
      */
     readPixels(
-      x: TMYGLint,
-      y: TMYGLint,
-      width: TMYGLsizei,
-      height: TMYGLsizei,
-      format: TMYGLenum,
-      type: TMYGLenum,
+      x: number,
+      y: number,
+      width: number,
+      height: number,
+      format: number,
+      type: number,
       pixels: ArrayBufferView | null
     ): void;
     /**
      * 创建和初始化一个渲染缓冲区对象的数据存储
      */
     renderbufferStorage(
-      target: TMYGLenum,
-      internalformat: TMYGLenum,
-      width: TMYGLsizei,
-      height: TMYGLsizei
+      target: number,
+      internalformat: number,
+      width: number,
+      height: number
     ): void;
     /**
      * 为抗锯齿效果指定多样本覆盖参数
      */
-    sampleCoverage(value: TMYGLclampf, invert: TMYGLboolean): void;
+    sampleCoverage(value: number, invert: boolean): void;
     /**
      * 将绘图区域限制在其限定的盒形区域
      * @description 指定了一个裁剪区域，用来将绘图区域限制在其限定的盒形区域内
      */
-    scissor(
-      x: TMYGLint,
-      y: TMYGLint,
-      width: TMYGLsizei,
-      height: TMYGLsizei
-    ): void;
+    scissor(x: number, y: number, width: number, height: number): void;
     /**
      * 返回 WebGLShader 的源码
      */
@@ -17460,98 +19028,98 @@ declare namespace my {
     /**
      * 设置模板测试的前后功能和参考值
      */
-    stencilFunc(func: TMYGLenum, ref: TMYGLint, mask: TMYGLuint): void;
+    stencilFunc(func: number, ref: number, mask: number): void;
     /**
      * 设置模板测试的正面或背面功能和参考值
      * @description Stencilling 启用和禁用基于每个像素的绘图。 它通常用于多通道渲染以实现特殊效果。
      */
     stencilFuncSeparate(
-      face: TMYGLenum,
-      func: TMYGLenum,
-      ref: TMYGLint,
-      mask: TMYGLuint
+      face: number,
+      func: number,
+      ref: number,
+      mask: number
     ): void;
     /**
      * 控制启用和禁用模板平面中各个位的正面和背面写入
      * @description WebGLRenderingContext.stencilMaskSeparate() 方法可以将前后模板写入掩码设置为不同的值。
      */
-    stencilMask(mask: TMYGLuint): void;
+    stencilMask(mask: number): void;
     /**
      * 控制启用和禁用模板平面中各个位的正面或背面写入
      * @description WebGLRenderingContext.stencilMask() 方法可以同时将正面和背面模板写入掩码设置为一个值。
      */
-    stencilMaskSeparate(face: TMYGLenum, mask: TMYGLuint): void;
+    stencilMaskSeparate(face: number, mask: number): void;
     /**
      * 设置正面和背面模板测试操作。
      */
-    stencilOp(fail: TMYGLenum, zfail: TMYGLenum, zpass: TMYGLenum): void;
+    stencilOp(fail: number, zfail: number, zpass: number): void;
     /**
      * 设置正面和/或背面模板测试操作
      */
     stencilOpSeparate(
-      face: TMYGLenum,
-      fail: TMYGLenum,
-      zfail: TMYGLenum,
-      zpass: TMYGLenum
+      face: number,
+      fail: number,
+      zfail: number,
+      zpass: number
     ): void;
     /**
      * 指定二维纹理图像
      */
     texImage2D(
-      target: TMYGLenum,
-      level: TMYGLint,
-      internalformat: TMYGLint,
-      width: TMYGLsizei,
-      height: TMYGLsizei,
-      border: TMYGLint,
-      format: TMYGLenum,
-      type: TMYGLenum,
+      target: number,
+      level: number,
+      internalformat: number,
+      width: number,
+      height: number,
+      border: number,
+      format: number,
+      type: number,
       pixels: ArrayBufferView | null
     ): void;
     /**
      * 指定二维纹理图像
      */
     texImage2D(
-      target: TMYGLenum,
-      level: TMYGLint,
-      internalformat: TMYGLint,
-      format: TMYGLenum,
-      type: TMYGLenum,
-      pixels: TMYCanvasImageSource
+      target: number,
+      level: number,
+      internalformat: number,
+      format: number,
+      type: number,
+      pixels: Canvas | CanvasImage
     ): void;
     /**
      * 用于设置纹理参数
      */
-    texParameterf(target: TMYGLenum, pname: TMYGLenum, param: TMYGLfloat): void;
+    texParameterf(target: number, pname: number, param: number): void;
     /**
      * 用于设置纹理参数
      */
-    texParameteri(target: TMYGLenum, pname: TMYGLenum, param: TMYGLint): void;
+    texParameteri(target: number, pname: number, param: number): void;
     /**
      * 指定当前纹理的子矩形
      */
     texSubImage2D(
-      target: TMYGLenum,
-      level: TMYGLint,
-      xoffset: TMYGLint,
-      yoffset: TMYGLint,
-      width: TMYGLsizei,
-      height: TMYGLsizei,
-      format: TMYGLenum,
-      type: TMYGLenum,
+      target: number,
+      level: number,
+      xoffset: number,
+      yoffset: number,
+      width: number,
+      height: number,
+      format: number,
+      type: number,
       pixels: ArrayBufferView | null
     ): void;
     /**
      * 指定当前纹理的子矩形
      */
     texSubImage2D(
-      target: TMYGLenum,
-      level: TMYGLint,
-      xoffset: TMYGLint,
-      yoffset: TMYGLint,
-      format: TMYGLenum,
-      type: TMYGLenum,
-      pixels: TMYCanvasImageSource
+      target: number,
+      level: number,
+      xoffset: number,
+      yoffset: number,
+      format: number,
+      type: number,
+      pixels: Canvas | CanvasImage
     ): void;
     /**
      * 把画布上的绘制内容以一个 data URI 的格式返回
@@ -17559,153 +19127,196 @@ declare namespace my {
     toDataURL(type: 'image/png' | ' image/jpeg', quality: number): string;
     /**
      * 指定 uniform 变量
-     * @description 所有在 ShaderProgram 对象中定义的，且激活的 uniform 变量在 ShaderProgram 执行 link 成功后被初始化为 0。
+     * @description
+     * 所有在 ShaderProgram 对象中定义的，且激活的 uniform 变量在 ShaderProgram 执行 link 成功后被初始化为 0。
      * 它们将保留通过调用此方法分配给它们的值，直到再次将其初始化为 0 时，也就是 ShaderProgram 对象上发生下一次成功的 link 操作为止。
      */
-    uniform1f(location: WebGLUniformLocation | null, x: TMYFloat32List): void;
+    uniform1f(
+      location: WebGLUniformLocation | null,
+      x: Float32Array | number[]
+    ): void;
     /**
      * 指定 uniform 变量
-     * @description 所有在 ShaderProgram 对象中定义的，且激活的 uniform 变量在 ShaderProgram 执行 link 成功后被初始化为 0。
+     * @description
+     * 所有在 ShaderProgram 对象中定义的，且激活的 uniform 变量在 ShaderProgram 执行 link 成功后被初始化为 0。
      * 它们将保留通过调用此方法分配给它们的值，直到再次将其初始化为 0 时，也就是 ShaderProgram 对象上发生下一次成功的 link 操作为止。
      */
-    uniform1fv(location: WebGLUniformLocation | null, v: TMYFloat32List): void;
+    uniform1fv(
+      location: WebGLUniformLocation | null,
+      v: Float32Array | number[]
+    ): void;
     /**
      * 指定 uniform 变量
-     * @description 所有在 ShaderProgram 对象中定义的，且激活的 uniform 变量在 ShaderProgram 执行 link 成功后被初始化为 0。
+     * @description
+     * 所有在 ShaderProgram 对象中定义的，且激活的 uniform 变量在 ShaderProgram 执行 link 成功后被初始化为 0。
      * 它们将保留通过调用此方法分配给它们的值，直到再次将其初始化为 0 时，也就是 ShaderProgram 对象上发生下一次成功的 link 操作为止。
      */
-    uniform1i(location: WebGLUniformLocation | null, x: TMYGLint): void;
+    uniform1i(location: WebGLUniformLocation | null, x: number): void;
     /**
      * 指定 uniform 变量
-     * @description 所有在 ShaderProgram 对象中定义的，且激活的 uniform 变量在 ShaderProgram 执行 link 成功后被初始化为 0。
+     * @description
+     * 所有在 ShaderProgram 对象中定义的，且激活的 uniform 变量在 ShaderProgram 执行 link 成功后被初始化为 0。
      * 它们将保留通过调用此方法分配给它们的值，直到再次将其初始化为 0 时，也就是 ShaderProgram 对象上发生下一次成功的 link 操作为止。
      */
-    uniform1iv(location: WebGLUniformLocation | null, v: TMYInt32List): void;
+    uniform1iv(
+      location: WebGLUniformLocation | null,
+      v: Int32Array | number[]
+    ): void;
     /**
      * 指定 uniform 变量
-     * @description 所有在 ShaderProgram 对象中定义的，且激活的 uniform 变量在 ShaderProgram 执行 link 成功后被初始化为 0。
+     * @description
+     * 所有在 ShaderProgram 对象中定义的，且激活的 uniform 变量在 ShaderProgram 执行 link 成功后被初始化为 0。
      * 它们将保留通过调用此方法分配给它们的值，直到再次将其初始化为 0 时，也就是 ShaderProgram 对象上发生下一次成功的 link 操作为止。
      */
     uniform2f(
       location: WebGLUniformLocation | null,
-      x: TMYGLfloat,
-      y: TMYGLfloat
+      x: number,
+      y: number
     ): void;
     /**
      * 指定 uniform 变量
-     * @description 所有在 ShaderProgram 对象中定义的，且激活的 uniform 变量在 ShaderProgram 执行 link 成功后被初始化为 0。
+     * @description
+     * 所有在 ShaderProgram 对象中定义的，且激活的 uniform 变量在 ShaderProgram 执行 link 成功后被初始化为 0。
      * 它们将保留通过调用此方法分配给它们的值，直到再次将其初始化为 0 时，也就是 ShaderProgram 对象上发生下一次成功的 link 操作为止。
      */
-    uniform2fv(location: WebGLUniformLocation | null, v: TMYFloat32List): void;
+    uniform2fv(
+      location: WebGLUniformLocation | null,
+      v: Float32Array | number[]
+    ): void;
     /**
      * 指定 uniform 变量
-     * @description 所有在 ShaderProgram 对象中定义的，且激活的 uniform 变量在 ShaderProgram 执行 link 成功后被初始化为 0。
+     * @description
+     * 所有在 ShaderProgram 对象中定义的，且激活的 uniform 变量在 ShaderProgram 执行 link 成功后被初始化为 0。
      * 它们将保留通过调用此方法分配给它们的值，直到再次将其初始化为 0 时，也就是 ShaderProgram 对象上发生下一次成功的 link 操作为止。
      */
     uniform2i(
       location: WebGLUniformLocation | null,
-      x: TMYGLint,
-      y: TMYGLint
+      x: number,
+      y: number
     ): void;
     /**
      * 指定 uniform 变量
-     * @description 所有在 ShaderProgram 对象中定义的，且激活的 uniform 变量在 ShaderProgram 执行 link 成功后被初始化为 0。
+     * @description
+     * 所有在 ShaderProgram 对象中定义的，且激活的 uniform 变量在 ShaderProgram 执行 link 成功后被初始化为 0。
      * 它们将保留通过调用此方法分配给它们的值，直到再次将其初始化为 0 时，也就是 ShaderProgram 对象上发生下一次成功的 link 操作为止。
      */
-    uniform2iv(location: WebGLUniformLocation | null, v: TMYInt32List): void;
+    uniform2iv(
+      location: WebGLUniformLocation | null,
+      v: Int32Array | number[]
+    ): void;
     /**
      * 指定 uniform 变量
-     * @description 所有在 ShaderProgram 对象中定义的，且激活的 uniform 变量在 ShaderProgram 执行 link 成功后被初始化为 0。
+     * @description
+     * 所有在 ShaderProgram 对象中定义的，且激活的 uniform 变量在 ShaderProgram 执行 link 成功后被初始化为 0。
      * 它们将保留通过调用此方法分配给它们的值，直到再次将其初始化为 0 时，也就是 ShaderProgram 对象上发生下一次成功的 link 操作为止。
      */
     uniform3f(
       location: WebGLUniformLocation | null,
-      x: TMYGLfloat,
-      y: TMYGLfloat,
-      z: TMYGLfloat
+      x: number,
+      y: number,
+      z: number
     ): void;
     /**
      * 指定 uniform 变量
-     * @description 所有在 ShaderProgram 对象中定义的，且激活的 uniform 变量在 ShaderProgram 执行 link 成功后被初始化为 0。
+     * @description
+     * 所有在 ShaderProgram 对象中定义的，且激活的 uniform 变量在 ShaderProgram 执行 link 成功后被初始化为 0。
      * 它们将保留通过调用此方法分配给它们的值，直到再次将其初始化为 0 时，也就是 ShaderProgram 对象上发生下一次成功的 link 操作为止。
      */
-    uniform3fv(location: WebGLUniformLocation | null, v: TMYFloat32List): void;
+    uniform3fv(
+      location: WebGLUniformLocation | null,
+      v: Float32Array | number[]
+    ): void;
     /**
      * 指定 uniform 变量
-     * @description 所有在 ShaderProgram 对象中定义的，且激活的 uniform 变量在 ShaderProgram 执行 link 成功后被初始化为 0。
+     * @description
+     * 所有在 ShaderProgram 对象中定义的，且激活的 uniform 变量在 ShaderProgram 执行 link 成功后被初始化为 0。
      * 它们将保留通过调用此方法分配给它们的值，直到再次将其初始化为 0 时，也就是 ShaderProgram 对象上发生下一次成功的 link 操作为止。
      */
     uniform3i(
       location: WebGLUniformLocation | null,
-      x: TMYGLint,
-      y: TMYGLint,
-      z: TMYGLint
+      x: number,
+      y: number,
+      z: number
     ): void;
     /**
      * 指定 uniform 变量
-     * @description 所有在 ShaderProgram 对象中定义的，且激活的 uniform 变量在 ShaderProgram 执行 link 成功后被初始化为 0。
+     * @description
+     * 所有在 ShaderProgram 对象中定义的，且激活的 uniform 变量在 ShaderProgram 执行 link 成功后被初始化为 0。
      * 它们将保留通过调用此方法分配给它们的值，直到再次将其初始化为 0 时，也就是 ShaderProgram 对象上发生下一次成功的 link 操作为止。
      */
-    uniform3iv(location: WebGLUniformLocation | null, v: TMYInt32List): void;
+    uniform3iv(
+      location: WebGLUniformLocation | null,
+      v: Int32Array | number[]
+    ): void;
     /**
      * 指定 uniform 变量的值
-     * @description 所有在 ShaderProgram 对象中定义的，且激活的 uniform 变量在 ShaderProgram 执行 link 成功后被初始化为 0。
+     * @description
+     * 所有在 ShaderProgram 对象中定义的，且激活的 uniform 变量在 ShaderProgram 执行 link 成功后被初始化为 0。
      * 它们将保留通过调用此方法分配给它们的值，直到再次将其初始化为 0 时，也就是 ShaderProgram 对象上发生下一次成功的 link 操作为止。
      */
     uniform4f(
       location: WebGLUniformLocation | null,
-      x: TMYGLfloat,
-      y: TMYGLfloat,
-      z: TMYGLfloat,
-      w: TMYGLfloat
+      x: number,
+      y: number,
+      z: number,
+      w: number
     ): void;
     /**
      * 指定 uniform 变量
-     * @description 所有在 ShaderProgram 对象中定义的，且激活的 uniform 变量在 ShaderProgram 执行 link 成功后被初始化为 0。
+     * @description
+     * 所有在 ShaderProgram 对象中定义的，且激活的 uniform 变量在 ShaderProgram 执行 link 成功后被初始化为 0。
      * 它们将保留通过调用此方法分配给它们的值，直到再次将其初始化为 0 时，也就是 ShaderProgram 对象上发生下一次成功的 link 操作为止。
      */
-    uniform4fv(location: WebGLUniformLocation | null, v: TMYFloat32List): void;
+    uniform4fv(
+      location: WebGLUniformLocation | null,
+      v: Float32Array | number[]
+    ): void;
     /**
      * 指定 uniform 变量
-     * @description 所有在 ShaderProgram 对象中定义的，且激活的 uniform 变量在 ShaderProgram 执行 link 成功后被初始化为 0。
+     * @description
+     * 所有在 ShaderProgram 对象中定义的，且激活的 uniform 变量在 ShaderProgram 执行 link 成功后被初始化为 0。
      * 它们将保留通过调用此方法分配给它们的值，直到再次将其初始化为 0 时，也就是 ShaderProgram 对象上发生下一次成功的 link 操作为止。
      */
     uniform4i(
       location: WebGLUniformLocation | null,
-      x: TMYGLint,
-      y: TMYGLint,
-      z: TMYGLint,
-      w: TMYGLint
+      x: number,
+      y: number,
+      z: number,
+      w: number
     ): void;
     /**
      * 指定 uniform 变量
-     * @description 所有在 ShaderProgram 对象中定义的，且激活的 uniform 变量在 ShaderProgram 执行 link 成功后被初始化为 0。
+     * @description
+     * 所有在 ShaderProgram 对象中定义的，且激活的 uniform 变量在 ShaderProgram 执行 link 成功后被初始化为 0。
      * 它们将保留通过调用此方法分配给它们的值，直到再次将其初始化为 0 时，也就是 ShaderProgram 对象上发生下一次成功的 link 操作为止。
      */
-    uniform4iv(location: WebGLUniformLocation | null, v: TMYInt32List): void;
+    uniform4iv(
+      location: WebGLUniformLocation | null,
+      v: Int32Array | number[]
+    ): void;
     /**
      * 为 uniform variables 指定矩阵值
      */
     uniformMatrix2fv(
       location: WebGLUniformLocation | null,
-      transpose: TMYGLboolean,
-      value: TMYFloat32List
+      transpose: boolean,
+      value: Float32Array | number[]
     ): void;
     /**
      * 为 uniform variables 指定矩阵值
      */
     uniformMatrix3fv(
       location: WebGLUniformLocation | null,
-      transpose: TMYGLboolean,
-      value: TMYFloat32List
+      transpose: boolean,
+      value: Float32Array | number[]
     ): void;
     /**
      * 为 uniform variables 指定矩阵值
      */
     uniformMatrix4fv(
       location: WebGLUniformLocation | null,
-      transpose: TMYGLboolean,
-      value: TMYFloat32List
+      transpose: boolean,
+      value: Float32Array | number[]
     ): void;
     /**
      * 将定义好的 WebGLProgram 对象添加到当前的渲染状态中
@@ -17719,104 +19330,83 @@ declare namespace my {
     /**
      * 为顶点 attibute 变量赋值
      */
-    vertexAttrib1f(index: TMYGLuint, x: TMYGLfloat): void;
+    vertexAttrib1f(index: number, x: number): void;
     /**
      * 为顶点 attibute 变量赋值
      */
-    vertexAttrib1fv(index: TMYGLuint, values: TMYFloat32List): void;
+    vertexAttrib1fv(index: number, values: Float32Array | number[]): void;
     /**
      * 为顶点 attibute 变量赋值
      */
-    vertexAttrib2f(index: TMYGLuint, x: TMYGLfloat, y: TMYGLfloat): void;
+    vertexAttrib2f(index: number, x: number, y: number): void;
     /**
      * 为顶点 attibute 变量赋值
      */
-    vertexAttrib2fv(index: TMYGLuint, values: TMYFloat32List): void;
+    vertexAttrib2fv(index: number, values: Float32Array | number[]): void;
     /**
      * 为顶点 attibute 变量赋值
      */
-    vertexAttrib3f(
-      index: TMYGLuint,
-      x: TMYGLfloat,
-      y: TMYGLfloat,
-      z: TMYGLfloat
-    ): void;
+    vertexAttrib3f(index: number, x: number, y: number, z: number): void;
     /**
      * 为顶点 attibute 变量赋值
      */
-    vertexAttrib3fv(index: TMYGLuint, values: TMYFloat32List): void;
+    vertexAttrib3fv(index: number, values: Float32Array | number[]): void;
     /**
      * 为顶点 attibute 变量赋值
      */
     vertexAttrib4f(
-      index: TMYGLuint,
-      x: TMYGLfloat,
-      y: TMYGLfloat,
-      z: TMYGLfloat,
-      w: TMYGLfloat
+      index: number,
+      x: number,
+      y: number,
+      z: number,
+      w: number
     ): void;
     /**
      * 为顶点 attibute 变量赋值
      */
-    vertexAttrib4fv(index: TMYGLuint, values: TMYFloat32List): void;
+    vertexAttrib4fv(index: number, values: Float32Array | number[]): void;
     /**
-     *
-     * @@summary 从当前绑定的缓冲区中读取顶点数据
+     * 从当前绑定的缓冲区中读取顶点数据
      * @description WebGL API 的WebGLRenderingContext.vertexAttribPointer()方法绑定当前缓冲区范围到gl.ARRAY_BUFFER,成为当前顶点缓冲区对象的通用顶点属性并指定它的布局(缓冲区对象中的偏移量)。
      */
     vertexAttribPointer(
-      index: TMYGLuint,
-      size: TMYGLint,
-      type: TMYGLenum,
-      normalized: TMYGLboolean,
-      stride: TMYGLsizei,
-      offset: TMYGLintptr
+      index: number,
+      size: number,
+      type: number,
+      normalized: boolean,
+      stride: number,
+      offset: number
     ): void;
     /**
      * 设置视口
      * @description 即指定从标准设备到窗口坐标的 x、y 仿射变换
      */
-    viewport(
-      x: TMYGLint,
-      y: TMYGLint,
-      width: TMYGLsizei,
-      height: TMYGLsizei
-    ): void;
+    viewport(x: number, y: number, width: number, height: number): void;
   }
   export interface CanvasVideoRecorder {
     /**
      * 取消错误监听函数
      */
     offError(
-      callback: (res: { err_code: number; err_msg: string }) => void
+      callback: (payload: ICanvasVideoRecorderOffErrorCallback) => void
     ): void;
     /**
      * 取消 stop 返回函数
      */
     offStop(
-      callback: (res: {
-        /**
-         * video 路径
-         */
-        videoPath: string;
-      }) => void
+      callback: (payload: ICanvasVideoRecorderOffStopCallback) => void
     ): void;
     /**
      * 添加错误监听函数
      */
     onError(
-      callback: (res: { err_code: number; err_msg: string }) => void
+      callback: (payload: ICanvasVideoRecorderOnErrorCallback) => void
     ): void;
     /**
      * 添加 stop 返回函数
      */
     onStop(
-      callback: (res: {
-        /**
-         * video 路径
-         */
-        videoPath: string;
-      }) => void
+      callback: (payload: ICanvasVideoRecorderOnStopCallback) => void
     ): void;
     /**
      * 指定录制视频的帧率
@@ -17839,15 +19429,15 @@ declare namespace my {
     /**
      * 图片的真实高度
      */
-    height: number;
+    readonly height: number;
     /**
      * 图片的 URL
      */
-    src: string;
+    readonly src: string;
     /**
      * 图片的真实宽度
      */
-    width: number;
+    readonly width: number;
     /**
      * 图片加载发生错误时触发的回调函数
      */
@@ -17861,6 +19451,7 @@ declare namespace my {
     /**
      * 添加颜色的渐变点的方法
      * @description 如果偏移值不在 0 到 1 之间，将抛出 INDEX_SIZE_ERR 错误，如果颜色值不能被解析为有效的CSS颜色值 <color>，将抛出SYNTAX_ERR错误。
+     * @see https://opendocs.alipay.com/mini/api/addColorStop
      */
     addColorStop(offset: number, color: string): void;
   }
@@ -17869,31 +19460,31 @@ declare namespace my {
      * 设置图案的变换矩阵的方法
      * @description 使用 SVGMatrix 对象作为图案的变换矩阵，并在此图案上调用它
      */
-    setTransform(matrix?: TypeDOMMatrix2DInit): void;
+    setTransform(matrix: ITypeDOMMatrix2DInit): void;
   }
   export interface CanvasContextImageSource {
     /**
      * 高度
      */
-    height: number;
+    readonly height: number;
     /**
      * ID
      */
-    id: string | number;
+    readonly id: string | number;
     /**
      * URL
      */
-    url: string;
+    readonly url: string;
     /**
      * 宽度
      */
-    width: number;
+    readonly width: number;
   }
   export interface Path2D {
     /**
      * 添加一条新路径到当前路径的方法
      */
-    addPath(path: Path2D, transform?: TypeDOMMatrix2DInit): void;
+    addPath(path: Path2D, transform?: ITypeDOMMatrix2DInit): void;
     /**
      * 绘制圆弧路径的方法
      * @description 圆弧路径的圆心在 (x, y) 位置，半径为 r ，根据anticlockwise （默认为顺时针）指定的方向从 startAngle 开始绘制，到 endAngle 结束。
@@ -17992,7 +19583,12 @@ declare namespace my {
   export interface WebGLShader {}
   export interface WebGLTexture {}
   export interface WebGLUniformLocation {}
-  export interface WebGLContextAttributes {}
+  export interface WebGLContextAttributes {
+    /**
+     * 是否开启抗锯齿。
+     */
+    readonly antialias: boolean;
+  }
   export interface DOMMatrix {
     readonly a: number;
     readonly b: number;
@@ -18022,9 +19618,9 @@ declare namespace my {
     flipY(): DOMMatrix;
     inverse(): DOMMatrix;
     invertSelf(): DOMMatrix;
-    multiply(other?: TypeDOMMatrixInit): DOMMatrix;
-    multiplySelf(other?: TypeDOMMatrixInit): DOMMatrix;
-    preMultiplySelf(other?: TypeDOMMatrixInit): DOMMatrix;
+    multiply(other?: ITypeDOMMatrixInit): DOMMatrix;
+    multiplySelf(other?: ITypeDOMMatrixInit): DOMMatrix;
+    preMultiplySelf(other?: ITypeDOMMatrixInit): DOMMatrix;
     rotate(rotX?: number, rotY?: number, rotZ?: number): DOMMatrix;
     rotateAxisAngle(
       x?: number,
@@ -18061,7 +19657,9 @@ declare namespace my {
       originY?: number,
       originZ?: number
     ): DOMMatrix;
-    /** @deprecated */
+    /**
+     * @deprecated 已废弃
+     */
     scaleNonUniform(scaleX?: number, scaleY?: number): DOMMatrix;
     scaleSelf(
       scaleX?: number,
@@ -18080,7 +19678,7 @@ declare namespace my {
     toFloat64Array(): Float64Array;
     toJSON(): unknown;
     toString(): string;
-    transformPoint(point?: DOMPointInit): DOMPoint;
+    transformPoint(point?: ITypeDOMPointInit): DOMPoint;
     translate(tx?: number, ty?: number, tz?: number): DOMMatrix;
     translateSelf(tx?: number, ty?: number, tz?: number): DOMMatrix;
   }
@@ -18089,14 +19687,14 @@ declare namespace my {
     readonly x: number;
     readonly y: number;
     readonly z: number;
-    matrixTransform(matrix?: TypeDOMMatrixInit): DOMPoint;
+    matrixTransform(matrix?: ITypeDOMMatrixInit): this;
     toJSON(): unknown;
   }
   export interface VideoContext {
     /**
      * 退出全屏
      */
-    exitFullScreen(r: {
+    exitFullScreen(object: {
       /**
        * 组件 id
        */
@@ -18125,7 +19723,7 @@ declare namespace my {
     /**
      * 退出画中画
      */
-    exitPictureInPicture(r?: {
+    exitPictureInPicture(object?: {
       /**
        * 接口调用成功的回调函数
        */
@@ -18142,7 +19740,7 @@ declare namespace my {
     /**
      * 获取当前播放进度
      */
-    getCurrentTime(r?: {
+    getCurrentTime(object?: {
       /**
        * 接口调用成功的回调函数
        */
@@ -18159,7 +19757,7 @@ declare namespace my {
     /**
      * 隐藏控制控件
      */
-    hideControl(r: {
+    hideControl(object: {
       /**
        * 控件名称
        */
@@ -18181,7 +19779,7 @@ declare namespace my {
      * 隐藏状态栏
      * @description 仅在 iOS 全屏下有效
      */
-    hideStatusBar(r?: {
+    hideStatusBar(object?: {
       /**
        * 接口调用成功的回调函数
        */
@@ -18202,7 +19800,7 @@ declare namespace my {
     /**
      * 暂停视频播放
      */
-    pause(r?: {
+    pause(object?: {
       /**
        * 接口调用成功的回调函数
        */
@@ -18219,7 +19817,7 @@ declare namespace my {
     /**
      * 播放视频
      */
-    play(r?: {
+    play(object?: {
       /**
        * 接口调用成功的回调函数
        */
@@ -18240,7 +19838,7 @@ declare namespace my {
     /**
      * 进入全屏
      */
-    requestFullScreen(r: {
+    requestFullScreen(object: {
       /**
        * 进入全屏，0为正常竖屏，90为横屏，-90反向横屏
        */
@@ -18265,7 +19863,7 @@ declare namespace my {
     /**
      * 显示控制控件
      */
-    showControl(r: {
+    showControl(object: {
       /**
        * 控件名称
        */
@@ -18294,7 +19892,7 @@ declare namespace my {
     /**
      * 显示状态栏，仅在 iOS 全屏下有效。
      */
-    showStatusBar(r: {
+    showStatusBar(object: {
       /**
        * 组件 id
        */
@@ -18323,7 +19921,7 @@ declare namespace my {
     /**
      * 开启互动能力
      */
-    startInteractions(r: {
+    startInteractions(object: {
       /**
        * 组件 id
        */
@@ -18352,7 +19950,7 @@ declare namespace my {
     /**
      * 停止
      */
-    stop(r: {
+    stop(object: {
       /**
        * 组件 id
        */
@@ -18381,7 +19979,7 @@ declare namespace my {
     /**
      * 停止互动能力，并清理所有的互动组件
      */
-    stopInteractions(r: {
+    stopInteractions(object: {
       /**
        * 组件 id
        */
@@ -18410,7 +20008,7 @@ declare namespace my {
     /**
      * 切换清晰度
      */
-    switchQuality(r: {
+    switchQuality(object: {
       /**
        * 清晰度列表项中的 definition 字段
        */
@@ -18431,7 +20029,7 @@ declare namespace my {
     /**
      * 更新清晰度列表
      */
-    updateQualityList(r: {
+    updateQualityList(object: {
       /**
        * 清晰度列表（JSON 字符串格式）
        * [{definition, url, res, bps, size}, ...]
@@ -18458,11 +20056,17 @@ declare namespace my {
       complete?(arg: { error?: number; errorMessage?: string }): void;
     }): Promise<void>;
   }
+  export interface ARSession {
+    /**
+     * 停止追踪
+     */
+    stop(): boolean;
+  }
   export interface Geocoder {
     /**
      * 逆地理编码
      */
-    reverseGeocoding(r: {
+    reverseGeocoding(object: {
       /**
        * 纬度
        */
@@ -18628,7 +20232,7 @@ declare namespace my {
      * 取消本次任务
      * @see https://opendocs.alipay.com/mini/api/kmq4hc#UploadTask
      */
-    abort(r: {
+    abort(object: {
       uploadTaskId: number;
       operationType: 'abort';
       /**
@@ -18708,7 +20312,7 @@ declare namespace my {
     /**
      * 取消本次任务
      */
-    abort(r: {
+    abort(object: {
       downloadTaskId: number;
       operationType: 'abort';
       /**
@@ -18751,7 +20355,7 @@ declare namespace my {
         /**
          * 开发者服务器返回的 HTTP Response Header
          */
-        headers: IDownloadTaskOnHeadersReceivedHeader;
+        headers: IDownloadTaskOnHeadersReceivedHeaders;
       }) => void
     ): void;
     /**
@@ -18784,7 +20388,7 @@ declare namespace my {
     /**
      * 取消本次任务
      */
-    abort(r: {
+    abort(object: {
       requestTaskId: number;
       operationType: 'abort';
       /**
@@ -18823,7 +20427,7 @@ declare namespace my {
         /**
          * 开发者服务器返回的 HTTP Response Header
          */
-        headers: IRequestTaskOnHeadersReceivedHeader;
+        headers: IRequestTaskOnHeadersReceivedHeaders;
       }) => void
     ): void;
   }
@@ -18837,7 +20441,7 @@ declare namespace my {
     /**
      * 取消本次任务
      */
-    abort(r: {
+    abort(object: {
       uploadTaskId: number;
       operationType: 'abort';
       /**
@@ -18888,7 +20492,7 @@ declare namespace my {
     /**
      * 无障碍模式下语音播报
      */
-    announce(r: {
+    announce(object: {
       text: string;
       /**
        * 接口调用成功的回调函数
@@ -18942,7 +20546,7 @@ declare namespace my {
      * 是否开启无障碍语音播报
      * @description 在 iOS 系统中，对应功能为 “旁白”，在 Android 系统中，对应功能为 “talkBack”
      */
-    isScreenReaderEnabled(r?: {
+    isScreenReaderEnabled(object?: {
       /**
        * 接口调用成功的回调函数
        */
@@ -19008,7 +20612,7 @@ declare namespace my {
      * @description 用于在调用 [my.chooseCity]() 后修改当次定位城市名称
      * @see https://opendocs.alipay.com/mini/04naqz
      */
-    setLocatedCity(r: {
+    setLocatedCity(object: {
       /**
        * 当前定位城市的名称。
        */
@@ -19097,35 +20701,6 @@ declare namespace my {
       locatedCityName: string;
     }>;
   }
-  export interface IARSession {}
-  interface DOMPointInit {
-    w?: number;
-    x?: number;
-    y?: number;
-    z?: number;
-  }
-  type DetectType = 'smile' | string;
-  interface IAccessRequest {
-    /**
-     * 文件夹或者文件路径
-     */
-    path: string;
-  }
-  interface IAppendFileRequest {
-    /**
-     * 要追加内容的文件路径
-     */
-    filePath: string;
-    /**
-     * 要追加的文本或二进制数据
-     */
-    data: string | ArrayBuffer;
-    /**
-     * 指定写入文件的字符编码
-     * @default 'utf8'
-     */
-    encoding?: `${EFileSystemEncoding}`;
-  }
   interface IBeaconUpdateBeacons {
     /**
      * iBeacon 设备广播的 UUID
@@ -19196,7 +20771,27 @@ declare namespace my {
      */
     timestamp: number;
   }
-  interface IChooseDistrictHeadModel {
+  interface ICanvasVideoRecorderOffErrorCallback {
+    err_code: number;
+    err_msg: string;
+  }
+  interface ICanvasVideoRecorderOffStopCallback {
+    /**
+     * video 路径
+     */
+    videoPath: string;
+  }
+  interface ICanvasVideoRecorderOnErrorCallback {
+    err_code: number;
+    err_msg: string;
+  }
+  interface ICanvasVideoRecorderOnStopCallback {
+    /**
+     * video 路径
+     */
+    videoPath: string;
+  }
+  interface IChooseDistrictMainHeadList {
     /**
      * 区块名，如“热门城市”。
      */
@@ -19211,9 +20806,9 @@ declare namespace my {
     /**
      * 区块城市列表，不支持嵌套
      */
-    list: IChooseDistrictItemModel[];
+    list: IChooseDistrictMainHeadListList[];
   }
-  interface IChooseDistrictItemModel {
+  interface IChooseDistrictMainHeadListList {
     /**
      * 城市名。
      */
@@ -19235,14 +20830,14 @@ declare namespace my {
      */
     ext?: string;
     /**
-     * 支持级联，自定义次级城市列表，列表内对象字段可查看 mainHeadList的单元素类型。
+     * 支持级联，自定义次级城市列表，列表内对象字段可查看 mainNormalList 的单元素类型。
      */
-    subList?: IChooseDistrictItemModel[];
+    subList?: IChooseDistrictMainHeadListList[];
   }
   interface IChooseDistrictMainMergeOptions {
     [key: string]: string;
   }
-  interface IChooseDistrictPageModel {
+  interface IChooseDistrictSeniorPageList {
     /**
      * 境外左侧 tab 名称，不带左侧 tab 时可不填。
      */
@@ -19250,25 +20845,155 @@ declare namespace my {
     /**
      * 头部对象集合，不支持嵌套，对象值可参考 mainHeadList 单元素类型。
      */
-    headList?: IChooseDistrictHeadModel[];
+    headList?: IChooseDistrictMainHeadList[];
     /**
      * 城市列表，对象值可查看 mainNormalList 单元素类型。
      */
-    normalList?: IChooseDistrictItemModel[];
+    normalList?: IChooseDistrictMainHeadListList[];
   }
-  interface ICopyFileRequest {
+  interface ICloudContextGetTempFileURLFileList {
     /**
-     * 源文件路径
-     * @description 只可以是普通文件
+     * 云文件 ID
      */
-    srcPath: string;
+    fileID: string;
     /**
-     * 目标文件路径
+     * 有效期时长，单位秒，最长为 7 天， 最短为 5 分钟
+     * @default 86400
      */
-    destPath: string;
+    maxAge: string;
+    /**
+     * 文件临时链接
+     */
+    tempFileURL: string;
+    /**
+     * 状态码，返回 0 为成功
+     */
+    status: string;
+    /**
+     * 业务结果信息
+     */
+    resultMessage: string;
   }
-  interface IDownloadTaskOnHeadersReceivedHeader {
+  interface ICloudDeleteFileFileList {
+    /**
+     * 云文件 ID
+     */
+    fileID: string;
+    /**
+     * 状态码，返回 0 为成功
+     */
+    status: number;
+    /**
+     * 业务结果信息
+     */
+    resultMessage: string;
+  }
+  interface IDownloadTaskOnHeadersReceivedHeaders {
     [key: string]: string;
+  }
+  interface IFileSystemManagerGetFileInfoSyncResponse {
+    /**
+     * 文件大小
+     * @description 以字节为单位
+     */
+    size: number;
+  }
+  interface IFileSystemManagerGetSavedFileListFileList {
+    /**
+     * 本地路径
+     */
+    filePath: string;
+    /**
+     * 本地文件大小
+     * @description 以字节为单位
+     */
+    size: number;
+    /**
+     * 文件保存时的时间戳
+     * @description 从 1970/01/01 08:00:00 到当前时间的秒数
+     */
+    createTime: number;
+  }
+  interface IFileSystemManagerGetSavedFileListSyncFileList {
+    /**
+     * 本地路径
+     */
+    filePath: string;
+    /**
+     * 本地文件大小
+     * @description 以字节为单位
+     */
+    size: number;
+    /**
+     * 文件保存时的时间戳
+     * @description 从 1970/01/01 08:00:00 到当前时间的秒数
+     */
+    createTime: number;
+  }
+  interface IFileSystemManagerReadFileSyncResponse {
+    /**
+     * 文件内容
+     */
+    data: string | ArrayBuffer;
+    /**
+     * 数据类型
+     */
+    dataType: string;
+  }
+  interface IFileSystemManagerReaddirSyncResponse {
+    /**
+     * 文件列表
+     */
+    files: string[];
+  }
+  interface IFileSystemManagerSaveFileSyncResponse {
+    /**
+     * 存储后的文件路径
+     */
+    savedFilePath: string;
+  }
+  interface IFileSystemManagerStatStats {
+    /**
+     * 文件的类型和存取的权限
+     */
+    mode: number;
+    /**
+     * 文件大小
+     */
+    size: number;
+    /**
+     * 上次访问时间
+     */
+    lastAccessedTime: number;
+    /**
+     * 上次修改时间
+     */
+    lastModifiedTime: number;
+  }
+  interface IFileSystemManagerStatSyncResponse {
+    /**
+     * 文件信息
+     * @description 当 recursive 为 false 时，res.stats 是一个 Stats 对象。当 recursive 为 true 且 path 是一个目录的路径时，res.stats 是一个 Object，key 以 path 为根路径的相对路径，value 是该路径对应的 Stats 对象。
+     */
+    stats: IFileSystemManagerStatSyncStats;
+  }
+  interface IFileSystemManagerStatSyncStats {
+    /**
+     * 文件的类型和存取的权限
+     */
+    mode: number;
+    /**
+     * 文件大小
+     */
+    size: number;
+    /**
+     * 上次访问时间
+     */
+    lastAccessedTime: number;
+    /**
+     * 上次修改时间
+     */
+    lastModifiedTime: number;
   }
   interface IGetBLEDeviceServicesServices {
     /**
@@ -19331,24 +21056,6 @@ declare namespace my {
      */
     signalStrength: number;
   }
-  interface IGetFileInfoRequest {
-    /**
-     * 文件路径
-     */
-    filePath: string;
-    /**
-     * 摘要算法
-     * @default md5
-     */
-    digestAlgorithm?: 'md5' | 'sha1';
-  }
-  interface IGetFileInfoResponse {
-    /**
-     * 文件大小
-     * @description 以字节为单位
-     */
-    size: number;
-  }
   interface IGetSavedFileListFileList {
     /**
      * 大小
@@ -19362,27 +21069,6 @@ declare namespace my {
      * 创建时间
      */
     createTime: number;
-  }
-  interface IGetSavedFileListResponse {
-    /**
-     * 文件数组
-     */
-    fileList: Array<{
-      /**
-       * 本地路径
-       */
-      filePath: string;
-      /**
-       * 本地文件大小
-       * @description 以字节为单位
-       */
-      size: number;
-      /**
-       * 文件保存时的时间戳
-       * @description 从 1970/01/01 08:00:00 到当前时间的秒数
-       */
-      createTime: number;
-    }>;
   }
   interface IGetSettingAuthSetting {
     /**
@@ -19839,15 +21525,6 @@ declare namespace my {
      * 假设 points 数组为 [A,B,C]，符合目标距离的点为 B'， 且 B'- A 直线距离在 B-A 直线距离、C-A 直线距离之间，则 targetLineIndex 为 points 数组中的点 B 的索引数值。
      */
     targetLineIndex: number;
-  }
-  /**
-   * 自定义标记点上方的气泡窗口
-   */
-  interface IMapContextCallout {
-    /**
-     * 内容。
-     */
-    content?: string;
   }
   interface IMapContextChangeMarkersAdd {
     /**
@@ -20554,57 +22231,25 @@ declare namespace my {
      */
     fontType?: 'small' | 'standard' | 'large';
   }
-  /**
-   * 自定义 callout 背景
-   */
-  interface IMapContextCustomCallout {
+  interface IMapContextGetRegionNortheast {
     /**
-     * 样式类型。
-     * @description 有效值如下：
-     * - `0` 为黑色 style
-     * - `1` 为白色 style
-     * - `2` 为背景 + 文本
+     * 纬度
      */
-    type: number;
+    latitude: number;
     /**
-     * 时间值。
+     * 经度
      */
-    time: string;
-    /**
-     * 描述数组。
-     */
-    descList: IMapContextCustomCalloutDesc[];
-    /**
-     * 是否展示。
-     * @description 有效值如下：
-     * - `1` 展示
-     */
-    isShow: number;
-    /**
-     * 使用 map 高级定制渲染
-     * @description 。优先级最高, layout 对象参照 layout 定义。
-     */
-    layout?: object;
+    longitude: number;
   }
-  interface IMapContextCustomCalloutDesc {
+  interface IMapContextGetRegionSouthwest {
     /**
-     * 文案
+     * 纬度
      */
-    desc: string;
+    latitude: number;
     /**
-     * CSS 色值。
+     * 经度
      */
-    descColor: string;
-  }
-  interface IMapContextDisplayRange {
-    /**
-     * 缩放级别下边界
-     */
-    from: number;
-    /**
-     * 缩放级别上边界
-     */
-    to: number;
+    longitude: number;
   }
   interface IMapContextIncludePointsPoints {
     /**
@@ -20627,206 +22272,6 @@ declare namespace my {
     to: number;
   }
   interface IMapContextInitMarkerClusterIconLayout {}
-  /**
-   * marker 对象
-   * @description 标记点，用于在地图上显示标记的位置。
-   * - 可利用该参数显示多个定位点。
-   * - 地点标注不支持设置英文。
-   * Marker 样式优先级如下：
-   * - customCallout，callout 与 label 互斥，优先级排序为：label > customCallout > callout。
-   * - style 与 icon 互斥，优先级排序为：style > iconAppendStr；style > icon。
-   */
-  interface IMapContextMarker {
-    /**
-     * 标记点 id
-     * @description 标记点 id，点击事件回调会返回此 id。
-     */
-    id: number;
-    /**
-     * 纬度
-     * @description 范围 -90 ~ 90。
-     */
-    latitude: number;
-    /**
-     * 经度
-     * @description 范围 -180 ~ 180。
-     */
-    longitude: number;
-    /**
-     * 标注点名
-     */
-    title?: string;
-    /**
-     * 项目目录下的图片路径
-     * @description 不能用相对路径只能用 / 开头的绝对路径。
-     */
-    iconPath: string;
-    /**
-     * map 高级定制渲染绘制 marker 样式
-     * @description 优先级高于 iconPath, 对象参照 layout。
-     */
-    iconLayout?: object;
-    /**
-     * 顺时针旋转的角度
-     * @description 范围 0 ~ 360
-     * @default 0
-     */
-    rotate?: number;
-    /**
-     * 是否透明
-     * @default 1
-     */
-    alpha?: number;
-    /**
-     * 宽度
-     * @description 默认为图片的实际宽度
-     */
-    width?: number;
-    /**
-     * 高度
-     * @description 默认为图片的实际高度
-     */
-    height?: number;
-    /**
-     * 标明在特定地图缩放级别下展示
-     */
-    displayRanges?: IMapContextDisplayRange;
-    /**
-     * 自定义 marker 上的气泡窗口
-     * @description 地图上最多同时展示一个，绑定 onCalloutTap。
-     */
-    callout?: IMapContextCallout;
-    /**
-     * 经纬度在标注图标的锚点-横向值
-     * @description 这两个值需要成对出现，anchorX 表示横向(0-1)，Y 表示竖向(0-1)。
-     * anchorX: 0.5，anchorY: 1：表示底边中点。
-     */
-    anchorX?: number;
-    /**
-     * 经纬度在标注图标的锚点-竖向值
-     */
-    anchorY?: number;
-    /**
-     * callout 背景自定义
-     * @description 目前只支持高德地图 style。
-     */
-    customCallout?: IMapContextCustomCallout;
-    /**
-     * iconPath 对应的图片及该字符串共同生成 marker 的图标
-     * @description 和 iconPath 一起使用，会将 iconPath 对应的图片及该字符串共同生成一个图片，当成 marker 的图标，marker 图片可以来源于 view。
-     */
-    iconAppendStr?: string;
-    /**
-     * 底部描述文本颜色
-     * @description marker 图片可以来源于 view
-     * @default #33B276
-     */
-    iconAppendStrColor?: string;
-    /**
-     * 基于屏幕位置扎点
-     */
-    fixedPoint?: IMapContextMarkerFixedPoint;
-    /**
-     * marker 在地图上的绘制层级
-     * @description 与地图上其他覆盖物统一的 Z 坐标系
-     */
-    markerLevel?: number;
-    /**
-     * marker 上的气泡
-     * @description 地图上可同时展示多个，绑定 onMarkerTap。
-     */
-    label?: IMapContextMarkerLabel;
-    /**
-     * 自定义 marker 的样式和内容
-     */
-    style?: IMapContextMarkerStyle;
-  }
-  /**
-   * 基于屏幕位置的扎点。
-   */
-  interface IMapContextMarkerFixedPoint {
-    /**
-     * 横向像素点
-     * @description 距离地图左上角的像素数值，从 `0` 开始。
-     */
-    originX: number;
-    /**
-     * 横向像素点
-     * @description 距离地图左上角的像素数值，从 `0` 开始。
-     */
-    originY: number;
-  }
-  interface IMapContextMarkerLabel {
-    /**
-     * 文案
-     */
-    content: string;
-    /**
-     * 文案颜色
-     * @default #000000
-     */
-    color?: string;
-    /**
-     * 字体大小
-     * @default 14
-     */
-    fontsize?: number;
-    /**
-     * 圆角尺寸
-     * @default 20
-     */
-    borderRadius?: number;
-    /**
-     * 文本框背景色
-     * @default #FFFFFF
-     */
-    bgColor?: string;
-    /**
-     * 内边距
-     * @default 20
-     */
-    padding?: number;
-  }
-  interface IMapContextMarkerStyle {
-    /**
-     * 类型
-     */
-    type: 1 | 2 | 3;
-    text?: string;
-    icon?: string;
-    /**
-     * 字体颜色
-     * @default #33B276
-     */
-    color?: string;
-    /**
-     * 背景色
-     * @default #FFFFFF
-     */
-    bgColor?: string;
-    /**
-     * @default center
-     */
-    gravity?: 'left' | 'center' | 'right';
-    /**
-     * 字体大小类型
-     * @default standard
-     */
-    fontType?: 'small' | 'standard' | 'large';
-  }
-  /**
-   * 经纬度点位。
-   */
-  interface IMapContextPoint {
-    /**
-     * 纬度
-     */
-    latitude: number;
-    /**
-     * 经度
-     */
-    longitude: number;
-  }
   interface IMapContextPolygonContainsPointPoint {
     /**
      * 纬度
@@ -20857,7 +22302,262 @@ declare namespace my {
      */
     longitude: number;
   }
+  interface IMapContextSmoothMoveMarkerMarkerData {
+    /**
+     * 标记点 id
+     * @description 标记点 id，点击事件回调会返回此 id。
+     */
+    id: number;
+    /**
+     * 纬度
+     * @description 范围 -90 ~ 90。
+     */
+    latitude: number;
+    /**
+     * 经度
+     * @description 范围 -180 ~ 180。
+     */
+    longitude: number;
+    /**
+     * 标注点名
+     */
+    title?: string;
+    /**
+     * 项目目录下的图片路径
+     * @description 不能用相对路径只能用 / 开头的绝对路径。
+     */
+    iconPath: string;
+    /**
+     * map 高级定制渲染绘制 marker 样式
+     * @description 优先级高于 iconPath, 对象参照 layout。
+     */
+    iconLayout?: IMapContextSmoothMoveMarkerMarkerDataIconLayout;
+    /**
+     * 顺时针旋转的角度
+     * @description 范围 0 ~ 360
+     * @default 0
+     */
+    rotate?: number;
+    /**
+     * 是否透明
+     * @default 1
+     */
+    alpha?: number;
+    /**
+     * 宽度
+     * @description 默认为图片的实际宽度
+     */
+    width?: number;
+    /**
+     * 高度
+     * @description 默认为图片的实际高度
+     */
+    height?: number;
+    /**
+     * 标明在特定地图缩放级别下展示
+     */
+    displayRanges?: IMapContextSmoothMoveMarkerMarkerDataDisplayRanges;
+    /**
+     * 自定义 marker 上的气泡窗口
+     * @description 地图上最多同时展示一个，绑定 onCalloutTap。
+     */
+    callout?: IMapContextSmoothMoveMarkerMarkerDataCallout;
+    /**
+     * 经纬度在标注图标的锚点-横向值
+     * @description
+     * 这两个值需要成对出现，anchorX 表示横向(0-1)，Y 表示竖向(0-1)。
+     * anchorX: 0.5，anchorY: 1：表示底边中点。
+     */
+    anchorX?: number;
+    /**
+     * 经纬度在标注图标的锚点-竖向值
+     */
+    anchorY?: number;
+    /**
+     * callout 背景自定义
+     * @description 目前只支持高德地图 style。
+     */
+    customCallout?: IMapContextSmoothMoveMarkerMarkerDataCustomCallout;
+    /**
+     * iconPath 对应的图片及该字符串共同生成 marker 的图标
+     * @description 和 iconPath 一起使用，会将 iconPath 对应的图片及该字符串共同生成一个图片，当成 marker 的图标，marker 图片可以来源于 view。
+     */
+    iconAppendStr?: string;
+    /**
+     * 底部描述文本颜色
+     * @description marker 图片可以来源于 view
+     * @default #33B276
+     */
+    iconAppendStrColor?: string;
+    /**
+     * 基于屏幕位置扎点
+     */
+    fixedPoint?: IMapContextSmoothMoveMarkerMarkerDataFixedPoint;
+    /**
+     * marker 在地图上的绘制层级
+     * @description 与地图上其他覆盖物统一的 Z 坐标系
+     */
+    markerLevel?: number;
+    /**
+     * marker 上的气泡
+     * @description 地图上可同时展示多个，绑定 onMarkerTap。
+     */
+    label?: IMapContextSmoothMoveMarkerMarkerDataLabel;
+    /**
+     * 自定义 marker 的样式和内容
+     */
+    style?: IMapContextSmoothMoveMarkerMarkerDataStyle;
+  }
+  interface IMapContextSmoothMoveMarkerMarkerDataCallout {
+    /**
+     * 内容。
+     */
+    content?: string;
+  }
+  interface IMapContextSmoothMoveMarkerMarkerDataCustomCallout {
+    /**
+     * 样式类型。
+     * @description
+     * 有效值如下：
+     * - `0` 为黑色 style
+     * - `1` 为白色 style
+     * - `2` 为背景 + 文本
+     */
+    type: number;
+    /**
+     * 时间值。
+     */
+    time: string;
+    /**
+     * 描述数组。
+     */
+    descList: IMapContextSmoothMoveMarkerMarkerDataCustomCalloutDescList[];
+    /**
+     * 是否展示。
+     * @description
+     * 有效值如下：
+     * - `1` 展示
+     */
+    isShow: number;
+    /**
+     * 使用 map 高级定制渲染
+     * @description 。优先级最高, layout 对象参照 layout 定义。
+     */
+    layout?: IMapContextSmoothMoveMarkerMarkerDataCustomCalloutLayout;
+  }
+  interface IMapContextSmoothMoveMarkerMarkerDataCustomCalloutDescList {
+    /**
+     * 文案
+     */
+    desc: string;
+    /**
+     * CSS 色值。
+     */
+    descColor: string;
+  }
+  interface IMapContextSmoothMoveMarkerMarkerDataCustomCalloutLayout {}
+  interface IMapContextSmoothMoveMarkerMarkerDataDisplayRanges {
+    /**
+     * 缩放级别下边界
+     */
+    from: number;
+    /**
+     * 缩放级别上边界
+     */
+    to: number;
+  }
+  interface IMapContextSmoothMoveMarkerMarkerDataFixedPoint {
+    /**
+     * 横向像素点
+     * @description 距离地图左上角的像素数值，从 `0` 开始。
+     */
+    originX: number;
+    /**
+     * 横向像素点
+     * @description 距离地图左上角的像素数值，从 `0` 开始。
+     */
+    originY: number;
+  }
+  interface IMapContextSmoothMoveMarkerMarkerDataIconLayout {}
+  interface IMapContextSmoothMoveMarkerMarkerDataLabel {
+    /**
+     * 文案
+     */
+    content: string;
+    /**
+     * 文案颜色
+     * @default #000000
+     */
+    color?: string;
+    /**
+     * 字体大小
+     * @default 14
+     */
+    fontsize?: number;
+    /**
+     * 圆角尺寸
+     * @default 20
+     */
+    borderRadius?: number;
+    /**
+     * 文本框背景色
+     * @default #FFFFFF
+     */
+    bgColor?: string;
+    /**
+     * 内边距
+     * @default 20
+     */
+    padding?: number;
+  }
+  interface IMapContextSmoothMoveMarkerMarkerDataStyle {
+    /**
+     * 类型
+     */
+    type: 1 | 2 | 3;
+    text?: string;
+    icon?: string;
+    /**
+     * 字体颜色
+     * @default #33B276
+     */
+    color?: string;
+    /**
+     * 背景色
+     * @default #FFFFFF
+     */
+    bgColor?: string;
+    /**
+     * @default center
+     */
+    gravity?: 'left' | 'center' | 'right';
+    /**
+     * 字体大小类型
+     * @default standard
+     */
+    fontType?: 'small' | 'standard' | 'large';
+  }
+  interface IMapContextSmoothMoveMarkerPoints {
+    /**
+     * 纬度
+     */
+    latitude: number;
+    /**
+     * 经度
+     */
+    longitude: number;
+  }
   interface IMapContextSmoothMovePolylinePoints {
+    /**
+     * 纬度
+     */
+    latitude: number;
+    /**
+     * 经度
+     */
+    longitude: number;
+  }
+  interface IMapContextTranslateMarkerDestination {
     /**
      * 纬度
      */
@@ -21180,18 +22880,6 @@ declare namespace my {
      * 经度
      */
     longitude: number;
-  }
-  interface IMkdirRequest {
-    /**
-     * 创建的目录路径
-     */
-    dirPath: string;
-    /**
-     * 是否在递归创建该目录的上级目录后再创建该目录
-     * @description 如果对应的上级目录已经存在，则不创建该上级目录。如 dirPath 为 a/b/c/d 且 recursive 为 true，将创建 a 目录，再在 a 目录下创建 b 目录，以此类推直至创建 a/b/c 目录下的 d 目录。
-     * @default false
-     */
-    recursive?: boolean;
   }
   interface IMyApCreateTracertOption {
     /**
@@ -21611,6 +23299,38 @@ declare namespace my {
      */
     version: string;
   }
+  interface IMyGetLeftButtonsBoundingClientRectRect {
+    /**
+     * 宽度，单位 px
+     * @example 22
+     */
+    width: number;
+    /**
+     * 高度，单位 px
+     * @example 22
+     */
+    height: number;
+    /**
+     * 上边界坐标，单位 px
+     * @example 48
+     */
+    top: number;
+    /**
+     * 右边界坐标，单位 px
+     * @example 32
+     */
+    right: number;
+    /**
+     * 下边界坐标，单位 px
+     * @example 70
+     */
+    bottom: number;
+    /**
+     * 左边界坐标，单位 px
+     * @example 10
+     */
+    left: number;
+  }
   interface IMyGetLocationPois {
     /**
      * poi名称。
@@ -21745,10 +23465,6 @@ declare namespace my {
      */
     text: string;
   }
-  interface INFCDiscoveredData {
-    techs?: string[];
-    messages?: string[];
-  }
   interface IOnSocketTaskCloseData {
     /**
      * 唯一标识
@@ -21810,36 +23526,6 @@ declare namespace my {
      * 收货地址
      */
     aliaddress?: boolean;
-  }
-  interface IReadFileRequest {
-    /**
-     * 文件路径
-     */
-    filePath: string;
-    /**
-     * 指定读取文件的字符编码
-     * @default 如果不传 encoding，则以 ArrayBuffer 格式读取文件的二进制内容
-     */
-    encoding?: `${EFileSystemEncoding}`;
-  }
-  interface IReadFileResponse {
-    /**
-     * 文件内容
-     */
-    data: string | ArrayBuffer;
-    /**
-     * 数据类型
-     */
-    dataType: string;
-  }
-  interface IReaddirRequest {
-    /**
-     * 目录地址
-     */
-    dirPath: string;
-  }
-  interface IReaddirResponse {
-    files: string[];
   }
   interface IRegionPickerMergeOptions {
     /**
@@ -21921,53 +23607,8 @@ declare namespace my {
      */
     id: string;
   }
-  interface IRemoveSavedFileRequest {
-    /**
-     * 需要删除的文件路径
-     */
-    filePath: string;
-  }
-  interface IRenameRequest {
-    /**
-     * 源文件路径
-     * @description 可以是普通文件或目录
-     */
-    oldPath: string;
-    /**
-     * 新文件路径
-     */
-    newPath: string;
-  }
-  interface IRequestTaskOnHeadersReceivedHeader {
+  interface IRequestTaskOnHeadersReceivedHeaders {
     [key: string]: string;
-  }
-  interface IRmdirRequest {
-    /**
-     * 删除的目录路径
-     */
-    dirPath: string;
-    /**
-     * 是否递归删除目录
-     * @description 如果为 true，则删除该目录和该目录下的所有子目录以及文件。
-     * @default false
-     */
-    recursive?: boolean;
-  }
-  interface ISaveFileRequest {
-    /**
-     * 临时存储文件路径
-     */
-    tempFilePath: string;
-    /**
-     * 要存储的文件路径
-     */
-    filePath?: string;
-  }
-  interface ISaveFileResponse {
-    /**
-     * 存储后的文件路径
-     */
-    savedFilePath: string;
   }
   interface ISelectorQueryFieldsOption {
     /**
@@ -22016,82 +23657,6 @@ declare namespace my {
      * Wi-Fi 设备密码
      */
     password: string;
-  }
-  interface IStat {
-    /**
-     * 文件的类型和存取的权限
-     */
-    mode: number;
-    /**
-     * 文件大小
-     */
-    size: number;
-    /**
-     * 上次访问时间
-     */
-    lastAccessedTime: number;
-    /**
-     * 上次修改时间
-     */
-    lastModifiedTime: number;
-    isDirectory: () => boolean;
-    isFile: () => boolean;
-  }
-  interface IStatRequest {
-    /**
-     * 文件、目录路径
-     */
-    path: string;
-    /**
-     * 是否递归获取目录下的每个文件的 Stats 信息
-     */
-    recursive?: boolean;
-  }
-  interface IStatResponse {
-    /**
-     * 文件信息
-     * @description 当 recursive 为 false 时，res.stats 是一个 Stats 对象。当 recursive 为 true 且 path 是一个目录的路径时，res.stats 是一个 Object，key 以 path 为根路径的相对路径，value 是该路径对应的 Stats 对象。
-     */
-    stats:
-      | IStat
-      | {
-          [path: string]: IStat;
-        };
-  }
-  interface ITracertHandleUEPDataOptions {
-    type: string;
-    logLevel?: number;
-    actionId: string;
-    param4?: object;
-    param1?: string;
-    param5?: string;
-    eventTime?: number;
-    spmId: string;
-    newScm?: string;
-    scm?: object;
-    bizType: string;
-  }
-  interface ITracertPageParams {
-    newChinfo?: string;
-    chInfo?: string;
-    chinfo?: string;
-    entityId?: string;
-    scm?: string;
-    tracestep?: number;
-    isforce?: string | boolean;
-  }
-  interface ITracertReportUEPDataOptions {
-    spm: {
-      url: string;
-      chInfo: string;
-      isSPM: boolean;
-      spmId: string;
-      bizType: string;
-    };
-    spmDetail: {
-      url?: string;
-      chInfo: string;
-    };
   }
   interface ITypeBLECharacteristic {
     /**
@@ -22172,6 +23737,51 @@ declare namespace my {
      * 城市名对应拼音拼写，方便用户搜索。
      */
     spell: string;
+  }
+  interface ITypeDOMMatrix2DInit {
+    a?: number;
+    b?: number;
+    c?: number;
+    d?: number;
+    e?: number;
+    f?: number;
+    m11?: number;
+    m12?: number;
+    m21?: number;
+    m22?: number;
+    m41?: number;
+    m42?: number;
+  }
+  interface ITypeDOMMatrixInit {
+    a?: number;
+    b?: number;
+    c?: number;
+    d?: number;
+    e?: number;
+    f?: number;
+    m11?: number;
+    m12?: number;
+    m21?: number;
+    m22?: number;
+    m41?: number;
+    m42?: number;
+    is2D?: boolean;
+    m13?: number;
+    m14?: number;
+    m23?: number;
+    m24?: number;
+    m31?: number;
+    m32?: number;
+    m33?: number;
+    m34?: number;
+    m43?: number;
+    m44?: number;
+  }
+  interface ITypeDOMPointInit {
+    x?: number;
+    y?: number;
+    z?: number;
+    w?: number;
   }
   interface ITypeIntersectionObserverOption {
     /**
@@ -22395,23 +24005,6 @@ declare namespace my {
      */
     height: number;
   }
-  interface IUnlinkRequest {
-    /**
-     * 文件路径
-     */
-    filePath: string;
-  }
-  interface IUnzipRequest {
-    /**
-     * 源文件路径
-     * @description 只可以是 zip 压缩文件
-     */
-    zipFilePath: string;
-    /**
-     * 目标路径
-     */
-    targetPath: string;
-  }
   interface IUploadTaskOffHeadersReceivedHeader {
     /**
      * HTTP Header
@@ -22442,118 +24035,6 @@ declare namespace my {
      */
     signalStrength: number;
   }
-  interface IWriteFileRequest {
-    /**
-     * 要写入的文件路径
-     */
-    filePath: string;
-    /**
-     * 要写入的文本或二进制数据
-     */
-    data: string | ArrayBuffer;
-    /**
-     * 指定写入文件的字符编码
-     * @default utf8
-     */
-    encoding?: `${EFileSystemEncoding}`;
-  }
-  type TMYBufferSource = ArrayBufferView | ArrayBuffer;
-  type TMYCanvasFillRule = 'evenodd' | 'nonzero';
-  type TMYCanvasImageSource = Canvas | CanvasImage;
-  type TMYFloat32List = Float32Array | TMYGLfloat[];
-  type TMYGLbitfield = number;
-  type TMYGLboolean = boolean;
-  type TMYGLclampf = number;
-  type TMYGLenum = number;
-  type TMYGLfloat = number;
-  type TMYGLint = number;
-  type TMYGLintptr = number;
-  type TMYGLsizei = number;
-  type TMYGLsizeiptr = number;
-  type TMYGLuint = number;
-  type TMYInt32List = Int32Array | TMYGLint[];
-  type TTracert =
-    | 'getValueOfUrl'
-    | 'start'
-    | 'logPv'
-    | 'click'
-    | 'expo'
-    | 'send'
-    | 'checkFullLinkParams'
-    | 'expoContent'
-    | 'clickContent'
-    | 'setPageParams'
-    | 'setNextPageParams'
-    | 'appendChinfo'
-    | 'updateChinfo'
-    | 'getChinfoChain'
-    | 'getChinfoChainUUID'
-    | 'getCurrentPageParams'
-    | 'setCurrentPageNewChinfo'
-    | 'setNextPageNewChinfo'
-    | 'handleUEPEvent'
-    | 'reportUEPData'
-    | 'url'
-    | 'chInfo'
-    | 'chinfo'
-    | 'scm'
-    | 'trace'
-    | 'uepCombineMode'
-    | 'appVersion'
-    | 'version'
-    | 'appId'
-    | 'ap_framework_scheme'
-    | 'query';
-  type TrackMode = 'camera' | string;
-  interface TypeDOMMatrix2DInit {
-    a?: number;
-    b?: number;
-    c?: number;
-    d?: number;
-    e?: number;
-    f?: number;
-    m11?: number;
-    m12?: number;
-    m21?: number;
-    m22?: number;
-    m41?: number;
-    m42?: number;
-  }
-  interface TypeDOMMatrixInit {
-    a?: number;
-    b?: number;
-    c?: number;
-    d?: number;
-    e?: number;
-    f?: number;
-    m11?: number;
-    m12?: number;
-    m21?: number;
-    m22?: number;
-    m41?: number;
-    m42?: number;
-    is2D?: boolean;
-    m13?: number;
-    m14?: number;
-    m23?: number;
-    m24?: number;
-    m31?: number;
-    m32?: number;
-    m33?: number;
-    m34?: number;
-    m43?: number;
-    m44?: number;
-  }
-  /**
-   * WebGLContextAttributes 对象
-   * @description 一个包含实际上下文参数的 WebGLContextAttributes 的对象，如果上下文丢失，可能返回 null。
-   */
-  interface WebGLContextAttributes {
-    /**
-     * 是否开启抗锯齿。
-     */
-    antialias?: boolean;
-  }
 }
 
 declare namespace my.ap {
@@ -22561,7 +24042,7 @@ declare namespace my.ap {
    * 获取支付宝首页左上角的城市选择信息
    * @see https://opendocs.alipay.com/mini/api/getMainSelectedCity
    */
-  export function getMainSelectedCity(r?: {
+  export function getMainSelectedCity(object?: {
     /**
      * 是否需要获取城市的全称；
      * 比如北京的全称为北京市；
@@ -22717,7 +24198,7 @@ declare namespace my.ap {
    * @description 用于识别图片是否有色情、违禁违法等内容
    * @see https://opendocs.alipay.com/mini/api/img_risk
    */
-  export function imgRisk(r: {
+  export function imgRisk(object: {
     /**
      * 小程序的开放平台账号
      */
@@ -22805,7 +24286,7 @@ declare namespace my.ap {
    * 查询图片的风险识别结果的 API
    * @see https://opendocs.alipay.com/mini/api/ze6675
    */
-  export function imgRiskCallback(r: {
+  export function imgRiskCallback(object: {
     /**
      * 小程序的开放平台账号
      */
@@ -22965,7 +24446,7 @@ declare namespace my.ap {
    * 跳转到支付宝客户端内指定页面
    * @see https://opendocs.alipay.com/mini/api/navigatetoalipaypage
    */
-  export function navigateToAlipayPage(r: {
+  export function navigateToAlipayPage(object: {
     /**
      * 要跳转的支付宝官方业务。例如付款码，appCode: 'payCode'
      */
@@ -23033,7 +24514,7 @@ declare namespace my.ap {
    * 跳转到支付宝客户端内指定页面
    * @see https://opendocs.alipay.com/mini/api/navigatetoalipaypage
    */
-  export function navigateToAlipayPage(r: {
+  export function navigateToAlipayPage(object: {
     /**
      * 跳转 appCode 涵盖范围之外的支付宝业务、运营活动页面，请使用 path 属性。可传入 scheme 或 URL：
      * @description
@@ -23091,7 +24572,7 @@ declare namespace my.ap {
   /**
    * 跳转到财富页面
    */
-  export function navigateToFinance(r: {
+  export function navigateToFinance(object: {
     /**
      * 跳转类型，固定为 fundDetail
      */
@@ -23116,7 +24597,7 @@ declare namespace my.ap {
   /**
    * 跳转到财富页面
    */
-  export function navigateToFinance(r: {
+  export function navigateToFinance(object: {
     /**
      * 跳转类型，固定为 portfolioDetail
      */
@@ -23141,7 +24622,7 @@ declare namespace my.ap {
   /**
    * 跳转到财富页面
    */
-  export function navigateToFinance(r: {
+  export function navigateToFinance(object: {
     /**
      * 跳转类型，固定为 fundBuy
      */
@@ -23170,7 +24651,7 @@ declare namespace my.ap {
   /**
    * 跳转到财富页面
    */
-  export function navigateToFinance(r: {
+  export function navigateToFinance(object: {
     /**
      * 跳转类型，固定为 goldBuy
      */
@@ -23195,7 +24676,7 @@ declare namespace my.ap {
   /**
    * 跳转到财富页面
    */
-  export function navigateToFinance(r: {
+  export function navigateToFinance(object: {
     /**
      * 跳转类型，固定为 portfolioBuy
      */
@@ -23224,7 +24705,7 @@ declare namespace my.ap {
   /**
    * 跳转到财富页面
    */
-  export function navigateToFinance(r: {
+  export function navigateToFinance(object: {
     /**
      * 跳转类型，固定为 fundSign
      */
@@ -23261,7 +24742,7 @@ declare namespace my.ap {
   /**
    * 跳转到财富页面
    */
-  export function navigateToFinance(r: {
+  export function navigateToFinance(object: {
     /**
      * 跳转类型，固定为 goldSign
      */
@@ -23298,7 +24779,7 @@ declare namespace my.ap {
   /**
    * 跳转到财富页面
    */
-  export function navigateToFinance(r: {
+  export function navigateToFinance(object: {
     /**
      * 跳转类型，固定为 wealthShop
      */
@@ -23323,7 +24804,7 @@ declare namespace my.ap {
   /**
    * 跳转到财富页面
    */
-  export function navigateToFinance(r: {
+  export function navigateToFinance(object: {
     /**
      * 跳转类型，固定为 h5Page
      */
@@ -23349,7 +24830,7 @@ declare namespace my.ap {
    * 判断用户在先享后付场景下是否有风险的 API
    * @see https://opendocs.alipay.com/mini/api/nsf
    */
-  export function nsf(r: {
+  export function nsf(object: {
     /**
      * 小程序的开放平台账号。
      */
@@ -23397,7 +24878,7 @@ declare namespace my.ap {
    * 打开支付宝里的官方应用
    * @see https://opendocs.alipay.com/mini/04p771
    */
-  export function openAlipayApp(r: {
+  export function openAlipayApp(object: {
     /**
      * 目标应用标识
      */
@@ -23443,7 +24924,7 @@ declare namespace my.ap {
    * 跳转到支付宝卡列表界面
    * @see https://opendocs.alipay.com/mini/api/qxxpsh
    */
-  export function openCardList(r?: {
+  export function openCardList(object?: {
     /**
      * 接口调用成功的回调函数
      */
@@ -23460,7 +24941,7 @@ declare namespace my.ap {
   /**
    * 跳转到当前用户的某张券的（口碑）详情页
    */
-  export function openKBVoucherDetail(r: {
+  export function openKBVoucherDetail(object: {
     /**
      * 卡实例 ID，调用 [券发放接口](https://docs.open.alipay.com/api_24/alipay.pass.instance.add) 可以获取该参数。
      */
@@ -23481,7 +24962,7 @@ declare namespace my.ap {
   /**
    * 跳转到当前用户的某张券的（口碑）详情页
    */
-  export function openKBVoucherDetail(r: {
+  export function openKBVoucherDetail(object: {
     /**
      * 商户编号。
      */
@@ -23507,7 +24988,7 @@ declare namespace my.ap {
    * 跳转到指定商户的卡列表界面
    * @see https://opendocs.alipay.com/mini/api/axfplw
    */
-  export function openMerchantCardList(r: {
+  export function openMerchantCardList(object: {
     /**
      * 商户编号。
      */
@@ -23529,7 +25010,7 @@ declare namespace my.ap {
    * 跳转到当前用户在指定商户的已领取票列表界面
    * @see https://opendocs.alipay.com/mini/api/yee76y
    */
-  export function openMerchantTicketList(r: {
+  export function openMerchantTicketList(object: {
     /**
      * 商户编号。
      */
@@ -23551,7 +25032,7 @@ declare namespace my.ap {
    * 跳转到当前用户在指定商户的已领取券列表界面
    * @see https://opendocs.alipay.com/mini/api/sgvgu6
    */
-  export function openMerchantVoucherList(r: {
+  export function openMerchantVoucherList(object: {
     /**
      * 商户编号。
      */
@@ -23573,7 +25054,7 @@ declare namespace my.ap {
    * 跳转到当前用户领取某张票的详情界面
    * @see https://opendocs.alipay.com/mini/api/ry7ftz
    */
-  export function openTicketDetail(r: {
+  export function openTicketDetail(object: {
     /**
      * 卡实例 ID，调用 [券发放接口](https://docs.open.alipay.com/api_24/alipay.pass.instance.add) 可以获取该参数。
      */
@@ -23595,7 +25076,7 @@ declare namespace my.ap {
    * 跳转到当前用户领取某张票的详情界面
    * @see https://opendocs.alipay.com/mini/api/ry7ftz
    */
-  export function openTicketDetail(r: {
+  export function openTicketDetail(object: {
     /**
      * 商户编号。
      */
@@ -23621,7 +25102,7 @@ declare namespace my.ap {
    * 跳转到支付宝票列表界面
    * @see https://opendocs.alipay.com/mini/api/ezt6u3
    */
-  export function openTicketList(r?: {
+  export function openTicketList(object?: {
     /**
      * 接口调用成功的回调函数
      */
@@ -23639,7 +25120,7 @@ declare namespace my.ap {
    * 通用跳转接口
    * @see https://opendocs.alipay.com/mini/04iy2y
    */
-  export function openURL(r: {
+  export function openURL(object: {
     /**
      * 目标 url。以 https:// 或 alipays:// 开头
      */
@@ -23689,7 +25170,7 @@ declare namespace my.ap {
    * 跳转到当前用户领取某张券的详情页（非口碑券）
    * @see https://opendocs.alipay.com/mini/api/ga4obi
    */
-  export function openVoucherDetail(r: {
+  export function openVoucherDetail(object: {
     /**
      * 卡实例 ID，调用 [券发放接口](https://docs.open.alipay.com/api_24/alipay.pass.instance.add) 可以获取该参数。
      */
@@ -23711,7 +25192,7 @@ declare namespace my.ap {
    * 跳转到当前用户领取某张券的详情页（非口碑券）
    * @see https://opendocs.alipay.com/mini/api/ga4obi
    */
-  export function openVoucherDetail(r: {
+  export function openVoucherDetail(object: {
     /**
      * 商户编号。
      */
@@ -23737,7 +25218,7 @@ declare namespace my.ap {
    * 跳转到支付宝券列表界面
    * @see https://opendocs.alipay.com/mini/api/vq3mgn
    */
-  export function openVoucherList(r?: {
+  export function openVoucherList(object?: {
     /**
      * 接口调用成功的回调函数
      */
@@ -23755,7 +25236,7 @@ declare namespace my.ap {
    * 反作弊
    * @see https://opendocs.alipay.com/mini/api/antimarketcheat
    */
-  export function preventCheat(r: {
+  export function preventCheat(object: {
     /**
      * 小程序的开放平台账号。
      */
@@ -23803,7 +25284,7 @@ declare namespace my.ap {
    * 跳转到支付宝客户端升级界面
    * @see https://opendocs.alipay.com/mini/api/updatealipayclient
    */
-  export function updateAlipayClient(r?: {
+  export function updateAlipayClient(object?: {
     /**
      * 接口调用成功的回调函数
      */
@@ -23839,6 +25320,13 @@ declare namespace my.ap {
      */
     success: true;
   }>;
+}
+
+declare namespace my.cloud {
+  /**
+   * 创建并返回云托管上下文
+   */
+  export function createCloudContext(env: string, appId: string): CloudContext;
 }
 
 declare const enum EActionSheetBadgesType {
@@ -24006,18 +25494,6 @@ declare const enum ECompressImageCompressLevel {
    * 根据网络适应
    */
   _4 = 4,
-}
-
-declare const enum EFileSystemEncoding {
-  ascii = 'ascii',
-  base64 = 'base64',
-  hex = 'hex',
-  binary = 'binary',
-  ucs2 = 'ucs2',
-  'ucs-2' = 'ucs-2',
-  utf16le = 'utf16le',
-  utf8 = 'utf8',
-  'utf-16le' = 'utf-16le',
 }
 
 declare const enum EGetAuthCodeScopeNicks {
