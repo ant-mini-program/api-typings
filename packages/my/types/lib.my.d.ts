@@ -825,10 +825,6 @@ declare namespace my {
      */
     includeMobileContactMode?: 'none' | 'known' | 'all';
     /**
-     * 是否包含自己。
-     */
-    chooseContact?: boolean;
-    /**
      * 最大选择人数
      * @description 仅 `chooseType` 为 `multi` 时才有效。
      */
@@ -13597,7 +13593,7 @@ declare namespace my {
       /**
        * 要存储的文件路径
        */
-      filePath?: boolean;
+      filePath?: string;
       /**
        * 接口调用成功的回调函数
        */
@@ -16221,6 +16217,11 @@ declare namespace my {
        * 指定帧大小，单位 KB
        */
       frameSize?: number;
+      /**
+       * 隐藏录音图标。
+       * @default false
+       */
+      hideTips?: boolean;
     }): void;
     /**
      * 停止录音
@@ -20701,6 +20702,24 @@ declare namespace my {
       locatedCityName: string;
     }>;
   }
+  interface IBLECharacteristicProperties {
+    /**
+     * 该特征值是否支持 read 操作。
+     */
+    read: boolean;
+    /**
+     * 该特征值是否支持 write 操作。
+     */
+    write: boolean;
+    /**
+     * 该特征值是否支持 notify 操作。
+     */
+    notify: boolean;
+    /**
+     * 该特征值是否支持 indicate 操作。
+     */
+    indicate: boolean;
+  }
   interface IBeaconUpdateBeacons {
     /**
      * iBeacon 设备广播的 UUID
@@ -23674,29 +23693,11 @@ declare namespace my {
     /**
      * 该特征值支持的操作类型。
      */
-    properties?: ITypeBLECharacteristic$Properties;
-  }
-  interface ITypeBLECharacteristic$Properties {
-    /**
-     * 该特征值是否支持 read 操作。
-     */
-    read: boolean;
-    /**
-     * 该特征值是否支持 write 操作。
-     */
-    write: boolean;
-    /**
-     * 该特征值是否支持 notify 操作。
-     */
-    notify: boolean;
-    /**
-     * 该特征值是否支持 indicate 操作。
-     */
-    indicate: boolean;
+    properties?: IBLECharacteristicProperties;
   }
   interface ITypeBluetoothDevice {
     /**
-     * 蓝牙设备名称（某些设备可能没有）。
+     * 蓝牙设备名称（某些设备可能没有）
      */
     name: string;
     /**
@@ -23704,15 +23705,19 @@ declare namespace my {
      */
     deviceName: string;
     /**
-     * 广播设备名称。
+     * 广播设备名称
      */
     localName: string;
     /**
-     * 设备 ID。Android 上为设备 MAC 地址，iOS 上为设备 UUID。需要分平台处理，iOS 可根据设备属性（ localName / advertisData / manufacturerData 等属性）进行动态匹配
+     * 设备 ID
+     * @description
+     * 需要分平台处理
+     * - Android 上为设备 MAC 地址
+     * - iOS 上为设备 UUID，可根据设备属性（ localName / advertisData / manufacturerData 等属性）进行动态匹配
      */
     deviceId: string;
     /**
-     * 设备信号强度。
+     * 设备信号强度
      */
     RSSI: string;
     /**
@@ -23841,6 +23846,8 @@ declare namespace my {
      */
     platform: string;
     /**
+     * @deprecated 已废弃，不要使用
+     * 平台类型
      * @example "ap"
      */
     platformType?: string;
@@ -23871,8 +23878,9 @@ declare namespace my {
     apiLevel?: number;
     /**
      * 用来区分显示企业商家服务/个人等界面信息
+     * @example "normal"
      */
-    appMode?: `${ETypeSystemInfo$AppMode}`;
+    appMode?: `${ESystemInfoAppMode}`;
     /**
      * 手机品牌
      * @example "HUAWEI"
@@ -23897,6 +23905,9 @@ declare namespace my {
      * 设备性能分级
      */
     performance: `${ETypeSystemInfo$Performance}`;
+    /**
+     * 屏幕信息
+     */
     screen: ITypeSystemInfo$Screen;
     /**
      * 屏幕高度
@@ -23920,6 +23931,7 @@ declare namespace my {
     system: string;
     /**
      * 透明状态栏
+     * @example false
      */
     transparentTitle: boolean;
     /**
@@ -23928,6 +23940,8 @@ declare namespace my {
      */
     windowHeight: number;
     /**
+     * 是否 iphoneX 系列
+     * @example false
      */
     isIphoneXSeries: boolean;
     /**
@@ -23979,7 +23993,7 @@ declare namespace my {
      */
     notificationBadgeAuthorized: boolean;
     /**
-     * 允许支付宝啊通知带有声音的开关
+     * 允许支付宝通知带有声音的开关
      */
     notificationSoundAuthorized: boolean;
     /**
@@ -25326,7 +25340,16 @@ declare namespace my.cloud {
   /**
    * 创建并返回云托管上下文
    */
-  export function createCloudContext(env: string, appId: string): CloudContext;
+  export function createCloudContext(param: {
+    /**
+     * 环境
+     */
+    env: string;
+    /**
+     * 应用 id
+     */
+    appId?: string;
+  }): CloudContext;
 }
 
 declare const enum EActionSheetBadgesType {
@@ -25721,7 +25744,7 @@ declare const enum EShowAuthGuideAuthType {
   LBSHIGHACCURACY = 'LBSHIGHACCURACY',
 }
 
-declare const enum ETypeSystemInfo$AppMode {
+declare const enum ESystemInfoAppMode {
   /**
    * 标准版
    */
