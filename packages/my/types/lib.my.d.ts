@@ -508,6 +508,62 @@ declare namespace my {
     apFilePath: string;
   }>;
   /**
+   * 下单前检查，确认使用何种支付方式
+   * @description 下单前检查，确认使用何种支付方式
+   */
+  export function checkBeforeAddOrder(object?: {
+    /**
+     * 接口调用成功的回调函数
+     */
+    success?(data: {
+      /**
+       * 返回使用方式，如果是 1 则使用交易组件，如果是 0 则使用 tradePay
+       */
+      requireOrder: number;
+    }): void;
+    /**
+     * 接口调用失败的回调函数
+     */
+    fail?(
+      err:
+        | {
+            error?: number;
+            errorMessage?: string;
+          }
+        | {
+            error: 11;
+            errorMessage: '服务异常请重试';
+          }
+    ): void;
+    /**
+     * 接口调用结束的回调函数（调用成功、失败都会执行）
+     */
+    complete?(
+      arg:
+        | {
+            /**
+             * 返回使用方式，如果是 1 则使用交易组件，如果是 0 则使用 tradePay
+             */
+            requireOrder: number;
+          }
+        | (
+            | {
+                error?: number;
+                errorMessage?: string;
+              }
+            | {
+                error: 11;
+                errorMessage: '服务异常请重试';
+              }
+          )
+    ): void;
+  }): Promise<{
+    /**
+     * 返回使用方式，如果是 1 则使用交易组件，如果是 0 则使用 tradePay
+     */
+    requireOrder: number;
+  }>;
+  /**
    * 获取本机支持的 IFAA 生物认证方式
    * @see https://opendocs.alipay.com/mini/05v8jv
    */
@@ -9903,6 +9959,10 @@ declare namespace my {
     complete?(arg: { error?: number; errorMessage?: string }): void;
   }): Promise<void>;
   /**
+   * 打开当前页面分享按钮
+   */
+  export function showShareMenu(): void;
+  /**
    * 手动唤起分享面板
    * @description 此时 `Page.onShareAppMessage` 入参中 `from` 的值为 `code`
    * @see https://opendocs.alipay.com/mini/api/omg2ye
@@ -11944,7 +12004,7 @@ declare namespace my {
       /**
        * 要换取临时链接的云文件 ID 数组，一次最多 50 个
        */
-      fileList: ICloudContextGetTempFileURLFileList[];
+      fileList: (ICloudContextGetTempFileURLFileList | string)[];
       /**
        * 超时时间，单位ms
        * @default 60000
@@ -15573,6 +15633,67 @@ declare namespace my {
       complete?(arg: { error?: number; errorMessage?: string }): void;
     }): Promise<void>;
     /**
+     * 指定轨迹动画
+     * @see https://opendocs.alipay.com/mini/00nd0e
+     */
+    smoothDrawPolyline(object: {
+      /**
+       * 执行动画的路线 id。
+       */
+      polylineId: number;
+      /**
+       * 动画路线的经纬度集合
+       */
+      points: IMapContextSmoothDrawPolylinePoints[];
+      /**
+       * 动画执行时间，毫秒（ms）
+       * @default 5000
+       */
+      duration?: number;
+      /**
+       * 轨迹动画的颜色
+       */
+      color?: string;
+      /**
+       * 路线宽度
+       */
+      width?: number;
+      /**
+       * 是否虚线
+       */
+      dottedLine?: boolean;
+      /**
+       * 项目目录下的图片路径
+       * @description 可以用相对路径写法，以 `'/'` 开头则表示相对小程序根目录， 如果有 `iconPath`，会忽略 `color`。但是 `iconPath` 可以和 `colorList` 联合使用，这样纹理会浮在彩虹线上方，为避免覆盖彩虹线，纹理图片背景色可以设置透明。
+       */
+      iconPath?: string;
+      /**
+       * 线的纹理宽度
+       */
+      iconWidth?: number;
+      /**
+       * z 轴坐标
+       */
+      zIndex?: number;
+      /**
+       * 彩虹线
+       * @description 分段依据 `points`。例如 `points` 有 `5` 个点，那么 `colorList` 就应该传 `4` 个颜色值，依此类推。如果 `colorList` 数量小于 `4`，那么剩下的线路颜色和最后一个颜色一样。
+       */
+      colorList?: string[];
+      /**
+       * 接口调用成功的回调函数
+       */
+      success?(data: {}): void;
+      /**
+       * 接口调用失败的回调函数
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(arg: { error?: number; errorMessage?: string }): void;
+    }): Promise<void>;
+    /**
      * 指定 marker 动画
      * @see https://opendocs.alipay.com/mini/00nedv
      */
@@ -15668,6 +15789,28 @@ declare namespace my {
        * 指定操作动画
        */
       action?: 'start' | 'stop';
+      /**
+       * 接口调用成功的回调函数
+       */
+      success?(data: {}): void;
+      /**
+       * 接口调用失败的回调函数
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(arg: { error?: number; errorMessage?: string }): void;
+    }): Promise<void>;
+    /**
+     * 指定轨迹动画
+     * @see https://opendocs.alipay.com/mini/00nd0e
+     */
+    stopSmoothDrawPolyline(object: {
+      /**
+       * 执行动画的路线 id。
+       */
+      polylineId: number;
       /**
        * 接口调用成功的回调函数
        */
@@ -20879,7 +21022,7 @@ declare namespace my {
      * 有效期时长，单位秒，最长为 7 天， 最短为 5 分钟
      * @default 86400
      */
-    maxAge: string;
+    maxAge: number;
     /**
      * 文件临时链接
      */
@@ -22312,6 +22455,16 @@ declare namespace my {
     longitude: number;
   }
   interface IMapContextShowRouteThroughPoints {
+    /**
+     * 纬度
+     */
+    latitude: number;
+    /**
+     * 经度
+     */
+    longitude: number;
+  }
+  interface IMapContextSmoothDrawPolylinePoints {
     /**
      * 纬度
      */
