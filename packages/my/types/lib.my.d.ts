@@ -3936,15 +3936,15 @@ declare namespace my {
     /**
      * 返回按钮图标的布局位置信息
      */
-    backButtonIcon: IMyGetLeftButtonsBoundingClientRectRect;
+    backButtonIcon: IMyGetLeftButtonsBoundingClientRectBackButtonIcon;
     /**
      * 返回按钮点击响应区域的布局位置信息
      */
-    backButtonInteractive: IMyGetLeftButtonsBoundingClientRectRect;
+    backButtonInteractive: IMyGetLeftButtonsBoundingClientRectBackButtonIcon;
     /**
      * 首页按钮图标的布局位置信息
      */
-    homeButtonIcon: IMyGetLeftButtonsBoundingClientRectRect;
+    homeButtonIcon: IMyGetLeftButtonsBoundingClientRectBackButtonIcon;
   };
   /**
    * 获取局域网IP地址
@@ -9550,11 +9550,11 @@ declare namespace my {
     /**
      * 图片路径，建议尺寸为 81px * 81px，支持 png/jpeg/jpg/gif 图片格式，支持网络图片。
      */
-    iconPath: string;
+    iconPath?: string;
     /**
      * 选中时的图片路径，建议尺寸为 81px * 81px，支持 png/jpeg/jpg/gif 图片格式，支持网络图片。
      */
-    selectedIconPath: string;
+    selectedIconPath?: string;
     /**
      * 接口调用成功的回调函数
      */
@@ -11482,7 +11482,7 @@ declare namespace my {
       /**
        * 云环境配置
        */
-      config: Record<string, string>;
+      config?: Record<string, string>;
       /**
        * 云环境服务配置
        */
@@ -12004,7 +12004,7 @@ declare namespace my {
       /**
        * 要换取临时链接的云文件 ID 数组，一次最多 50 个
        */
-      fileList: (ICloudContextGetTempFileURLFileList | string)[];
+      fileList: Array<string | ICloudContextGetTempFileURLFileList>;
       /**
        * 超时时间，单位ms
        * @default 60000
@@ -12017,7 +12017,7 @@ declare namespace my {
         /**
          * 获取临时链接结果数组
          */
-        fileList: ICloudContextGetTempFileURLFileList[];
+        fileList: ICloudContextGetTempFileURLResponseFileList[];
         /**
          * 业务结果信息
          */
@@ -12074,7 +12074,7 @@ declare namespace my {
               /**
                * 获取临时链接结果数组
                */
-              fileList: ICloudContextGetTempFileURLFileList[];
+              fileList: ICloudContextGetTempFileURLResponseFileList[];
               /**
                * 业务结果信息
                */
@@ -12123,7 +12123,7 @@ declare namespace my {
       /**
        * 获取临时链接结果数组
        */
-      fileList: ICloudContextGetTempFileURLFileList[];
+      fileList: ICloudContextGetTempFileURLResponseFileList[];
       /**
        * 业务结果信息
        */
@@ -21022,11 +21022,21 @@ declare namespace my {
      * 有效期时长，单位秒，最长为 7 天， 最短为 5 分钟
      * @default 86400
      */
-    maxAge: number;
+    maxAge?: number;
+  }
+  interface ICloudContextGetTempFileURLResponseFileList {
+    /**
+     * 云文件 ID
+     */
+    fileID: string;
     /**
      * 文件临时链接
      */
     tempFileURL: string;
+    /**
+     * 有效期时长，单位秒
+     */
+    maxAge: number;
     /**
      * 状态码，返回 0 为成功
      */
@@ -23471,7 +23481,7 @@ declare namespace my {
      */
     version: string;
   }
-  interface IMyGetLeftButtonsBoundingClientRectRect {
+  interface IMyGetLeftButtonsBoundingClientRectBackButtonIcon {
     /**
      * 宽度，单位 px
      * @example 22
