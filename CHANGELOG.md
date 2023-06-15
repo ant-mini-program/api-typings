@@ -1,13 +1,22 @@
-# [](https://github.com/ant-mini-program/api-typings/compare/v3.0.7...v) (2023-03-16)
+# [](https://github.com/ant-mini-program/api-typings/compare/v3.0.8...v) (2023-06-15)
 
 
 
-## [3.0.7](https://github.com/ant-mini-program/api-typings/compare/v3.0.6...v3.0.7) (2023-03-16)
+## [3.0.8](https://github.com/ant-mini-program/api-typings/compare/v3.0.6...v3.0.8) (2023-06-15)
 
 
 ### Bug Fixes
 
 * remove invalid typings ([1ab50ac](https://github.com/ant-mini-program/api-typings/commit/1ab50ac8eba1b62fc693c510a9a644edc21aa134))
+
+
+### Features
+
+* add require ([54a07ec](https://github.com/ant-mini-program/api-typings/commit/54a07ecbf4da963e9231a4fb19201fa94e55dc3a))
+* add requirePlugin.async ([9c5ed67](https://github.com/ant-mini-program/api-typings/commit/9c5ed672a74ff00b8cf170e7f273fd2987897feb))
+* update typings ([c4435b0](https://github.com/ant-mini-program/api-typings/commit/c4435b0caac2f09465c9685d8edb49839b57d9da))
+* update typings ([c59706f](https://github.com/ant-mini-program/api-typings/commit/c59706f074e8fc4621b3929529419daa293c4198))
+* update typings ([1c0403d](https://github.com/ant-mini-program/api-typings/commit/1c0403dae68eafe1f207c2d7cf7a3ad99094896c))
 
 
 
