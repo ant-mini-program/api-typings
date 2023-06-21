@@ -26,7 +26,7 @@ expectAssignable<Parameters<typeof my.chooseDistrict>[0]>({
     {
       title: '定位模块',
       type: 1,
-      list: []
+      list: [],
     },
     {
       title: '热门城市',
@@ -97,7 +97,7 @@ my.chooseDistrict({
     {
       title: '定位模块',
       type: 1,
-      list: []
+      list: [],
     },
     {
       title: '热门城市',
@@ -164,3 +164,24 @@ my.chooseDistrict({
     expectAssignable<string>(res.adCode);
   },
 });
+
+const task = my.connectSocket({
+  multiple: true,
+  url: 'wss://echo.websocket.org',
+});
+
+expectAssignable<Function>(task.close);
+expectAssignable<Function>(task.offClose);
+expectAssignable<Function>(task.offError);
+expectAssignable<Function>(task.offMessage);
+expectAssignable<Function>(task.offOpen);
+expectAssignable<Function>(task.onOpen);
+expectAssignable<Function>(task.onClose);
+expectAssignable<Function>(task.onError);
+expectAssignable<Function>(task.onMessage);
+expectAssignable<Function>(task.send);
+
+const a = my.connectSocket({
+  url: 'wss://echo.websocket.org',
+});
+expectAssignable<void>(a);

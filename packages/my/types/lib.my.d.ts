@@ -1767,6 +1767,36 @@ declare namespace my {
     /**
      * 使用 SocketTask 模式，允许创建多条 socket 连接
      */
+    multiple: true;
+    /**
+     * 目标服务器接口地址。
+     * - 部分新发布的小程序只支持 wss 协议。
+     */
+    url: string;
+    /**
+     * 请求的参数。
+     */
+    data?: Record<string, unknown>;
+    /**
+     * 设置请求的头部。
+     */
+    header?: Record<string, string>;
+    /**
+     * 协议
+     */
+    protocols?: string[];
+  }): WebSocketTask;
+  /**
+   * 创建一个 WebSocket 的连接
+   * @description
+   * - 默认情况下一个小程序在一段时间内只能保留一个 WebSocket 连接，如果当前已存在 WebSocket 连接，那么会自动关闭该连接，并重新创建一个新的 WebSocket 连接。
+   * - 如果需要同时创建多个 WebSocket 连接，需要使用 multiple 参数
+   * @see https://opendocs.alipay.com/mini/api/vx19c3
+   */
+  export function connectSocket(param: {
+    /**
+     * 使用 SocketTask 模式，允许创建多条 socket 连接
+     */
     multiple?: boolean;
     /**
      * 目标服务器接口地址。
@@ -2472,8 +2502,8 @@ declare namespace my {
      * @default 'up'
      */
     orientation:
-      | 'right'
       | 'left'
+      | 'right'
       | 'up'
       | 'down'
       | 'up-mirrored'
@@ -3776,8 +3806,8 @@ declare namespace my {
        * 返回图片的方向
        */
       orientation:
-        | 'right'
         | 'left'
+        | 'right'
         | 'up'
         | 'down'
         | 'up-mirrored'
@@ -3837,8 +3867,8 @@ declare namespace my {
              * 返回图片的方向
              */
             orientation:
-              | 'right'
               | 'left'
+              | 'right'
               | 'up'
               | 'down'
               | 'up-mirrored'
@@ -3890,8 +3920,8 @@ declare namespace my {
      * 返回图片的方向
      */
     orientation:
-      | 'right'
       | 'left'
+      | 'right'
       | 'up'
       | 'down'
       | 'up-mirrored'
@@ -4799,7 +4829,7 @@ declare namespace my {
       /**
        * 小程序当前运行的版本
        */
-      envVersion: 'develop' | 'trial' | 'release' | 'gray';
+      envVersion: 'release' | 'develop' | 'trial' | 'gray';
     }): void;
     /**
      * 接口调用失败的回调函数
@@ -4814,7 +4844,7 @@ declare namespace my {
             /**
              * 小程序当前运行的版本
              */
-            envVersion: 'develop' | 'trial' | 'release' | 'gray';
+            envVersion: 'release' | 'develop' | 'trial' | 'gray';
           }
         | {
             error?: number;
@@ -4825,7 +4855,7 @@ declare namespace my {
     /**
      * 小程序当前运行的版本
      */
-    envVersion: 'develop' | 'trial' | 'release' | 'gray';
+    envVersion: 'release' | 'develop' | 'trial' | 'gray';
   }>;
   /**
    * 获取保存的文件信息
@@ -6224,7 +6254,7 @@ declare namespace my {
      * @description 仅在当前小程序为开发版或体验版时此参数有效；如果当前小程序是正式版，则打开的小程序必定是正式版。
      * @default "release"
      */
-    envVersion?: 'develop' | 'trial' | 'release';
+    envVersion?: 'release' | 'develop' | 'trial';
     /**
      * 接口调用成功的回调函数
      */
@@ -8197,7 +8227,7 @@ declare namespace my {
      * 返回的数据格式
      * @default 'json'
      */
-    dataType?: 'json' | 'text' | 'base64' | 'arraybuffer';
+    dataType?: 'base64' | 'json' | 'text' | 'arraybuffer';
     /**
      * HTTP 请求方法
      * @default 'GET'
@@ -16366,6 +16396,204 @@ declare namespace my {
      */
     stop(): void;
   }
+  export interface WebSocketTask {
+    /**
+     * 关闭 WebSocket 连接
+     * @see https://opendocs.alipay.com/mini/api/vx19c3#SocketTask
+     */
+    close(object?: {
+      /**
+       * 关闭连接的状态号
+       * @default 1000
+       */
+      code?: number;
+      /**
+       * 连接被关闭的原因
+       * @description 这个字符串必须是不长于 123 字节的 UTF-8 文本（不是字符）
+       */
+      reason?: string;
+      /**
+       * 接口调用成功的回调函数
+       */
+      success?(data: {
+        /**
+         * 消息内容
+         */
+        message: string;
+      }): void;
+      /**
+       * 接口调用失败的回调函数
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              /**
+               * 消息内容
+               */
+              message: string;
+            }
+          | {
+              error?: number;
+              errorMessage?: string;
+            }
+      ): void;
+    }): Promise<{
+      /**
+       * 消息内容
+       */
+      message: string;
+    }>;
+    /**
+     * 取消监听 WebSocket 关闭消息
+     */
+    offClose(
+      cb?: (arg: {
+        /**
+         * 数据
+         */
+        data: IOnSocketTaskCloseData;
+      }) => void
+    ): void;
+    /**
+     * 取消监听 WebSocket 错误消息
+     */
+    offError(
+      cb?: (arg: {
+        /**
+         * 数据
+         */
+        data: IOnSocketTaskErrorData;
+        /**
+         * 错误码
+         */
+        error: number;
+      }) => void
+    ): void;
+    /**
+     * 取消监听 WebSocket 消息
+     * @see https://opendocs.alipay.com/mini/api/vx19c3#SocketTask
+     */
+    offMessage(
+      cb?: (arg: {
+        /**
+         * 数据
+         */
+        data: IOnSocketTaskMessageData;
+      }) => void
+    ): void;
+    /**
+     * 取消监听 WebSocket open 事件
+     * @see https://opendocs.alipay.com/mini/api/vx19c3#SocketTask
+     */
+    offOpen(
+      cb?: (arg: {
+        /**
+         * 数据
+         */
+        data: IOnSocketTaskOpenData;
+      }) => void
+    ): void;
+    /**
+     * 监听 WebSocket 关闭消息
+     * @see https://opendocs.alipay.com/mini/api/vx19c3#SocketTask
+     */
+    onClose(
+      cb: (arg: {
+        /**
+         * 数据
+         */
+        data: IOnSocketTaskCloseData;
+      }) => void
+    ): void;
+    /**
+     * 监听 WebSocket 错误消息
+     * @see https://opendocs.alipay.com/mini/api/vx19c3#SocketTask
+     */
+    onError(
+      cb: (arg: {
+        /**
+         * 数据
+         */
+        data: IOnSocketTaskErrorData;
+        /**
+         * 错误码
+         */
+        error: number;
+      }) => void
+    ): void;
+    /**
+     * 监听 WebSocket 消息
+     * @see https://opendocs.alipay.com/mini/api/vx19c3#SocketTask
+     */
+    onMessage(
+      cb: (arg: {
+        /**
+         * 数据
+         */
+        data: IOnSocketTaskMessageData;
+      }) => void
+    ): void;
+    /**
+     * 监听 WebSocket open 事件
+     * @see https://opendocs.alipay.com/mini/api/vx19c3#SocketTask
+     */
+    onOpen(
+      cb: (arg: {
+        /**
+         * 数据
+         */
+        data: IOnSocketTaskOpenData;
+      }) => void
+    ): void;
+    /**
+     * 通过 WebSocket 连接发送数据
+     * @see https://opendocs.alipay.com/mini/api/vx19c3#SocketTask
+     */
+    send(object: {
+      /**
+       * 需要发送的内容：普通的文本内容 string 或者经 Base64 编码后的 string。
+       */
+      data: string;
+      /**
+       * 接口调用成功的回调函数
+       */
+      success?(data: {
+        /**
+         * 是否成功
+         */
+        success: boolean;
+      }): void;
+      /**
+       * 接口调用失败的回调函数
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              /**
+               * 是否成功
+               */
+              success: boolean;
+            }
+          | {
+              error?: number;
+              errorMessage?: string;
+            }
+      ): void;
+    }): Promise<{
+      /**
+       * 是否成功
+       */
+      success: boolean;
+    }>;
+  }
   export interface InnerAudioContext {
     /**
      * 是否自动播放
@@ -17392,7 +17620,7 @@ declare namespace my {
       height: number;
       destWidth: number;
       destHeight: number;
-      fileType: 'png' | 'jpg';
+      fileType: 'jpg' | 'png';
       quality: number;
       /**
        * 接口调用成功的回调函数
@@ -21357,6 +21585,38 @@ declare namespace my {
      * type 为 'text', 'num' 时的内容
      */
     text: string;
+  }
+  interface IOnSocketTaskCloseData {
+    /**
+     * 唯一标识
+     */
+    socketTaskID: string;
+  }
+  interface IOnSocketTaskErrorData {
+    /**
+     * 唯一标识
+     */
+    socketTaskID: string;
+  }
+  interface IOnSocketTaskMessageData {
+    /**
+     * 唯一标识
+     */
+    socketTaskID: string;
+    /**
+     * 消息
+     */
+    data: string | ArrayBuffer;
+    /**
+     * 是否 Buffer 类型
+     */
+    isBuffer: boolean;
+  }
+  interface IOnSocketTaskOpenData {
+    /**
+     * 唯一标识
+     */
+    socketTaskID: string;
   }
   interface IOpenSettingAuthSetting {
     /**
