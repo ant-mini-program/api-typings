@@ -23603,6 +23603,45 @@ declare const enum EGetAuthCodeScopeNicks {
    * 获取用户芝麻信息。
    */
   auth_zhima = 'auth_zhima',
+  
+  /**
+   * 以下均为订单服务授权
+   * 需要用户手动点击同意，表示用户同意《订单服务信息授权》。
+   * https://opendocs.alipay.com/mini/024hj4?pathHash=d1c195fd#%E6%94%AF%E4%BB%98%E5%AE%9D%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%86%85%E8%8E%B7%E5%8F%96
+   */
+  order_service = 'order_service',
+  /**
+   * 汽车票、飞机票、景区小交通、景区门票
+   */ 
+  trip_ticket = 'trip_ticket',
+  /**
+   * 打车、顺风车
+   */
+  ride_hailing = 'ride_hailing',
+  /**
+   * 充电桩、二轮充电桩
+   */
+  charging_pile = 'charging_pile',
+  /**
+   * 兼职招聘
+   */
+  ptjob_order_sync = 'ptjob_order_sync',
+  /**
+   * 代驾
+   */
+  indr_order_sync = 'indr_order_sync',
+  /**
+   * 租车
+   */
+  car_rental_auth = 'car_rental_auth',
+  /**
+   * 医疗行业
+   */
+  hospital_order = 'hospital_order',
+  /**
+   * 消费金融
+   */
+  consumer_finance = 'consumer_finance',
 }
 
 declare const enum EGetBLEDeviceStatusAuthStatus {
