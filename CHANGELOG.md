@@ -1,4 +1,10 @@
-# [](https://github.com/ant-mini-program/api-typings/compare/v3.0.8...v) (2023-06-15)
+# [](https://github.com/ant-mini-program/api-typings/compare/v3.0.8...v) (2023-08-14)
+
+
+### Features
+
+* connectSocket support multiple param ([e47bbce](https://github.com/ant-mini-program/api-typings/commit/e47bbcef15f69cd7b33a71cd1a9c1ab1b925084d))
+* update typings ([3935d1d](https://github.com/ant-mini-program/api-typings/commit/3935d1ddb11e5795e729d87410f2095c7d807974))
 
 
 
@@ -73,11 +79,11 @@
 
 ### Features
 
+* 基础库 2.8.5 Component新增功能 ([#18](https://github.com/ant-mini-program/api-typings/issues/18)) ([6eb99b5](https://github.com/ant-mini-program/api-typings/commit/6eb99b5e8eb506bb3de31a1cfb061b2cc96814b8))
+* 新增 setUpdatePerformanceListener 类型 & lint hook ([#25](https://github.com/ant-mini-program/api-typings/issues/25)) ([584d77b](https://github.com/ant-mini-program/api-typings/commit/584d77bfae55468e0ef4d73462230ddaee0189f4))
 * remove unused declarations ([578145f](https://github.com/ant-mini-program/api-typings/commit/578145f0046fbeb6c6a2601c62e504765c67a84b))
 * update typings ([eeecac0](https://github.com/ant-mini-program/api-typings/commit/eeecac033e3b92c48fe48d86e51438ef2322ed7d))
 * update typings ([59616dc](https://github.com/ant-mini-program/api-typings/commit/59616dc7a6933b3b480eaf9355f4cbd129ee9ebc))
-* 基础库 2.8.5 Component新增功能 ([#18](https://github.com/ant-mini-program/api-typings/issues/18)) ([6eb99b5](https://github.com/ant-mini-program/api-typings/commit/6eb99b5e8eb506bb3de31a1cfb061b2cc96814b8))
-* 新增 setUpdatePerformanceListener 类型 & lint hook ([#25](https://github.com/ant-mini-program/api-typings/issues/25)) ([584d77b](https://github.com/ant-mini-program/api-typings/commit/584d77bfae55468e0ef4d73462230ddaee0189f4))
 
 
 
