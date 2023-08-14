@@ -510,6 +510,7 @@ declare namespace my {
   /**
    * 下单前检查，确认使用何种支付方式
    * @description 下单前检查，确认使用何种支付方式
+   * @see https://opendocs.alipay.com/mini/082dlt
    */
   export function checkBeforeAddOrder(object?: {
     /**
@@ -1907,8 +1908,8 @@ declare namespace my {
    */
   export function createAnimation(param: IMyCreateAnimationParam): Animation;
   /**
-   * @deprecated 请使用 [Canvas](miniapi:Canvas) 标准接口
-   * 创建并返回 [<canvas>](minielement:canvas) 组件上下文
+   * @deprecated 请使用 [Canvas](Canvas) 标准接口
+   * 创建并返回 <canvas> 组件上下文
    * @see https://opendocs.alipay.com/mini/api/ui-canvas
    */
   export function createCanvasContext(canvasId: string): CanvasContext;
@@ -1925,12 +1926,12 @@ declare namespace my {
     options?: ITypeIntersectionObserverOption
   ): IntersectionObserver;
   /**
-   * 创建并返回 [<lottie>](minielement:lottie) 组件上下文
+   * 创建并返回 <lottie> 组件上下文
    * @see https://opendocs.alipay.com/mini/api/createlottiecontext
    */
   export function createLottieContext(lottieId: string): LottieContext;
   /**
-   * 创建并返回 [<map>](minielement:map) 组件上下文
+   * 创建并返回 <map> 组件上下文
    * @description 创建并返回 [map](minielement) 组件上下文 [MapContext]() 对象，也可以使用 [my.createSelectorQuery]() 获取
    * @see https://opendocs.alipay.com/mini/api/ui-map
    */
@@ -1949,19 +1950,19 @@ declare namespace my {
   export function createRewardedAd(adUnitId: string): RewardedAd;
   /**
    * 创建视图信息查询实例
-   * @description 在 `自定义组件` 或包含 `自定义组件` 页面中，希望仅查询自身模板（不跨组件）的视图信息，应使用 [this.createSelectorQuery()](miniapi:Component.createSelectorQuery) 来代替
+   * @description 在 `自定义组件` 或包含 `自定义组件` 页面中，希望仅查询自身模板（不跨组件）的视图信息，应使用 [this.createSelectorQuery()](Component.createSelectorQuery) 来代替
    * @see https://opendocs.alipay.com/mini/api/selector-query
    */
   export function createSelectorQuery(
     option?: IMyCreateSelectorQueryOption
   ): SelectorQuery;
   /**
-   * 创建并返回 [<video>](minielement:video) 组件上下文
+   * 创建并返回 <video> 组件上下文
    * @see https://opendocs.alipay.com/mini/api/media/video/my.createvideocontext
    */
   export function createVideoContext(id: string): VideoContext;
   /**
-   * 创建并返回 [<web-view>](minielement:web-view) 组件上下文
+   * 创建并返回 <web-view> 组件上下文
    * @see https://opendocs.alipay.com/mini/api/webview-context
    */
   export function createWebViewContext(id: string): WebViewContext;
@@ -2045,6 +2046,7 @@ declare namespace my {
   /**
    * 文件类型检查
    * @description 支持传入虚拟地址，检查文件类型
+   * @see https://opendocs.alipay.com/mini/076dwu
    */
   export function detectFileType(object: {
     /**
@@ -2659,6 +2661,7 @@ declare namespace my {
   >;
   /**
    * 获取 APP 授权设置
+   * @see https://opendocs.alipay.com/mini/071a9f
    */
   export function getAppAuthorizeSetting(): {
     /**
@@ -2713,6 +2716,7 @@ declare namespace my {
   };
   /**
    * 同步获取小程序基础信息接口
+   * @see https://opendocs.alipay.com/mini/0717lu
    */
   export function getAppBaseInfo(): {
     /**
@@ -2747,7 +2751,7 @@ declare namespace my {
      * 授权类型
      * @default auth_base
      */
-    scopes?: `${EGetAuthCodeScopeNicks}` | Array<`${EGetAuthCodeScopeNicks}`>;
+    scopes?: string | string[];
     /**
      * 接口调用成功的回调函数
      */
@@ -2763,7 +2767,20 @@ declare namespace my {
       /**
        * 成功的授权 scope
        */
-      authSuccessScopes: Array<`${EGetAuthCodeScopeNicks}`>;
+      authSuccessScopes: (
+        | 'auth_base'
+        | 'auth_user'
+        | 'auth_zhima'
+        | 'order_service'
+        | 'trip_ticket'
+        | 'ride_hailing'
+        | 'charging_pile'
+        | 'ptjob_order_sync'
+        | 'indr_order_sync'
+        | 'car_rental_auth'
+        | 'hospital_order'
+        | 'consumer_finance'
+      )[];
     }): void;
     /**
      * 接口调用失败的回调函数
@@ -2786,7 +2803,20 @@ declare namespace my {
             /**
              * 成功的授权 scope
              */
-            authSuccessScopes: Array<`${EGetAuthCodeScopeNicks}`>;
+            authSuccessScopes: (
+              | 'auth_base'
+              | 'auth_user'
+              | 'auth_zhima'
+              | 'order_service'
+              | 'trip_ticket'
+              | 'ride_hailing'
+              | 'charging_pile'
+              | 'ptjob_order_sync'
+              | 'indr_order_sync'
+              | 'car_rental_auth'
+              | 'hospital_order'
+              | 'consumer_finance'
+            )[];
           }
         | {
             error?: number;
@@ -2805,7 +2835,20 @@ declare namespace my {
     /**
      * 成功的授权 scope
      */
-    authSuccessScopes: Array<`${EGetAuthCodeScopeNicks}`>;
+    authSuccessScopes: (
+      | 'auth_base'
+      | 'auth_user'
+      | 'auth_zhima'
+      | 'order_service'
+      | 'trip_ticket'
+      | 'ride_hailing'
+      | 'charging_pile'
+      | 'ptjob_order_sync'
+      | 'indr_order_sync'
+      | 'car_rental_auth'
+      | 'hospital_order'
+      | 'consumer_finance'
+    )[];
   }>;
   /**
    * 获取支持的音频输入源
@@ -5306,6 +5349,7 @@ declare namespace my {
   }): ITypeSystemInfo;
   /**
    * 同步获取设备设置
+   * @see https://opendocs.alipay.com/mini/071crr
    */
   export function getSystemSetting(): {
     /**
@@ -5373,6 +5417,7 @@ declare namespace my {
   export function getUpdateManager(): UpdateManager;
   /**
    * 获取视频信息
+   * @see https://opendocs.alipay.com/mini/076cxc
    */
   export function getVideoInfo(object: {
     /**
@@ -5565,6 +5610,7 @@ declare namespace my {
   }>;
   /**
    * 同步获取窗口信息
+   * @see https://opendocs.alipay.com/mini/054vop
    */
   export function getWindowInfo(): {
     /**
@@ -6240,12 +6286,12 @@ declare namespace my {
      */
     path?: string;
     /**
-     * 用于设置目标小程序应用的 `query` 数据。目标小程序可在 [App.onLaunch](miniapi:GlobalThis.App) （冷启动）或 [App.onshow](miniapi:GlobalThis.App) （热启动）中通过 `options.query` 获取
+     * 用于设置目标小程序应用的 `query` 数据。目标小程序可在 [App.onLaunch](GlobalThis.App) （冷启动）或 [App.onshow](GlobalThis.App) （热启动）中通过 `options.query` 获取
      * @description 目标小程序可在 App.onLaunch()，App.onShow() 中的 query 字段获取到这份数据。
      */
     query?: IMyNavigateToMiniProgramQuery;
     /**
-     * 需要传递给目标小程序的数据。目标小程序可在 [App.onLaunch](miniapi:GlobalThis.App) （冷启动）或 [App.onshow](miniapi:GlobalThis.App) （热启动）中通过 `options.referrerInfo.extraData` 获取
+     * 需要传递给目标小程序的数据。目标小程序可在 [App.onLaunch](GlobalThis.App) （冷启动）或 [App.onshow](GlobalThis.App) （热启动）中通过 `options.referrerInfo.extraData` 获取
      * @description 目标小程序可在 App.onLaunch()，App.onShow() 中的 referrerInfo.extraData 字段获取到这份数据。
      */
     extraData?: IMyNavigateToMiniProgramExtraData;
@@ -8227,7 +8273,7 @@ declare namespace my {
      * 返回的数据格式
      * @default 'json'
      */
-    dataType?: 'base64' | 'json' | 'text' | 'arraybuffer';
+    dataType?: 'json' | 'text' | 'base64' | 'arraybuffer';
     /**
      * HTTP 请求方法
      * @default 'GET'
@@ -9990,6 +10036,7 @@ declare namespace my {
   }): Promise<void>;
   /**
    * 打开当前页面分享按钮
+   * @see https://opendocs.alipay.com/mini/083du8
    */
   export function showShareMenu(): void;
   /**
@@ -10843,7 +10890,7 @@ declare namespace my {
   }): Promise<void>;
   /**
    * 取消小程序订阅的消息
-   * @see https://opendocs.alipay.com/mini/api/unsubscribeMessage
+   * @see https://opendocs.alipay.com/mini/07vg26
    */
   export function unsubscribeMessage(object: {
     /**
@@ -10860,7 +10907,7 @@ declare namespace my {
       success?: boolean;
       /**
        * 错误码
-       * @description 可参考：[错误码](https://opendocs.alipay.com/mini/api/unsubscribeMessage#%E9%94%99%E8%AF%AF%E7%A0%81)
+       * @description 可参考：[错误码](https://opendocs.alipay.com/mini/07vg26#%E9%94%99%E8%AF%AF%E7%A0%81)
        */
       error?: number;
       /**
@@ -10884,7 +10931,7 @@ declare namespace my {
             success?: boolean;
             /**
              * 错误码
-             * @description 可参考：[错误码](https://opendocs.alipay.com/mini/api/unsubscribeMessage#%E9%94%99%E8%AF%AF%E7%A0%81)
+             * @description 可参考：[错误码](https://opendocs.alipay.com/mini/07vg26#%E9%94%99%E8%AF%AF%E7%A0%81)
              */
             error?: number;
             /**
@@ -10904,7 +10951,7 @@ declare namespace my {
     success?: boolean;
     /**
      * 错误码
-     * @description 可参考：[错误码](https://opendocs.alipay.com/mini/api/unsubscribeMessage#%E9%94%99%E8%AF%AF%E7%A0%81)
+     * @description 可参考：[错误码](https://opendocs.alipay.com/mini/07vg26#%E9%94%99%E8%AF%AF%E7%A0%81)
      */
     error?: number;
     /**
@@ -12963,7 +13010,7 @@ declare namespace my {
     };
     /**
      * 创建文件系统目录
-     * @see https://opendocs.alipay.com/mini/api/0226oh
+     * @see https://opendocs.alipay.com/mini/0762mm
      */
     mkdir(object: {
       /**
@@ -14581,7 +14628,7 @@ declare namespace my {
     in(component: unknown): this;
     /**
      * 获取 Node 节点实例
-     * @description 目前仅支持 [Canvas](miniapi:Canvas) 节点的获取
+     * @description 目前仅支持 [Canvas](Canvas) 节点的获取
      * @see https://opendocs.alipay.com/mini/api/node
      */
     node(callback: (res: unknown) => void): this;
@@ -16801,6 +16848,7 @@ declare namespace my {
   export interface LottieContext {
     /**
      * 当前 Lottie 视图指定降级为展示 placeholder
+     * @see https://opendocs.alipay.com/mini/07tewi
      */
     downgradeToPlaceholder(): void;
     /**
@@ -16952,6 +17000,7 @@ declare namespace my {
     }>;
     /**
      * 跳转至并从该进度开始播放
+     * @see https://opendocs.alipay.com/mini/07t07e
      */
     goToAndPlay(param: {
       /**
@@ -16961,6 +17010,7 @@ declare namespace my {
     }): void;
     /**
      * 跳转至并停在该进度
+     * @see https://opendocs.alipay.com/mini/07sspx
      */
     goToAndStop(param: {
       /**
@@ -16970,14 +17020,17 @@ declare namespace my {
     }): void;
     /**
      * 暂停播放
+     * @see https://opendocs.alipay.com/mini/07t07d
      */
     pause(): void;
     /**
      * 开始播放
+     * @see https://opendocs.alipay.com/mini/07t1o3
      */
     play(): void;
     /**
      * 从最小到最大的 Frame 区间进行播放
+     * @see https://opendocs.alipay.com/mini/07sqpx
      */
     playFromMinToMaxFrame(param: {
       /**
@@ -16991,6 +17044,7 @@ declare namespace my {
     }): void;
     /**
      * 从最小到最大的进度区间进行播放
+     * @see https://opendocs.alipay.com/mini/07t52l
      */
     playFromMinToMaxProgress(param: {
       /**
@@ -17004,6 +17058,7 @@ declare namespace my {
     }): void;
     /**
      * 设置播放速度。正数为正向播放，负数负向播放
+     * @see https://opendocs.alipay.com/mini/07t3xp
      */
     setSpeed(param: {
       /**
@@ -17013,6 +17068,7 @@ declare namespace my {
     }): void;
     /**
      * 停止播放
+     * @see https://opendocs.alipay.com/mini/07suia
      */
     stop(): void;
   }
@@ -17090,108 +17146,134 @@ declare namespace my {
     webUrl: string;
     /**
      * 停止监听可以开始播放的事件
+     * @see https://opendocs.alipay.com/mini/07t9u2
      */
     offCanPlay(cb?: () => void): void;
     /**
      * 停止监听播放完成的事件
+     * @see https://opendocs.alipay.com/mini/07sy8v
      */
     offEnded(cb?: () => void): void;
     /**
      * 停止监听播放下一首的事件
+     * @see https://opendocs.alipay.com/mini/07tewk
      */
     offNext(cb?: () => void): void;
     /**
      * 停止监听播放暂停的事件
+     * @see https://opendocs.alipay.com/mini/07t7hy
      */
     offPause(cb?: () => void): void;
     /**
      * 停止监听播放开始事件
+     * @see https://opendocs.alipay.com/mini/07te1i
      */
     offPlay(cb?: () => void): void;
     /**
      * 停止监听播放上一首的事件
+     * @see https://opendocs.alipay.com/mini/07sqpz
      */
     offPrev(cb?: () => void): void;
     /**
      * 停止监听跳转到进度的事件
+     * @see https://opendocs.alipay.com/mini/07sy8u
      */
     offSeeked(cb?: () => void): void;
     /**
      * 停止监听开始跳转到进度的事件
+     * @see https://opendocs.alipay.com/mini/07t07f
      */
     offSeeking(cb?: () => void): void;
     /**
      * 停止监听播放停止的事件
+     * @see https://opendocs.alipay.com/mini/07tg7p
      */
     offStop(cb?: () => void): void;
     /**
      * 停止监听时间更新事件
+     * @see https://opendocs.alipay.com/mini/07t3xr
      */
     offTimeUpdate(cb?: () => void): void;
     /**
      * 停止监听音频还在准备中的事件
+     * @see https://opendocs.alipay.com/mini/07te1h
      */
     offWaiting(cb?: () => void): void;
     /**
      * 监听可以开始播放的事件
      * @description ，缓冲完成可以开始播放，但不保证后面可以流畅播放。
+     * @see https://opendocs.alipay.com/mini/07tco2
      */
     onCanPlay(cb: () => void): void;
     /**
      * 监听播放完成的事件
+     * @see https://opendocs.alipay.com/mini/07sz98
      */
     onEnded(cb: () => void): void;
     /**
      * 监听播放下一首的事件
+     * @see https://opendocs.alipay.com/mini/07t311
      */
     onNext(cb: () => void): void;
     /**
      * 监听播放暂停的事件
+     * @see https://opendocs.alipay.com/mini/07t9u4
      */
     onPause(cb: () => void): void;
     /**
      * 监听播放开始事件
      * @description 播放过程中缓存不会再次触发
+     * @see https://opendocs.alipay.com/mini/07t9u3
      */
     onPlay(cb: () => void): void;
     /**
      * 监听播放上一首的事件
+     * @see https://opendocs.alipay.com/mini/07sspy
      */
     onPrev(cb: () => void): void;
     /**
      * 监听跳转到进度的事件
+     * @see https://opendocs.alipay.com/mini/07sz97
      */
     onSeeked(cb: () => void): void;
     /**
      * 监听开始跳转到进度的事件
+     * @see https://opendocs.alipay.com/mini/07tewj
      */
     onSeeking(cb: () => void): void;
     /**
      * 监听播放停止的事件
+     * @see https://opendocs.alipay.com/mini/07t8lv
      */
     onStop(cb: () => void): void;
     /**
      * 监听时间更新事件
+     * @see https://opendocs.alipay.com/mini/07t3xq
      */
     onTimeUpdate(cb: () => void): void;
     /**
      * 监听音频还在准备中的事件，在缓冲期间会被触发多次
+     * @see https://opendocs.alipay.com/mini/07t7hx
      */
     onWaiting(cb: () => void): void;
     /**
      * 暂停音频，再次播放会从暂停处播放
+     * @see https://opendocs.alipay.com/mini/07tbao
      */
     pause(): void;
     /**
      * 播放音频
+     * @see https://opendocs.alipay.com/mini/07t9u1
      */
     play(): void;
     /**
      * 跳转到指定位置
+     * @see https://opendocs.alipay.com/mini/07t8lu
      */
     seek(position: number): void;
     /**
      * 停止播放，再次播放会从重新播放
+     * @see https://opendocs.alipay.com/mini/07tco1
      */
     stop(): void;
   }
@@ -18396,7 +18478,7 @@ declare namespace my {
   export interface UploadTask {
     /**
      * 取消本次任务
-     * @see https://opendocs.alipay.com/mini/api/kmq4hc#UploadTask
+     * @see https://opendocs.alipay.com/mini/0759ej
      */
     abort(object: {
       uploadTaskId: number;
@@ -18427,7 +18509,7 @@ declare namespace my {
     }>;
     /**
      * 移除 HTTP Response Header 事件的监听函数
-     * @see https://opendocs.alipay.com/mini/api/kmq4hc#UploadTask
+     * @see https://opendocs.alipay.com/mini/075pjj
      */
     offHeadersReceived(
       cb?: (arg: {
@@ -18439,11 +18521,12 @@ declare namespace my {
     ): void;
     /**
      * 监听上传进度变化事件
+     * @see https://opendocs.alipay.com/mini/075pjk
      */
     offProgressUpdate(cb?: (arg: {}) => void): void;
     /**
      * 监听 HTTP Response Header 事件。会比请求完成事件更早
-     * @see https://opendocs.alipay.com/mini/api/kmq4hc#UploadTask
+     * @see https://opendocs.alipay.com/mini/075dt3
      */
     onHeadersReceived(
       cb: (arg: {
@@ -18455,7 +18538,7 @@ declare namespace my {
     ): void;
     /**
      * 监听上传进度变化事件
-     * @see https://opendocs.alipay.com/mini/api/kmq4hc#UploadTask
+     * @see https://opendocs.alipay.com/mini/075dt4
      */
     onProgressUpdate(
       cb: (arg: {
@@ -18477,6 +18560,7 @@ declare namespace my {
   export interface DownloadTask {
     /**
      * 取消本次任务
+     * @see https://opendocs.alipay.com/mini/075mtz
      */
     abort(object: {
       downloadTaskId: number;
@@ -18507,14 +18591,17 @@ declare namespace my {
     }>;
     /**
      * 移除 HTTP Response Header 事件的监听函数
+     * @see https://opendocs.alipay.com/mini/075qu1
      */
     offHeadersReceived(cb?: (arg: {}) => void): void;
     /**
      * 取消监听下载进度变化
+     * @see https://opendocs.alipay.com/mini/075s7g
      */
     offProgressUpdate(cb?: (arg: {}) => void): void;
     /**
      * 监听 HTTP Response Header 事件。会比请求完成事件更早
+     * @see https://opendocs.alipay.com/mini/075dt5
      */
     onHeadersReceived(
       cb: (arg: {
@@ -18526,6 +18613,7 @@ declare namespace my {
     ): void;
     /**
      * 监听下载进度变化事件
+     * @see https://opendocs.alipay.com/mini/075pjl
      */
     onProgressUpdate(
       cb: (arg: {
@@ -18547,6 +18635,7 @@ declare namespace my {
   export interface RequestTask {
     /**
      * 取消本次任务
+     * @see https://opendocs.alipay.com/mini/075h2u
      */
     abort(object: {
       requestTaskId: number;
@@ -18577,10 +18666,12 @@ declare namespace my {
     }>;
     /**
      * 移除 HTTP Response Header 事件的监听函数
+     * @see https://opendocs.alipay.com/mini/075qu0
      */
     offHeadersReceived(cb?: (arg: {}) => void): void;
     /**
      * 监听 HTTP Response Header 事件。会比请求完成事件更早
+     * @see https://opendocs.alipay.com/mini/075pji
      */
     onHeadersReceived(
       cb: (arg: {
@@ -23588,21 +23679,6 @@ declare const enum ECompressImageCompressLevel {
    * 根据网络适应
    */
   _4 = 4,
-}
-
-declare const enum EGetAuthCodeScopeNicks {
-  /**
-   * 静默授权。
-   */
-  auth_base = 'auth_base',
-  /**
-   * 主动授权。
-   */
-  auth_user = 'auth_user',
-  /**
-   * 获取用户芝麻信息。
-   */
-  auth_zhima = 'auth_zhima',
 }
 
 declare const enum EGetBLEDeviceStatusAuthStatus {
