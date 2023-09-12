@@ -514,6 +514,10 @@ declare namespace my {
    */
   export function checkBeforeAddOrder(object?: {
     /**
+     * @description -
+     */
+    outItemList?: IMyCheckBeforeAddOrderOutItemList[];
+    /**
      * 接口调用成功的回调函数
      */
     success?(data: {
@@ -521,6 +525,8 @@ declare namespace my {
        * 返回使用方式，如果是 1 则使用交易组件，如果是 0 则使用 tradePay
        */
       requireOrder: number;
+      sourceId: string;
+      sceneId: string;
     }): void;
     /**
      * 接口调用失败的回调函数
@@ -546,6 +552,8 @@ declare namespace my {
              * 返回使用方式，如果是 1 则使用交易组件，如果是 0 则使用 tradePay
              */
             requireOrder: number;
+            sourceId: string;
+            sceneId: string;
           }
         | (
             | {
@@ -563,6 +571,8 @@ declare namespace my {
      * 返回使用方式，如果是 1 则使用交易组件，如果是 0 则使用 tradePay
      */
     requireOrder: number;
+    sourceId: string;
+    sceneId: string;
   }>;
   /**
    * 获取本机支持的 IFAA 生物认证方式
@@ -4094,6 +4104,10 @@ declare namespace my {
      */
     accuracy?: number;
     /**
+     * 业务唯一标识，默认为当前应用的 appId，若传值则值为当前应用的 appId + "- 用户传的值"
+     */
+    bizType?: string;
+    /**
      * 接口调用成功的回调函数
      */
     success?(data: {
@@ -4641,6 +4655,30 @@ declare namespace my {
        * 响应嵌套对象字符串
        */
       response: string;
+      /**
+       * 头像图片地址
+       */
+      avatar: string;
+      /**
+       * 结果码。10000 为成功，其他情况为失败。40003 和 40006 是较为常见的报错
+       */
+      code: string;
+      /**
+       * 昵称。
+       */
+      nickName: string;
+      /**
+       * 结果消息
+       */
+      msg: string;
+      /**
+       * 业务错误消息
+       */
+      subMsg: string;
+      /**
+       * 业务错误码
+       */
+      subCode: string;
     }): void;
     /**
      * 接口调用失败的回调函数
@@ -4656,6 +4694,30 @@ declare namespace my {
              * 响应嵌套对象字符串
              */
             response: string;
+            /**
+             * 头像图片地址
+             */
+            avatar: string;
+            /**
+             * 结果码。10000 为成功，其他情况为失败。40003 和 40006 是较为常见的报错
+             */
+            code: string;
+            /**
+             * 昵称。
+             */
+            nickName: string;
+            /**
+             * 结果消息
+             */
+            msg: string;
+            /**
+             * 业务错误消息
+             */
+            subMsg: string;
+            /**
+             * 业务错误码
+             */
+            subCode: string;
           }
         | {
             error?: number;
@@ -4667,6 +4729,30 @@ declare namespace my {
      * 响应嵌套对象字符串
      */
     response: string;
+    /**
+     * 头像图片地址
+     */
+    avatar: string;
+    /**
+     * 结果码。10000 为成功，其他情况为失败。40003 和 40006 是较为常见的报错
+     */
+    code: string;
+    /**
+     * 昵称。
+     */
+    nickName: string;
+    /**
+     * 结果消息
+     */
+    msg: string;
+    /**
+     * 业务错误消息
+     */
+    subMsg: string;
+    /**
+     * 业务错误码
+     */
+    subCode: string;
   }>;
   /**
    * @deprecated 请使用 [my.getParentAppIdSync]() 代替
@@ -7396,6 +7482,73 @@ declare namespace my {
     complete?(arg: { error?: number; errorMessage?: string }): void;
   }): Promise<void>;
   /**
+   * 打开第三方应用
+   */
+  export function openOtherApp(object: {
+    /**
+     * 跳转第三方 App 的完整scheme
+     */
+    url: string;
+    /**
+     * 接口调用成功的回调函数
+     */
+    success?(data: {
+      /**
+       * 错误码
+       */
+      error?: number;
+      /**
+       * 错误信息
+       */
+      errorMessage?: string;
+      /**
+       * 跳转结果
+       */
+      success: boolean;
+    }): void;
+    /**
+     * 接口调用失败的回调函数
+     */
+    fail?(err: { error?: number; errorMessage?: string }): void;
+    /**
+     * 接口调用结束的回调函数（调用成功、失败都会执行）
+     */
+    complete?(
+      arg:
+        | {
+            /**
+             * 错误码
+             */
+            error?: number;
+            /**
+             * 错误信息
+             */
+            errorMessage?: string;
+            /**
+             * 跳转结果
+             */
+            success: boolean;
+          }
+        | {
+            error?: number;
+            errorMessage?: string;
+          }
+    ): void;
+  }): Promise<{
+    /**
+     * 错误码
+     */
+    error?: number;
+    /**
+     * 错误信息
+     */
+    errorMessage?: string;
+    /**
+     * 跳转结果
+     */
+    success: boolean;
+  }>;
+  /**
    * 跳转到小程序设置界面
    * @description 返回用户权限设置的结果，设置界面只会出现小程序已经向用户请求过的权限
    * @see https://opendocs.alipay.com/mini/api/qflu8f
@@ -8273,7 +8426,7 @@ declare namespace my {
      * 返回的数据格式
      * @default 'json'
      */
-    dataType?: 'json' | 'text' | 'base64' | 'arraybuffer';
+    dataType?: 'base64' | 'json' | 'text' | 'arraybuffer';
     /**
      * HTTP 请求方法
      * @default 'GET'
@@ -8442,7 +8595,7 @@ declare namespace my {
    */
   export function requestSubscribeMessage(object: {
     /**
-     * 应用 id
+     * 订阅消息的应用 id
      */
     appId?: string;
     /**
@@ -8457,6 +8610,18 @@ declare namespace my {
      * 模板小程序标识，仅在 ISV（独立软件开发商） 场景下需要传入。
      */
     thirdTypeAppId?: string;
+    /**
+     * 场景值
+     */
+    sceneCode?: string;
+    /**
+     * a 拉 b 订阅场景中，需要关联的 a 小程序 appId。appx 自动补充，无需主动传入。
+     */
+    relatedOwnerId?: string;
+    /**
+     * 订阅时的扩展参数
+     */
+    extInfo?: IMyRequestSubscribeMessageExtInfo;
     /**
      * 接口调用成功的回调函数
      */
@@ -9497,6 +9662,89 @@ declare namespace my {
     complete?(arg: { error?: number; errorMessage?: string }): void;
   }): Promise<void>;
   /**
+   * 设置导航栏底部边框颜色
+   */
+  export function setNavigationBarBottomLineColor(object?: {
+    /**
+     * 导航栏底部边框颜色，支持十六进制颜色值。
+     * @example "#00FF00"
+     */
+    borderBottomColor?: string;
+    /**
+     * 接口调用成功的回调函数
+     */
+    success?(data: {}): void;
+    /**
+     * 接口调用失败的回调函数
+     */
+    fail?(err: { error?: number; errorMessage?: string }): void;
+    /**
+     * 接口调用结束的回调函数（调用成功、失败都会执行）
+     */
+    complete?(arg: { error?: number; errorMessage?: string }): void;
+  }): Promise<void>;
+  /**
+   * 设置导航栏颜色
+   * @description 样式包括：导航栏背景色、导航栏前景色
+   */
+  export function setNavigationBarColor(object?: {
+    /**
+     * 导航栏背景色，支持十六进制颜色值。
+     * @description 导航栏背景色不支持渐变色
+     * @example "#FF0000"
+     */
+    backgroundColor?: string;
+    /**
+     * 导航栏前景颜色值
+     * @description 包括返回键、标题、收藏、右上角胶囊按钮的颜色，仅支持 #ffffff 和 #000000。
+     * @example "#FFFFFF"
+     */
+    frontColor?: string;
+    /**
+     * 接口调用成功的回调函数
+     */
+    success?(data: {}): void;
+    /**
+     * 接口调用失败的回调函数
+     */
+    fail?(err: { error?: number; errorMessage?: string }): void;
+    /**
+     * 接口调用结束的回调函数（调用成功、失败都会执行）
+     */
+    complete?(arg: { error?: number; errorMessage?: string }): void;
+  }): Promise<void>;
+  /**
+   * 动态设置当前页面的标题
+   * @description 样式包括：导航栏标题、导航栏左上角 logo 图片
+   */
+  export function setNavigationBarTitle(object?: {
+    /**
+     * 导航栏标题
+     * @example "文字标题"
+     */
+    title?: string;
+    /**
+     * 导航栏左上角 logo 图片链接地址
+     * @description
+     * - 支持 gif 格式，必须使用 HTTPS 图片链接
+     * - 若设置了 image 则 title 参数失效
+     * - iOS 请使用3倍分辨率标准的高清图片
+     */
+    image?: string;
+    /**
+     * 接口调用成功的回调函数
+     */
+    success?(data: {}): void;
+    /**
+     * 接口调用失败的回调函数
+     */
+    fail?(err: { error?: number; errorMessage?: string }): void;
+    /**
+     * 接口调用结束的回调函数（调用成功、失败都会执行）
+     */
+    complete?(arg: { error?: number; errorMessage?: string }): void;
+  }): Promise<void>;
+  /**
    * 设置屏幕亮度
    * @see https://opendocs.alipay.com/mini/api/ccf32t
    */
@@ -9582,7 +9830,20 @@ declare namespace my {
      * 本地缓存中指定的 key
      */
     key: string;
-  }): void;
+  }): {
+    /**
+     * 是否存储成功。
+     */
+    success: boolean;
+    /**
+     * 错误码。错误码只会在出现错误时返回。
+     */
+    error?: number;
+    /**
+     * 错误信息。错误码只会在出现错误时返回。
+     */
+    errorMessage?: string;
+  };
   /**
    * 动态设置 TabBar 某一项右上角的文本
    * @see https://opendocs.alipay.com/mini/api/qm7t3v
@@ -9695,38 +9956,36 @@ declare namespace my {
     /**
      * 接口调用成功的回调函数
      */
-    success?(data: {
-      /**
-       * 执行结果
-       */
-      success: true;
-    }): void;
+    success?(data: {}): void;
     /**
      * 接口调用失败的回调函数
      */
-    fail?(err: { error?: number; errorMessage?: string }): void;
+    fail?(
+      err:
+        | {
+            error?: number;
+            errorMessage?: string;
+          }
+        | {
+            error: 2;
+            errorMessage: 'visualEffect 只能为 hidden 或 none';
+          }
+    ): void;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
     complete?(
       arg:
         | {
-            /**
-             * 执行结果
-             */
-            success: true;
-          }
-        | {
             error?: number;
             errorMessage?: string;
           }
+        | {
+            error: 2;
+            errorMessage: 'visualEffect 只能为 hidden 或 none';
+          }
     ): void;
-  }): Promise<{
-    /**
-     * 执行结果
-     */
-    success: true;
-  }>;
+  }): Promise<void>;
   /**
    * 接口设置 wifiList 中 AP 的相关信息
    * @see https://opendocs.alipay.com/mini/api/setwifilist
@@ -10017,6 +10276,90 @@ declare namespace my {
     complete?(arg: { error?: number; errorMessage?: string }): void;
   }): Promise<void>;
   /**
+   * 显示模态对话框
+   */
+  export function showModal(object?: {
+    /**
+     * 提示的标题。
+     */
+    title?: string;
+    /**
+     * 提示的内容。
+     */
+    content?: string;
+    /**
+     * 是否显示取消按钮。
+     * @default true
+     */
+    showCancel?: boolean;
+    /**
+     * 取消按钮的文字，最多 4 个字符。
+     * @default 取消
+     */
+    cancelText?: string;
+    /**
+     * 取消按钮的文字颜色，必须是 16 进制格式的颜色字符串。
+     * @default #1677FF
+     */
+    cancelColor?: string;
+    /**
+     * 确认按钮的文字，最多 4 个字符。
+     * @default 确定
+     */
+    confirmText?: string;
+    /**
+     * 确认按钮的文字颜色，必须是 16 进制格式的颜色字符串。
+     * @default #1677FF
+     */
+    confirmColor?: string;
+    /**
+     * 是否显示输入框。
+     * @default false
+     */
+    editable?: boolean;
+    /**
+     * 显示输入框时的提示文本。
+     */
+    placeholderText?: string;
+    /**
+     * 接口调用成功的回调函数
+     */
+    success?(data: {
+      confirm: boolean;
+      /**
+       * editable 为 true 时，用户输入的文本。editable 为 false 时，不返回该字段。
+       */
+      content?: string;
+    }): void;
+    /**
+     * 接口调用失败的回调函数
+     */
+    fail?(err: { error?: number; errorMessage?: string }): void;
+    /**
+     * 接口调用结束的回调函数（调用成功、失败都会执行）
+     */
+    complete?(
+      arg:
+        | {
+            confirm: boolean;
+            /**
+             * editable 为 true 时，用户输入的文本。editable 为 false 时，不返回该字段。
+             */
+            content?: string;
+          }
+        | {
+            error?: number;
+            errorMessage?: string;
+          }
+    ): void;
+  }): Promise<{
+    confirm: boolean;
+    /**
+     * editable 为 true 时，用户输入的文本。editable 为 false 时，不返回该字段。
+     */
+    content?: string;
+  }>;
+  /**
    * 在当前页面显示导航条的加载动画
    * @see https://opendocs.alipay.com/mini/api/lydg2a
    */
@@ -10038,7 +10381,66 @@ declare namespace my {
    * 打开当前页面分享按钮
    * @see https://opendocs.alipay.com/mini/083du8
    */
-  export function showShareMenu(): void;
+  export function showShareMenu(object?: {
+    /**
+     * 接口调用成功的回调函数
+     */
+    success?(data: {
+      /**
+       * 错误码
+       */
+      error?: number;
+      /**
+       * 是否成功
+       */
+      success?: boolean;
+      /**
+       * 错误信息
+       */
+      errorMessage?: string;
+    }): void;
+    /**
+     * 接口调用失败的回调函数
+     */
+    fail?(err: { error?: number; errorMessage?: string }): void;
+    /**
+     * 接口调用结束的回调函数（调用成功、失败都会执行）
+     */
+    complete?(
+      arg:
+        | {
+            /**
+             * 错误码
+             */
+            error?: number;
+            /**
+             * 是否成功
+             */
+            success?: boolean;
+            /**
+             * 错误信息
+             */
+            errorMessage?: string;
+          }
+        | {
+            error?: number;
+            errorMessage?: string;
+          }
+    ): void;
+  }): Promise<{
+    /**
+     * 错误码
+     */
+    error?: number;
+    /**
+     * 是否成功
+     */
+    success?: boolean;
+    /**
+     * 错误信息
+     */
+    errorMessage?: string;
+  }>;
   /**
    * 手动唤起分享面板
    * @description 此时 `Page.onShareAppMessage` 入参中 `from` 的值为 `code`
@@ -11325,6 +11727,85 @@ declare namespace my {
   }>;
   export interface RewardedAd {
     /**
+     * 销毁激励视频广告
+     */
+    destroy(object: {
+      /**
+       * 广告单元 ID
+       */
+      adUnitId: string;
+      /**
+       * 接口调用成功的回调函数
+       */
+      success?(data: {
+        /**
+         * 错误码
+         */
+        error?: number;
+        /**
+         * 错误信息
+         */
+        errorMessage?: string;
+      }): void;
+      /**
+       * 接口调用失败的回调函数
+       */
+      fail?(
+        err:
+          | {
+              error?: number;
+              errorMessage?: string;
+            }
+          | {
+              error: 61301;
+              errorMessage: '广告类型错误';
+            }
+          | {
+              error: 2;
+              errorMessage: '参数类型错误';
+            }
+      ): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              /**
+               * 错误码
+               */
+              error?: number;
+              /**
+               * 错误信息
+               */
+              errorMessage?: string;
+            }
+          | (
+              | {
+                  error?: number;
+                  errorMessage?: string;
+                }
+              | {
+                  error: 61301;
+                  errorMessage: '广告类型错误';
+                }
+              | {
+                  error: 2;
+                  errorMessage: '参数类型错误';
+                }
+            )
+      ): void;
+    }): Promise<{
+      /**
+       * 错误码
+       */
+      error?: number;
+      /**
+       * 错误信息
+       */
+      errorMessage?: string;
+    }>;
+    /**
      * 加载激励视频广告
      */
     load(object: {
@@ -11778,6 +12259,10 @@ declare namespace my {
        */
       requestID: string;
     }>;
+    /**
+     * 云数据库
+     */
+    database(): any;
     /**
      * 云存储文件删除
      */
@@ -15569,20 +16054,7 @@ declare namespace my {
     /**
      * 设置地图属性
      */
-    setProps(object?: {
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: {}): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(arg: { error?: number; errorMessage?: string }): void;
-    }): Promise<void>;
+    setProps(payload: Record<string, unknown>): void;
     /**
      * 默认规划步行路线
      * @description 只能显示一条。
@@ -17909,6 +18381,10 @@ declare namespace my {
   }
   export interface CanvasImage {
     /**
+     * 图片是否加载完成
+     */
+    readonly complete: boolean;
+    /**
      * 图片的真实高度
      */
     readonly height: number;
@@ -17948,49 +18424,11 @@ declare namespace my {
     /**
      * 退出全屏
      */
-    exitFullScreen(object: {
-      /**
-       * 组件 id
-       */
-      element: string;
-      /**
-       * 操作类型
-       */
-      actionType: string;
-      /**
-       * 数据
-       */
-      data: Record<string, unknown>;
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: {}): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(arg: { error?: number; errorMessage?: string }): void;
-    }): Promise<void>;
+    exitFullScreen(): void;
     /**
      * 退出画中画
      */
-    exitPictureInPicture(object?: {
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: {}): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(arg: { error?: number; errorMessage?: string }): void;
-    }): Promise<void>;
+    exitPictureInPicture(): void;
     /**
      * 获取当前播放进度
      */
@@ -18011,42 +18449,17 @@ declare namespace my {
     /**
      * 隐藏控制控件
      */
-    hideControl(object: {
+    hideControl(param: {
       /**
        * 控件名称
        */
       controlName: string;
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: {}): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(arg: { error?: number; errorMessage?: string }): void;
-    }): Promise<void>;
+    }): void;
     /**
      * 隐藏状态栏
      * @description 仅在 iOS 全屏下有效
      */
-    hideStatusBar(object?: {
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: {}): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(arg: { error?: number; errorMessage?: string }): void;
-    }): Promise<void>;
+    hideStatusBar(): void;
     /**
      * 切换静音状态
      */
@@ -18054,37 +18467,11 @@ declare namespace my {
     /**
      * 暂停视频播放
      */
-    pause(object?: {
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: {}): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(arg: { error?: number; errorMessage?: string }): void;
-    }): Promise<void>;
+    pause(): void;
     /**
      * 播放视频
      */
-    play(object?: {
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: {}): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(arg: { error?: number; errorMessage?: string }): void;
-    }): Promise<void>;
+    play(): void;
     /**
      * 设置倍速播放（0.5 <= rate <= 2.0）
      */
@@ -18092,24 +18479,12 @@ declare namespace my {
     /**
      * 进入全屏
      */
-    requestFullScreen(object: {
+    requestFullScreen(param: {
       /**
        * 进入全屏，0为正常竖屏，90为横屏，-90反向横屏
        */
       direction: number;
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: {}): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(arg: { error?: number; errorMessage?: string }): void;
-    }): Promise<void>;
+    }): void;
     /**
      * 跳转到指定位置，单位为秒（s）
      */
@@ -18117,7 +18492,7 @@ declare namespace my {
     /**
      * 显示控制控件
      */
-    showControl(object: {
+    showControl(param: {
       /**
        * 控件名称
        */
@@ -18126,19 +18501,7 @@ declare namespace my {
        * 自动隐藏
        */
       autoHide: boolean;
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: {}): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(arg: { error?: number; errorMessage?: string }): void;
-    }): Promise<void>;
+    }): void;
     /**
      * 显示/隐藏浮窗
      */
@@ -18146,144 +18509,32 @@ declare namespace my {
     /**
      * 显示状态栏，仅在 iOS 全屏下有效。
      */
-    showStatusBar(object: {
-      /**
-       * 组件 id
-       */
-      element: string;
-      /**
-       * 操作类型
-       */
-      actionType: string;
-      /**
-       * 数据
-       */
-      data: Record<string, unknown>;
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: {}): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(arg: { error?: number; errorMessage?: string }): void;
-    }): Promise<void>;
+    showStatusBar(): void;
     /**
      * 开启互动能力
      */
-    startInteractions(object: {
-      /**
-       * 组件 id
-       */
-      element: string;
-      /**
-       * 操作类型
-       */
-      actionType: string;
-      /**
-       * 数据
-       */
-      data: Record<string, unknown>;
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: {}): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(arg: { error?: number; errorMessage?: string }): void;
-    }): Promise<void>;
+    startInteractions(payload: unknown): void;
     /**
      * 停止
      */
-    stop(object: {
-      /**
-       * 组件 id
-       */
-      element: string;
-      /**
-       * 操作类型
-       */
-      actionType: string;
-      /**
-       * 数据
-       */
-      data: Record<string, unknown>;
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: {}): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(arg: { error?: number; errorMessage?: string }): void;
-    }): Promise<void>;
+    stop(): void;
     /**
      * 停止互动能力，并清理所有的互动组件
      */
-    stopInteractions(object: {
-      /**
-       * 组件 id
-       */
-      element: string;
-      /**
-       * 操作类型
-       */
-      actionType: string;
-      /**
-       * 数据
-       */
-      data: Record<string, unknown>;
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: {}): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(arg: { error?: number; errorMessage?: string }): void;
-    }): Promise<void>;
+    stopInteractions(): void;
     /**
      * 切换清晰度
      */
-    switchQuality(object: {
+    switchQuality(param: {
       /**
        * 清晰度列表项中的 definition 字段
        */
       quality: string;
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: {}): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(arg: { error?: number; errorMessage?: string }): void;
-    }): Promise<void>;
+    }): void;
     /**
      * 更新清晰度列表
      */
-    updateQualityList(object: {
+    updateQualityList(param: {
       /**
        * 清晰度列表（JSON 字符串格式）
        * [{definition, url, res, bps, size}, ...]
@@ -18296,19 +18547,7 @@ declare namespace my {
        * - 4K 4K
        */
       urls: string;
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: {}): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(arg: { error?: number; errorMessage?: string }): void;
-    }): Promise<void>;
+    }): void;
   }
   export interface Geocoder {
     /**
@@ -21365,6 +21604,10 @@ declare namespace my {
      */
     certifyId: string;
   }
+  interface IMyCheckBeforeAddOrderOutItemList {
+    itemId: string;
+    skuId?: string;
+  }
   interface IMyChooseAlipayContactContacts {
     /**
      * 账号的真实姓名。
@@ -21639,6 +21882,9 @@ declare namespace my {
      * query 参数键值对
      */
     [key: string]: unknown;
+  }
+  interface IMyRequestSubscribeMessageExtInfo {
+    [key: string]: string;
   }
   interface IMyRequestSubscribeMessageResult {
     /**
@@ -23395,6 +23641,27 @@ declare namespace my.ap {
    * @see https://opendocs.alipay.com/mini/api/vq3mgn
    */
   export function openVoucherList(object?: {
+    /**
+     * 接口调用成功的回调函数
+     */
+    success?(data: {}): void;
+    /**
+     * 接口调用失败的回调函数
+     */
+    fail?(err: { error?: number; errorMessage?: string }): void;
+    /**
+     * 接口调用结束的回调函数（调用成功、失败都会执行）
+     */
+    complete?(arg: { error?: number; errorMessage?: string }): void;
+  }): Promise<void>;
+  /**
+   * 团购券核销准备，获取加密 code
+   */
+  export function prepareUseCertificate(object: {
+    /**
+     * 凭证 id
+     */
+    certificateId: string;
     /**
      * 接口调用成功的回调函数
      */
