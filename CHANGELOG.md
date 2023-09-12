@@ -1,4 +1,13 @@
-# [](https://github.com/ant-mini-program/api-typings/compare/v3.0.8...v) (2023-08-14)
+# [](https://github.com/ant-mini-program/api-typings/compare/v3.0.9...v) (2023-09-12)
+
+
+### Features
+
+* update typings ([6759566](https://github.com/ant-mini-program/api-typings/commit/6759566d63d62f04d8694607f022f72825c789a9))
+
+
+
+## [3.0.9](https://github.com/ant-mini-program/api-typings/compare/v3.0.8...v3.0.9) (2023-08-14)
 
 
 ### Features
@@ -79,11 +88,11 @@
 
 ### Features
 
-* 基础库 2.8.5 Component新增功能 ([#18](https://github.com/ant-mini-program/api-typings/issues/18)) ([6eb99b5](https://github.com/ant-mini-program/api-typings/commit/6eb99b5e8eb506bb3de31a1cfb061b2cc96814b8))
-* 新增 setUpdatePerformanceListener 类型 & lint hook ([#25](https://github.com/ant-mini-program/api-typings/issues/25)) ([584d77b](https://github.com/ant-mini-program/api-typings/commit/584d77bfae55468e0ef4d73462230ddaee0189f4))
 * remove unused declarations ([578145f](https://github.com/ant-mini-program/api-typings/commit/578145f0046fbeb6c6a2601c62e504765c67a84b))
 * update typings ([eeecac0](https://github.com/ant-mini-program/api-typings/commit/eeecac033e3b92c48fe48d86e51438ef2322ed7d))
 * update typings ([59616dc](https://github.com/ant-mini-program/api-typings/commit/59616dc7a6933b3b480eaf9355f4cbd129ee9ebc))
+* 基础库 2.8.5 Component新增功能 ([#18](https://github.com/ant-mini-program/api-typings/issues/18)) ([6eb99b5](https://github.com/ant-mini-program/api-typings/commit/6eb99b5e8eb506bb3de31a1cfb061b2cc96814b8))
+* 新增 setUpdatePerformanceListener 类型 & lint hook ([#25](https://github.com/ant-mini-program/api-typings/issues/25)) ([584d77b](https://github.com/ant-mini-program/api-typings/commit/584d77bfae55468e0ef4d73462230ddaee0189f4))
 
 
 
