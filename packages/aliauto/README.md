@@ -14,8 +14,8 @@ yarn add -D @mini-types/global @mini-types/aliauto
 
 ```json
 {
-   "compilerOptions": {
-      "types": ["@mini-types/global", "@mini-types/aliauto"]
-   }
+  "compilerOptions": {
+    "types": ["@mini-types/global", "@mini-types/aliauto"]
+  }
 }
 ```

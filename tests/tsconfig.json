@@ -8,5 +8,5 @@
     "skipLibCheck": true,
     "module": "CommonJS",
     "noImplicitThis": true
-  },
+  }
 }

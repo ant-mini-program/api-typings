@@ -24,9 +24,9 @@ yarn add -D @mini-types/alipay
 
 ```json
 {
-   "compilerOptions": {
-      "typeRoots" : ["./node_modules/@mini-types", "./node_modules/@types"]
-   }
+  "compilerOptions": {
+    "typeRoots": ["./node_modules/@mini-types", "./node_modules/@types"]
+  }
 }
 ```
 
@@ -34,9 +34,9 @@ yarn add -D @mini-types/alipay
 
 ```json
 {
-   "compilerOptions": {
-      "types": ["@mini-types/alipay"]
-   }
+  "compilerOptions": {
+    "types": ["@mini-types/alipay"]
+  }
 }
 ```
 

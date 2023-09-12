@@ -19,12 +19,12 @@ Component({
     relations: true,
   },
   observers: {
-    'field1,field2': function(val1, val2) {
-      console.log(val1, val2)
+    'field1,field2': function (val1, val2) {
+      console.log(val1, val2);
     },
-    '**': function(state) {
+    '**': function (state) {
       console.log(state);
-    }
+    },
   },
   props: { y: 1, b: { c: 1 } },
   onInit() {
@@ -35,15 +35,19 @@ Component({
   },
   didMount() {
     expectType<number>(this.data.x);
-    
+
     expectAssignable<Function>(this.handleTap);
 
     expectAssignable<Function>(this.setData);
     expectAssignable<Function>(this.$spliceData);
     expectAssignable<Function>(this.selectComposedParentComponent);
-    expectAssignable<Function>(this.selectComposedParentComponent().selectOwnerComponent);
+    expectAssignable<Function>(
+      this.selectComposedParentComponent().selectOwnerComponent
+    );
     expectAssignable<Function>(this.selectOwnerComponent);
-    expectAssignable<Function>(this.selectOwnerComponent().selectComposedParentComponent);
+    expectAssignable<Function>(
+      this.selectOwnerComponent().selectComposedParentComponent
+    );
     expectAssignable<Function>(this.getRelationNodes);
 
     expectAssignable<Function>(this.createSelectorQuery);
@@ -72,74 +76,38 @@ Component({
   },
   externalClasses: ['am-button'],
   lifetimes: {
-    created() {
-        
-    },
-    attached() {
-        
-    },
-    ready() {
-        
-    },
-    moved() {
-        
-    },
-    detached() {
-        
-    },
+    created() {},
+    attached() {},
+    ready() {},
+    moved() {},
+    detached() {},
   },
   relations: {
     './ccc': {
       type: 'parent',
-      linked(target) {
-
-      },
-      unlinked(target) {
-          
-      },
-      linkChanged(target) {
-          
-      },
+      linked(target) {},
+      unlinked(target) {},
+      linkChanged(target) {},
       target: mixin,
     },
     './ddd': {
       type: 'parent',
-      linked(target) {
-
-      },
-      unlinked(target) {
-          
-      },
-      linkChanged(target) {
-          
-      },
-    }
+      linked(target) {},
+      unlinked(target) {},
+      linkChanged(target) {},
+    },
   },
   pageEvents: {
-    onLoad(query) {
-        
-    },
-    onShow() {
-        
-    },
-    onReady() {
-        
-    },
-    onHide() {
-        
-    },
-    onUnload() {
-        
-    },
-    onBack() {
-        
-    },
+    onLoad(query) {},
+    onShow() {},
+    onReady() {},
+    onHide() {},
+    onUnload() {},
+    onBack() {},
     onKeyboardHeight(event) {
       expectAssignable<Number>(event.height);
     },
-    onOptionMenuClick() {
-      
-    },
+    onOptionMenuClick() {},
     onPullDownRefresh(event) {
       expectAssignable<String>(event.from);
     },
@@ -149,9 +117,7 @@ Component({
     onTabItemTap(event) {
       expectAssignable<Number>(event.index);
     },
-    beforeTabItemTap() {
-        
-    },
+    beforeTabItemTap() {},
     onResize(event) {
       expectAssignable<Number>(event.size.windowHeight);
       expectAssignable<Number>(event.size.windowWidth);
@@ -159,13 +125,12 @@ Component({
     onSelectedTabItemTap(event) {
       expectAssignable<Number>(event.index);
     },
-  }
+  },
 });
 
-
-Component<{}, {}, {}, {}, {test: number}>({
+Component<{}, {}, {}, {}, { test: number }>({
   test: 111,
   onInit() {
     expectAssignable<Number>(this.test);
-  }
-})
+  },
+});

@@ -16,13 +16,12 @@ const result2 = requirePlugin.async<{
 
 expectAssignable<Promise<{ foo: string }>>(result2);
 
-
 require('../tetrisPlugin');
 
 require<{
   foo: string;
 }>('../tetrisPlugin', (result) => {
   expectAssignable<string>(result.foo);
-})
+});
 
 require.async('../tetrisPlugin');

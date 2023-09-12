@@ -5,7 +5,6 @@ let basicComponentList = [
     type: '基础组件',
     list: [],
   },
-
 ];
 
 if (my.ap) {
@@ -14,7 +13,6 @@ if (my.ap) {
       type: '地图',
       list: [],
     },
-
   ]);
 }
 
@@ -27,15 +25,11 @@ const extComponentList = [
 
 const mixin = Mixin({
   pageEvents: {
-    onLoad() {
-
-    }
+    onLoad() {},
   },
   methods: {
-    methodFromMixin() {
-
-    }
-  }
+    methodFromMixin() {},
+  },
 });
 
 Page({
@@ -52,18 +46,18 @@ Page({
       extComponentList,
       titleOpacity: 1,
       shadow: false,
-    }
+    };
   },
   options: {
     observers: true,
   },
   observers: {
-    'field1,field2': function(val1, val2) {
-      console.log(val1, val2)
+    'field1,field2': function (val1, val2) {
+      console.log(val1, val2);
     },
-    '**': function(state) {
+    '**': function (state) {
       console.log(state);
-    }
+    },
   },
   mixins: [mixin],
   onPageScroll(e) {
@@ -134,11 +128,14 @@ Page({
         }
       },
     });
-    this.setUpdatePerformanceListener<true>({
-      withDataPaths: true
-    }, res => {
-      expectAssignable<string[]>(res.dataPaths)
-    })
+    this.setUpdatePerformanceListener<true>(
+      {
+        withDataPaths: true,
+      },
+      (res) => {
+        expectAssignable<string[]>(res.dataPaths);
+      }
+    );
   },
   goDevCenter() {
     my.navigateToMiniProgram({
@@ -154,7 +151,7 @@ Page({
       url: e.target.dataset.url,
     });
   },
-  onShow(){
+  onShow() {
     expectAssignable<Function>(this.pageRouter.navigateTo);
     expectAssignable<Function>(this.pageRouter.navigateBack);
     expectAssignable<Function>(this.pageRouter.reLaunch);
@@ -162,30 +159,16 @@ Page({
     expectAssignable<Function>(this.router.switchTab);
   },
   events: {
-    onLoad(query) {
-        
-    },
-    onShow() {
-        
-    },
-    onReady() {
-        
-    },
-    onHide() {
-        
-    },
-    onUnload() {
-        
-    },
-    onBack() {
-        
-    },
+    onLoad(query) {},
+    onShow() {},
+    onReady() {},
+    onHide() {},
+    onUnload() {},
+    onBack() {},
     onKeyboardHeight(event) {
       expectAssignable<Number>(event.height);
     },
-    onOptionMenuClick() {
-      
-    },
+    onOptionMenuClick() {},
     onPullDownRefresh(event) {
       expectAssignable<String>(event.from);
     },
@@ -195,9 +178,7 @@ Page({
     onTabItemTap(event) {
       expectAssignable<Number>(event.index);
     },
-    beforeTabItemTap() {
-        
-    },
+    beforeTabItemTap() {},
     onResize(event) {
       expectAssignable<Number>(event.size.windowHeight);
       expectAssignable<Number>(event.size.windowWidth);
@@ -205,5 +186,5 @@ Page({
     onSelectedTabItemTap(event) {
       expectAssignable<Number>(event.index);
     },
-  }
+  },
 });
