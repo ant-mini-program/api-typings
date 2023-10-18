@@ -1526,7 +1526,7 @@ declare namespace my {
     complete?(arg: { error?: number; errorMessage?: string }): void;
   }): Promise<void>;
   /**
-   * @deprecated 推荐使用 [WebSocketTask]() 进行多链接管理
+   * @deprecated 推荐使用 [SocketTask]() 进行多链接管理
    * 关闭 WebSocket 连接
    * @see https://opendocs.alipay.com/mini/api/network
    */
@@ -1796,7 +1796,7 @@ declare namespace my {
      * 协议
      */
     protocols?: string[];
-  }): WebSocketTask;
+  }): SocketTask;
   /**
    * 创建一个 WebSocket 的连接
    * @description
@@ -1953,7 +1953,7 @@ declare namespace my {
   export function createOffscreenCanvas(
     width?: number,
     height?: number
-  ): OffScreenCanvas;
+  ): OffscreenCanvas;
   /**
    * 创建并返回激励广告上下文
    */
@@ -11725,6 +11725,302 @@ declare namespace my {
      */
     errorMessage: string;
   }>;
+  export interface OffscreenCanvas {
+    /**
+     * 画布高度
+     */
+    readonly height: number;
+    /**
+     * 画布宽度
+     */
+    readonly width: number;
+    /**
+     * 取消由 requestAnimationFrame 添加的动画帧请求的方法
+     */
+    cancelAnimationFrame(requestId: number): void;
+    /**
+     * 创建一个图片对象的方法
+     */
+    createImage(): CanvasImage;
+    /**
+     * 在下次重绘时执行的方法
+     */
+    requestAnimationFrame(callback: (timestamp: number) => void): number;
+    /**
+     * 把画布上的绘制内容以一个 data URI 的格式返回
+     */
+    toDataURL(type: 'image/png' | ' image/jpeg', quality: number): string;
+    /**
+     * 画布导出生成图片的方法
+     */
+    toTempFilePath(object?: {
+      /**
+       * 指定的画布区域的左上角横坐标
+       */
+      x?: number;
+      /**
+       * 指定的画布区域的左上角纵坐标
+       */
+      y?: number;
+      /**
+       * 指定的画布区域的宽度
+       */
+      width?: number;
+      /**
+       * 指定的画布区域的高度
+       */
+      height?: number;
+      /**
+       * 输出的图片的宽度
+       */
+      destWidth?: number;
+      /**
+       * 输出的图片的高度
+       */
+      destHeight?: number;
+      /**
+       * 目标文件的类型
+       */
+      fileType?: 'jpg' | 'png';
+      /**
+       * 图片的质量
+       * @description 目前仅对 jpg 有效，取值范围为 (0, 1]，不在范围内时当作 1 处理。
+       */
+      quality?: number;
+      /**
+       * 接口调用成功的回调函数
+       */
+      success?(data: {
+        /**
+         * 生成文件的临时路径
+         */
+        tempFilePath: string;
+      }): void;
+      /**
+       * 接口调用失败的回调函数
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              /**
+               * 生成文件的临时路径
+               */
+              tempFilePath: string;
+            }
+          | {
+              error?: number;
+              errorMessage?: string;
+            }
+      ): void;
+    }): Promise<{
+      /**
+       * 生成文件的临时路径
+       */
+      tempFilePath: string;
+    }>;
+  }
+  export interface SocketTask {
+    /**
+     * 关闭 WebSocket 连接
+     * @see https://opendocs.alipay.com/mini/api/vx19c3#SocketTask
+     */
+    close(object?: {
+      /**
+       * 关闭连接的状态号
+       * @default 1000
+       */
+      code?: number;
+      /**
+       * 连接被关闭的原因
+       * @description 这个字符串必须是不长于 123 字节的 UTF-8 文本（不是字符）
+       */
+      reason?: string;
+      /**
+       * 接口调用成功的回调函数
+       */
+      success?(data: {
+        /**
+         * 消息内容
+         */
+        message: string;
+      }): void;
+      /**
+       * 接口调用失败的回调函数
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              /**
+               * 消息内容
+               */
+              message: string;
+            }
+          | {
+              error?: number;
+              errorMessage?: string;
+            }
+      ): void;
+    }): Promise<{
+      /**
+       * 消息内容
+       */
+      message: string;
+    }>;
+    /**
+     * 取消监听 WebSocket 关闭消息
+     */
+    offClose(
+      cb?: (arg: {
+        /**
+         * 数据
+         */
+        data: IOnSocketTaskCloseData;
+      }) => void
+    ): void;
+    /**
+     * 取消监听 WebSocket 错误消息
+     */
+    offError(
+      cb?: (arg: {
+        /**
+         * 数据
+         */
+        data: IOnSocketTaskErrorData;
+        /**
+         * 错误码
+         */
+        error: number;
+      }) => void
+    ): void;
+    /**
+     * 取消监听 WebSocket 消息
+     * @see https://opendocs.alipay.com/mini/api/vx19c3#SocketTask
+     */
+    offMessage(
+      cb?: (arg: {
+        /**
+         * 数据
+         */
+        data: IOnSocketTaskMessageData;
+      }) => void
+    ): void;
+    /**
+     * 取消监听 WebSocket open 事件
+     * @see https://opendocs.alipay.com/mini/api/vx19c3#SocketTask
+     */
+    offOpen(
+      cb?: (arg: {
+        /**
+         * 数据
+         */
+        data: IOnSocketTaskOpenData;
+      }) => void
+    ): void;
+    /**
+     * 监听 WebSocket 关闭消息
+     * @see https://opendocs.alipay.com/mini/api/vx19c3#SocketTask
+     */
+    onClose(
+      cb: (arg: {
+        /**
+         * 数据
+         */
+        data: IOnSocketTaskCloseData;
+      }) => void
+    ): void;
+    /**
+     * 监听 WebSocket 错误消息
+     * @see https://opendocs.alipay.com/mini/api/vx19c3#SocketTask
+     */
+    onError(
+      cb: (arg: {
+        /**
+         * 数据
+         */
+        data: IOnSocketTaskErrorData;
+        /**
+         * 错误码
+         */
+        error: number;
+      }) => void
+    ): void;
+    /**
+     * 监听 WebSocket 消息
+     * @see https://opendocs.alipay.com/mini/api/vx19c3#SocketTask
+     */
+    onMessage(
+      cb: (arg: {
+        /**
+         * 数据
+         */
+        data: IOnSocketTaskMessageData;
+      }) => void
+    ): void;
+    /**
+     * 监听 WebSocket open 事件
+     * @see https://opendocs.alipay.com/mini/api/vx19c3#SocketTask
+     */
+    onOpen(
+      cb: (arg: {
+        /**
+         * 数据
+         */
+        data: IOnSocketTaskOpenData;
+      }) => void
+    ): void;
+    /**
+     * 通过 WebSocket 连接发送数据
+     * @see https://opendocs.alipay.com/mini/api/vx19c3#SocketTask
+     */
+    send(object: {
+      /**
+       * 需要发送的内容：普通的文本内容 string 或者经 Base64 编码后的 string。
+       */
+      data: string;
+      /**
+       * 接口调用成功的回调函数
+       */
+      success?(data: {
+        /**
+         * 是否成功
+         */
+        success: boolean;
+      }): void;
+      /**
+       * 接口调用失败的回调函数
+       */
+      fail?(err: { error?: number; errorMessage?: string }): void;
+      /**
+       * 接口调用结束的回调函数（调用成功、失败都会执行）
+       */
+      complete?(
+        arg:
+          | {
+              /**
+               * 是否成功
+               */
+              success: boolean;
+            }
+          | {
+              error?: number;
+              errorMessage?: string;
+            }
+      ): void;
+    }): Promise<{
+      /**
+       * 是否成功
+       */
+      success: boolean;
+    }>;
+  }
   export interface RewardedAd {
     /**
      * 销毁激励视频广告
@@ -16915,204 +17211,6 @@ declare namespace my {
      */
     stop(): void;
   }
-  export interface WebSocketTask {
-    /**
-     * 关闭 WebSocket 连接
-     * @see https://opendocs.alipay.com/mini/api/vx19c3#SocketTask
-     */
-    close(object?: {
-      /**
-       * 关闭连接的状态号
-       * @default 1000
-       */
-      code?: number;
-      /**
-       * 连接被关闭的原因
-       * @description 这个字符串必须是不长于 123 字节的 UTF-8 文本（不是字符）
-       */
-      reason?: string;
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: {
-        /**
-         * 消息内容
-         */
-        message: string;
-      }): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(
-        arg:
-          | {
-              /**
-               * 消息内容
-               */
-              message: string;
-            }
-          | {
-              error?: number;
-              errorMessage?: string;
-            }
-      ): void;
-    }): Promise<{
-      /**
-       * 消息内容
-       */
-      message: string;
-    }>;
-    /**
-     * 取消监听 WebSocket 关闭消息
-     */
-    offClose(
-      cb?: (arg: {
-        /**
-         * 数据
-         */
-        data: IOnSocketTaskCloseData;
-      }) => void
-    ): void;
-    /**
-     * 取消监听 WebSocket 错误消息
-     */
-    offError(
-      cb?: (arg: {
-        /**
-         * 数据
-         */
-        data: IOnSocketTaskErrorData;
-        /**
-         * 错误码
-         */
-        error: number;
-      }) => void
-    ): void;
-    /**
-     * 取消监听 WebSocket 消息
-     * @see https://opendocs.alipay.com/mini/api/vx19c3#SocketTask
-     */
-    offMessage(
-      cb?: (arg: {
-        /**
-         * 数据
-         */
-        data: IOnSocketTaskMessageData;
-      }) => void
-    ): void;
-    /**
-     * 取消监听 WebSocket open 事件
-     * @see https://opendocs.alipay.com/mini/api/vx19c3#SocketTask
-     */
-    offOpen(
-      cb?: (arg: {
-        /**
-         * 数据
-         */
-        data: IOnSocketTaskOpenData;
-      }) => void
-    ): void;
-    /**
-     * 监听 WebSocket 关闭消息
-     * @see https://opendocs.alipay.com/mini/api/vx19c3#SocketTask
-     */
-    onClose(
-      cb: (arg: {
-        /**
-         * 数据
-         */
-        data: IOnSocketTaskCloseData;
-      }) => void
-    ): void;
-    /**
-     * 监听 WebSocket 错误消息
-     * @see https://opendocs.alipay.com/mini/api/vx19c3#SocketTask
-     */
-    onError(
-      cb: (arg: {
-        /**
-         * 数据
-         */
-        data: IOnSocketTaskErrorData;
-        /**
-         * 错误码
-         */
-        error: number;
-      }) => void
-    ): void;
-    /**
-     * 监听 WebSocket 消息
-     * @see https://opendocs.alipay.com/mini/api/vx19c3#SocketTask
-     */
-    onMessage(
-      cb: (arg: {
-        /**
-         * 数据
-         */
-        data: IOnSocketTaskMessageData;
-      }) => void
-    ): void;
-    /**
-     * 监听 WebSocket open 事件
-     * @see https://opendocs.alipay.com/mini/api/vx19c3#SocketTask
-     */
-    onOpen(
-      cb: (arg: {
-        /**
-         * 数据
-         */
-        data: IOnSocketTaskOpenData;
-      }) => void
-    ): void;
-    /**
-     * 通过 WebSocket 连接发送数据
-     * @see https://opendocs.alipay.com/mini/api/vx19c3#SocketTask
-     */
-    send(object: {
-      /**
-       * 需要发送的内容：普通的文本内容 string 或者经 Base64 编码后的 string。
-       */
-      data: string;
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: {
-        /**
-         * 是否成功
-         */
-        success: boolean;
-      }): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(
-        arg:
-          | {
-              /**
-               * 是否成功
-               */
-              success: boolean;
-            }
-          | {
-              error?: number;
-              errorMessage?: string;
-            }
-      ): void;
-    }): Promise<{
-      /**
-       * 是否成功
-       */
-      success: boolean;
-    }>;
-  }
   export interface InnerAudioContext {
     /**
      * 是否自动播放
@@ -18280,104 +18378,6 @@ declare namespace my {
      * @see https://opendocs.alipay.com/mini/api/lgqkb2
      */
     translate(x: number, y: number): void;
-  }
-  export interface OffScreenCanvas {
-    /**
-     * 画布高度
-     */
-    readonly height: number;
-    /**
-     * 画布宽度
-     */
-    readonly width: number;
-    /**
-     * 取消由 requestAnimationFrame 添加的动画帧请求的方法
-     */
-    cancelAnimationFrame(requestId: number): void;
-    /**
-     * 创建一个图片对象的方法
-     */
-    createImage(): CanvasImage;
-    /**
-     * 在下次重绘时执行的方法
-     */
-    requestAnimationFrame(callback: (timestamp: number) => void): number;
-    /**
-     * 把画布上的绘制内容以一个 data URI 的格式返回
-     */
-    toDataURL(type: 'image/png' | ' image/jpeg', quality: number): string;
-    /**
-     * 画布导出生成图片的方法
-     */
-    toTempFilePath(object?: {
-      /**
-       * 指定的画布区域的左上角横坐标
-       */
-      x?: number;
-      /**
-       * 指定的画布区域的左上角纵坐标
-       */
-      y?: number;
-      /**
-       * 指定的画布区域的宽度
-       */
-      width?: number;
-      /**
-       * 指定的画布区域的高度
-       */
-      height?: number;
-      /**
-       * 输出的图片的宽度
-       */
-      destWidth?: number;
-      /**
-       * 输出的图片的高度
-       */
-      destHeight?: number;
-      /**
-       * 目标文件的类型
-       */
-      fileType?: 'jpg' | 'png';
-      /**
-       * 图片的质量
-       * @description 目前仅对 jpg 有效，取值范围为 (0, 1]，不在范围内时当作 1 处理。
-       */
-      quality?: number;
-      /**
-       * 接口调用成功的回调函数
-       */
-      success?(data: {
-        /**
-         * 生成文件的临时路径
-         */
-        tempFilePath: string;
-      }): void;
-      /**
-       * 接口调用失败的回调函数
-       */
-      fail?(err: { error?: number; errorMessage?: string }): void;
-      /**
-       * 接口调用结束的回调函数（调用成功、失败都会执行）
-       */
-      complete?(
-        arg:
-          | {
-              /**
-               * 生成文件的临时路径
-               */
-              tempFilePath: string;
-            }
-          | {
-              error?: number;
-              errorMessage?: string;
-            }
-      ): void;
-    }): Promise<{
-      /**
-       * 生成文件的临时路径
-       */
-      tempFilePath: string;
-    }>;
   }
   export interface CanvasImage {
     /**
