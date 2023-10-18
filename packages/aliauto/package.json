@@ -3,6 +3,7 @@
   "version": "3.0.11",
   "description": "TypeScript declarations for AliAuto's mini program.",
   "scripts": {},
+  "miniprogram": "./",
   "repository": {
     "type": "git",
     "url": "git@github.com:ant-mini-program/api-typings.git"
