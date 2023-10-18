@@ -1,4 +1,18 @@
-# [](https://github.com/ant-mini-program/api-typings/compare/v3.0.10...v) (2023-09-14)
+# [](https://github.com/ant-mini-program/api-typings/compare/v3.0.12...v) (2023-10-18)
+
+
+
+## [3.0.12](https://github.com/ant-mini-program/api-typings/compare/v3.0.11...v3.0.12) (2023-10-18)
+
+
+### Features
+
+* support wechat ([#39](https://github.com/ant-mini-program/api-typings/issues/39)) ([4729f29](https://github.com/ant-mini-program/api-typings/commit/4729f290d5f1898f315ca59bd3479f873d278af2))
+* update typings ([cedef8b](https://github.com/ant-mini-program/api-typings/commit/cedef8be799b8bd01e1d55c9ea74029db9463b1b))
+
+
+
+## [3.0.11](https://github.com/ant-mini-program/api-typings/compare/v3.0.10...v3.0.11) (2023-09-14)
 
 
 ### Features
