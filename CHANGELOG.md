@@ -1,4 +1,22 @@
-# [](https://github.com/ant-mini-program/api-typings/compare/v3.0.12...v) (2023-10-18)
+# [](https://github.com/ant-mini-program/api-typings/compare/v3.0.14...v) (2024-01-16)
+
+
+
+## [3.0.14](https://github.com/ant-mini-program/api-typings/compare/v3.0.13...v3.0.14) (2024-01-16)
+
+
+### Features
+
+* **worker:** inherit from lib.webworker.d.ts ([#42](https://github.com/ant-mini-program/api-typings/issues/42)) ([ca45bb3](https://github.com/ant-mini-program/api-typings/commit/ca45bb36aa0aeb7ed9cea30238b36a78da6504fd))
+
+
+
+## [3.0.13](https://github.com/ant-mini-program/api-typings/compare/v3.0.12...v3.0.13) (2024-01-15)
+
+
+### Features
+
+* add lib.worker.d.ts ([#41](https://github.com/ant-mini-program/api-typings/issues/41)) ([5f642ef](https://github.com/ant-mini-program/api-typings/commit/5f642ef1bbecd4ffc07c383e6b8188751034d5e0))
 
 
 
