@@ -1,6 +1,6 @@
 {
   "name": "@mini-types/alipay-widget",
-  "version": "3.0.13",
+  "version": "3.0.14",
   "description": "TypeScript declarations for Alipay's mini program.",
   "scripts": {},
   "repository": {
@@ -22,8 +22,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@mini-types/global": "3.0.13",
-    "@mini-types/my-widget": "3.0.13"
+    "@mini-types/global": "3.0.14",
+    "@mini-types/my-widget": "3.0.14"
   },
   "gitHead": "89563d237a42b6dd1ae44766bd778581430657f6"
 }
