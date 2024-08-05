@@ -1074,9 +1074,13 @@ declare namespace my {
       | Array<`${EChooseImageSourceType}`>
       | `${EChooseImageSourceType}`;
     /**
-     * 选图过程中拍摄的照片是否落相册（默认不落相册）
+     * 是否默认使用前置摄像头（默认`false`）
      */
     storeToAlbum?: boolean;
+    /**
+     * 选图过程中拍摄的照片是否落相册（默认不落相册）
+     */
+    useFrontCamera?: boolean;
     /**
      * 接口调用成功的回调函数
      */
@@ -10256,6 +10260,11 @@ declare namespace my {
      * 提示中的文字内容
      */
     content?: string;
+    /**
+     * 是否显示透明蒙层，防止触摸穿透
+     * @default true
+     */
+    mask?: Boolean;
     /**
      * 延迟显示，单位为毫秒（ms）
      * @description 如果在此时间之前调用了 [my.hideLoading]() 则不会显示。
